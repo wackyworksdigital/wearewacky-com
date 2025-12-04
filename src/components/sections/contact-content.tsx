@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Clock, Send, Loader2, CheckCircle } from "lucide-react";
+import { Mail, MapPin, Clock, Send, Loader2, CheckCircle, AlertCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { supabase, type ContactSubmission } from "@/lib/supabase";
 
 const contactInfo = [
   {
@@ -39,15 +40,33 @@ export function ContactContent() {
     e.preventDefault();
     setFormState("loading");
 
-    // TODO: Connect to actual form handler (Formspree, Supabase, etc.)
-    // For now, simulate a submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    
-    setFormState("success");
-    setFormData({ name: "", email: "", subject: "", message: "" });
-    
-    // Reset after 3 seconds
-    setTimeout(() => setFormState("idle"), 3000);
+    try {
+      // Submit to Supabase
+      const submission: ContactSubmission = {
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+      };
+
+      const { error } = await supabase
+        .from("contact_submissions")
+        .insert([submission]);
+
+      if (error) throw error;
+
+      setFormState("success");
+      setFormData({ name: "", email: "", subject: "", message: "" });
+      
+      // Reset after 3 seconds
+      setTimeout(() => setFormState("idle"), 3000);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setFormState("error");
+      
+      // Reset after 3 seconds
+      setTimeout(() => setFormState("idle"), 3000);
+    }
   };
 
   return (
@@ -205,10 +224,10 @@ export function ContactContent() {
                 disabled={formState === "loading" || formState === "success"}
                 className={cn(
                   "w-full py-4 rounded-xl font-medium transition-all duration-300 flex items-center justify-center gap-2",
-                  formState === "success"
-                    ? "bg-green-500 text-white"
-                    : "bg-purple hover:bg-purple-dark glow-purple",
-                  (formState === "loading" || formState === "success") && "opacity-80 cursor-not-allowed"
+                  formState === "success" && "bg-green-500 text-white",
+                  formState === "error" && "bg-red-500 text-white",
+                  formState === "idle" && "bg-purple hover:bg-purple-dark glow-purple",
+                  formState === "loading" && "bg-purple opacity-80 cursor-not-allowed"
                 )}
               >
                 {formState === "loading" && (
@@ -229,7 +248,12 @@ export function ContactContent() {
                     Send Message
                   </>
                 )}
-                {formState === "error" && "Try Again"}
+                {formState === "error" && (
+                  <>
+                    <AlertCircle className="w-5 h-5" />
+                    Error - Try Again
+                  </>
+                )}
               </button>
             </form>
           </motion.div>
