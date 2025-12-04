@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
@@ -55,14 +56,18 @@ export function Navigation() {
             className="flex items-center gap-2 group"
           >
             <motion.div
-              whileHover={{ rotate: 180 }}
-              transition={{ duration: 0.3 }}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.2 }}
             >
-              <Sparkles className="w-6 h-6 text-purple group-hover:text-cyan transition-colors" />
+              <Image
+                src="/Wacky Works Digital logo colour - 4096x4096.jpg"
+                alt="Wacky Works Digital"
+                width={180}
+                height={50}
+                className="h-10 w-auto"
+                priority
+              />
             </motion.div>
-            <span className="font-bold text-lg">
-              Wacky<span className="text-purple">Works</span>
-            </span>
           </Link>
 
           {/* Desktop Navigation */}

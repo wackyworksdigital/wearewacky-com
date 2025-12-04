@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Sparkles, Github, Twitter, Linkedin, Mail, MessageCircle } from "lucide-react";
+import Image from "next/image";
+import { Github, Twitter, Linkedin, Mail, MessageCircle } from "lucide-react";
 
 const links = {
   products: [
@@ -44,10 +45,15 @@ export function Footer() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="inline-flex items-center gap-2 mb-6"
+              className="inline-block mb-6"
             >
-              <Sparkles className="w-6 h-6 text-purple" />
-              <span className="text-xl font-bold">Wacky Works Digital</span>
+              <Image
+                src="/Wacky Works Digital logo colour - 4096x4096.jpg"
+                alt="Wacky Works Digital"
+                width={200}
+                height={56}
+                className="h-14 w-auto"
+              />
             </motion.a>
             <p className="text-muted mb-6 max-w-sm">
               🚀 Remote-first automation studio for UK SMEs. We build AI systems, 
