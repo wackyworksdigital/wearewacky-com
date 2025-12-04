@@ -10,34 +10,34 @@ const projects = [
   {
     id: "ai-course",
     title: "AI Course Platform",
-    subtitle: "Education SaaS",
+    subtitle: "Education / EdTech",
     description:
-      "A full-featured course platform for teaching AI skills. Built from scratch with Next.js, Supabase, and Stripe. Features include Google OAuth, email auth, multi-currency payments, certificates, and progress tracking.",
-    image: "/projects/ai-course.png", // Placeholder - you'll add real images
-    tags: ["Next.js", "Supabase", "Stripe", "TypeScript"],
+      "Professional learning management system for AI education. Features Google OAuth, partner access tiers, progress tracking, and enterprise pricing. Trusted by Waitrose & John Lewis Partners.",
+    image: "/projects/ai-course.png",
+    tags: ["Next.js 16", "React 19", "Supabase", "Stripe"],
     stats: [
-      { label: "Beta Users", value: "14+" },
-      { label: "Completion Rate", value: "87%" },
+      { label: "Partner Tier", value: "Enterprise" },
+      { label: "Auth Methods", value: "3" },
       { label: "Build Time", value: "6 weeks" },
     ],
     links: {
       live: "https://courses.wearewacky.com",
-      github: null, // Private repo
+      github: null,
     },
     featured: true,
   },
   {
-    id: "automation-suite",
-    title: "n8n Automation Suite",
-    subtitle: "Internal Tooling",
+    id: "ecommerce-automation",
+    title: "E-Commerce Automation Platform",
+    subtitle: "Retail / E-commerce",
     description:
-      "A collection of n8n workflows that automate our internal operations: lead capture, email sequences, social media scheduling, and client onboarding.",
-    image: "/projects/n8n-workflows.png",
-    tags: ["n8n", "Google Cloud", "APIs", "Automation"],
+      "End-to-end automation system managing 100+ products across Etsy, Shopify, and Printify. Automated inventory sync, order processing, and multi-platform listing management.",
+    image: "/projects/ecommerce.png",
+    tags: ["Shopify", "Etsy", "n8n", "Printify"],
     stats: [
-      { label: "Workflows", value: "12+" },
-      { label: "Hours Saved/Month", value: "40+" },
-      { label: "Uptime", value: "99.9%" },
+      { label: "Products", value: "100+" },
+      { label: "Manual Work", value: "-80%" },
+      { label: "Sync Errors", value: "0" },
     ],
     links: {
       live: null,
@@ -46,13 +46,70 @@ const projects = [
     featured: true,
   },
   {
-    id: "coming-soon",
-    title: "Your Project Here",
-    subtitle: "Coming Soon",
+    id: "news-automation",
+    title: "AI News Publishing System",
+    subtitle: "Media / Content",
     description:
-      "We're always working on new projects. Have an idea? Let's build something amazing together.",
+      "Automated news pipeline that scrapes sources daily, uses AI to filter and rank stories, generates article summaries, and auto-publishes to Shopify blog via API.",
+    image: "/projects/news-system.png",
+    tags: ["n8n", "OpenAI API", "Shopify API", "Google Cloud"],
+    stats: [
+      { label: "Articles/Day", value: "20+" },
+      { label: "Manual Writing", value: "0 hrs" },
+      { label: "SEO Boost", value: "✓" },
+    ],
+    links: {
+      live: null,
+      github: null,
+    },
+    featured: true,
+  },
+  {
+    id: "social-engine",
+    title: "Social Media Content Engine",
+    subtitle: "Marketing / Social",
+    description:
+      "AI-powered content creation system managing 5+ platforms. Generates graphics, schedules posts, creates short-form videos, and tracks performance metrics.",
+    image: "/projects/social-engine.png",
+    tags: ["n8n", "Canva API", "AI Image Gen", "Adobe Suite"],
+    stats: [
+      { label: "Platforms", value: "5+" },
+      { label: "Time Saved", value: "70%" },
+      { label: "Consistency", value: "Daily" },
+    ],
+    links: {
+      live: null,
+      github: null,
+    },
+    featured: false,
+  },
+  {
+    id: "cloud-infrastructure",
+    title: "Self-Hosted Automation Infrastructure",
+    subtitle: "DevOps / Cloud",
+    description:
+      "Production-grade n8n deployment on Google Cloud Platform. Custom VM configuration, secure access, automated backups, and unlimited workflow executions.",
+    image: "/projects/cloud-infra.png",
+    tags: ["Google Cloud", "n8n", "Docker", "DevOps"],
+    stats: [
+      { label: "Cost Reduction", value: "90%" },
+      { label: "Uptime", value: "99.9%" },
+      { label: "Workflows", value: "∞" },
+    ],
+    links: {
+      live: null,
+      github: null,
+    },
+    featured: false,
+  },
+  {
+    id: "your-project",
+    title: "Your Project Here",
+    subtitle: "Let's Build Together",
+    description:
+      "Ready to automate your business? We've built these systems for ourselves - now we're ready to build yours. Every solution battle-tested in production.",
     image: null,
-    tags: ["Your Stack", "Your Goals", "Your Success"],
+    tags: ["Your Stack", "Your Goals", "Your Revenue"],
     stats: [],
     links: {
       live: "/contact",
