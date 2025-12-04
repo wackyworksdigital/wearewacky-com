@@ -1,36 +1,112 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 wearewacky.com
 
-## Getting Started
+> **Wacky Works Digital - Flagship Marketing Website**
 
-First, run the development server:
+The official marketing website for Wacky Works Digital, a Custom Automation & SaaS Studio.
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology | Version |
+|-------|------------|---------|
+| Framework | Next.js | 16.0.7 |
+| UI Library | React | 19.2.0 |
+| Language | TypeScript | 5.x |
+| Styling | Tailwind CSS | 4.x |
+| Animations | Framer Motion | 12.x |
+| Scroll Animations | GSAP | 3.x |
+| Smooth Scroll | Lenis | Latest |
+| Icons | Lucide React | Latest |
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js 18+
+- npm or pnpm
+
+### Installation
 
 ```bash
+# Clone the repo
+git clone https://github.com/wackyworksdigital/wearewacky-com.git
+cd wearewacky-com
+
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📁 Project Structure
 
-## Learn More
+```
+wearewacky-com/
+├── src/
+│   ├── app/                    # Next.js App Router
+│   │   ├── globals.css         # Global styles + design tokens
+│   │   ├── layout.tsx          # Root layout
+│   │   └── page.tsx            # Home page
+│   ├── components/
+│   │   ├── providers/          # Context providers (Lenis)
+│   │   └── sections/           # Page sections
+│   │       ├── hero.tsx
+│   │       ├── services.tsx
+│   │       ├── tech-stack.tsx
+│   │       └── footer.tsx
+│   └── lib/
+│       └── utils.ts            # Utility functions (cn)
+├── public/                     # Static assets
+├── TODO.md                     # Project tasks
+└── README.md                   # This file
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎨 Design System
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Brand Colors
 
-## Deploy on Vercel
+| Color | Hex | Usage |
+|-------|-----|-------|
+| Void | `#050505` | Background |
+| Purple | `#8b5cf6` | Primary accent |
+| Cyan | `#06b6d4` | Secondary accent |
+| White | `#fafafa` | Text |
+| Muted | `#a1a1aa` | Secondary text |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Utilities
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```tsx
+// Gradient text
+<span className="text-gradient">Gradient Text</span>
+
+// Glass effect
+<div className="glass">Glass Card</div>
+
+// Glow effects
+<div className="glow-purple">Purple Glow</div>
+<div className="glow-cyan">Cyan Glow</div>
+```
+
+---
+
+## 🔗 Related Projects
+
+| Project | URL | Description |
+|---------|-----|-------------|
+| AI Course App | courses.wearewacky.com | Introduction to AI Course Platform |
+| Internal Docs | Private | Agency knowledge base |
+
+---
+
+## 📝 License
+
+© 2025 Wacky Works Digital. All rights reserved.
