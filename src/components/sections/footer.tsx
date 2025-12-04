@@ -1,23 +1,23 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Sparkles, Github, Twitter, Linkedin, Mail } from "lucide-react";
+import { Sparkles, Github, Twitter, Linkedin, Mail, MessageCircle } from "lucide-react";
 
 const links = {
   products: [
     { name: "AI Course", href: "https://courses.wearewacky.com" },
-    { name: "White-Label SaaS", href: "#contact" },
-    { name: "Consulting", href: "#contact" },
+    { name: "n8n Workflows", href: "/services" },
+    { name: "Consulting", href: "/contact" },
   ],
   resources: [
     { name: "Documentation", href: "#" },
-    { name: "Changelog", href: "#" },
-    { name: "Support", href: "#" },
+    { name: "GitHub", href: "https://github.com/wackyworksdigital" },
+    { name: "Support", href: "/contact" },
   ],
   company: [
-    { name: "About", href: "#" },
-    { name: "Blog", href: "#" },
-    { name: "Contact", href: "#contact" },
+    { name: "About", href: "/about" },
+    { name: "Services", href: "/services" },
+    { name: "Contact", href: "/contact" },
   ],
 };
 
@@ -25,6 +25,7 @@ const socials = [
   { name: "GitHub", icon: Github, href: "https://github.com/wackyworksdigital" },
   { name: "Twitter", icon: Twitter, href: "https://twitter.com/wearewacky" },
   { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/company/wackyworksdigital" },
+  { name: "WhatsApp", icon: MessageCircle, href: "https://wa.me/447460460318" },
   { name: "Email", icon: Mail, href: "mailto:hello@wearewacky.com" },
 ];
 
@@ -49,8 +50,8 @@ export function Footer() {
               <span className="text-xl font-bold">Wacky Works Digital</span>
             </motion.a>
             <p className="text-muted mb-6 max-w-sm">
-              We build Revenue Engines. Custom automation, SaaS products, and 
-              AI-powered solutions for forward-thinking businesses.
+              🚀 Remote-first automation studio for UK SMEs. We build AI systems, 
+              n8n workflows & low-code tools that generate revenue on autopilot.
             </p>
             <div className="flex gap-4">
               {socials.map((social) => (

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Clock, Send, Loader2, CheckCircle, AlertCircle } from "lucide-react";
+import { Mail, MapPin, Clock, Send, Loader2, CheckCircle, AlertCircle, MessageCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { supabase, type ContactSubmission } from "@/lib/supabase";
 
@@ -14,9 +14,15 @@ const contactInfo = [
     href: "mailto:hello@wearewacky.com",
   },
   {
+    icon: MessageCircle,
+    label: "WhatsApp",
+    value: "+44 7460 460318",
+    href: "https://wa.me/447460460318",
+  },
+  {
     icon: MapPin,
     label: "Location",
-    value: "United Kingdom",
+    value: "United Kingdom (Remote)",
     href: null,
   },
   {

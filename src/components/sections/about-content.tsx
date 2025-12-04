@@ -7,29 +7,29 @@ import { cn } from "@/lib/utils";
 
 const timeline = [
   {
-    year: "2020",
-    title: "The Beginning",
-    description: "Started as a WordPress agency on Hostinger, building marketing sites for local businesses.",
-  },
-  {
-    year: "2022",
-    title: "The Realization",
-    description: "Discovered that WordPress wasn't enough for the high-performance revenue engines our clients needed.",
-  },
-  {
     year: "2023",
-    title: "The Pivot",
-    description: "Transitioned to Next.js, Supabase, and modern tooling. Started building custom web applications.",
+    title: "The Beginning",
+    description: "Started as a Hostinger-based web agency, building marketing sites for local businesses.",
   },
   {
-    year: "2024",
-    title: "The Evolution",
-    description: "Launched our first SaaS product, the AI Course Platform. Began automation consulting with n8n.",
+    year: "Early 2024",
+    title: "The Pivot",
+    description: "Transitioned to Next.js, Supabase, and modern tooling. Discovered the power of automation with n8n.",
+  },
+  {
+    year: "Mid 2024",
+    title: "First Product",
+    description: "Launched the AI Course Platform - 'Introduction to AI' for UK businesses. Secured partnership with Waitrose & John Lewis.",
+  },
+  {
+    year: "Late 2024",
+    title: "Going Remote",
+    description: "Became a fully remote-first studio, focusing on UK SMEs who need AI systems and automation.",
   },
   {
     year: "2025",
     title: "Today",
-    description: "A full Custom Automation & SaaS Studio, building revenue engines for forward-thinking businesses.",
+    description: "A full Custom Automation & SaaS Studio, building revenue engines with Next.js 16, React 19, and AI-powered tools.",
   },
 ];
 
@@ -155,18 +155,17 @@ export function AboutContent() {
             </h2>
             <div className="space-y-6 text-lg text-muted">
               <p>
-                We believe that every business deserves{" "}
-                <span className="text-foreground font-medium">digital assets</span> that work for them 24/7, 
-                not just pretty websites that sit there looking nice.
+                We're a <span className="text-foreground font-medium">remote-first automation studio</span> built 
+                specifically for UK SMEs who are ready to embrace AI and automation — but don't know where to start.
               </p>
               <p>
-                That's why we build <span className="text-foreground font-medium">Revenue Engines</span> — 
-                systems that generate leads, convert customers, and automate operations while you sleep.
+                We build <span className="text-foreground font-medium">Revenue Engines</span> — 
+                AI systems, n8n workflows, and low-code tools that generate leads, convert customers, 
+                and automate operations while you sleep.
               </p>
               <p>
-                We use <span className="text-foreground font-medium">cutting-edge technology</span> not 
-                because it's trendy, but because it allows us to build faster, more reliable, 
-                and more scalable solutions.
+                From AI education (trusted by <span className="text-foreground font-medium">Waitrose & John Lewis Partners</span>) 
+                to custom automation consulting, we help businesses work smarter, not harder.
               </p>
             </div>
           </motion.div>
