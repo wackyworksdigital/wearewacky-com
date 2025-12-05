@@ -1,19 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import gsap from "gsap";
-
-// Letters for "build" animation
-const buildLetters = ["b", "u", "i", "l", "d"];
-
-// Number of horizontal "brick rows" per letter
-const BRICK_ROWS = 10;
+import { BuildingText } from "@/components/ui/building-text";
 
 export function Hero() {
-  const headlineRef = useRef<HTMLHeadingElement>(null);
-  const [isHoveringBuild, setIsHoveringBuild] = useState(false);
+  const headlineRef = useRef<HTMLDivElement>(null);
 
   // Headline animation on load
   useEffect(() => {
@@ -46,61 +40,15 @@ export function Hero() {
       <div className="absolute -bottom-20 left-1/3 w-[450px] h-[450px] blob-pink rounded-full blur-[120px] opacity-40" />
 
       {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-        {/* Headline - Just "we build." */}
-        <h1
-          ref={headlineRef}
-          className="mb-8 text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight lowercase"
-        >
-          <span>we </span>
-          {/* "build" with Lego brick stacking animation on hover */}
-          <span 
-            className="inline-flex cursor-pointer"
-            onMouseEnter={() => setIsHoveringBuild(true)}
-            onMouseLeave={() => setIsHoveringBuild(false)}
-          >
-            {buildLetters.map((letter, letterIndex) => (
-              <span key={letterIndex} className="relative inline-block">
-                {/* Ghost letter (light gray - the empty container) */}
-                <span className="text-slate/20">{letter}</span>
-                
-                {/* Brick rows - each row fills in sequence from bottom */}
-                {Array.from({ length: BRICK_ROWS }).map((_, rowIndex) => {
-                  // Calculate clip positions for this row
-                  // Row 0 = bottom row, Row 9 = top row
-                  const rowHeight = 100 / BRICK_ROWS;
-                  const topClip = 100 - ((rowIndex + 1) * rowHeight); // How much to clip from top
-                  const bottomClip = 100 - ((rowIndex + 1) * rowHeight) + rowHeight; // Bottom of visible area
-                  
-                  return (
-                    <motion.span
-                      key={rowIndex}
-                      className="absolute inset-0 text-charcoal"
-                      style={{
-                        clipPath: `inset(${topClip}% 0 ${100 - bottomClip}% 0)`,
-                      }}
-                      initial={{ opacity: 0 }}
-                      animate={{
-                        opacity: isHoveringBuild ? 1 : 0,
-                      }}
-                      transition={{
-                        duration: 0.05,
-                        // Delay: letter offset + row offset (bottom rows first)
-                        delay: isHoveringBuild 
-                          ? (letterIndex * 0.15) + (rowIndex * 0.03)
-                          : 0,
-                        ease: "linear",
-                      }}
-                    >
-                      {letter}
-                    </motion.span>
-                  );
-                })}
-              </span>
-            ))}
-          </span>
-          <span className="text-gradient">.</span>
-        </h1>
+      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+        {/* Headline */}
+        <div ref={headlineRef} className="mb-8">
+          <h1 className="text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight lowercase">
+            we{" "}
+            <BuildingText text="build" />
+            <span className="text-gradient">.</span>
+          </h1>
+        </div>
 
         {/* Subheadline */}
         <motion.p
