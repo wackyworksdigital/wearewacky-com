@@ -48,7 +48,7 @@ export function Footer() {
               className="inline-block mb-6"
             >
               <Image
-                src="/Wacky Works Digital transparent logo colour 3 - 4096x4096.png"
+                src="/Wacky Works Digital transparent logo colour - 4096x4096.png"
                 alt="Wacky Works Digital"
                 width={200}
                 height={56}

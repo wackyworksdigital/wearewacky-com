@@ -55,7 +55,7 @@ export function Navigation() {
               transition={{ duration: 0.2 }}
             >
               <Image
-                src="/Wacky Works Digital transparent logo colour 3 - 4096x4096.png"
+                src="/Wacky Works Digital transparent logo colour - 4096x4096.png"
                 alt="Wacky Works Digital"
                 width={180}
                 height={50}
