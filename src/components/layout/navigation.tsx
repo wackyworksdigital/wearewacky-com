@@ -21,7 +21,6 @@ export function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  // Detect scroll to add background to nav
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -30,7 +29,6 @@ export function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
@@ -45,18 +43,15 @@ export function Navigation() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
           isScrolled
-            ? "bg-void/80 backdrop-blur-xl border-b border-white/5"
+            ? "bg-cream/80 backdrop-blur-xl border-b border-purple/10 shadow-sm"
             : "bg-transparent"
         )}
       >
         <nav className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           {/* Logo */}
-          <Link
-            href="/"
-            className="flex items-center gap-2 group"
-          >
+          <Link href="/" className="flex items-center gap-2 group">
             <motion.div
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, rotate: 2 }}
               transition={{ duration: 0.2 }}
             >
               <Image
@@ -64,7 +59,7 @@ export function Navigation() {
                 alt="Wacky Works Digital"
                 width={180}
                 height={50}
-                className="h-10 w-auto"
+                className="h-12 w-auto"
                 priority
               />
             </motion.div>
@@ -77,18 +72,17 @@ export function Navigation() {
                 <Link
                   href={link.href}
                   className={cn(
-                    "relative px-4 py-2 text-sm font-medium transition-colors",
+                    "relative px-4 py-2 text-sm font-medium transition-colors rounded-full",
                     pathname === link.href
-                      ? "text-foreground"
-                      : "text-muted hover:text-foreground"
+                      ? "text-charcoal"
+                      : "text-slate hover:text-charcoal"
                   )}
                 >
                   {link.label}
-                  {/* Active indicator */}
                   {pathname === link.href && (
                     <motion.div
                       layoutId="activeNav"
-                      className="absolute inset-0 bg-white/5 rounded-full -z-10"
+                      className="absolute inset-0 bg-purple/10 rounded-full -z-10"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -99,18 +93,20 @@ export function Navigation() {
 
           {/* CTA Button (Desktop) */}
           <div className="hidden md:block">
-            <Link
-              href="/contact"
-              className="px-5 py-2.5 bg-purple hover:bg-purple-dark rounded-full text-sm font-medium transition-all duration-300 glow-purple"
-            >
-              Let's Talk
-            </Link>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+              <Link
+                href="/contact"
+                className="px-6 py-2.5 bg-gradient-to-r from-purple to-pink text-white rounded-full text-sm font-semibold shadow-purple hover:shadow-lg transition-shadow"
+              >
+                Let's Talk ✨
+              </Link>
+            </motion.div>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-muted hover:text-foreground transition-colors"
+            className="md:hidden p-2 text-charcoal hover:text-purple transition-colors"
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? (
@@ -134,7 +130,7 @@ export function Navigation() {
           >
             {/* Backdrop */}
             <div
-              className="absolute inset-0 bg-void/95 backdrop-blur-xl"
+              className="absolute inset-0 bg-cream/95 backdrop-blur-xl"
               onClick={() => setIsMobileMenuOpen(false)}
             />
 
@@ -144,7 +140,7 @@ export function Navigation() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="absolute right-0 top-0 bottom-0 w-[80%] max-w-sm bg-void border-l border-white/5 p-8 pt-24"
+              className="absolute right-0 top-0 bottom-0 w-[80%] max-w-sm bg-warm-white border-l border-purple/10 p-8 pt-24 shadow-xl"
             >
               <ul className="space-y-2">
                 {navLinks.map((link, index) => (
@@ -160,7 +156,7 @@ export function Navigation() {
                         "block px-4 py-3 text-lg font-medium rounded-xl transition-all",
                         pathname === link.href
                           ? "bg-purple/10 text-purple"
-                          : "text-muted hover:text-foreground hover:bg-white/5"
+                          : "text-slate hover:text-charcoal hover:bg-purple/5"
                       )}
                     >
                       {link.label}
@@ -174,13 +170,13 @@ export function Navigation() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="mt-8 pt-8 border-t border-white/5"
+                className="mt-8 pt-8 border-t border-purple/10"
               >
                 <Link
                   href="/contact"
-                  className="block w-full py-4 bg-purple hover:bg-purple-dark rounded-xl text-center font-medium transition-all duration-300"
+                  className="block w-full py-4 bg-gradient-to-r from-purple to-pink text-white rounded-xl text-center font-semibold shadow-purple"
                 >
-                  Let's Talk →
+                  Let's Talk ✨
                 </Link>
               </motion.div>
             </motion.nav>
@@ -190,4 +186,3 @@ export function Navigation() {
     </>
   );
 }
-

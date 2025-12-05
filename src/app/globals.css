@@ -2,26 +2,29 @@
 
 /* ============================================
    WACKY WORKS DIGITAL - Design System
-   Dark Mode / Neon / Elite
+   Light Mode / Playful / Fun
    ============================================ */
 
 :root {
-  /* Core Brand Colors */
-  --wacky-void: #050505;
-  --wacky-purple: #8b5cf6;
-  --wacky-cyan: #06b6d4;
-  --wacky-white: #fafafa;
-  --wacky-gray: #a1a1aa;
+  /* Core Brand Colors (from logo) */
+  --wacky-cyan: #22D3EE;
+  --wacky-purple: #8B5CF6;
+  --wacky-pink: #EC4899;
+  
+  /* Warm Neutrals (NO pure white/black) */
+  --wacky-cream: #FAF8F5;
+  --wacky-warm-white: #FFFDF9;
+  --wacky-charcoal: #2D3748;
+  --wacky-slate: #64748B;
   
   /* Gradients */
-  --gradient-purple: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
-  --gradient-cyan: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
-  --gradient-glow: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+  --gradient-brand: linear-gradient(135deg, #22D3EE 0%, #8B5CF6 50%, #EC4899 100%);
+  --gradient-subtle: linear-gradient(135deg, rgba(34, 211, 238, 0.1) 0%, rgba(139, 92, 246, 0.1) 50%, rgba(236, 72, 153, 0.1) 100%);
   
   /* Theme Variables */
-  --background: #050505;
-  --foreground: #fafafa;
-  --muted: #a1a1aa;
+  --background: #FAF8F5;
+  --foreground: #2D3748;
+  --muted: #64748B;
 }
 
 @theme inline {
@@ -30,16 +33,22 @@
   --color-muted: var(--muted);
   
   /* Brand Colors */
-  --color-void: #050505;
-  --color-purple: #8b5cf6;
-  --color-purple-light: #a78bfa;
-  --color-purple-dark: #7c3aed;
-  --color-cyan: #06b6d4;
-  --color-cyan-light: #22d3ee;
-  --color-cyan-dark: #0891b2;
+  --color-cream: #FAF8F5;
+  --color-warm-white: #FFFDF9;
+  --color-charcoal: #2D3748;
+  --color-slate: #64748B;
+  
+  --color-purple: #8B5CF6;
+  --color-purple-light: #A78BFA;
+  --color-purple-dark: #7C3AED;
+  --color-cyan: #22D3EE;
+  --color-cyan-light: #67E8F9;
+  --color-cyan-dark: #06B6D4;
+  --color-pink: #EC4899;
+  --color-pink-light: #F472B6;
   
   /* Fonts */
-  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-sans: var(--font-plus-jakarta), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
 }
 
@@ -84,49 +93,86 @@ html.lenis, html.lenis body {
    Custom Utilities
    ============================================ */
 
-/* Text Gradient */
+/* Text Gradient - Rainbow Brand */
 .text-gradient {
-  background: var(--gradient-glow);
+  background: var(--gradient-brand);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Glow Effects */
+/* Colored Shadows for light mode */
+.shadow-purple {
+  box-shadow: 0 4px 30px rgba(139, 92, 246, 0.2);
+}
+
+.shadow-cyan {
+  box-shadow: 0 4px 30px rgba(34, 211, 238, 0.2);
+}
+
+.shadow-pink {
+  box-shadow: 0 4px 30px rgba(236, 72, 153, 0.2);
+}
+
+.shadow-brand {
+  box-shadow: 
+    0 4px 20px rgba(139, 92, 246, 0.15),
+    0 8px 40px rgba(34, 211, 238, 0.1);
+}
+
+/* Glow for buttons */
 .glow-purple {
-  box-shadow: 0 0 40px rgba(139, 92, 246, 0.3);
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
 }
 
 .glow-cyan {
-  box-shadow: 0 0 40px rgba(6, 182, 212, 0.3);
+  box-shadow: 0 0 30px rgba(34, 211, 238, 0.4);
 }
 
-.glow-text {
-  text-shadow: 0 0 40px rgba(139, 92, 246, 0.5);
-}
-
-/* Glass Effect */
+/* Glass Effect - Light Mode */
 .glass {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(139, 92, 246, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
 }
 
-/* Grid Background Pattern */
+/* Card Style */
+.card {
+  background: var(--wacky-warm-white);
+  border-radius: 20px;
+  border: 1px solid rgba(139, 92, 246, 0.08);
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 4px 20px rgba(139, 92, 246, 0.06);
+}
+
+.card:hover {
+  box-shadow: 
+    0 4px 20px rgba(139, 92, 246, 0.12),
+    0 8px 40px rgba(34, 211, 238, 0.08);
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+/* Dot Pattern - Colorful */
+.bg-dots {
+  background-image: 
+    radial-gradient(rgba(139, 92, 246, 0.15) 1.5px, transparent 1.5px),
+    radial-gradient(rgba(34, 211, 238, 0.1) 1px, transparent 1px);
+  background-size: 32px 32px, 16px 16px;
+  background-position: 0 0, 8px 8px;
+}
+
+/* Grid Pattern - Light */
 .bg-grid {
   background-image: 
-    linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
+    linear-gradient(rgba(139, 92, 246, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
-/* Dot Pattern */
-.bg-dots {
-  background-image: radial-gradient(rgba(139, 92, 246, 0.15) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-/* Noise Texture */
+/* Noise Texture - Subtle */
 .noise {
   position: relative;
 }
@@ -135,32 +181,120 @@ html.lenis, html.lenis body {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.03;
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
 }
 
-/* Selection */
+/* Gradient Background Sections */
+.bg-gradient-section {
+  background: linear-gradient(180deg, 
+    var(--wacky-cream) 0%, 
+    rgba(139, 92, 246, 0.03) 50%,
+    var(--wacky-cream) 100%
+  );
+}
+
+/* Colorful gradient blobs */
+.blob-cyan {
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.2) 0%, transparent 70%);
+}
+
+.blob-purple {
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+}
+
+.blob-pink {
+  background: radial-gradient(circle, rgba(236, 72, 153, 0.12) 0%, transparent 70%);
+}
+
+/* Selection - Colorful */
 ::selection {
-  background: rgba(139, 92, 246, 0.3);
-  color: #fafafa;
+  background: rgba(139, 92, 246, 0.2);
+  color: var(--wacky-charcoal);
 }
 
-/* Scrollbar */
+/* Scrollbar - Light & Colorful */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: var(--wacky-cream);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #27272a;
-  border-radius: 4px;
+  background: linear-gradient(180deg, var(--wacky-cyan), var(--wacky-purple));
+  border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: linear-gradient(180deg, var(--wacky-purple), var(--wacky-pink));
+}
+
+/* ============================================
+   Animations
+   ============================================ */
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Wiggle animation */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+.animate-wiggle {
+  animation: wiggle 2s ease-in-out infinite;
+}
+
+/* Pulse grow */
+@keyframes pulse-grow {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.animate-pulse-grow {
+  animation: pulse-grow 2s ease-in-out infinite;
+}
+
+/* Spin slow */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* Bounce subtle */
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.animate-bounce-subtle {
+  animation: bounce-subtle 2s ease-in-out infinite;
+}
+
+/* Gradient shift */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
 }
