@@ -1,55 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
-import { ArrowDown, Zap, Bot, Sparkles, Rocket, Code2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowDown } from "lucide-react";
 import gsap from "gsap";
-
-// Floating icons that react to cursor
-const floatingIcons = [
-  { Icon: Zap, color: "text-cyan", x: -280, y: -120 },
-  { Icon: Bot, color: "text-purple", x: 300, y: -100 },
-  { Icon: Sparkles, color: "text-pink", x: -260, y: 100 },
-  { Icon: Rocket, color: "text-purple", x: 280, y: 80 },
-  { Icon: Code2, color: "text-cyan", x: 0, y: -180 },
-];
 
 // Letters for "build" animation
 const buildLetters = ["b", "u", "i", "l", "d"];
 
 export function Hero() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHoveringBuild, setIsHoveringBuild] = useState(false);
-  
-  // Smooth spring animation for cursor tracking
-  const springConfig = { damping: 25, stiffness: 150 };
-  const mouseX = useSpring(useMotionValue(0), springConfig);
-  const mouseY = useSpring(useMotionValue(0), springConfig);
 
-  // Track mouse position
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      
-      // Calculate offset from center (normalized -1 to 1)
-      const offsetX = (e.clientX - centerX) / (rect.width / 2);
-      const offsetY = (e.clientY - centerY) / (rect.height / 2);
-      
-      setMousePosition({ x: offsetX, y: offsetY });
-      mouseX.set(offsetX);
-      mouseY.set(offsetY);
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
-
-  // Headline animation
+  // Headline animation on load
   useEffect(() => {
     if (!headlineRef.current) return;
 
@@ -70,10 +33,7 @@ export function Hero() {
   }, []);
 
   return (
-    <section 
-      ref={containerRef}
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
-    >
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       {/* Background with subtle texture */}
       <div className="absolute inset-0 bg-dots opacity-40" />
       
@@ -81,37 +41,6 @@ export function Hero() {
       <div className="absolute top-20 -left-40 w-[500px] h-[500px] blob-cyan rounded-full blur-[120px] opacity-60" />
       <div className="absolute top-40 -right-40 w-[400px] h-[400px] blob-purple rounded-full blur-[120px] opacity-50" />
       <div className="absolute -bottom-20 left-1/3 w-[450px] h-[450px] blob-pink rounded-full blur-[120px] opacity-40" />
-      
-      {/* Floating Icons - Cursor Reactive */}
-      {floatingIcons.map(({ Icon, color, x, y }, i) => (
-        <motion.div
-          key={i}
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.5 + i * 0.1, duration: 0.5, type: "spring" }}
-          className={`absolute ${color} hidden lg:block pointer-events-none`}
-          style={{ 
-            left: `calc(50% + ${x}px)`, 
-            top: `calc(50% + ${y}px)`,
-            // Parallax effect based on mouse position
-            transform: `translate(${mousePosition.x * (20 + i * 8)}px, ${mousePosition.y * (20 + i * 8)}px)`,
-            transition: "transform 0.3s ease-out"
-          }}
-        >
-          <motion.div
-            animate={{ 
-              y: [0, -10, 0],
-            }}
-            transition={{ 
-              duration: 3 + i * 0.5, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
-            }}
-          >
-            <Icon className="w-8 h-8 opacity-50" />
-          </motion.div>
-        </motion.div>
-      ))}
 
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
@@ -121,28 +50,25 @@ export function Hero() {
           className="mb-8 text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight lowercase"
         >
           <span>we </span>
-          {/* "build" with Lego stacking animation on hover */}
+          {/* "build" with letters emerging from below on hover */}
           <span 
-            className="inline-flex cursor-pointer"
+            className="inline-flex overflow-hidden cursor-pointer"
             onMouseEnter={() => setIsHoveringBuild(true)}
             onMouseLeave={() => setIsHoveringBuild(false)}
           >
             {buildLetters.map((letter, index) => (
               <motion.span
                 key={index}
-                className="inline-block origin-bottom"
-                initial={{ y: 0 }}
+                className="inline-block"
                 animate={isHoveringBuild ? {
-                  y: [100, -8, 0],
-                  scaleY: [0.3, 1.05, 1],
+                  y: ["100%", "-5%", "0%"],
                 } : {
-                  y: 0,
-                  scaleY: 1,
+                  y: "0%",
                 }}
                 transition={{
-                  duration: 0.4,
-                  delay: index * 0.08,
-                  ease: [0.34, 1.56, 0.64, 1], // Bouncy ease
+                  duration: 0.35,
+                  delay: index * 0.06,
+                  ease: [0.33, 1, 0.68, 1], // Smooth out with slight overshoot
                 }}
               >
                 {letter}
@@ -192,7 +118,7 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Scroll Indicator - Smoother */}
+      {/* Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
