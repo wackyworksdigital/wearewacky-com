@@ -14,10 +14,14 @@ const floatingIcons = [
   { Icon: Code2, color: "text-cyan", x: 0, y: -180 },
 ];
 
+// Letters for "build" animation
+const buildLetters = ["b", "u", "i", "l", "d"];
+
 export function Hero() {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHoveringBuild, setIsHoveringBuild] = useState(false);
   
   // Smooth spring animation for cursor tracking
   const springConfig = { damping: 25, stiffness: 150 };
@@ -49,9 +53,8 @@ export function Hero() {
   useEffect(() => {
     if (!headlineRef.current) return;
 
-    const lines = headlineRef.current.querySelectorAll(".line");
     gsap.fromTo(
-      lines,
+      headlineRef.current,
       { 
         y: 40, 
         opacity: 0,
@@ -60,7 +63,6 @@ export function Hero() {
         y: 0,
         opacity: 1,
         duration: 0.8,
-        stagger: 0.15,
         ease: "power3.out",
         delay: 0.3,
       }
@@ -113,17 +115,41 @@ export function Hero() {
 
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-        {/* Headline */}
+        {/* Headline - Just "we build." */}
         <h1
           ref={headlineRef}
-          className="mb-8"
+          className="mb-8 text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight lowercase"
         >
-          <span className="line block text-sm sm:text-base uppercase tracking-[0.3em] text-slate font-medium mb-4">
-            Wacky Works Digital
+          <span>we </span>
+          {/* "build" with Lego stacking animation on hover */}
+          <span 
+            className="inline-flex cursor-pointer"
+            onMouseEnter={() => setIsHoveringBuild(true)}
+            onMouseLeave={() => setIsHoveringBuild(false)}
+          >
+            {buildLetters.map((letter, index) => (
+              <motion.span
+                key={index}
+                className="inline-block origin-bottom"
+                initial={{ y: 0 }}
+                animate={isHoveringBuild ? {
+                  y: [100, -8, 0],
+                  scaleY: [0.3, 1.05, 1],
+                } : {
+                  y: 0,
+                  scaleY: 1,
+                }}
+                transition={{
+                  duration: 0.4,
+                  delay: index * 0.08,
+                  ease: [0.34, 1.56, 0.64, 1], // Bouncy ease
+                }}
+              >
+                {letter}
+              </motion.span>
+            ))}
           </span>
-          <span className="line block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight lowercase">
-            we build<span className="text-gradient">.</span>
-          </span>
+          <span className="text-gradient">.</span>
         </h1>
 
         {/* Subheadline */}
