@@ -12,7 +12,7 @@ const projects = [
     title: "AI Course Platform",
     subtitle: "Education / EdTech",
     description:
-      "Professional learning management system for AI education. Features Google OAuth, partner access tiers, progress tracking, and enterprise pricing. Trusted by Waitrose & John Lewis Partners.",
+      "Professional learning management system for AI education. Features Google OAuth, enterprise partner access tiers, progress tracking, and flexible pricing. Used by UK businesses from SMEs to major retailers.",
     image: "/projects/ai-course.png",
     tags: ["Next.js 16", "React 19", "Supabase", "Stripe"],
     stats: [

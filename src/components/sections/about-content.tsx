@@ -19,7 +19,7 @@ const timeline = [
   {
     year: "Mid 2024",
     title: "First Product",
-    description: "Launched the AI Course Platform - 'Introduction to AI' for UK businesses. Secured partnership with Waitrose & John Lewis.",
+    description: "Launched the AI Course Platform - 'Introduction to AI' for UK businesses. Secured first enterprise partnership.",
   },
   {
     year: "Late 2024",
@@ -164,8 +164,8 @@ export function AboutContent() {
                 and automate operations while you sleep.
               </p>
               <p>
-                From AI education (trusted by <span className="text-foreground font-medium">Waitrose & John Lewis Partners</span>) 
-                to custom automation consulting, we help businesses work smarter, not harder.
+                From AI education (with enterprise clients) 
+                to custom automation consulting, we help UK businesses work smarter, not harder.
               </p>
             </div>
           </motion.div>

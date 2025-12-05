@@ -18,7 +18,7 @@ export function Stats() {
   return (
     <section ref={ref} className="py-20 relative overflow-hidden bg-gradient-section">
       <div className="max-w-6xl mx-auto px-6 relative">
-        {/* Partner Badge */}
+        {/* Enterprise Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20, scale: 0.9 }}
           animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
@@ -32,9 +32,9 @@ export function Stats() {
               <Award className="w-5 h-5 text-purple" />
             </motion.div>
             <span className="text-sm font-medium text-charcoal">
-              Trusted by <span className="text-gradient font-semibold">Waitrose & John Lewis Partners</span>
+              Enterprise-ready solutions for <span className="text-gradient font-semibold">UK businesses</span>
             </span>
-            <span className="text-xs">🎉</span>
+            <span className="text-xs">🚀</span>
           </div>
         </motion.div>
 

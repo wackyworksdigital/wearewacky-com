@@ -173,9 +173,9 @@ export function Hero() {
           transition={{ delay: 1.5 }}
           className="mt-12 text-sm text-slate"
         >
-          <span className="opacity-60">Trusted by</span>{" "}
-          <span className="font-semibold text-charcoal">Waitrose & John Lewis Partners</span>{" "}
-          <span className="opacity-60">(we're as surprised as you are)</span>
+          <span className="opacity-60">Serving</span>{" "}
+          <span className="font-semibold text-charcoal">UK SMEs & Enterprise</span>{" "}
+          <span className="opacity-60">(yes, the big ones too)</span>
         </motion.div>
       </div>
 
