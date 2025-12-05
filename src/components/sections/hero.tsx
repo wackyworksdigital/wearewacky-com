@@ -50,29 +50,34 @@ export function Hero() {
           className="mb-8 text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight lowercase"
         >
           <span>we </span>
-          {/* "build" with letters emerging from below on hover */}
+          {/* "build" with fill-up animation on hover */}
           <span 
-            className="inline-flex overflow-hidden cursor-pointer"
+            className="inline-flex cursor-pointer"
             onMouseEnter={() => setIsHoveringBuild(true)}
             onMouseLeave={() => setIsHoveringBuild(false)}
           >
             {buildLetters.map((letter, index) => (
-              <motion.span
-                key={index}
-                className="inline-block"
-                animate={isHoveringBuild ? {
-                  y: ["100%", "-5%", "0%"],
-                } : {
-                  y: "0%",
-                }}
-                transition={{
-                  duration: 0.35,
-                  delay: index * 0.06,
-                  ease: [0.33, 1, 0.68, 1], // Smooth out with slight overshoot
-                }}
-              >
-                {letter}
-              </motion.span>
+              <span key={index} className="relative inline-block">
+                {/* Ghost letter (light gray outline) */}
+                <span className="text-slate/20">{letter}</span>
+                {/* Filled letter (clips from bottom to top) */}
+                <motion.span
+                  className="absolute inset-0 text-charcoal"
+                  initial={{ clipPath: "inset(100% 0 0 0)" }}
+                  animate={{
+                    clipPath: isHoveringBuild 
+                      ? "inset(0% 0 0 0)" 
+                      : "inset(100% 0 0 0)"
+                  }}
+                  transition={{
+                    duration: 0.4,
+                    delay: index * 0.08,
+                    ease: [0.65, 0, 0.35, 1], // Smooth ease-in-out
+                  }}
+                >
+                  {letter}
+                </motion.span>
+              </span>
             ))}
           </span>
           <span className="text-gradient">.</span>
