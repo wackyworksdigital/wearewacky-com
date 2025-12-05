@@ -287,6 +287,21 @@ html.lenis, html.lenis body {
   animation: bounce-subtle 2s ease-in-out infinite;
 }
 
+/* ============================================
+   Scroll Snap
+   ============================================ */
+
+.snap-container {
+  scroll-snap-type: y proximity;
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}
+
 /* Gradient shift */
 @keyframes gradient-shift {
   0% { background-position: 0% 50%; }

@@ -7,17 +7,17 @@ import { Github, Twitter, Linkedin, Mail, MessageCircle } from "lucide-react";
 const links = {
   products: [
     { name: "AI Course", href: "https://courses.wearewacky.com" },
-    { name: "n8n Workflows", href: "/services" },
-    { name: "Consulting", href: "/contact" },
+    { name: "Automation", href: "/services#automation" },
+    { name: "Web Development", href: "/services#apps" },
   ],
   resources: [
-    { name: "Documentation", href: "#" },
     { name: "GitHub", href: "https://github.com/wackyworksdigital" },
     { name: "Support", href: "/contact" },
   ],
   company: [
     { name: "About", href: "/about" },
     { name: "Services", href: "/services" },
+    { name: "Portfolio", href: "/portfolio" },
     { name: "Contact", href: "/contact" },
   ],
 };
@@ -32,11 +32,11 @@ const socials = [
 
 export function Footer() {
   return (
-    <footer className="relative py-20 overflow-hidden">
+    <footer className="min-h-screen flex flex-col justify-center relative overflow-hidden bg-charcoal text-white">
       {/* Top Border Gradient */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple/50 to-transparent" />
       
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-5xl mx-auto px-6 py-20 w-full">
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
           {/* Brand */}
           <div className="lg:col-span-2">
@@ -50,26 +50,26 @@ export function Footer() {
               <Image
                 src="/Wacky Works Digital transparent logo colour - 4096x4096.png"
                 alt="Wacky Works Digital"
-                width={200}
-                height={56}
-                className="h-14 w-auto"
+                width={180}
+                height={50}
+                className="h-12 w-auto brightness-0 invert"
               />
             </motion.a>
-            <p className="text-muted mb-6 max-w-sm">
-              🚀 Remote-first automation studio for UK SMEs. We build AI systems, 
-              n8n workflows & low-code tools that generate revenue on autopilot.
+            <p className="text-white/60 mb-6 max-w-sm">
+              Remote-first automation studio. We build AI systems, 
+              apps, and automations that work while you sleep.
             </p>
-            <div className="flex gap-4">
+            <div className="flex gap-3">
               {socials.map((social) => (
                 <a
                   key={social.name}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-white/10 transition-colors"
+                  className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors"
                   aria-label={social.name}
                 >
-                  <social.icon className="w-5 h-5 text-muted hover:text-foreground transition-colors" />
+                  <social.icon className="w-5 h-5 text-white/60 hover:text-white transition-colors" />
                 </a>
               ))}
             </div>
@@ -77,7 +77,7 @@ export function Footer() {
 
           {/* Links */}
           <div>
-            <h4 className="font-semibold mb-4">Products</h4>
+            <h4 className="font-semibold mb-4 text-white">Products</h4>
             <ul className="space-y-3">
               {links.products.map((link) => (
                 <li key={link.name}>
@@ -85,7 +85,7 @@ export function Footer() {
                     href={link.href}
                     target={link.href.startsWith("http") ? "_blank" : undefined}
                     rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="text-muted hover:text-foreground transition-colors"
+                    className="text-white/60 hover:text-white transition-colors text-sm"
                   >
                     {link.name}
                   </a>
@@ -95,13 +95,15 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4">Resources</h4>
+            <h4 className="font-semibold mb-4 text-white">Resources</h4>
             <ul className="space-y-3">
               {links.resources.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="text-muted hover:text-foreground transition-colors"
+                    target={link.href.startsWith("http") ? "_blank" : undefined}
+                    rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    className="text-white/60 hover:text-white transition-colors text-sm"
                   >
                     {link.name}
                   </a>
@@ -111,13 +113,13 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4">Company</h4>
+            <h4 className="font-semibold mb-4 text-white">Company</h4>
             <ul className="space-y-3">
               {links.company.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className="text-muted hover:text-foreground transition-colors"
+                    className="text-white/60 hover:text-white transition-colors text-sm"
                   >
                     {link.name}
                   </a>
@@ -128,15 +130,15 @@ export function Footer() {
         </div>
 
         {/* Bottom */}
-        <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-muted text-sm">
+        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-white/40 text-sm">
             © {new Date().getFullYear()} Wacky Works Digital. All rights reserved.
           </p>
-          <div className="flex gap-6 text-sm text-muted">
-            <a href="#" className="hover:text-foreground transition-colors">
+          <div className="flex gap-6 text-sm text-white/40">
+            <a href="#" className="hover:text-white transition-colors">
               Privacy Policy
             </a>
-            <a href="#" className="hover:text-foreground transition-colors">
+            <a href="#" className="hover:text-white transition-colors">
               Terms of Service
             </a>
           </div>
@@ -145,4 +147,3 @@ export function Footer() {
     </footer>
   );
 }
-

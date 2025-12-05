@@ -2,42 +2,39 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { GraduationCap, Boxes, Users, ArrowUpRight } from "lucide-react";
+import { Bot, Globe, Megaphone, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const services = [
   {
-    id: "education",
-    icon: GraduationCap,
-    title: "Education",
-    subtitle: "The AI Courses",
+    id: "automation",
+    icon: Bot,
+    title: "Automation & AI",
     description:
-      "We teach what we do. Our flagship 'Introduction to AI' course helps individuals and enterprises understand and leverage AI tools.",
-    features: ["Lifetime Access", "Enterprise Options", "Partner Pricing"],
+      "n8n workflows, AI chatbots, custom integrations. We build the robots that do your boring work while you sleep.",
+    features: ["n8n Workflows", "AI Agents", "Custom Integrations", "API Connections"],
     color: "purple",
-    href: "https://courses.wearewacky.com",
+    href: "/services#automation",
   },
   {
-    id: "saas",
-    icon: Boxes,
-    title: "SaaS Products",
-    subtitle: "White-Label Solutions",
+    id: "apps",
+    icon: Globe,
+    title: "Apps & Websites",
     description:
-      "Our internal tools are products. The Course Platform is a white-label SaaS for creators who want to own their data instead of renting Teachable or Kajabi.",
-    features: ["Full Ownership", "Custom Branding", "Self-Hosted Option"],
+      "Next.js sites, web apps, dashboards. Fast, modern, and built to actually convert visitors into customers.",
+    features: ["Next.js Sites", "Web Applications", "Dashboards", "E-commerce"],
     color: "cyan",
-    href: "#contact",
+    href: "/services#apps",
   },
   {
-    id: "consulting",
-    icon: Users,
-    title: "Consulting",
-    subtitle: "Automation & AI Agents",
+    id: "content",
+    icon: Megaphone,
+    title: "Social & Content",
     description:
-      "High-end automation consulting for UK SMEs. We build n8n workflows and AI Agents that save hundreds of hours annually.",
-    features: ["n8n Workflows", "AI Agents", "Custom Integrations"],
-    color: "purple",
-    href: "#contact",
+      "Content creation, social media management, marketing that doesn't make people cringe.",
+    features: ["Content Strategy", "Social Media", "Copywriting", "Email Marketing"],
+    color: "pink",
+    href: "/services#content",
   },
 ];
 
@@ -49,28 +46,24 @@ export function Services() {
     <section
       id="services"
       ref={containerRef}
-      className="relative py-32 overflow-hidden"
+      className="min-h-screen flex items-center justify-center relative overflow-hidden py-20"
     >
       {/* Background */}
-      <div className="absolute inset-0 bg-dots opacity-50" />
+      <div className="absolute inset-0 bg-dots opacity-30" />
       
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
-        {/* Section Header */}
+      <div className="relative z-10 max-w-5xl mx-auto px-6">
+        {/* Section Header - Simple */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-20"
+          className="text-center mb-16"
         >
-          <span className="text-purple text-sm font-medium uppercase tracking-widest mb-4 block">
-            Revenue Streams
-          </span>
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
-            Three Ways We <span className="text-gradient">Create Value</span>
+            What we <span className="text-gradient">build</span>
           </h2>
-          <p className="text-muted text-lg max-w-2xl mx-auto">
-            From education to enterprise solutions, we build digital assets that 
-            scale with your business.
+          <p className="text-slate text-lg max-w-xl mx-auto">
+            Three things we're actually good at.
           </p>
         </motion.div>
 
@@ -80,14 +73,12 @@ export function Services() {
             <motion.a
               key={service.id}
               href={service.href}
-              target={service.href.startsWith("http") ? "_blank" : undefined}
-              rel={service.href.startsWith("http") ? "noopener noreferrer" : undefined}
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 + 0.2 }}
               className={cn(
-                "group relative p-8 rounded-2xl glass",
-                "hover:bg-white/[0.04] transition-all duration-500",
+                "group relative p-8 rounded-2xl bg-white/70 backdrop-blur-sm border border-purple/5",
+                "hover:border-purple/15 hover:shadow-brand transition-all duration-300",
                 "flex flex-col h-full"
               )}
             >
@@ -95,10 +86,10 @@ export function Services() {
               <div
                 className={cn(
                   "w-14 h-14 rounded-xl flex items-center justify-center mb-6",
-                  "transition-all duration-500 group-hover:scale-110",
-                  service.color === "purple"
-                    ? "bg-purple/10 text-purple group-hover:bg-purple/20"
-                    : "bg-cyan/10 text-cyan group-hover:bg-cyan/20"
+                  "transition-all duration-300 group-hover:scale-110",
+                  service.color === "purple" && "bg-purple/10 text-purple",
+                  service.color === "cyan" && "bg-cyan/10 text-cyan",
+                  service.color === "pink" && "bg-pink/10 text-pink"
                 )}
               >
                 <service.icon className="w-7 h-7" />
@@ -106,40 +97,46 @@ export function Services() {
 
               {/* Content */}
               <div className="flex-1">
-                <span className="text-muted text-sm">{service.subtitle}</span>
-                <h3 className="text-2xl font-bold mt-1 mb-4 flex items-center gap-2">
+                <h3 className="text-xl font-bold mb-3 flex items-center gap-2 text-charcoal">
                   {service.title}
-                  <ArrowUpRight className="w-5 h-5 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300" />
+                  <ArrowUpRight className="w-4 h-4 opacity-0 -translate-y-1 translate-x-1 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-300" />
                 </h3>
-                <p className="text-muted mb-6">{service.description}</p>
+                <p className="text-slate text-sm mb-6 leading-relaxed">{service.description}</p>
               </div>
 
               {/* Features */}
-              <div className="flex flex-wrap gap-2 pt-6 border-t border-white/5">
+              <div className="flex flex-wrap gap-2 pt-4 border-t border-purple/5">
                 {service.features.map((feature) => (
                   <span
                     key={feature}
-                    className="px-3 py-1 text-xs rounded-full bg-white/5 text-muted"
+                    className="px-3 py-1 text-xs rounded-full bg-cream text-slate"
                   >
                     {feature}
                   </span>
                 ))}
               </div>
-
-              {/* Hover Glow */}
-              <div
-                className={cn(
-                  "absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none",
-                  service.color === "purple"
-                    ? "shadow-[0_0_60px_rgba(139,92,246,0.15)]"
-                    : "shadow-[0_0_60px_rgba(6,182,212,0.15)]"
-                )}
-              />
             </motion.a>
           ))}
         </div>
+
+        {/* Education note - demoted to small mention */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.8 }}
+          className="text-center text-slate mt-12 text-sm"
+        >
+          We also teach what we know →{" "}
+          <a 
+            href="https://courses.wearewacky.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-purple hover:underline"
+          >
+            courses.wearewacky.com
+          </a>
+        </motion.p>
       </div>
     </section>
   );
 }
-

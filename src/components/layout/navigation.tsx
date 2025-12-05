@@ -47,26 +47,27 @@ export function Navigation() {
             : "bg-transparent"
         )}
       >
-        <nav className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        {/* Tighter container - max-w-5xl instead of 7xl */}
+        <nav className="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between gap-8">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
+          <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
             <motion.div
-              whileHover={{ scale: 1.05, rotate: 2 }}
+              whileHover={{ scale: 1.02 }}
               transition={{ duration: 0.2 }}
             >
               <Image
                 src="/Wacky Works Digital transparent logo colour - 4096x4096.png"
                 alt="Wacky Works Digital"
-                width={180}
-                height={50}
-                className="h-12 w-auto"
+                width={160}
+                height={44}
+                className="h-10 w-auto"
                 priority
               />
             </motion.div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <ul className="hidden md:flex items-center gap-1">
+          {/* Desktop Navigation - Centered */}
+          <ul className="hidden md:flex items-center justify-center gap-1 flex-1">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
@@ -91,14 +92,14 @@ export function Navigation() {
             ))}
           </ul>
 
-          {/* CTA Button (Desktop) */}
-          <div className="hidden md:block">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.98 }}>
+          {/* CTA Button (Desktop) - Unified style, no emoji */}
+          <div className="hidden md:block flex-shrink-0">
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
               <Link
                 href="/contact"
-                className="px-6 py-2.5 bg-gradient-to-r from-purple to-pink text-white rounded-full text-sm font-semibold shadow-purple hover:shadow-lg transition-shadow"
+                className="px-6 py-2.5 bg-charcoal text-white rounded-full text-sm font-medium hover:bg-charcoal/90 transition-colors"
               >
-                Let's Talk ✨
+                Let's Talk
               </Link>
             </motion.div>
           </div>
@@ -174,9 +175,9 @@ export function Navigation() {
               >
                 <Link
                   href="/contact"
-                  className="block w-full py-4 bg-gradient-to-r from-purple to-pink text-white rounded-xl text-center font-semibold shadow-purple"
+                  className="block w-full py-4 bg-charcoal text-white rounded-xl text-center font-medium"
                 >
-                  Let's Talk ✨
+                  Let's Talk
                 </Link>
               </motion.div>
             </motion.nav>
