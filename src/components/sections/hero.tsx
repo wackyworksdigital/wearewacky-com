@@ -62,7 +62,7 @@ export function Hero() {
           <span className="text-charcoal">and whatever else you need done properly.</span>
         </motion.p>
 
-        {/* CTA Buttons - Unified Style */}
+        {/* CTA Buttons - Wacky Style */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -73,20 +73,38 @@ export function Hero() {
             href="/contact"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="px-8 py-4 bg-charcoal text-white rounded-full font-medium hover:bg-charcoal/90 transition-colors"
+            className="group px-8 py-4 bg-charcoal text-white rounded-full font-medium hover:bg-charcoal/90 transition-colors"
           >
-            Let's Build Something
+            <span className="group-hover:hidden">Press This Button</span>
+            <span className="hidden group-hover:inline">Something Fantastic Will Happen</span>
           </motion.a>
-          <motion.a
-            href="https://courses.wearewacky.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="px-8 py-4 rounded-full font-medium bg-white border border-slate/20 text-charcoal hover:border-slate/40 transition-colors"
-          >
-            See Our Courses
-          </motion.a>
+          <div className="relative">
+            <motion.a
+              href="https://courses.wearewacky.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="px-8 py-4 rounded-full font-medium bg-white border border-slate/20 text-charcoal hover:border-slate/40 transition-colors inline-block"
+            >
+              Learn Our Secrets
+            </motion.a>
+            {/* Cheeky partner discount sticker */}
+            <motion.a
+              href="https://courses.wearewacky.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ rotate: 0, scale: 0 }}
+              animate={{ rotate: 8, scale: 1 }}
+              whileHover={{ rotate: 12, scale: 1.05 }}
+              transition={{ delay: 1.3, type: "spring", stiffness: 200 }}
+              className="absolute -bottom-6 -right-2 bg-gradient-to-br from-amber-400 to-orange-500 text-white text-[9px] px-2.5 py-1.5 rounded shadow-md cursor-pointer"
+              style={{ maxWidth: "120px" }}
+            >
+              <span className="font-bold block leading-tight">Waitrose & John Lewis Partners</span>
+              <span className="opacity-90 text-[8px]">find some cookies this way →</span>
+            </motion.a>
+          </div>
         </motion.div>
       </div>
 
@@ -100,9 +118,9 @@ export function Hero() {
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-          className="flex flex-col items-center gap-3 text-slate/60"
+          className="flex flex-col items-center gap-3 text-slate/60 cursor-pointer hover:text-charcoal transition-colors"
         >
-          <span className="text-xs uppercase tracking-widest font-medium">Scroll</span>
+          <span className="text-xs uppercase tracking-widest font-medium">Keep Going</span>
           <ArrowDown className="w-4 h-4" />
         </motion.div>
       </motion.div>

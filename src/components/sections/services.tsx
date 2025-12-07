@@ -9,30 +9,30 @@ const services = [
   {
     id: "automation",
     icon: Bot,
-    title: "Automation & AI",
+    title: "Robots That Work For You",
     description:
-      "n8n workflows, AI chatbots, custom integrations. We build the robots that do your boring work while you sleep.",
-    features: ["n8n Workflows", "AI Agents", "Custom Integrations", "API Connections"],
+      "We train little digital minions to do your boring tasks. They don't need coffee breaks, they don't call in sick, and they definitely won't steal your lunch from the office fridge.",
+    features: ["n8n Workflows", "AI Agents", "Custom Integrations", "Zero Lunch Theft"],
     color: "purple",
     href: "/services#automation",
   },
   {
     id: "apps",
     icon: Globe,
-    title: "Apps & Websites",
+    title: "Websites That Actually Work",
     description:
-      "Next.js sites, web apps, dashboards. Fast, modern, and built to actually convert visitors into customers.",
-    features: ["Next.js Sites", "Web Applications", "Dashboards", "E-commerce"],
+      "Not the kind your nephew made in 2012. Real websites that load fast, look incredible, and convince people to give you money. Revolutionary concept, we know.",
+    features: ["Next.js Sites", "Web Apps", "Dashboards", "Money-Making Machines"],
     color: "cyan",
     href: "/services#apps",
   },
   {
     id: "content",
     icon: Megaphone,
-    title: "Social & Content",
+    title: "Marketing That Doesn't Suck",
     description:
-      "Content creation, social media management, marketing that doesn't make people cringe.",
-    features: ["Content Strategy", "Social Media", "Copywriting", "Email Marketing"],
+      "Social media, content, emails that people actually open. No corporate buzzwords, no stock photos of people high-fiving. Just stuff that works.",
+    features: ["Content Strategy", "Social Media", "Copywriting", "Zero High-Fives"],
     color: "pink",
     href: "/services#content",
   },
@@ -52,7 +52,7 @@ export function Services() {
       <div className="absolute inset-0 bg-dots opacity-30" />
       
       <div className="relative z-10 max-w-5xl mx-auto px-6">
-        {/* Section Header - Simple */}
+        {/* Section Header - Wacky */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -60,10 +60,10 @@ export function Services() {
           className="text-center mb-16"
         >
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
-            What we <span className="text-gradient">build</span>
+            Things We're <span className="text-gradient">Weirdly Good At</span>
           </h2>
           <p className="text-slate text-lg max-w-xl mx-auto">
-            Three things we're actually good at.
+            Honestly, we surprised ourselves too.
           </p>
         </motion.div>
 
@@ -119,14 +119,14 @@ export function Services() {
           ))}
         </div>
 
-        {/* Education note - demoted to small mention */}
+        {/* Education note - wacky mention */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ delay: 0.8 }}
           className="text-center text-slate mt-12 text-sm"
         >
-          We also teach what we know →{" "}
+          Want to learn how we do this? We spill all our secrets →{" "}
           <a 
             href="https://courses.wearewacky.com" 
             target="_blank" 

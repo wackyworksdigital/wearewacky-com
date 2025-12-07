@@ -23,7 +23,7 @@ export function TechStack() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <p className="text-slate text-sm mb-4">Built with the same stack as Netflix, TikTok, and Vercel</p>
+          <p className="text-slate text-sm mb-4">Built with the same fancy tools as Netflix and TikTok. Yes, really. No, we're not joking.</p>
           <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             {technologies.map((tech, index) => (
               <motion.span

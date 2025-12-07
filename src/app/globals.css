@@ -11,6 +11,13 @@
   --wacky-purple: #8B5CF6;
   --wacky-pink: #EC4899;
   
+  /* NEW: Dark/Light Grey System (no pure black/white) */
+  --wacky-dark: #1a1a1a;
+  --wacky-dark-grey: #2a2a2a;
+  --wacky-mid-grey: #4a4a4a;
+  --wacky-light-grey: #e8e8e8;
+  --wacky-off-white: #f5f5f5;
+  
   /* Warm Neutrals (NO pure white/black) */
   --wacky-cream: #FAF8F5;
   --wacky-warm-white: #FFFDF9;
@@ -38,6 +45,13 @@
   --color-charcoal: #2D3748;
   --color-slate: #64748B;
   
+  /* NEW: Dark/Light Grey System */
+  --color-dark: #1a1a1a;
+  --color-dark-grey: #2a2a2a;
+  --color-mid-grey: #4a4a4a;
+  --color-light-grey: #e8e8e8;
+  --color-off-white: #f5f5f5;
+  
   --color-purple: #8B5CF6;
   --color-purple-light: #A78BFA;
   --color-purple-dark: #7C3AED;
@@ -50,6 +64,8 @@
   /* Fonts */
   --font-sans: var(--font-plus-jakarta), system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
+  --font-serif: var(--font-playfair), Georgia, serif;
+  --font-space: var(--font-space), system-ui, sans-serif;
 }
 
 /* ============================================
@@ -312,4 +328,11 @@ html.lenis, html.lenis body {
 .animate-gradient {
   background-size: 200% 200%;
   animation: gradient-shift 4s ease infinite;
+}
+
+/* Spin animation for logo click */
+@keyframes spin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
 }

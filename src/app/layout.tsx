@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Geist_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Geist_Mono, Cormorant_Garamond, Space_Grotesk } from "next/font/google";
 import { LenisProvider } from "@/components/providers/lenis-provider";
-import { Navigation } from "@/components/layout/navigation";
 import "./globals.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -13,6 +12,21 @@ const plusJakarta = Plus_Jakarta_Sans({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+// Unusual serif font for menu items - elegant but quirky
+const cormorant = Cormorant_Garamond({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+});
+
+// Different sans for services ticker
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space",
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -60,10 +74,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${plusJakarta.variable} ${geistMono.variable} antialiased bg-cream text-charcoal`}
+        className={`${plusJakarta.variable} ${geistMono.variable} ${cormorant.variable} ${spaceGrotesk.variable} antialiased`}
       >
         <LenisProvider>
-          <Navigation />
           {children}
         </LenisProvider>
       </body>

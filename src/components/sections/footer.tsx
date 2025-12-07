@@ -6,19 +6,19 @@ import { Github, Twitter, Linkedin, Mail, MessageCircle } from "lucide-react";
 
 const links = {
   products: [
-    { name: "AI Course", href: "https://courses.wearewacky.com" },
-    { name: "Automation", href: "/services#automation" },
-    { name: "Web Development", href: "/services#apps" },
+    { name: "Learn Our Secrets", href: "https://courses.wearewacky.com" },
+    { name: "Robot Training", href: "/services#automation" },
+    { name: "Website Wizardry", href: "/services#apps" },
   ],
   resources: [
-    { name: "GitHub", href: "https://github.com/wackyworksdigital" },
-    { name: "Support", href: "/contact" },
+    { name: "Our Code (Yes, Really)", href: "https://github.com/wackyworksdigital" },
+    { name: "Yell At Us", href: "/contact" },
   ],
   company: [
-    { name: "About", href: "/about" },
-    { name: "Services", href: "/services" },
-    { name: "Portfolio", href: "/portfolio" },
-    { name: "Contact", href: "/contact" },
+    { name: "Who Are We?", href: "/about" },
+    { name: "What We Do", href: "/services" },
+    { name: "Proof We're Good", href: "/portfolio" },
+    { name: "Summon Us", href: "/contact" },
   ],
 };
 
@@ -56,8 +56,8 @@ export function Footer() {
               />
             </motion.a>
             <p className="text-white/60 mb-6 max-w-sm">
-              Remote-first automation studio. We build AI systems, 
-              apps, and automations that work while you sleep.
+              A small team of humans (and one dog) who build digital things 
+              that actually work. Based nowhere and everywhere. Probably caffeinated.
             </p>
             <div className="flex gap-3">
               {socials.map((social) => (
@@ -77,7 +77,7 @@ export function Footer() {
 
           {/* Links */}
           <div>
-            <h4 className="font-semibold mb-4 text-white">Products</h4>
+            <h4 className="font-semibold mb-4 text-white">Cool Stuff</h4>
             <ul className="space-y-3">
               {links.products.map((link) => (
                 <li key={link.name}>
@@ -95,7 +95,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4 text-white">Resources</h4>
+            <h4 className="font-semibold mb-4 text-white">Useful Links</h4>
             <ul className="space-y-3">
               {links.resources.map((link) => (
                 <li key={link.name}>
@@ -113,7 +113,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4 text-white">Company</h4>
+            <h4 className="font-semibold mb-4 text-white">The Boring Stuff</h4>
             <ul className="space-y-3">
               {links.company.map((link) => (
                 <li key={link.name}>
@@ -132,7 +132,7 @@ export function Footer() {
         {/* Bottom */}
         <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-white/40 text-sm">
-            © {new Date().getFullYear()} Wacky Works Digital. All rights reserved.
+            © {new Date().getFullYear()} Wacky Works Digital. Made with questionable amounts of coffee.
           </p>
           <div className="flex gap-6 text-sm text-white/40">
             <a href="#" className="hover:text-white transition-colors">
