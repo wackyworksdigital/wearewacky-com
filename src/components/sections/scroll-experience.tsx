@@ -542,6 +542,7 @@ export function ScrollExperience() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
+  const [skipIntro, setSkipIntro] = useState(false);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -605,6 +606,68 @@ export function ScrollExperience() {
   useEffect(() => {
     return smoothProgress.on("change", (v) => setScrollProgress(v));
   }, [smoothProgress]);
+
+  // If coming back from another page (e.g., About) and user clicked "home",
+  // show end state immediately (no intro animation).
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const skip = sessionStorage.getItem("skipHomeIntro");
+    if (skip === "true") {
+      sessionStorage.removeItem("skipHomeIntro");
+      setSkipIntro(true);
+    }
+  }, []);
+
+  if (skipIntro) {
+    // Render simplified end state (menu + brand + logo)
+    return (
+      <div className="relative" style={{ height: "100vh" }}>
+        <motion.div
+          className="fixed inset-0 overflow-hidden"
+          style={{ backgroundColor: "#f5ebe0" }}
+        >
+          <div 
+            className="absolute inset-0 pointer-events-none z-[100] mix-blend-overlay"
+            style={{
+              opacity: 0.15,
+              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+            }}
+          />
+          <div 
+            className="absolute inset-0 pointer-events-none z-[99]"
+            style={{
+              background: "radial-gradient(ellipse at center, transparent 0%, transparent 50%, rgba(0,0,0,0.08) 100%)",
+            }}
+          />
+
+          <MenuNav 
+            menuOpacity={1} 
+            menuY={0} 
+            textColor={"#3d3428"} 
+            menuItems={menuItems} 
+          />
+
+          <motion.div
+            className="fixed bottom-8 right-8 z-50"
+            style={{ opacity: 1 }}
+          >
+            <motion.p
+              className="text-xs md:text-sm font-mono tracking-widest uppercase"
+              style={{ color: "#3d3428" }}
+            >
+              Wacky Works Digital
+            </motion.p>
+          </motion.div>
+
+          <FloatingLogo 
+            opacity={1} 
+            mouseX={mousePos.x} 
+            mouseY={mousePos.y} 
+          />
+        </motion.div>
+      </div>
+    );
+  }
 
   // If coming back from another page (e.g., About) and user clicked "home",
   // skip the intro and jump to the end state.

@@ -23,7 +23,7 @@ const menuItems = [
 
 const LOGO_COLORS = {
   cyan: "#00D2D3",
-  purple: "#A855F7",
+  purple: "#B07C4F", // warm accent for active/hover
   pink: "#EC4899",
 };
 
@@ -60,8 +60,8 @@ function MenuNav({ textColor }: { textColor: string }) {
               style={{ color: textColor }}
               animate={{
                 y: pushY,
-                scale: isOtherHovered ? 0.92 : 1,
-                opacity: isOtherHovered ? 0.5 : 1,
+                scale: isHovered ? 1.12 : isOtherHovered ? 0.94 : 1,
+                opacity: isOtherHovered ? 0.6 : 1,
               }}
               transition={{ type: "spring", stiffness: 300, damping: 20, mass: 0.8 }}
             >
@@ -78,9 +78,9 @@ function MenuNav({ textColor }: { textColor: string }) {
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
                 animate={{
-                  scale: isHovered ? 1.25 : 1,
-                  x: isHovered ? 16 : isActive ? 8 : 0,
-                  color: isHovered ? LOGO_COLORS.purple : isActive ? LOGO_COLORS.purple : textColor,
+                  scale: isHovered ? 1.12 : 1,
+                  x: isHovered ? 10 : isActive ? 6 : 0,
+                  y: isHovered ? -4 : 0,
                 }}
                 transition={{ type: "spring", stiffness: 200, damping: 15, mass: 0.6 }}
               >
@@ -166,18 +166,6 @@ export function AboutHero() {
 
         <MenuNav textColor={COLORS.text} />
 
-        {/* Brand */}
-        <motion.div
-          className="fixed bottom-8 right-8 z-50"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-        >
-          <p className="text-xs md:text-sm font-mono tracking-widest uppercase" style={{ color: COLORS.text }}>
-            Wacky Works Digital
-          </p>
-        </motion.div>
-
         {/* Container for Video AND Text - Anchored Bottom Right */}
         <motion.div
           className="fixed bottom-0 right-0 z-10 origin-bottom-right"
@@ -201,7 +189,7 @@ export function AboutHero() {
               muted
               playsInline
               style={{
-                filter: "drop-shadow(0 18px 32px rgba(0,0,0,0.35))",
+                filter: "drop-shadow(0 22px 44px rgba(0,0,0,0.4))",
               }}
             />
 
@@ -242,7 +230,7 @@ export function AboutHero() {
                   <h2
                     className={`${className} text-center px-4`}
                     style={{
-                      color: "#FFFFFF",
+                      color: "#F7F4ED",
                       textShadow: "0 6px 24px rgba(0,0,0,0.55), 0 3px 8px rgba(0,0,0,0.35)",
                       fontFamily: "var(--font-space), Impact, sans-serif",
                     }}
