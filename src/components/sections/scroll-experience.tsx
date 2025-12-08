@@ -15,7 +15,7 @@ if (typeof window !== "undefined") {
 // Services - these are what "we build"
 // AI, RAG = acronyms (capitalized)
 // Singular because "we build AI" not "we build AIs"
-const services = [
+const baseServices = [
   "AI",
   "automations",
   "websites",
@@ -37,24 +37,10 @@ const services = [
   "APIs",
   "databases",
   "chickencoops",
-  "AI",
-  "automations",
-  "websites",
-  "apps",
-  "socials",
-  "videos",
-  "podcasts",
-  "AI agents",
-  "RAG",
-  "workflows",
-  "cloud apps",
-  "AI",
-  "automations",
-  "websites",
-  "apps",
-  "socials",
-  "videos",
 ];
+
+// Repeat services enough times to fill any screen width during scroll
+const services = [...baseServices, ...baseServices, ...baseServices, ...baseServices, ...baseServices, ...baseServices];
 
 const menuItems = [
   { name: "home", href: "/" },
@@ -599,9 +585,9 @@ export function ScrollExperience() {
   const logoScale = useTransform(smoothProgress, [0, 0.4], [1.5, 0.55]);
   
   // TIMING SEQUENCE:
-  // 1. Services ticker - stays MUCH LONGER
+  // 1. Services ticker - stays MUCH LONGER, scrolls further for wide screens
   const tickerOpacity = useTransform(smoothProgress, [0.08, 0.15, 0.6, 0.68], [0, 1, 1, 0]);
-  const tickerX = useTransform(smoothProgress, [0.08, 0.68], ["0%", "-250%"]);
+  const tickerX = useTransform(smoothProgress, [0.08, 0.68], ["0%", "-400%"]); // More scroll distance for 6x words
 
   // 2. Menu items - start sliding up as ticker fades, transparent to visible
   const menuOpacity = useTransform(smoothProgress, [0.62, 0.75], [0, 1]);
