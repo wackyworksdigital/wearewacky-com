@@ -606,6 +606,20 @@ export function ScrollExperience() {
     return smoothProgress.on("change", (v) => setScrollProgress(v));
   }, [smoothProgress]);
 
+  // If coming back from another page (e.g., About) and user clicked "home",
+  // skip the intro and jump to the end state.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const skipIntro = sessionStorage.getItem("skipHomeIntro");
+    if (skipIntro === "true") {
+      sessionStorage.removeItem("skipHomeIntro");
+      requestAnimationFrame(() => {
+        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        window.scrollTo({ top: maxScroll, behavior: "instant" as ScrollBehavior });
+      });
+    }
+  }, []);
+
   // GSAP ScrollTrigger for additional effects
   useEffect(() => {
     const ctx = gsap.context(() => {

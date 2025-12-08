@@ -1,25 +1,16 @@
 import { Metadata } from "next";
-import { PageHeader } from "@/components/layout/page-header";
-import { AboutContent } from "@/components/sections/about-content";
-import { Footer } from "@/components/sections/footer";
+import { AboutHero } from "@/components/sections/about-hero";
 
 export const metadata: Metadata = {
   title: "About | Wacky Works Digital",
-  description: "Our story: From WordPress agency to Custom Automation & SaaS Studio. Learn about our philosophy, values, and the team behind Wacky Works Digital.",
+  description: "Meet our totally real team. Not AI generated at all. We promise.",
 };
 
 export default function AboutPage() {
   return (
-    <main className="relative noise">
-      <PageHeader
-        badge="Our Story"
-        title="From WordPress to"
-        highlight="Revenue Engines"
-        description="We started as a standard web design agency. Then we discovered what businesses really need: systems that generate revenue on autopilot."
-      />
-      <AboutContent />
-      <Footer />
+    <main className="relative">
+      {/* Just the video + stacking text joke - nothing else */}
+      <AboutHero />
     </main>
   );
 }
-
