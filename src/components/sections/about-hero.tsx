@@ -77,11 +77,6 @@ function MenuNav({ textColor }: { textColor: string }) {
                 }}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                onClick={() => {
-                  if (typeof window !== "undefined" && item.href === "/") {
-                    sessionStorage.setItem("skipHomeIntro", "true");
-                  }
-                }}
                 animate={{
                   scale: isHovered ? 1.25 : 1,
                   x: isHovered ? 16 : isActive ? 8 : 0,
@@ -109,7 +104,7 @@ export function AboutHero() {
     offset: ["start start", "end end"],
   });
 
-  // Smooth spring for scroll progress - works perfectly with Lenis
+  // Smooth spring for scroll progress
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -142,7 +137,6 @@ export function AboutHero() {
           className: "text-5xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight",
         };
       default:
-        // All other lines share the same style: bold, lowercase (handled in text string)
         return {
           className: "text-2xl md:text-4xl lg:text-5xl font-bold",
         };
@@ -172,33 +166,52 @@ export function AboutHero() {
 
         <MenuNav textColor={COLORS.text} />
 
-        {/* Video + Text grouped so text stays centered relative to the video */}
+        {/* Brand */}
         <motion.div
-          className="fixed top-0 right-0 bottom-0 z-10 flex items-end justify-end pointer-events-none"
+          className="fixed bottom-8 right-8 z-50"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
+          <p className="text-xs md:text-sm font-mono tracking-widest uppercase" style={{ color: COLORS.text }}>
+            Wacky Works Digital
+          </p>
+        </motion.div>
+
+        {/* Container for Video AND Text - Anchored Bottom Right */}
+        <motion.div
+          className="fixed bottom-0 right-0 z-10 origin-bottom-right"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
+          style={{
+            height: "100vh",
+            aspectRatio: "16/9", // Force container to match video ratio
+            marginRight: "-5vw", // Push right
+          }}
         >
-          <div className="relative pointer-events-none flex items-end justify-end">
+          {/* Relative wrapper to contain both video and text */}
+          <div className="relative w-full h-full flex items-end">
             <video
               ref={videoRef}
-              className="h-[100vh] w-auto object-contain max-w-none pointer-events-auto"
+              className="w-full h-full object-contain pointer-events-auto"
               src="/our-agency-guys.webm"
               autoPlay
               loop
               muted
               playsInline
               style={{
-                marginRight: "-5vw", // shift video right
-                marginBottom: "0",
                 filter: "drop-shadow(0 18px 32px rgba(0,0,0,0.35))",
               }}
             />
 
-            {/* Rotating Text - centered over the video */}
-            <div
+            {/* Text - Centered ABSOLUTELY within this 16:9 container */}
+            <div 
               className="absolute inset-0 flex items-center justify-center pointer-events-none"
-              style={{ perspective: "1000px", top: "65%", transform: "translateY(-50%)" }}
+              style={{ 
+                top: "15%", // Push down to chest level
+                perspective: "1000px" 
+              }}
             >
               <AnimatePresence mode="wait">
                 <motion.div
