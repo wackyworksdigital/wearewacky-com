@@ -73,6 +73,7 @@ function MenuNav({ textColor }: { textColor: string }) {
                   fontWeight: 500, 
                   letterSpacing: "-0.02em",
                   color: isActive ? LOGO_COLORS.purple : textColor,
+                  textShadow: "0 2px 6px rgba(0,0,0,0.25)",
                 }}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
@@ -178,7 +179,7 @@ export function AboutHero() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <div className="relative h-full w-[75vw] max-w-[1200px] min-w-[720px] flex items-end justify-end pointer-events-none">
+          <div className="relative pointer-events-none flex items-end justify-end">
             <video
               ref={videoRef}
               className="h-[100vh] w-auto object-contain max-w-none pointer-events-auto"
@@ -188,13 +189,17 @@ export function AboutHero() {
               muted
               playsInline
               style={{
-                marginRight: "-5vw", // Push closer to edge
+                marginRight: "-5vw", // shift video right
                 marginBottom: "0",
+                filter: "drop-shadow(0 18px 32px rgba(0,0,0,0.35))",
               }}
             />
 
             {/* Rotating Text - centered over the video */}
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{ perspective: "1000px" }}>
+            <div
+              className="absolute inset-0 flex items-center justify-center pointer-events-none"
+              style={{ perspective: "1000px", top: "65%", transform: "translateY(-50%)" }}
+            >
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentLine}
@@ -225,7 +230,7 @@ export function AboutHero() {
                     className={`${className} text-center px-4`}
                     style={{
                       color: "#FFFFFF",
-                      textShadow: "0 4px 20px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.3)",
+                      textShadow: "0 6px 24px rgba(0,0,0,0.55), 0 3px 8px rgba(0,0,0,0.35)",
                       fontFamily: "var(--font-space), Impact, sans-serif",
                     }}
                   >
