@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Geist_Mono, Cormorant_Garamond, Space_Grotesk } from "next/font/google";
+import { Plus_Jakarta_Sans, Geist_Mono, Cormorant_Garamond, Space_Grotesk, Playfair_Display } from "next/font/google";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 import "./globals.css";
 
@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// Unusual serif font for menu items - elegant but quirky
+// Unusual serif font - elegant but quirky
 const cormorant = Cormorant_Garamond({
   variable: "--font-serif",
   subsets: ["latin"],
@@ -27,6 +27,14 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-space",
   subsets: ["latin"],
   weight: ["300", "400", "500"],
+});
+
+// Stylish, trendy serif for menu items
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -74,7 +82,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${plusJakarta.variable} ${geistMono.variable} ${cormorant.variable} ${spaceGrotesk.variable} antialiased`}
+        className={`${plusJakarta.variable} ${geistMono.variable} ${cormorant.variable} ${spaceGrotesk.variable} ${playfair.variable} antialiased`}
       >
         <LenisProvider>
           {children}

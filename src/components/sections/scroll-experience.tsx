@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -11,46 +12,48 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+// Services - these are what "we build"
+// AI, RAG = acronyms (capitalized)
+// Singular because "we build AI" not "we build AIs"
 const services = [
-  "ai",
-  "automation",
-  "web",
-  "app",
+  "AI",
+  "automations",
+  "websites",
+  "apps",
   "socials",
-  "video",
-  "podcast",
-  "design",
-  "strategy",
-  "agents",
-  "rag",
+  "videos",
+  "podcasts",
+  "designs",
+  "strategies",
+  "AI agents",
+  "RAG",
   "workflows",
-  "cloud",
-  "self-hosted",
+  "cloud apps",
+  "self-hosted tools",
   "dashboards",
   "integrations",
   "chatbots",
-  "scraping",
-  "apis",
+  "scrapers",
+  "APIs",
   "databases",
-  "chickencoop",
-  "ai",
-  "automation",
-  "web",
-  "app",
+  "chickencoops",
+  "AI",
+  "automations",
+  "websites",
+  "apps",
   "socials",
-  "video",
-  "podcast",
-  "agents",
-  "rag",
+  "videos",
+  "podcasts",
+  "AI agents",
+  "RAG",
   "workflows",
-  "cloud",
-  "self-hosted",
-  "ai",
-  "automation",
-  "web",
-  "app",
+  "cloud apps",
+  "AI",
+  "automations",
+  "websites",
+  "apps",
   "socials",
-  "video",
+  "videos",
 ];
 
 const menuItems = [
@@ -62,12 +65,13 @@ const menuItems = [
 ];
 
 // Animated Dot Component - color shifting with mouse interaction
+// Size matches the dot on "i" (smaller)
 function AnimatedDot({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
   // Calculate hue based on mouse position (0-360)
   const hue = (mouseX * 180 + mouseY * 180) % 360;
   
   return (
-    <span className="relative inline-block w-[0.25em] h-[0.25em] ml-1">
+    <span className="relative inline-block w-[0.14em] h-[0.14em] ml-[0.05em] mb-[0.05em]">
       {/* Main dot - color shifts based on mouse */}
       <motion.span
         className="absolute inset-0 rounded-full"
@@ -88,13 +92,13 @@ function AnimatedDot({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
       />
       {/* Subtle glow */}
       <motion.span
-        className="absolute inset-[-30%] rounded-full pointer-events-none"
+        className="absolute inset-[-40%] rounded-full pointer-events-none"
         style={{
-          background: `radial-gradient(circle, hsla(${hue}, 80%, 60%, 0.3) 0%, transparent 70%)`,
+          background: `radial-gradient(circle, hsla(${hue}, 80%, 60%, 0.4) 0%, transparent 70%)`,
         }}
         animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.4, 0.6, 0.4],
+          scale: [1, 1.4, 1],
+          opacity: [0.3, 0.5, 0.3],
         }}
         transition={{
           duration: 3,
@@ -103,6 +107,387 @@ function AnimatedDot({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
         }}
       />
     </span>
+  );
+}
+
+// Logo colors from the actual WW logo gradient
+const LOGO_COLORS = {
+  cyan: "#00D2D3",    // Left side of logo
+  purple: "#A855F7",  // Middle of logo  
+  pink: "#EC4899",    // Right side of logo
+};
+
+// Menu Navigation with fluid hover animations
+function MenuNav({ 
+  menuOpacity, 
+  menuY, 
+  textColor, 
+  menuItems 
+}: { 
+  menuOpacity: any; 
+  menuY: any; 
+  textColor: any; 
+  menuItems: { name: string; href: string }[] 
+}) {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  
+  return (
+    <motion.nav
+      className="fixed top-8 left-8 md:top-10 md:left-10 z-30"
+      style={{ opacity: menuOpacity, y: menuY }}
+    >
+      <ul className="space-y-1">
+        {menuItems.map((item, index) => {
+          const isHovered = hoveredIndex === index;
+          const isOtherHovered = hoveredIndex !== null && hoveredIndex !== index;
+          
+          // Calculate push direction: items above hovered go up, below go down
+          let pushY = 0;
+          if (isOtherHovered && hoveredIndex !== null) {
+            const distance = index - hoveredIndex;
+            pushY = distance < 0 ? -8 : 8; // Push away from hovered item
+          }
+          
+          return (
+            <motion.li
+              key={item.name}
+              style={{ color: textColor }}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              animate={{
+                y: pushY,
+                scale: isOtherHovered ? 0.92 : 1,
+                opacity: isOtherHovered ? 0.5 : 1,
+              }}
+              transition={{ 
+                type: "spring", 
+                stiffness: 300, 
+                damping: 20,
+                mass: 0.8,
+              }}
+            >
+              <motion.a
+                href={item.href}
+                className="text-xl md:text-2xl lg:text-3xl lowercase inline-block leading-tight origin-left"
+                style={{ fontFamily: "var(--font-playfair), Georgia, serif", fontWeight: 500, letterSpacing: "-0.02em" }}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                animate={{
+                  scale: isHovered ? 1.25 : 1,
+                  x: isHovered ? 16 : 0,
+                  color: isHovered ? LOGO_COLORS.purple : undefined,
+                }}
+                transition={{ 
+                  type: "spring", 
+                  stiffness: 200, 
+                  damping: 15,
+                  mass: 0.6,
+                }}
+              >
+                {item.name}
+              </motion.a>
+            </motion.li>
+          );
+        })}
+      </ul>
+    </motion.nav>
+  );
+}
+
+// Floating Logo - SECRET MINI GAME!
+// Logo runs away, player tries to click it
+// Pixel-based hit detection - click on color = hit, click on transparent = miss
+function FloatingLogo({ 
+  opacity, 
+  mouseX, 
+  mouseY 
+}: { 
+  opacity: any; 
+  mouseX: number; 
+  mouseY: number;
+}) {
+  // Start at right edge of circle
+  const [position, setPosition] = useState({ x: 100, y: 0 });
+  const [animation, setAnimation] = useState<'idle' | 'spin' | 'wiggle'>('idle');
+  const [playerScore, setPlayerScore] = useState(0);
+  const [wackyScore, setWackyScore] = useState(0);
+  const [gameStarted, setGameStarted] = useState(false);
+  const [winner, setWinner] = useState<'player' | 'wacky' | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<HTMLDivElement>(null);
+  
+  // CIRCULAR bounds - bigger playing field, centered
+  const boundRadius = 120;
+  
+  // Simple hit detection - click within a generous radius of logo center
+  const isClickOnLogo = (clickX: number, clickY: number, logoRect: DOMRect): boolean => {
+    // Get logo center
+    const logoCenterX = logoRect.left + logoRect.width / 2;
+    const logoCenterY = logoRect.top + logoRect.height / 2;
+    
+    // Distance from click to logo center
+    const distX = clickX - logoCenterX;
+    const distY = clickY - logoCenterY;
+    const distance = Math.sqrt(distX * distX + distY * distY);
+    
+    // Generous hit radius - half the logo width (easy to hit!)
+    const hitRadius = logoRect.width * 0.5;
+    
+    return distance < hitRadius;
+  };
+  
+  // Sound effects
+  const playSound = (type: 'hit' | 'miss' | 'win' | 'lose') => {
+    if (typeof window === 'undefined') return;
+    
+    try {
+      const ctx = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const oscillator = ctx.createOscillator();
+      const gain = ctx.createGain();
+      
+      oscillator.connect(gain);
+      gain.connect(ctx.destination);
+      
+      switch(type) {
+        case 'hit':
+          oscillator.frequency.setValueAtTime(400, ctx.currentTime);
+          oscillator.frequency.linearRampToValueAtTime(800, ctx.currentTime + 0.1);
+          gain.gain.setValueAtTime(0.2, ctx.currentTime);
+          gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.15);
+          break;
+        case 'miss':
+          oscillator.frequency.setValueAtTime(300, ctx.currentTime);
+          oscillator.frequency.linearRampToValueAtTime(150, ctx.currentTime + 0.15);
+          gain.gain.setValueAtTime(0.15, ctx.currentTime);
+          gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.2);
+          break;
+        case 'win':
+          // Longer fanfare: ta-ta-ra-ta-ta-RAAAA!
+          oscillator.frequency.setValueAtTime(392, ctx.currentTime);        // G4
+          oscillator.frequency.setValueAtTime(392, ctx.currentTime + 0.1);  // G4
+          oscillator.frequency.setValueAtTime(523, ctx.currentTime + 0.2);  // C5
+          oscillator.frequency.setValueAtTime(523, ctx.currentTime + 0.3);  // C5
+          oscillator.frequency.setValueAtTime(659, ctx.currentTime + 0.4);  // E5
+          oscillator.frequency.setValueAtTime(784, ctx.currentTime + 0.5);  // G5 (hold)
+          gain.gain.setValueAtTime(0.2, ctx.currentTime);
+          gain.gain.setValueAtTime(0.25, ctx.currentTime + 0.5);
+          gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.9);
+          break;
+        case 'lose':
+          oscillator.frequency.setValueAtTime(250, ctx.currentTime);
+          oscillator.frequency.linearRampToValueAtTime(100, ctx.currentTime + 0.3);
+          gain.gain.setValueAtTime(0.2, ctx.currentTime);
+          gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.4);
+          break;
+      }
+      
+      oscillator.start(ctx.currentTime);
+      oscillator.stop(ctx.currentTime + 1.0);
+    } catch (e) {
+      // Audio context not available
+    }
+  };
+  
+  useEffect(() => {
+    if (!containerRef.current || winner) return;
+    
+    const rect = containerRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    const cursorX = mouseX * window.innerWidth;
+    const cursorY = mouseY * window.innerHeight;
+    
+    const distX = cursorX - centerX - position.x;
+    const distY = cursorY - centerY - position.y;
+    const distance = Math.sqrt(distX * distX + distY * distY);
+    
+    // React from further away (400px) and more sensitively
+    if (distance < 300 && distance > 0) {
+      // React when closer, move slower - give users a fighting chance!
+      const strength = Math.pow((300 - distance) / 300, 0.7);
+      const speed = 0.5; // Much slower - catchable!
+      let moveX = position.x - (distX / distance) * boundRadius * strength * speed;
+      let moveY = position.y - (distY / distance) * boundRadius * strength * speed;
+      
+      // CIRCULAR bounds - clamp to circle, not rectangle!
+      const moveDistance = Math.sqrt(moveX * moveX + moveY * moveY);
+      if (moveDistance > boundRadius) {
+        const scale = boundRadius / moveDistance;
+        moveX *= scale;
+        moveY *= scale;
+      }
+      
+      setPosition({ x: moveX, y: moveY });
+    } else {
+      // Slowly drift back toward starting position (right edge)
+      setPosition(prev => ({
+        x: prev.x + (100 - prev.x) * 0.02,
+        y: prev.y * 0.95,
+      }));
+    }
+  }, [mouseX, mouseY, winner]);
+
+  // Check for winner - fanfare plays for ANY winner!
+  useEffect(() => {
+    if (playerScore >= 5 && !winner) {
+      setWinner('player');
+      playSound('win');
+    } else if (wackyScore >= 5 && !winner) {
+      setWinner('wacky');
+      playSound('win'); // Fanfare for wacky too!
+    }
+  }, [playerScore, wackyScore, winner]);
+
+  // Handle click - check if within logo radius
+  const handleClick = (e: React.MouseEvent) => {
+    if (winner) return;
+    
+    setGameStarted(true);
+    
+    // Get logo element bounds
+    const logoEl = logoRef.current?.querySelector('img');
+    if (!logoEl) {
+      setWackyScore(prev => prev + 1);
+      setAnimation('wiggle');
+      playSound('miss');
+      setTimeout(() => setAnimation('idle'), 400);
+      return;
+    }
+    
+    const logoRect = logoEl.getBoundingClientRect();
+    const isHit = isClickOnLogo(e.clientX, e.clientY, logoRect);
+    
+    if (isHit) {
+      // HIT!
+      setPlayerScore(prev => prev + 1);
+      setAnimation('spin');
+      playSound('hit');
+      setTimeout(() => setAnimation('idle'), 600);
+    } else {
+      // MISS!
+      setWackyScore(prev => prev + 1);
+      setAnimation('wiggle');
+      playSound('miss');
+      setTimeout(() => setAnimation('idle'), 400);
+    }
+  };
+
+  // Reset game - keep scoreboard visible
+  const resetGame = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setPlayerScore(0);
+    setWackyScore(0);
+    setWinner(null);
+    // gameStarted stays true so scoreboard remains visible
+  };
+
+  // Handle click when there's a winner - reset game
+  const handleWinnerClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (winner) {
+      setPlayerScore(0);
+      setWackyScore(0);
+      setWinner(null);
+    }
+  };
+
+  const scoreboard = gameStarted ? createPortal(
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="fixed top-[40px] right-[70px] z-[200]"
+    >
+      <div className="flex items-end gap-5 font-mono">
+        {/* Player score */}
+        <motion.div 
+          className="text-center"
+          animate={{
+            scale: winner === 'player' ? 1.4 : winner === 'wacky' ? 0.7 : 1,
+            opacity: winner === 'wacky' ? 0.4 : 1,
+          }}
+          transition={{ type: "spring", stiffness: 300, damping: 15 }}
+        >
+          <div className="text-[10px] uppercase tracking-widest mb-1" style={{ color: `${LOGO_COLORS.cyan}99` }}>
+            you
+          </div>
+          <div className="text-2xl tracking-wider" style={{ color: LOGO_COLORS.cyan }}>
+            {playerScore}
+          </div>
+        </motion.div>
+        
+        <div className="text-slate/30 text-sm mb-0.5 tracking-widest">
+          :
+        </div>
+        
+        {/* Wacky score */}
+        <motion.div 
+          className="text-center"
+          animate={{
+            scale: winner === 'wacky' ? 1.4 : winner === 'player' ? 0.7 : 1,
+            opacity: winner === 'player' ? 0.4 : 1,
+          }}
+          transition={{ type: "spring", stiffness: 300, damping: 15 }}
+        >
+          <div className="text-[10px] uppercase tracking-widest mb-1" style={{ color: `${LOGO_COLORS.pink}99` }}>
+            wacky
+          </div>
+          <div className="text-2xl tracking-wider" style={{ color: LOGO_COLORS.pink }}>
+            {wackyScore}
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>,
+    document.body
+  ) : null;
+
+  return (
+    <>
+      {scoreboard}
+      <motion.div
+        ref={containerRef}
+        className="fixed left-1/2 top-1/2 z-20 cursor-default"
+        style={{ 
+          opacity, 
+          transform: "translate(-50%, -50%)",
+          width: "400px",
+          height: "400px",
+        }}
+        onClick={winner ? handleWinnerClick : handleClick}
+      >
+        {/* The escaping logo */}
+        <motion.div
+          ref={logoRef}
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+          animate={{
+            x: position.x,
+            y: position.y,
+            rotate: animation === 'spin' ? 360 : animation === 'wiggle' ? [0, -10, 10, -10, 10, 0] : [0, 2, 0, -2, 0],
+            scale: animation === 'spin' ? [1, 1.15, 1] : animation === 'wiggle' ? [1, 1.05, 1] : 1,
+          }}
+          transition={animation !== 'idle' ? {
+            duration: animation === 'spin' ? 0.6 : 0.4,
+            ease: "easeOut",
+          } : {
+            x: { type: "spring", stiffness: 120, damping: 15 },
+            y: { type: "spring", stiffness: 120, damping: 15 },
+            rotate: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+          }}
+        >
+          <Image
+            src="/Wacky Works Digital transparent logo colour no text - 4096x4096.png"
+            alt="Wacky Works Digital Logo"
+            width={400}
+            height={240}
+            className="w-52 md:w-64 lg:w-72 h-auto"
+            style={{
+              filter: `drop-shadow(0 0 ${winner === 'player' ? '60px rgba(34,211,238,0.6)' : winner === 'wacky' ? '60px rgba(236,72,153,0.6)' : '40px rgba(139,92,246,0.5)'})`,
+            }}
+            draggable={false}
+          />
+        </motion.div>
+      </motion.div>
+    </>
   );
 }
 
@@ -196,36 +581,40 @@ export function ScrollExperience() {
     restDelta: 0.001,
   });
 
-  // Background color transition - warm dark to cool light, NO pure black/white
+  // Background color transition - clearly warm/beige, NOT grey
   const backgroundColor = useTransform(
     smoothProgress,
     [0, 0.3, 0.5],
-    ["#1c1c1e", "#1c1c1e", "#e8e6e3"]
+    ["#3d3428", "#3d3428", "#f5ebe0"]  // Warm chocolate to warm beige/tan
   );
 
-  // Text color transition (light grey to dark grey) - NO pure black/white
+  // Text color transition - warm tones matching background
   const textColor = useTransform(
     smoothProgress,
     [0, 0.3, 0.5],
-    ["#e8e6e3", "#e8e6e3", "#2a2826"]
+    ["#f5ebe0", "#f5ebe0", "#3d3428"]  // Warm beige to warm chocolate
   );
 
   // "we build." - starts big and centered, shrinks
-  const logoScale = useTransform(smoothProgress, [0, 0.35], [1.5, 0.55]);
+  const logoScale = useTransform(smoothProgress, [0, 0.4], [1.5, 0.55]);
   
-  // Services ticker - MUCH LONGER, cycles back to ai automation web app socials video
-  const tickerOpacity = useTransform(smoothProgress, [0.1, 0.18, 0.82, 0.9], [0, 1, 1, 0]);
-  const tickerX = useTransform(smoothProgress, [0.1, 0.9], ["0%", "-280%"]);
+  // TIMING SEQUENCE:
+  // 1. Services ticker - stays MUCH LONGER
+  const tickerOpacity = useTransform(smoothProgress, [0.08, 0.15, 0.6, 0.68], [0, 1, 1, 0]);
+  const tickerX = useTransform(smoothProgress, [0.08, 0.68], ["0%", "-250%"]);
 
-  // Menu items - floats up SLOWLY from bottom
-  const menuOpacity = useTransform(smoothProgress, [0.88, 0.98], [0, 1]);
-  const menuY = useTransform(smoothProgress, [0.88, 0.98], ["120px", "0px"]);
+  // 2. Menu items - start sliding up as ticker fades, transparent to visible
+  const menuOpacity = useTransform(smoothProgress, [0.62, 0.75], [0, 1]);
+  const menuY = useTransform(smoothProgress, [0.62, 0.78], ["150px", "0px"]);
 
-  // Logo text fade out - fades with ticker
-  const logoOpacity = useTransform(smoothProgress, [0.82, 0.92], [1, 0]);
+  // 3. Brand name "WACKY WORKS DIGITAL" - appears after menu lands
+  const brandOpacity = useTransform(smoothProgress, [0.74, 0.82], [0, 1]);
 
-  // Brand name appears with menu
-  const brandOpacity = useTransform(smoothProgress, [0.88, 0.98], [0, 1]);
+  // 4. "we build." fades out - AFTER menu is visible
+  const logoOpacity = useTransform(smoothProgress, [0.78, 0.88], [1, 0]);
+
+  // 5. WW Logo appears last - after "we build." is gone
+  const wwLogoOpacity = useTransform(smoothProgress, [0.86, 0.95], [0, 1]);
 
   useEffect(() => {
     return smoothProgress.on("change", (v) => setScrollProgress(v));
@@ -248,11 +637,19 @@ export function ScrollExperience() {
         className="fixed inset-0 overflow-hidden"
         style={{ backgroundColor }}
       >
-        {/* Noise texture overlay */}
+        {/* Noise/grain texture overlay - organic paper-like feel */}
         <div 
-          className="absolute inset-0 opacity-[0.035] pointer-events-none z-[100]"
+          className="absolute inset-0 pointer-events-none z-[100] mix-blend-overlay"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+            opacity: 0.15,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          }}
+        />
+        {/* Subtle vignette for depth */}
+        <div 
+          className="absolute inset-0 pointer-events-none z-[99]"
+          style={{
+            background: "radial-gradient(ellipse at center, transparent 0%, transparent 50%, rgba(0,0,0,0.08) 100%)",
           }}
         />
 
@@ -304,31 +701,13 @@ export function ScrollExperience() {
           </motion.div>
         </motion.div>
 
-        {/* Menu Items - Top Left, unusual SERIF font, floats up slowly */}
-        <motion.nav
-          className="fixed top-8 left-8 md:top-10 md:left-10 z-30"
-          style={{ opacity: menuOpacity, y: menuY }}
-        >
-          <ul className="space-y-0">
-            {menuItems.map((item, index) => (
-              <motion.li
-                key={item.name}
-                style={{ color: textColor }}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <a
-                  href={item.href}
-                  className="text-xl md:text-2xl lg:text-3xl font-light lowercase hover:opacity-60 transition-opacity inline-block italic leading-tight tracking-wide"
-                  style={{ fontFamily: "var(--font-serif), Georgia, serif" }}
-                >
-                  {item.name}
-                </a>
-              </motion.li>
-            ))}
-          </ul>
-        </motion.nav>
+        {/* Menu Items - Top Left, with fluid hover animations that push siblings */}
+        <MenuNav 
+          menuOpacity={menuOpacity} 
+          menuY={menuY} 
+          textColor={textColor} 
+          menuItems={menuItems} 
+        />
 
         {/* WACKY WORKS DIGITAL Brand - Bottom Right, skinny uppercase */}
         <motion.div
@@ -343,55 +722,12 @@ export function ScrollExperience() {
           </motion.p>
         </motion.div>
 
-        {/* Floating Logo - appears at the end */}
-        <motion.div
-          className="fixed right-12 md:right-24 top-1/2 -translate-y-1/2 z-20"
-          style={{ opacity: brandOpacity }}
-        >
-          <motion.div
-            className="relative cursor-pointer"
-            animate={{
-              y: [0, -15, 0],
-              rotate: [0, 2, 0, -2, 0],
-            }}
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            whileHover={{
-              scale: 1.1,
-              rotate: 10,
-              transition: { duration: 0.3 },
-            }}
-            whileTap={{
-              scale: 0.95,
-              rotate: -5,
-            }}
-            onClick={() => {
-              // Fun spin animation on click
-              const el = document.getElementById('floating-logo');
-              if (el) {
-                el.style.animation = 'spin 0.6s ease-out';
-                setTimeout(() => {
-                  el.style.animation = '';
-                }, 600);
-              }
-            }}
-          >
-            <Image
-              id="floating-logo"
-              src="/Wacky Works Digital transparent logo colour no text - 4096x4096.png"
-              alt="Wacky Works Digital Logo"
-              width={400}
-              height={240}
-              className="w-48 md:w-64 lg:w-80 h-auto"
-              style={{
-                filter: "drop-shadow(0 0 40px rgba(139, 92, 246, 0.5))",
-              }}
-            />
-          </motion.div>
-        </motion.div>
+        {/* Floating Logo - appears LAST after "we build." fades */}
+        <FloatingLogo 
+          opacity={wwLogoOpacity} 
+          mouseX={mousePos.x} 
+          mouseY={mousePos.y} 
+        />
       </motion.div>
     </div>
   );

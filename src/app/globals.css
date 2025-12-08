@@ -233,20 +233,20 @@ html.lenis, html.lenis body {
 
 /* Scrollbar - Light & Colorful */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--wacky-cream);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--wacky-cyan), var(--wacky-purple));
-  border-radius: 5px;
+  background: #3d3428; /* Warm chocolate brown */
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, var(--wacky-purple), var(--wacky-pink));
+  background: #A855F7; /* Logo purple on hover */
 }
 
 /* ============================================

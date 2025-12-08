@@ -1,0 +1,421 @@
+[33mcommit 83d108fdd0e134a71c42f7bfc39cd9bc076c6194[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: DaddySabz <saby75@gmail.com>
+Date:   Sun Dec 7 10:38:22 2025 +0000
+
+    feat: New scroll-based homepage with WW logo
+    
+    - Complete homepage redesign with scroll-driven animations
+    - Dark grey to light grey background transition
+    - 'we build.' shrinks as you scroll with color-shifting animated dot
+    - Services ticker scrolls horizontally (ai, automation, web, etc)
+    - Menu floats up from bottom with serif font (Cormorant Garamond)
+    - WW logo appears at end, floats and reacts to hover/click
+    - Added gradient blobs and noise texture for depth
+    - Multiple font families for visual variety
+    - No pure black/white colors
+
+[1mdiff --git a/src/components/sections/scroll-experience.tsx b/src/components/sections/scroll-experience.tsx[m
+[1mnew file mode 100644[m
+[1mindex 0000000..949321c[m
+[1m--- /dev/null[m
+[1m+++ b/src/components/sections/scroll-experience.tsx[m
+[36m@@ -0,0 +1,399 @@[m
+[32m+[m[32m"use client";[m
+[32m+[m
+[32m+[m[32mimport { useEffect, useRef, useState } from "react";[m
+[32m+[m[32mimport { motion, useScroll, useTransform, useSpring } from "framer-motion";[m
+[32m+[m[32mimport gsap from "gsap";[m
+[32m+[m[32mimport { ScrollTrigger } from "gsap/ScrollTrigger";[m
+[32m+[m[32mimport Image from "next/image";[m
+[32m+[m
+[32m+[m[32m// Register GSAP plugins[m
+[32m+[m[32mif (typeof window !== "undefined") {[m
+[32m+[m[32m  gsap.registerPlugin(ScrollTrigger);[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mconst services = [[m
+[32m+[m[32m  "ai",[m
+[32m+[m[32m  "automation",[m
+[32m+[m[32m  "web",[m
+[32m+[m[32m  "app",[m
+[32m+[m[32m  "socials",[m
+[32m+[m[32m  "video",[m
+[32m+[m[32m  "podcast",[m
+[32m+[m[32m  "design",[m
+[32m+[m[32m  "strategy",[m
+[32m+[m[32m  "agents",[m
+[32m+[m[32m  "rag",[m
+[32m+[m[32m  "workflows",[m
+[32m+[m[32m  "cloud",[m
+[32m+[m[32m  "self-hosted",[m
+[32m+[m[32m  "dashboards",[m
+[32m+[m[32m  "integrations",[m
+[32m+[m[32m  "chatbots",[m
+[32m+[m[32m  "scraping",[m
+[32m+[m[32m  "apis",[m
+[32m+[m[32m  "databases",[m
+[32m+[m[32m  "chickencoop",[m
+[32m+[m[32m  "ai",[m
+[32m+[m[32m  "automation",[m
+[32m+[m[32m  "web",[m
+[32m+[m[32m  "app",[m
+[32m+[m[32m  "socials",[m
+[32m+[m[32m  "video",[m
+[32m+[m[32m  "podcast",[m
+[32m+[m[32m  "agents",[m
+[32m+[m[32m  "rag",[m
+[32m+[m[32m  "workflows",[m
+[32m+[m[32m  "cloud",[m
+[32m+[m[32m  "self-hosted",[m
+[32m+[m[32m  "ai",[m
+[32m+[m[32m  "automation",[m
+[32m+[m[32m  "web",[m
+[32m+[m[32m  "app",[m
+[32m+[m[32m  "socials",[m
+[32m+[m[32m  "video",[m
+[32m+[m[32m];[m
+[32m+[m
+[32m+[m[32mconst menuItems = [[m
+[32m+[m[32m  { name: "home", href: "/" },[m
+[32m+[m[32m  { name: "about", href: "/about" },[m
+[32m+[m[32m  { name: "services", href: "/services" },[m
+[32m+[m[32m  { name: "portfolio", href: "/portfolio" },[m
+[32m+[m[32m  { name: "contact", href: "/contact" },[m
+[32m+[m[32m];[m
+[32m+[m
+[32m+[m[32m// Animated Dot Component - color shifting with mouse interaction[m
+[32m+[m[32mfunction AnimatedDot({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {[m
+[32m+[m[32m  // Calculate hue based on mouse position (0-360)[m
+[32m+[m[32m  const hue = (mouseX * 180 + mouseY * 180) % 360;[m
+[32m+[m[41m  [m
+[32m+[m[32m  return ([m
+[32m+[m[32m    <span className="relative inline-block w-[0.25em] h-[0.25em] ml-1">[m
+[32m+[m[32m      {/* Main dot - color shifts based on mouse */}[m
+[32m+[m[32m      <motion.span[m
+[32m+[m[32m        className="absolute inset-0 rounded-full"[m
+[32m+[m[32m        animate={{[m
+[32m+[m[32m          scale: [1, 1.1, 1],[m
+[32m+[m[32m        }}[m
+[32m+[m[32m        transition={{[m
+[32m+[m[32m          duration: 2,[m
+[32m+[m[32m          repeat: Infinity,[m
+[32m+[m[32m          ease: "easeInOut",[m
+[32m+[m[32m        }}[m
+[32m+[m[32m        style={{[m
+[32m+[m[32m          background: `linear-gradient(135deg,[m[41m [m
+[32m+[m[32m            hsl(${hue}, 80%, 60%) 0%,[m[41m [m
+[32m+[m[32m            hsl(${(hue + 60) % 360}, 70%, 55%) 50%,[m[41m [m
+[32m+[m[32m            hsl(${(hue + 120) % 360}, 75%, 50%) 100%)`,[m
+[32m+[m[32m        }}[m
+[32m+[m[32m      />[m
+[32m+[m[32m      {/* Subtle glow */}[m
+[32m+[m[32m      <motion.span[m
+[32m+[m[32m        className="absolute inset-[-30%] rounded-full pointer-events-none"[m
+[32m+[m[32m        style={{[m
+[32m+[m[32m          background: `radial-gradient(circle, hsla(${hue}, 80%, 60%, 0.3) 0%, transparent 70%)`,[m
+[32m+[m[32m        }}[m
+[32m+[m[32m        animate={{[m
+[32m+[m[32m          scale: [1, 1.3, 1],[m
+[32m+[m[32m          opacity: [0.4, 0.6, 0.4],[m
+[32m+[m[32m        }}[m
+[32m+[m[32m        transition={{[m
+[32m+[m[32m          duration: 3,[m
+[32m+[m[32m          repeat: Infinity,[m
+[32m+[m[32m          ease: "easeInOut",[m
+[32m+[m[32m        }}[m
+[32m+[m[32m      />[m
+[32m+[m[32m    </span>[m
+[32m+[m[32m  );[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m// Floating Gradient Blobs[m
+[32m+[m[32mfunction GradientBlobs({ progress }: { progress: number }) {[m
+[32m+[m[32m  return ([m
+[32m+[m[32m    <div className="absolute inset-0 overflow-hidden pointer-events-none">[m
+[32m+[m[32m      {/* Blob 1 - Cyan */}[m
+[32m+[m[32m      <motion.div[m
+[32m+[m[32m        className="absolute w-[40vw] h-[40vw] rounded-full blur-[100px] opacity-20"[m
+[32m+[m[32m        style={{[m
+[32m+[m[32m          background: "radial-gradient(circle, rgba(34,211,238,0.6) 0%, transparent 70%)",[m
+[32m+[m[32m          left: `${10 + progress * 30}%`,[m
+[32m+[m[32m          top: `${20 + Math.sin(progress * Math.PI) * 20}%`,[m
+[32m+[m[32m        }}[m
+[32m+[m[32m        animate={{[m
+[32m+[m[32m          scale: [1, 1.2, 1],[m
+[32m+[m[32m          x: [0, 50, 0],[m
+[32m+[m[32m        }}[m
+[32m+[m[32m        transition={{[m
+[32m+[m[32m          duration: 8,[m
+[32m+[m[32m          repeat: Infinity,[m
+[32m+[m[32m          ease: "easeInOut",[m
+[32m+[m[32m        }}[m
+[32m+[m[32m      />[m
+[32m+[m[32m      {/* Blob 2 - Purple */}[m
+[32m+[m[32m      <motion.div[m
+[32m+[m[32m        className="absolute w-[35vw] h-[35vw] rounded-full blur-[80px] opacity-15"[m
+[32m+[m[32m        style={{[m
+[32m+[m[32m          background: "radial-gradient(circle, rgba(139,92,246,0.6) 0%, transparent 70%)",[m
+[32m+[m[32m          right: `${15 + progress * 20}%`,[m
+[32m+[m[32m          bottom: `${25 + Math.cos(progress * Math.PI) * 15}%`,[m
+[32m+[m[32m        }}[m
+[32m+[m[32m        animate={{[m
+[32m+[m[32m          scale: [1.1, 0.9, 1.1],[m
+[32m+[m[32m          y: [0, -30, 0],[m
+[32m+[m[32m        }}[m
+[32m+[m[32m        transition={{[m
+[32m+[m[32m          duration: 10,[m
+[32m+[m[32m          repeat: Infinity,[m
+[32m+[m[32m          ease: "easeInOut",[m
+[32m+[m[32m        }}[m
+[32m+[m[32m      />[m
+[32m+[m[32m      {/* Blob 3 - Pink */}[m
+[32m+[m[32m      <motion.div[m
+[32m+[m[32m        className="absolute w-[25vw] h-[25vw] rounded-full blur-[60px] opacity-10"[m
+[32m+[m[32m        style={{[m
+[32m+[m[32m          background: "radial-gradient(circle, rgba(236,72,153,0.5) 0%, transparent 70%)",[m
+[32m+[m[32m          left: `${50 + progress * 15}%`,[m
+[32m+[m[32m          top: `${60 - progress * 20}%`,[m
+[32m+[m[32m        }}[m
+[32m+[m[32m        animate={{[m
+[32m+[m[32m          scale: [0.9, 1.15, 0.9],[m
+[32m+[m[32m        }}[m
+[32m+[m[32m        transition={{[m
+[32m+[m[32m          duration: 6,[m
+[32m+[m[32m          repeat: Infinity,[m
+[32m+[m[32m          ease: "easeInOut",[m
+[32m+[m[32m        }}[m
+[32m+[m[32m      />[m
+[32m+[m[32m    </div>[m
+[32m+[m[32m  );[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mexport function ScrollExperience() {[m
+[32m+[m[32m  const containerRef = useRef<HTMLDivElement>(null);[m
+[32m+[m[32m  const [scrollProgress, setScrollProgress] = useState(0);[m
+[32m+[m[32m  const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });[m
+[32m+[m[41m  [m
+[32m+[m[32m  const { scrollYProgress } = useScroll({[m
+[32m+[m[32m    target: containerRef,[m
+[32m+[m[32m    offset: ["start start", "end end"],[m
+[32m+[m[32m  });[m
+[32m+[m
+[32m+[m[32m  // Track mouse position (normalized 0-1)[m
+[32m+[m[32m  useEffect(() => {[m
+[32m+[m[32m    const handleMouseMove = (e: MouseEvent) => {[m
+[32m+[m[32m      setMousePos({[m
+[32m+[m[32m        x: e.clientX / window.innerWidth,[m
+[32m+[m[32m        y: e.clientY / window.innerHeight,[m
+[32m+[m[32m      });[m
+[32m+[m[32m    };[m
+[32m+[m[32m    window.addEventListener("mousemove", handleMouseMove);[m
+[32m+[m[32m    return () => window.removeEventListener("mousemove", handleMouseMove);[m
+[32m+[m[32m  }, []);[m
+[32m+[m
+[32m+[m[32m  // Smooth spring for scroll progress[m
+[32m+[m[32m  const smoothProgress = useSpring(scrollYProgress, {[m
+[32m+[m[32m    stiffness: 100,[m
+[32m+[m[32m    damping: 30,[m
+[32m+[m[32m    restDelta: 0.001,[m
+[32m+[m[32m  });[m
+[32m+[m
+[32m+[m[32m  // Background color transition - warm dark to cool light, NO pure black/white[m
+[32m+[m[32m  const backgroundColor = useTransform([m
+[32m+[m[32m    smoothProgress,[m
+[32m+[m[32m    [0, 0.3, 0.5],[m
+[32m+[m[32m    ["#1c1c1e", "#1c1c1e", "#e8e6e3"][m
+[32m+[m[32m  );[m
+[32m+[m
+[32m+[m[32m  // Text color transition (light grey to dark grey) - NO pure black/white[m
+[32m+[m[32m  const textColor = useTransform([m
+[32m+[m[32m    smoothProgress,[m
+[32m+[m[32m    [0, 0.3, 0.5],[m
+[32m+[m[32m    ["#e8e6e3", "#e8e6e3", "#2a2826"][m
+[32m+[m[32m  );[m
+[32m+[m
+[32m+[m[32m  // "we build." - starts big and centered, shrinks[m
+[32m+[m[32m  const logoScale = useTransform(smoothProgress, [0, 0.35], [1.5, 0.55]);[m
+[32m+[m[41m  [m
+[32m+[m[32m  // Services ticker - MUCH LONGER, cycles back to ai automation web app socials video[m
+[32m+[m[32m  const tickerOpacity = useTransform(smoothProgress, [0.1, 0.18, 0.82, 0.9], [0, 1, 1, 0]);[m
+[32m+[m[32m  const tickerX = useTransform(smoothProgress, [0.1, 0.9], ["0%", "-280%"]);[m
+[32m+[m
+[32m+[m[32m  // Menu items - floats up SLOWLY from bottom[m
+[32m+[m[32m  const menuOpacity = useTransform(smoothProgress, [0.88, 0.98], [0, 1]);[m
+[32m+[m[32m  const menuY = useTransform(smoothProgress, [0.88, 0.98], ["120px", "0px"]);[m
+[32m+[m
+[32m+[m[32m  // Logo text fade out - fades with ticker[m
+[32m+[m[32m  const logoOpacity = useTransform(smoothProgress, [0.82, 0.92], [1, 0]);[m
+[32m+[m
+[32m+[m[32m  // Brand name appears with menu[m
+[32m+[m[32m  const brandOpacity = useTransform(smoothProgress, [0.88, 0.98], [0, 1]);[m
+[32m+[m
+[32m+[m[32m  useEffect(() => {[m
+[32m+[m[32m    return smoothProgress.on("change", (v) => setScrollProgress(v));[m
+[32m+[m[32m  }, [smoothProgress]);[m
+[32m+[m
+[32m+[m[32m  // GSAP ScrollTrigger for additional effects[m
+[32m+[m[32m  useEffect(() => {[m
+[32m+[m[32m    const ctx = gsap.context(() => {[m
+[32m+[m[32m      // Refresh ScrollTrigger when Lenis updates[m
+[32m+[m[32m      ScrollTrigger.refresh();[m
+[32m+[m[32m    });[m
+[32m+[m
+[32m+[m[32m    return () => ctx.revert();[m
+[32m+[m[32m  }, []);[m
+[32m+[m
+[32m+[m[32m  return ([m
+[32m+[m[32m    <div ref={containerRef} className="relative" style={{ height: "500vh" }}>[m
+[32m+[m[32m      {/* Fixed viewport container with texture */}[m
+[32m+[m[32m      <motion.div[m
+[32m+[m[32m        className="fixed inset-0 overflow-hidden"[m
+[32m+[m[32m        style={{ backgroundColor }}[m
+[32m+[m[32m      >[m
+[32m+[m[32m        {/* Noise texture overlay */}[m
+[32m+[m[32m        <div[m[41m [m
+[32m+[m[32m          className="absolute inset-0 opacity-[0.035] pointer-events-none z-[100]"[m
+[32m+[m[32m          style={{[m
+[32m+[m[32m            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,[m
+[32m+[m[32m          }}[m
+[32m+[m[32m        />[m
+[32m+[m
+[32m+[m[32m        {/* Animated Gradient Blobs */}[m
+[32m+[m[32m        <GradientBlobs progress={scrollProgress} />[m
+[32m+[m
+[32m+[m
+[32m+[m[32m        {/* "we build." Logo - Shrinks as you scroll */}[m
+[32m+[m[32m        <motion.div[m
+[32m+[m[32m          className="fixed z-50 pointer-events-none flex items-center justify-center"[m
+[32m+[m[32m          style={{[m
+[32m+[m[32m            top: 0,[m
+[32m+[m[32m            left: 0,[m
+[32m+[m[32m            right: 0,[m
+[32m+[m[32m            bottom: 0,[m
+[32m+[m[32m            opacity: logoOpacity,[m
+[32m+[m[32m          }}[m
+[32m+[m[32m        >[m
+[32m+[m[32m          <motion.h1[m
+[32m+[m[32m            className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tight lowercase whitespace-nowrap origin-center flex items-baseline"[m
+[32m+[m[32m            style={{[m[41m [m
+[32m+[m[32m              color: textColor,[m
+[32m+[m[32m              scale: logoScale,[m
+[32m+[m[32m            }}[m
+[32m+[m[32m          >[m
+[32m+[m[32m            we build[m
+[32m+[m[32m            <AnimatedDot mouseX={mousePos.x} mouseY={mousePos.y} />[m
+[32m+[m[32m          </motion.h1>[m
+[32m+[m[32m        </motion.div>[m
+[32m+[m
+[32m+[m[32m        {/* Services Ticker - TOP of screen, different font */}[m
+[32m+[m[32m        <motion.div[m
+[32m+[m[32m          className="fixed top-8 left-0 right-0 overflow-hidden z-40"[m
+[32m+[m[32m          style={{ opacity: tickerOpacity }}[m
+[32m+[m[32m        >[m
+[32m+[m[32m          <motion.div[m
+[32m+[m[32m            className="flex gap-12 whitespace-nowrap text-sm md:text-base font-light lowercase tracking-widest pl-8"[m
+[32m+[m[32m            style={{[m[41m [m
+[32m+[m[32m              x: tickerX,[m[41m [m
+[32m+[m[32m              color: textColor,[m
+[32m+[m[32m              fontFamily: "var(--font-space), system-ui, sans-serif",[m
+[32m+[m[32m            }}[m
+[32m+[m[32m          >[m
+[32m+[m[32m            {services.map((service, i) => ([m
+[32m+[m[32m              <span key={i} className="opacity-60">[m
+[32m+[m[32m                {service}[m
+[32m+[m[32m              </span>[m
+[32m+[m[32m            ))}[m
+[32m+[m[32m          </motion.div>[m
+[32m+[m[32m        </motion.div>[m
+[32m+[m
+[32m+[m[32m        {/* Menu Items - Top Left, unusual SERIF font, floats up slowly */}[m
+[32m+[m[32m        <motion.nav[m
+[32m+[m[32m          className="fixed top-8 left-8 md:top-10 md:left-10 z-30"[m
+[32m+[m[32m          style={{ opacity: menuOpacity, y: menuY }}[m
+[32m+[m[32m        >[m
+[32m+[m[32m          <ul className="space-y-0">[m
+[32m+[m[32m            {menuItems.map((item, index) => ([m
+[32m+[m[32m              <motion.li[m
+[32m+[m[32m                key={item.name}[m
+[32m+[m[32m                style={{ color: textColor }}[m
+[32m+[m[32m                initial={{ opacity: 0, x: -20 }}[m
+[32m+[m[32m                whileInView={{ opacity: 1, x: 0 }}[m
+[32m+[m[32m                transition={{ delay: index * 0.1 }}[m
+[32m+[m[32m              >[m
+[32m+[m[32m                <a[m
+[32m+[m[32m                  href={item.href}[m
+[32m+[m[32m                  className="text-xl md:text-2xl lg:text-3xl font-light lowercase hover:opacity-60 transition-opacity inline-block italic leading-tight tracking-wide"[m
+[32m+[m[32m                  style={{ fontFamily: "var(--font-serif), Georgia, serif" }}[m
+[32m+[m[32m                >[m
+[32m+[m[32m                  {item.name}[m
+[32m+[m[32m                </a>[m
+[32m+[m[32m              </motion.li>[m
+[32m+[m[32m            ))}[m
+[32m+[m[32m          </ul>[m
+[32m+[m[32m        </motion.nav>[m
+[32m+[m
+[32m+[m[32m        {/* WACKY WORKS DIGITAL Brand - Bottom Right, skinny uppercase */}[m
+[32m+[m[32m        <motion.div[m
+[32m+[m[32m          className="fixed bottom-8 right-8 z-50"[m
+[32m+[m[32m          style={{ opacity: brandOpacity }}[m
+[32m+[m[32m        >[m
+[32m+[m[32m          <motion.p[m
+[32m+[m[32m            className="text-xs md:text-sm font-mono tracking-widest uppercase"[m
+[32m+[m[32m            style={{ color: textColor }}[m
+[32m+[m[32m          >[m
+[32m+[m[32m            Wacky Works Digital[m
+[32m+[m[32m          </motion.p>[m
+[32m+[m[32m        </motion.div>[m
+[32m+[m
+[32m+[m[32m        {/* Floating Logo - appears at the end */}[m
+[32m+[m[32m        <motion.div[m
+[32m+[m[32m          className="fixed right-12 md:right-24 top-1/2 -translate-y-1/2 z-20"[m
+[32m+[m[32m          style={{ opacity: brandOpacity }}[m
+[32m+[m[32m        >[m
+[32m+[m[32m          <motion.div[m
+[32m+[m[32m            className="relative cursor-pointer"[m
+[32m+[m[32m            animate={{[m
+[32m+[m[32m              y: [0, -15, 0],[m
+[32m+[m[32m              rotate: [0, 2, 0, -2, 0],[m
+[32m+[m[32m            }}[m
+[32m+[m[32m            transition={{[m
+[32m+[m[32m              duration: 6,[m
+[32m+[m[32m              repeat: Infinity,[m
+[32m+[m[32m              ease: "easeInOut",[m
+[32m+[m[32m            }}[m
+[32m+[m[32m            whileHover={{[m
+[32m+[m[32m              scale: 1.1,[m
+[32m+[m[32m              rotate: 10,[m
+[32m+[m[32m              transition: { duration: 0.3 },[m
+[32m+[m[32m            }}[m
+[32m+[m[32m            whileTap={{[m
+[32m+[m[32m              scale: 0.95,[m
+[32m+[m[32m              rotate: -5,[m
+[32m+[m[32m            }}[m
+[32m+[m[32m            onClick={() => {[m
+[32m+[m[32m              // Fun spin animation on click[m
+[32m+[m[32m              const el = document.getElementById('floating-logo');[m
+[32m+[m[32m              if (el) {[m
+[32m+[m[32m                el.style.animation = 'spin 0.6s ease-out';[m
+[32m+[m[32m                setTimeout(() => {[m
+[32m+[m[32m                  el.style.animation = '';[m
+[32m+[m[32m                }, 600);[m
+[32m+[m[32m              }[m
+[32m+[m[32m            }}[m
+[32m+[m[32m          >[m
+[32m+[m[32m            <Image[m
+[32m+[m[32m              id="floating-logo"[m
+[32m+[m[32m              src="/Wacky Works Digital transparent logo colour no text - 4096x4096.png"[m
+[32m+[m[32m              alt="Wacky Works Digital Logo"[m
+[32m+[m[32m              width={400}[m
+[32m+[m[32m              height={240}[m
+[32m+[m[32m              className="w-48 md:w-64 lg:w-80 h-auto"[m
+[32m+[m[32m              style={{[m
+[32m+[m[32m                filter: "drop-shadow(0 0 40px rgba(139, 92, 246, 0.5))",[m
+[32m+[m[32m              }}[m
+[32m+[m[32m            />[m
+[32m+[m[32m          </motion.div>[m
+[32m+[m[32m        </motion.div>[m
+[32m+[m[32m      </motion.div>[m
+[32m+[m[32m    </div>[m
+[32m+[m[32m  );[m
+[32m+[m[32m}[m
+[32m+[m
