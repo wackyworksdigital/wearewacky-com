@@ -171,77 +171,71 @@ export function AboutHero() {
 
         <MenuNav textColor={COLORS.text} />
 
-        {/* Video - 100vh (fits screen), shifted RIGHT, anchored BOTTOM */}
+        {/* Video + Text grouped so text stays centered relative to the video */}
         <motion.div
-          className="fixed top-0 right-0 bottom-0 z-10 flex items-end justify-end"
+          className="fixed top-0 right-0 bottom-0 z-10 flex items-end justify-end pointer-events-none"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <video
-            ref={videoRef}
-            className="h-[100vh] w-auto object-contain max-w-none"
-            src="/our-agency-guys.webm"
-            autoPlay
-            loop
-            muted
-            playsInline
-            style={{
-              marginRight: "-5vw", // Push closer to edge
-              marginBottom: "0",
-            }}
-          />
-        </motion.div>
+          <div className="relative h-full w-[75vw] max-w-[1200px] min-w-[720px] flex items-end justify-end pointer-events-none">
+            <video
+              ref={videoRef}
+              className="h-[100vh] w-auto object-contain max-w-none pointer-events-auto"
+              src="/our-agency-guys.webm"
+              autoPlay
+              loop
+              muted
+              playsInline
+              style={{
+                marginRight: "-5vw", // Push closer to edge
+                marginBottom: "0",
+              }}
+            />
 
-        {/* Rotating Text - WHITE, centered on the guys */}
-        <div 
-          className="fixed z-20 left-0 right-0 flex justify-center pointer-events-none"
-          style={{ 
-            top: "60%", // Lower down
-            paddingLeft: "10vw", // Nudge text right to center on video
-            transform: "translateY(-50%)",
-            perspective: "1000px",
-          }}
-        >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentLine}
-              initial={{ 
-                opacity: 0, 
-                rotateX: 90,
-                y: 30,
-              }}
-              animate={{ 
-                opacity: 1, 
-                rotateX: 0,
-                y: 0,
-              }}
-              exit={{ 
-                opacity: 0, 
-                rotateX: -90,
-                y: -30,
-              }}
-              transition={{
-                type: "spring",
-                stiffness: 150,
-                damping: 20,
-                mass: 0.8,
-              }}
-              style={{ transformStyle: "preserve-3d" }}
-            >
-              <h2
-                className={`${className} text-center px-4`}
-                style={{
-                  color: "#FFFFFF",
-                  textShadow: "0 4px 20px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.3)",
-                  fontFamily: "var(--font-space), Impact, sans-serif",
-                }}
-              >
-                {currentText.text}
-              </h2>
-            </motion.div>
-          </AnimatePresence>
-        </div>
+            {/* Rotating Text - centered over the video */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{ perspective: "1000px" }}>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentLine}
+                  initial={{ 
+                    opacity: 0, 
+                    rotateX: 90,
+                    y: 30,
+                  }}
+                  animate={{ 
+                    opacity: 1, 
+                    rotateX: 0,
+                    y: 0,
+                  }}
+                  exit={{ 
+                    opacity: 0, 
+                    rotateX: -90,
+                    y: -30,
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 150,
+                    damping: 20,
+                    mass: 0.8,
+                  }}
+                  style={{ transformStyle: "preserve-3d" }}
+                >
+                  <h2
+                    className={`${className} text-center px-4`}
+                    style={{
+                      color: "#FFFFFF",
+                      textShadow: "0 4px 20px rgba(0,0,0,0.5), 0 2px 4px rgba(0,0,0,0.3)",
+                      fontFamily: "var(--font-space), Impact, sans-serif",
+                    }}
+                  >
+                    {currentText.text}
+                  </h2>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </div>
+        </motion.div>
 
         {/* Scroll hint */}
         <motion.div
