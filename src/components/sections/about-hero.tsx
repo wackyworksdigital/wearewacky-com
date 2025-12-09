@@ -65,7 +65,7 @@ function MenuNav({ textColor }: { textColor: string }) {
               }}
               transition={{ type: "spring", stiffness: 300, damping: 20, mass: 0.8 }}
             >
-              <motion.a
+                <motion.a
                 href={item.href}
                 className="text-xl md:text-2xl lg:text-3xl lowercase inline-block leading-tight origin-left"
                 style={{ 
@@ -77,6 +77,12 @@ function MenuNav({ textColor }: { textColor: string }) {
                 }}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
+                onClick={() => {
+                  // Set flag to skip intro animation when going home
+                  if (item.name === "home") {
+                    sessionStorage.setItem("skipHomeIntro", "true");
+                  }
+                }}
                 animate={{
                   scale: isHovered ? 1.12 : 1,
                   x: isHovered ? 10 : isActive ? 6 : 0,

@@ -1,21 +1,91 @@
-import { Metadata } from "next";
+"use client";
+
+import { useState } from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 
-export const metadata: Metadata = {
-  title: "Contact | Wacky Works Digital",
-  description: "Get in touch with Wacky Works Digital.",
-};
+const ACCENT = "#B07C4F";
+const TEXT = "#3d3428";
+const BG = "#f5ebe0";
 
-const accents = {
-  bg: "#f5ebe0",
-  text: "#3d3428",
-  accent: "#B07C4F",
-  offwhite: "#F7F4ED",
-};
+const menuItems = [
+  { name: "home", href: "/" },
+  { name: "about", href: "/about" },
+  { name: "services", href: "/services" },
+  { name: "portfolio", href: "/portfolio" },
+  { name: "contact", href: "/contact" },
+];
+
+function MenuNav() {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  
+  return (
+    <motion.nav
+      className="fixed top-8 left-8 md:top-10 md:left-10 z-30"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.3 }}
+    >
+      <ul className="space-y-1">
+        {menuItems.map((item, index) => {
+          const isHovered = hoveredIndex === index;
+          const isOtherHovered = hoveredIndex !== null && hoveredIndex !== index;
+          const isActive = item.name === "contact";
+          
+          let pushY = 0;
+          if (isOtherHovered && hoveredIndex !== null) {
+            const distance = index - hoveredIndex;
+            pushY = distance < 0 ? -8 : 8;
+          }
+          
+          return (
+            <motion.li
+              key={item.name}
+              style={{ color: TEXT }}
+              animate={{
+                y: pushY,
+                scale: isHovered ? 1.12 : isOtherHovered ? 0.94 : 1,
+                opacity: isOtherHovered ? 0.6 : 1,
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 20, mass: 0.8 }}
+            >
+              <motion.a
+                href={item.href}
+                className="text-xl md:text-2xl lg:text-3xl lowercase inline-block leading-tight origin-left"
+                style={{ 
+                  fontFamily: "var(--font-playfair), Georgia, serif", 
+                  fontWeight: 500, 
+                  letterSpacing: "-0.02em",
+                  color: isActive ? ACCENT : TEXT,
+                  textShadow: "0 2px 6px rgba(0,0,0,0.18)",
+                }}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                onClick={() => {
+                  if (item.name === "home") {
+                    sessionStorage.setItem("skipHomeIntro", "true");
+                  }
+                }}
+                animate={{
+                  scale: isHovered ? 1.12 : 1,
+                  x: isHovered ? 10 : isActive ? 6 : 0,
+                  y: isHovered ? -4 : 0,
+                }}
+                transition={{ type: "spring", stiffness: 200, damping: 15, mass: 0.6 }}
+              >
+                {item.name}
+              </motion.a>
+            </motion.li>
+          );
+        })}
+      </ul>
+    </motion.nav>
+  );
+}
 
 export default function ContactPage() {
   return (
-    <main className="relative min-h-screen" style={{ backgroundColor: accents.bg, color: accents.text }}>
+    <main className="relative min-h-screen" style={{ backgroundColor: BG, color: TEXT }}>
       {/* Noise + vignette */}
       <div
         className="fixed inset-0 pointer-events-none mix-blend-overlay"
@@ -29,82 +99,59 @@ export default function ContactPage() {
         style={{ background: "radial-gradient(ellipse at center, transparent 0%, transparent 50%, rgba(0,0,0,0.08) 100%)" }}
       />
 
-      <div className="relative z-10 max-w-5xl mx-auto px-6 py-20 space-y-12">
-        <div className="space-y-3 text-center">
-          <p className="text-sm uppercase tracking-[0.35em]" style={{ color: accents.accent }}>
-            contact
-          </p>
-          <h1 className="text-4xl md:text-6xl font-black" style={{ fontFamily: "var(--font-space), Impact, sans-serif", color: accents.text, textShadow: "0 6px 24px rgba(0,0,0,0.2)" }}>
-            Let’s talk
+      <MenuNav />
+
+      {/* Main content */}
+      <div className="relative z-10 flex items-center justify-center min-h-screen px-6">
+        <motion.div 
+          className="text-center space-y-8"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          {/* Title */}
+          <h1
+            className="text-5xl md:text-7xl lg:text-8xl font-black lowercase"
+            style={{
+              fontFamily: "var(--font-playfair), Georgia, serif",
+              color: TEXT,
+              textShadow: "0 6px 24px rgba(0,0,0,0.2)",
+            }}
+          >
+            let's talk!
           </h1>
-          <p className="text-lg opacity-75 max-w-2xl mx-auto">
-            Tell us about your project or idea. We’ll respond within one business day.
-          </p>
-        </div>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Contact form mock */}
-          <div className="bg-white/6 backdrop-blur rounded-2xl p-6 shadow-[0_12px_30px_rgba(0,0,0,0.18)] border border-white/10 transition duration-200 hover:shadow-[0_16px_40px_rgba(0,0,0,0.24)] hover:-translate-y-1">
-            <h2 className="text-xl font-semibold mb-4" style={{ color: accents.text }}>
-              Drop us a line
-            </h2>
-            <form className="space-y-4">
-              <div>
-                <label className="text-sm opacity-80">Name</label>
-                <input
-                  className="w-full mt-1 rounded-lg px-4 py-3 bg-white/30 border border-white/30 focus:outline-none focus:ring-2 focus:ring-[rgba(176,124,79,0.6)] transition"
-                  placeholder="Your name"
-                />
-              </div>
-              <div>
-                <label className="text-sm opacity-80">Email</label>
-                <input
-                  className="w-full mt-1 rounded-lg px-4 py-3 bg-white/30 border border-white/30 focus:outline-none focus:ring-2 focus:ring-[rgba(176,124,79,0.6)] transition"
-                  placeholder="you@example.com"
-                  type="email"
-                />
-              </div>
-              <div>
-                <label className="text-sm opacity-80">Message</label>
-                <textarea
-                  className="w-full mt-1 rounded-lg px-4 py-3 bg-white/30 border border-white/30 focus:outline-none focus:ring-2 focus:ring-[rgba(176,124,79,0.6)] transition"
-                  rows={4}
-                  placeholder="How can we help?"
-                />
-              </div>
-              <button
-                type="button"
-                className="w-full rounded-lg py-3 font-semibold text-white"
-                style={{ background: accents.accent, boxShadow: "0 12px 24px rgba(0,0,0,0.2)" }}
+          {/* Contact links */}
+          <div className="space-y-3 text-xl md:text-2xl lg:text-3xl" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.15)" }}>
+            <p>
+              email:{" "}
+              <Link
+                href="mailto:hello@wearewacky.com"
+                className="transition-all duration-200 hover:opacity-70"
+                style={{ color: ACCENT }}
               >
-                Send
-              </button>
-            </form>
+                hello@wearewacky.com
+              </Link>
+            </p>
+            <p>
+              whatsapp:{" "}
+              <Link
+                href="https://wa.me/447460460318"
+                className="transition-all duration-200 hover:opacity-70"
+                style={{ color: ACCENT }}
+              >
+                +44 7460 460318
+              </Link>
+            </p>
           </div>
 
-          {/* Quick links / info */}
-          <div className="space-y-6">
-            <div className="bg-white/6 backdrop-blur rounded-2xl p-6 shadow-[0_12px_30px_rgba(0,0,0,0.18)] border border-white/10 transition duration-200 hover:shadow-[0_16px_40px_rgba(0,0,0,0.24)] hover:-translate-y-1">
-              <h3 className="text-lg font-semibold mb-3" style={{ color: accents.text }}>
-                Quick contact
-              </h3>
-              <ul className="space-y-2 text-lg">
-                <li><Link href="mailto:hello@wackyworks.digital" className="hover:opacity-80">hello@wackyworks.digital</Link></li>
-                <li><Link href="https://wa.me/123456789" className="hover:opacity-80">WhatsApp</Link></li>
-              </ul>
-            </div>
-
-            <div className="bg-white/6 backdrop-blur rounded-2xl p-6 shadow-[0_12px_30px_rgba(0,0,0,0.18)] border border-white/10 transition duration-200 hover:shadow-[0_16px_40px_rgba(0,0,0,0.24)] hover:-translate-y-1">
-              <h3 className="text-lg font-semibold mb-3" style={{ color: accents.text }}>
-                Office hours
-              </h3>
-              <p className="opacity-75">Mon–Fri · 9am–6pm (UK)</p>
-              <p className="opacity-75">Response within 1 business day</p>
-            </div>
+          {/* Funny office hours */}
+          <div className="space-y-1 text-lg md:text-xl opacity-80 pt-4" style={{ textShadow: "0 1px 4px rgba(0,0,0,0.1)" }}>
+            <p>office hours: every hour is office hour bro!</p>
+            <p>you know why? cos we are winners bro!</p>
           </div>
-        </div>
+        </motion.div>
       </div>
     </main>
   );
 }
-
