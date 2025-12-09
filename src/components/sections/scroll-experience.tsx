@@ -627,6 +627,15 @@ export function ScrollExperience() {
     }
   }, []);
 
+  // GSAP ScrollTrigger for additional effects (must be before conditional return)
+  useEffect(() => {
+    if (skipIntro) return; // Don't run GSAP stuff in skip mode
+    const ctx = gsap.context(() => {
+      ScrollTrigger.refresh();
+    });
+    return () => ctx.revert();
+  }, [skipIntro]);
+
   if (skipIntro) {
     // Render simplified end state (menu + brand + logo)
     return (
@@ -677,16 +686,6 @@ export function ScrollExperience() {
       </div>
     );
   }
-
-  // GSAP ScrollTrigger for additional effects
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Refresh ScrollTrigger when Lenis updates
-      ScrollTrigger.refresh();
-    });
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <div ref={containerRef} className="relative" style={{ height: "500vh" }}>
