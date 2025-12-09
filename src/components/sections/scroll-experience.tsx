@@ -145,8 +145,7 @@ function MenuNav({
               whileInView={{ opacity: 1, x: 0 }}
               animate={{
                 y: pushY,
-                scale: isHovered ? 1.12 : isOtherHovered ? 0.94 : 1,
-                opacity: isHovered ? 1 : isOtherHovered ? 0.5 : 1,
+                scale: isOtherHovered ? 0.94 : 1,
               }}
               transition={{ 
                 type: "spring", 
@@ -171,6 +170,7 @@ function MenuNav({
                   scale: isHovered ? 1.12 : 1,
                   x: isHovered ? 10 : isActive ? 6 : 0,
                   y: isHovered ? -4 : 0,
+                  opacity: isHovered ? 1 : isOtherHovered ? 0.5 : 1,
                 }}
                 transition={{ 
                   type: "spring", 
@@ -476,7 +476,7 @@ function FloatingLogo({
             height={240}
             className="w-52 md:w-64 lg:w-72 h-auto"
             style={{
-              filter: `drop-shadow(0 0 ${winner === 'player' ? '60px rgba(34,211,238,0.6)' : winner === 'wacky' ? '60px rgba(236,72,153,0.6)' : '40px rgba(139,92,246,0.5)'}) drop-shadow(0 16px 16px rgba(0,0,0,0.4)) drop-shadow(0 6px 6px rgba(0,0,0,0.3))`,
+              filter: `drop-shadow(0 0 ${winner === 'player' ? '60px rgba(34,211,238,0.6)' : winner === 'wacky' ? '60px rgba(236,72,153,0.6)' : '40px rgba(139,92,246,0.5)'}) drop-shadow(0 4px 4px rgba(0,0,0,0.2)) drop-shadow(0 2px 2px rgba(0,0,0,0.15))`,
             }}
             draggable={false}
           />
