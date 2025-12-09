@@ -104,6 +104,8 @@ const LOGO_COLORS = {
 };
 
 // Menu Navigation with fluid hover animations
+const WARM_BROWN = "#B07C4F"; // Consistent accent color across all pages
+
 function MenuNav({ 
   menuOpacity, 
   menuY, 
@@ -126,6 +128,7 @@ function MenuNav({
         {menuItems.map((item, index) => {
           const isHovered = hoveredIndex === index;
           const isOtherHovered = hoveredIndex !== null && hoveredIndex !== index;
+          const isActive = item.name === "home"; // Home is active on homepage
           
           // Calculate push direction: items above hovered go up, below go down
           let pushY = 0;
@@ -142,8 +145,8 @@ function MenuNav({
               whileInView={{ opacity: 1, x: 0 }}
               animate={{
                 y: pushY,
-                scale: isOtherHovered ? 0.92 : 1,
-                opacity: isOtherHovered ? 0.5 : 1,
+                scale: isHovered ? 1.12 : isOtherHovered ? 0.94 : 1,
+                opacity: isOtherHovered ? 0.6 : 1,
               }}
               transition={{ 
                 type: "spring", 
@@ -155,13 +158,19 @@ function MenuNav({
               <motion.a
                 href={item.href}
                 className="text-xl md:text-2xl lg:text-3xl lowercase inline-block leading-tight origin-left"
-                style={{ fontFamily: "var(--font-playfair), Georgia, serif", fontWeight: 500, letterSpacing: "-0.02em" }}
+                style={{ 
+                  fontFamily: "var(--font-playfair), Georgia, serif", 
+                  fontWeight: 500, 
+                  letterSpacing: "-0.02em",
+                  color: isActive ? WARM_BROWN : textColor,
+                  textShadow: "0 2px 6px rgba(0,0,0,0.18)",
+                }}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
                 animate={{
-                  scale: isHovered ? 1.25 : 1,
-                  x: isHovered ? 16 : 0,
-                  color: isHovered ? LOGO_COLORS.purple : undefined,
+                  scale: isHovered ? 1.12 : 1,
+                  x: isHovered ? 10 : isActive ? 6 : 0,
+                  y: isHovered ? -4 : 0,
                 }}
                 transition={{ 
                   type: "spring", 
