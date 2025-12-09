@@ -403,15 +403,15 @@ function FloatingLogo({
           }}
           transition={{ type: "spring", stiffness: 300, damping: 15 }}
         >
-          <div className="text-[10px] uppercase tracking-widest mb-1" style={{ color: `${LOGO_COLORS.cyan}99` }}>
+          <div className="text-[10px] uppercase tracking-widest mb-1" style={{ color: `${LOGO_COLORS.cyan}99`, textShadow: "0 2px 3px rgba(0,0,0,0.2)" }}>
             you
           </div>
-          <div className="text-2xl tracking-wider" style={{ color: LOGO_COLORS.cyan }}>
+          <div className="text-2xl tracking-wider" style={{ color: LOGO_COLORS.cyan, textShadow: "0 3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)" }}>
             {playerScore}
           </div>
         </motion.div>
         
-        <div className="text-slate/30 text-sm mb-0.5 tracking-widest">
+        <div className="text-slate/30 text-sm mb-0.5 tracking-widest" style={{ textShadow: "0 2px 3px rgba(0,0,0,0.15)" }}>
           :
         </div>
         
@@ -424,10 +424,10 @@ function FloatingLogo({
           }}
           transition={{ type: "spring", stiffness: 300, damping: 15 }}
         >
-          <div className="text-[10px] uppercase tracking-widest mb-1" style={{ color: `${LOGO_COLORS.pink}99` }}>
+          <div className="text-[10px] uppercase tracking-widest mb-1" style={{ color: `${LOGO_COLORS.pink}99`, textShadow: "0 2px 3px rgba(0,0,0,0.2)" }}>
             wacky
           </div>
-          <div className="text-2xl tracking-wider" style={{ color: LOGO_COLORS.pink }}>
+          <div className="text-2xl tracking-wider" style={{ color: LOGO_COLORS.pink, textShadow: "0 3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)" }}>
             {wackyScore}
           </div>
         </motion.div>
