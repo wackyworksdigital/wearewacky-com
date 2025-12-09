@@ -146,11 +146,11 @@ export default function ContactPage() {
           </div>
 
           {/* Funny office hours */}
-          <div className="space-y-1 text-lg md:text-xl pt-4" style={{ color: ACCENT, textShadow: "0 2px 6px rgba(0,0,0,0.12)" }}>
-            <p>office hours: every hour is office hour bro!</p>
-            <p>you know why? cos we are winners bro!</p>
-            <p className="pt-2">also the robots. those guys doing all the work.</p>
-            <p>yeah, they are awesome!</p>
+          <div className="space-y-1 text-lg md:text-xl pt-4" style={{ textShadow: "0 2px 6px rgba(0,0,0,0.12)" }}>
+            <p><span style={{ color: TEXT }}>office hours:</span> <span style={{ color: ACCENT }}>every hour is office hour bro!</span></p>
+            <p style={{ color: ACCENT }}>you know why? cos we are winners bro!</p>
+            <p className="pt-2" style={{ color: ACCENT }}>also the robots. those guys doing all the work.</p>
+            <p style={{ color: ACCENT }}>yeah, they are awesome!</p>
           </div>
         </motion.div>
       </div>
