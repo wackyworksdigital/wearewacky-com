@@ -1,14 +1,13 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useSpring, useMotionValue, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useSpring, useMotionValue, useTransform } from "framer-motion";
 
 const BG = "#e8ddd0";
 const TILE_LIGHT = "#f5ebe0";
 const TILE_DARK = "#3d3428";
 const TEXT_DARK = "#3d3428";
 const TEXT_LIGHT = "#f5ebe0";
-const ACCENT = "#B07C4F";
 
 // All sections
 const sections = [
@@ -20,33 +19,34 @@ const sections = [
   { id: "outro", title: "WACKY WORKS DIGITAL", subtitle: "we're not for everyone.\nand that's the point.", inverted: true },
 ];
 
-// Credit card shaped tile with tilt
+// Credit card tile
 function CreditCardTile({ 
   title,
   subtitle,
   inverted = false,
-  isActive,
-  position, // 'top', 'underneath', 'exited'
+  index,
+  currentIndex,
+  totalCards,
 }: { 
   title: string;
   subtitle?: string;
   inverted?: boolean;
-  isActive: boolean;
-  position: 'top' | 'underneath' | 'exited';
+  index: number;
+  currentIndex: number;
+  totalCards: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
+  const isActive = index === currentIndex;
+  const isExited = index < currentIndex;
+  const stackPosition = index - currentIndex; // 0 = top, 1 = behind, 2 = further behind, etc.
   
-  // Mouse position for tilt (only when active)
+  // Mouse for tilt
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   
   const springConfig = { stiffness: 200, damping: 20, mass: 0.5 };
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), springConfig);
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), springConfig);
-  
-  // Dynamic text shadow
-  const textShadowX = useTransform(mouseX, [-0.5, 0.5], [5, -5]);
-  const textShadowY = useTransform(mouseY, [-0.5, 0.5], [5, -5]);
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [6, -6]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-6, 6]), springConfig);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current || !isActive) return;
@@ -65,47 +65,49 @@ function CreditCardTile({
   const tileBg = inverted ? TILE_DARK : TILE_LIGHT;
   const textColor = inverted ? TEXT_LIGHT : TEXT_DARK;
 
-  // Animation variants based on position
-  const variants = {
-    top: {
-      y: 0,
-      scale: 1,
-      rotateX: 0,
-      opacity: 1,
-      zIndex: 10,
-    },
-    underneath: {
-      y: 20,
-      scale: 0.95,
-      rotateX: 0,
-      opacity: 0.5,
-      zIndex: 1,
-    },
-    exited: {
-      y: -400,
-      scale: 0.9,
-      rotateX: -20,
-      opacity: 0,
-      zIndex: 0,
-    },
+  // Calculate Y offset - cards behind peek out below
+  const getYOffset = () => {
+    if (isExited) return -500; // Flew off top
+    return stackPosition * 80; // Each card 80px below the one in front
+  };
+
+  // Scale decreases for cards further back
+  const getScale = () => {
+    if (isExited) return 0.9;
+    return 1 - stackPosition * 0.03;
+  };
+
+  // Opacity
+  const getOpacity = () => {
+    if (isExited) return 0;
+    if (stackPosition > 4) return 0;
+    return 1;
   };
 
   return (
     <motion.div
       ref={ref}
-      className="absolute inset-0 flex items-center justify-center cursor-pointer"
+      className="absolute cursor-pointer"
       style={{
+        left: "50%",
+        top: "50%",
+        x: "-50%",
+        y: "-50%",
         rotateX: isActive ? rotateX : 0,
         rotateY: isActive ? rotateY : 0,
         transformStyle: "preserve-3d",
         transformPerspective: 1200,
+        zIndex: totalCards - index,
       }}
-      variants={variants}
-      initial="underneath"
-      animate={position}
+      animate={{
+        y: `calc(-50% + ${getYOffset()}px)`,
+        scale: getScale(),
+        opacity: getOpacity(),
+        rotateX: isExited ? -15 : 0,
+      }}
       transition={{
         type: "spring",
-        stiffness: 100,
+        stiffness: 120,
         damping: 20,
         mass: 0.8,
       }}
@@ -116,14 +118,12 @@ function CreditCardTile({
       <div
         className="rounded-2xl p-[3px]"
         style={{
-          width: "min(600px, 85vw)",
-          aspectRatio: "1.6 / 1", // Credit card ratio
+          width: "min(550px, 85vw)",
+          aspectRatio: "1.6 / 1",
           background: inverted 
             ? `linear-gradient(145deg, #5a5248 0%, #2a2722 50%, #1a1816 100%)`
             : `linear-gradient(145deg, #fff 0%, #e8ddd0 50%, #c9bba8 100%)`,
-          boxShadow: isActive
-            ? `0 25px 50px rgba(0,0,0,0.3), 0 10px 20px rgba(0,0,0,0.2)`
-            : `0 10px 30px rgba(0,0,0,0.2)`,
+          boxShadow: `0 20px 40px rgba(0,0,0,0.25), 0 8px 16px rgba(0,0,0,0.15)`,
         }}
       >
         {/* Inner surface */}
@@ -138,34 +138,27 @@ function CreditCardTile({
               : `inset 0 2px 4px rgba(255,255,255,0.7), inset 0 -2px 4px rgba(0,0,0,0.08)`,
           }}
         >
-          <motion.h1
+          <h1
             className={`font-black lowercase text-center ${subtitle ? 'text-3xl md:text-4xl lg:text-5xl' : 'text-4xl md:text-5xl lg:text-6xl'}`}
             style={{
               fontFamily: "var(--font-playfair), Georgia, serif",
               color: textColor,
-              textShadow: isActive 
-                ? useTransform(
-                    [textShadowX, textShadowY],
-                    ([x, y]) => `${x}px ${y}px 10px rgba(0,0,0,${inverted ? 0.4 : 0.2})`
-                  )
-                : `0 3px 6px rgba(0,0,0,${inverted ? 0.3 : 0.15})`,
-              transform: "translateZ(30px)",
+              textShadow: `0 4px 8px rgba(0,0,0,${inverted ? 0.3 : 0.15})`,
             }}
           >
             {title}
-          </motion.h1>
+          </h1>
           
           {subtitle && (
-            <motion.p
+            <p
               className="text-base md:text-lg lg:text-xl mt-4 opacity-70 whitespace-pre-line text-center"
               style={{ 
                 fontFamily: "var(--font-space), system-ui, sans-serif",
                 color: textColor,
-                transform: "translateZ(20px)",
               }}
             >
               {subtitle}
-            </motion.p>
+            </p>
           )}
         </div>
       </div>
@@ -183,8 +176,8 @@ export default function PrototypePage() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 50,
-    damping: 20,
+    stiffness: 80,
+    damping: 25,
   });
 
   // Update current card based on scroll
@@ -230,60 +223,18 @@ export default function PrototypePage() {
         className="fixed inset-0 z-10"
         style={{ perspective: "1500px" }}
       >
-        {sections.map((section, index) => {
-          let position: 'top' | 'underneath' | 'exited';
-          if (index < currentIndex) {
-            position = 'exited';
-          } else if (index === currentIndex) {
-            position = 'top';
-          } else {
-            position = 'underneath';
-          }
-
-          return (
-            <CreditCardTile
-              key={section.id}
-              title={section.title}
-              subtitle={section.subtitle}
-              inverted={section.inverted}
-              isActive={index === currentIndex}
-              position={position}
-            />
-          );
-        })}
-      </div>
-
-      {/* Progress indicator - small dots */}
-      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex gap-2">
-        {sections.map((_, i) => (
-          <div
-            key={i}
-            className="w-2 h-2 rounded-full transition-all duration-300"
-            style={{
-              backgroundColor: i === currentIndex ? ACCENT : `${TEXT_DARK}33`,
-              transform: i === currentIndex ? 'scale(1.3)' : 'scale(1)',
-            }}
+        {sections.map((section, index) => (
+          <CreditCardTile
+            key={section.id}
+            title={section.title}
+            subtitle={section.subtitle}
+            inverted={section.inverted}
+            index={index}
+            currentIndex={currentIndex}
+            totalCards={sections.length}
           />
         ))}
       </div>
-
-      {/* Scroll hint */}
-      {currentIndex === 0 && (
-        <motion.div
-          className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 0.4, y: [0, 8, 0] }}
-          transition={{ 
-            opacity: { delay: 1 },
-            y: { duration: 2, repeat: Infinity, ease: "easeInOut" }
-          }}
-          style={{ color: TEXT_DARK }}
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </motion.div>
-      )}
     </div>
   );
 }
