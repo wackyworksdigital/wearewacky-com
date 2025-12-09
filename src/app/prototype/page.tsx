@@ -19,7 +19,7 @@ const sections = [
   { id: "outro", title: "WACKY WORKS DIGITAL", subtitle: "we're not for everyone.\nand that's the point.", inverted: true },
 ];
 
-// Credit card tile
+// Credit card tile with dynamic shadows
 function CreditCardTile({ 
   title,
   subtitle,
@@ -37,16 +37,48 @@ function CreditCardTile({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const isActive = index === currentIndex;
-  const isExited = index < currentIndex;
-  const stackPosition = index - currentIndex; // 0 = top, 1 = behind, 2 = further behind, etc.
+  const isPassed = index < currentIndex; // Cards that have been scrolled past (go under)
+  const isBehind = index > currentIndex; // Cards waiting below
+  
+  // Position in the visible stack
+  const stackPositionBehind = index - currentIndex; // For cards below current
+  const stackPositionPassed = currentIndex - index; // For cards that went under
   
   // Mouse for tilt
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   
   const springConfig = { stiffness: 200, damping: 20, mass: 0.5 };
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [6, -6]), springConfig);
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-6, 6]), springConfig);
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), springConfig);
+  
+  // Dynamic shadow values
+  const shadowX = useSpring(useTransform(mouseX, [-0.5, 0.5], [6, -6]), springConfig);
+  const shadowY = useSpring(useTransform(mouseY, [-0.5, 0.5], [6, -6]), springConfig);
+  
+  const [shadowStyle, setShadowStyle] = useState("0 4px 8px rgba(0,0,0,0.2)");
+
+  // Update shadow style based on mouse position
+  useEffect(() => {
+    if (!isActive) return;
+    
+    const unsubX = shadowX.on("change", () => {
+      const x = shadowX.get();
+      const y = shadowY.get();
+      setShadowStyle(`${x}px ${y}px 12px rgba(0,0,0,${inverted ? 0.4 : 0.2}), 0 2px 4px rgba(0,0,0,0.1)`);
+    });
+    
+    const unsubY = shadowY.on("change", () => {
+      const x = shadowX.get();
+      const y = shadowY.get();
+      setShadowStyle(`${x}px ${y}px 12px rgba(0,0,0,${inverted ? 0.4 : 0.2}), 0 2px 4px rgba(0,0,0,0.1)`);
+    });
+    
+    return () => {
+      unsubX();
+      unsubY();
+    };
+  }, [isActive, shadowX, shadowY, inverted]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current || !isActive) return;
@@ -60,28 +92,43 @@ function CreditCardTile({
   const handleMouseLeave = () => {
     mouseX.set(0);
     mouseY.set(0);
+    setShadowStyle(`0 4px 8px rgba(0,0,0,${inverted ? 0.3 : 0.15})`);
   };
 
   const tileBg = inverted ? TILE_DARK : TILE_LIGHT;
   const textColor = inverted ? TEXT_LIGHT : TEXT_DARK;
 
-  // Calculate Y offset - cards behind peek out below
+  // Calculate Y offset
   const getYOffset = () => {
-    if (isExited) return -500; // Flew off top
-    return stackPosition * 80; // Each card 80px below the one in front
+    if (isActive) return 0;
+    if (isPassed) {
+      // Cards that went under - stack above (negative Y, behind)
+      return -stackPositionPassed * 70;
+    }
+    // Cards waiting below
+    return stackPositionBehind * 70;
   };
 
-  // Scale decreases for cards further back
+  // Z-index: current card on top, passed cards behind, waiting cards behind
+  const getZIndex = () => {
+    if (isActive) return 100;
+    if (isPassed) return 50 - stackPositionPassed;
+    return 50 - stackPositionBehind;
+  };
+
+  // Scale
   const getScale = () => {
-    if (isExited) return 0.9;
-    return 1 - stackPosition * 0.03;
+    if (isActive) return 1;
+    if (isPassed) return 0.97 - stackPositionPassed * 0.02;
+    return 0.97 - stackPositionBehind * 0.02;
   };
 
   // Opacity
   const getOpacity = () => {
-    if (isExited) return 0;
-    if (stackPosition > 4) return 0;
-    return 1;
+    if (isActive) return 1;
+    if (isPassed && stackPositionPassed > 3) return 0;
+    if (isBehind && stackPositionBehind > 3) return 0;
+    return 0.8;
   };
 
   return (
@@ -92,23 +139,21 @@ function CreditCardTile({
         left: "50%",
         top: "50%",
         x: "-50%",
-        y: "-50%",
         rotateX: isActive ? rotateX : 0,
         rotateY: isActive ? rotateY : 0,
         transformStyle: "preserve-3d",
         transformPerspective: 1200,
-        zIndex: totalCards - index,
       }}
       animate={{
         y: `calc(-50% + ${getYOffset()}px)`,
         scale: getScale(),
         opacity: getOpacity(),
-        rotateX: isExited ? -15 : 0,
+        zIndex: getZIndex(),
       }}
       transition={{
         type: "spring",
         stiffness: 120,
-        damping: 20,
+        damping: 22,
         mass: 0.8,
       }}
       onMouseMove={handleMouseMove}
@@ -143,7 +188,8 @@ function CreditCardTile({
             style={{
               fontFamily: "var(--font-playfair), Georgia, serif",
               color: textColor,
-              textShadow: `0 4px 8px rgba(0,0,0,${inverted ? 0.3 : 0.15})`,
+              textShadow: isActive ? shadowStyle : `0 4px 8px rgba(0,0,0,${inverted ? 0.3 : 0.15})`,
+              transform: "translateZ(30px)",
             }}
           >
             {title}
@@ -155,6 +201,8 @@ function CreditCardTile({
               style={{ 
                 fontFamily: "var(--font-space), system-ui, sans-serif",
                 color: textColor,
+                textShadow: `0 2px 4px rgba(0,0,0,0.1)`,
+                transform: "translateZ(20px)",
               }}
             >
               {subtitle}
@@ -218,7 +266,7 @@ export default function PrototypePage() {
         }}
       />
 
-      {/* Card deck - fixed in center */}
+      {/* Card deck */}
       <div 
         className="fixed inset-0 z-10"
         style={{ perspective: "1500px" }}
