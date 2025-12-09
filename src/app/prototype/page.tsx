@@ -19,7 +19,7 @@ const sections = [
   { id: "outro", title: "WACKY WORKS DIGITAL", subtitle: "we're not for everyone.\nand that's the point.", inverted: true },
 ];
 
-// Credit card tile with dynamic shadows
+// Credit card tile with floating + dynamic shadows
 function CreditCardTile({ 
   title,
   subtitle,
@@ -37,12 +37,11 @@ function CreditCardTile({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const isActive = index === currentIndex;
-  const isPassed = index < currentIndex; // Cards that have been scrolled past (go under)
-  const isBehind = index > currentIndex; // Cards waiting below
+  const isPassed = index < currentIndex;
+  const isBehind = index > currentIndex;
   
-  // Position in the visible stack
-  const stackPositionBehind = index - currentIndex; // For cards below current
-  const stackPositionPassed = currentIndex - index; // For cards that went under
+  const stackPositionBehind = index - currentIndex;
+  const stackPositionPassed = currentIndex - index;
   
   // Mouse for tilt
   const mouseX = useMotionValue(0);
@@ -52,13 +51,12 @@ function CreditCardTile({
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), springConfig);
   const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), springConfig);
   
-  // Dynamic shadow values
+  // Dynamic shadow
   const shadowX = useSpring(useTransform(mouseX, [-0.5, 0.5], [6, -6]), springConfig);
   const shadowY = useSpring(useTransform(mouseY, [-0.5, 0.5], [6, -6]), springConfig);
   
   const [shadowStyle, setShadowStyle] = useState("0 4px 8px rgba(0,0,0,0.2)");
 
-  // Update shadow style based on mouse position
   useEffect(() => {
     if (!isActive) return;
     
@@ -98,38 +96,31 @@ function CreditCardTile({
   const tileBg = inverted ? TILE_DARK : TILE_LIGHT;
   const textColor = inverted ? TEXT_LIGHT : TEXT_DARK;
 
-  // Calculate Y offset
+  // Y offset - cards slide smoothly
   const getYOffset = () => {
     if (isActive) return 0;
-    if (isPassed) {
-      // Cards that went under - stack above (negative Y, behind)
-      return -stackPositionPassed * 70;
-    }
-    // Cards waiting below
-    return stackPositionBehind * 70;
+    if (isPassed) return -stackPositionPassed * 65; // Slide UP and behind
+    return stackPositionBehind * 65; // Slide DOWN and behind
   };
 
-  // Z-index: current card on top, passed cards behind, waiting cards behind
+  // Z-index
   const getZIndex = () => {
     if (isActive) return 100;
     if (isPassed) return 50 - stackPositionPassed;
     return 50 - stackPositionBehind;
   };
 
-  // Scale
+  // Scale - slight reduction for depth
   const getScale = () => {
     if (isActive) return 1;
-    if (isPassed) return 0.97 - stackPositionPassed * 0.02;
-    return 0.97 - stackPositionBehind * 0.02;
+    if (isPassed) return 0.96 - stackPositionPassed * 0.015;
+    return 0.96 - stackPositionBehind * 0.015;
   };
 
-  // Opacity
-  const getOpacity = () => {
-    if (isActive) return 1;
-    if (isPassed && stackPositionPassed > 3) return 0;
-    if (isBehind && stackPositionBehind > 3) return 0;
-    return 0.8;
-  };
+  // Floating animation timing - different for each card
+  const floatDuration = 3 + index * 0.5;
+  const floatDelay = index * 0.4;
+  const floatAmount = isActive ? 8 : 4; // Active card floats more
 
   return (
     <motion.div
@@ -144,22 +135,45 @@ function CreditCardTile({
         transformStyle: "preserve-3d",
         transformPerspective: 1200,
       }}
+      initial={{ 
+        y: "calc(-50% + 100px)", 
+        opacity: 0,
+        scale: 0.9,
+      }}
       animate={{
-        y: `calc(-50% + ${getYOffset()}px)`,
+        y: [
+          `calc(-50% + ${getYOffset()}px)`,
+          `calc(-50% + ${getYOffset() - floatAmount}px)`,
+          `calc(-50% + ${getYOffset()}px)`,
+        ],
         scale: getScale(),
-        opacity: getOpacity(),
+        opacity: 1,
         zIndex: getZIndex(),
       }}
       transition={{
-        type: "spring",
-        stiffness: 120,
-        damping: 22,
-        mass: 0.8,
+        y: {
+          duration: floatDuration,
+          repeat: Infinity,
+          ease: "easeInOut",
+          delay: floatDelay,
+          times: [0, 0.5, 1],
+        },
+        scale: {
+          type: "spring",
+          stiffness: 100,
+          damping: 20,
+        },
+        opacity: {
+          duration: 0.3,
+        },
+        zIndex: {
+          duration: 0,
+        },
       }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Credit card shape */}
+      {/* Credit card shape - FULLY OPAQUE */}
       <div
         className="rounded-2xl p-[3px]"
         style={{
@@ -168,10 +182,12 @@ function CreditCardTile({
           background: inverted 
             ? `linear-gradient(145deg, #5a5248 0%, #2a2722 50%, #1a1816 100%)`
             : `linear-gradient(145deg, #fff 0%, #e8ddd0 50%, #c9bba8 100%)`,
-          boxShadow: `0 20px 40px rgba(0,0,0,0.25), 0 8px 16px rgba(0,0,0,0.15)`,
+          boxShadow: isActive 
+            ? `0 25px 50px rgba(0,0,0,0.3), 0 10px 20px rgba(0,0,0,0.2)`
+            : `0 15px 30px rgba(0,0,0,0.2), 0 5px 15px rgba(0,0,0,0.1)`,
         }}
       >
-        {/* Inner surface */}
+        {/* Inner surface - SOLID, no transparency */}
         <div
           className="w-full h-full rounded-xl flex flex-col items-center justify-center px-8"
           style={{
@@ -197,7 +213,7 @@ function CreditCardTile({
           
           {subtitle && (
             <p
-              className="text-base md:text-lg lg:text-xl mt-4 opacity-70 whitespace-pre-line text-center"
+              className="text-base md:text-lg lg:text-xl mt-4 opacity-80 whitespace-pre-line text-center"
               style={{ 
                 fontFamily: "var(--font-space), system-ui, sans-serif",
                 color: textColor,
@@ -228,7 +244,6 @@ export default function PrototypePage() {
     damping: 25,
   });
 
-  // Update current card based on scroll
   useEffect(() => {
     const unsubscribe = smoothProgress.on("change", (v) => {
       const newIndex = Math.min(
