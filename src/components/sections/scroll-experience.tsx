@@ -476,7 +476,7 @@ function FloatingLogo({
             height={240}
             className="w-52 md:w-64 lg:w-72 h-auto"
             style={{
-              filter: `drop-shadow(0 0 ${winner === 'player' ? '60px rgba(34,211,238,0.6)' : winner === 'wacky' ? '60px rgba(236,72,153,0.6)' : '40px rgba(139,92,246,0.5)'}) drop-shadow(0 4px 4px rgba(0,0,0,0.2)) drop-shadow(0 2px 2px rgba(0,0,0,0.15))`,
+              filter: `drop-shadow(0 0 ${winner === 'player' ? '60px rgba(34,211,238,0.6)' : winner === 'wacky' ? '60px rgba(236,72,153,0.6)' : '40px rgba(139,92,246,0.5)'}) drop-shadow(0 3px 4px rgba(0,0,0,0.3)) drop-shadow(0 1px 2px rgba(0,0,0,0.2))`,
             }}
             draggable={false}
           />
