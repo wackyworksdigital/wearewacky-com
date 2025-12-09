@@ -2,101 +2,71 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 
 const ACCENT = "#B07C4F";
 const TEXT = "#3d3428";
 const BG = "#f5ebe0";
 const SHADOW = "0 3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)";
 
-// Service data with status and content
+// Services we offer
 const services = [
-  // DONE - Old projects (grayed, ticked)
-  {
-    id: "logo-design",
-    name: "logo design",
-    status: "done",
-    description: "we made logos. they were round. people liked them.",
-    image: "/services/logo.png", // placeholder
-  },
-  {
-    id: "business-cards",
-    name: "business cards",
-    status: "done", 
-    description: "remember paper? we put logos on it. very retro.",
-    image: "/services/cards.png",
-  },
-  {
-    id: "wordpress-sites",
-    name: "wordpress sites",
-    status: "done",
-    description: "we clicked buttons in wordpress. many buttons. so many plugins.",
-    image: "/services/wordpress.png",
-  },
-  
-  // IN PROGRESS - Current work (highlighted)
   {
     id: "ai-agents",
     name: "ai agents",
-    status: "in-progress",
-    description: "our AI agents are well equipped and stored somewhere. they do things. smart things.",
+    description: "our AI agents are well equipped and stored somewhere. they do things. smart things. very smart things.",
     image: "/services/ai-brain.png",
   },
   {
     id: "automations",
     name: "automations",
-    status: "in-progress",
     description: "we can make your apps play nice together with the help of n8n and some digital duct tape.",
     image: "/services/robot-arm.png",
   },
-  
-  // COMING UP - Future projects
   {
     id: "websites",
     name: "websites",
-    status: "coming",
     description: "not wordpress anymore. fancy stuff with animations and things that go whoosh.",
     image: "/services/website.png",
   },
   {
     id: "apps",
     name: "mobile apps",
-    status: "coming",
     description: "apps for your phone. so you can ignore them like all your other apps.",
     image: "/services/apps.png",
   },
   {
     id: "socials",
     name: "social content",
-    status: "coming",
     description: "we'll make posts that your mum will definitely like. and maybe 3 other people.",
     image: "/services/socials.png",
   },
   {
     id: "video",
     name: "video ads",
-    status: "coming",
     description: "30 seconds of pure magic. or chaos. depends on the budget.",
     image: "/services/video.png",
   },
   {
     id: "graphics",
     name: "graphics",
-    status: "coming",
     description: "pretty pictures. sometimes with gradients. we love gradients.",
     image: "/services/graphics.png",
   },
   {
     id: "branding",
     name: "branding",
-    status: "coming",
     description: "we'll make you look professional. even if you're not. our secret.",
     image: "/services/branding.png",
   },
   {
+    id: "consulting",
+    name: "consulting",
+    description: "we'll tell you what to do. you probably won't listen. but we'll still charge you.",
+    image: "/services/consulting.png",
+  },
+  {
     id: "something",
     name: "something else",
-    status: "coming",
     description: "we don't know what this is yet but it sounds exciting doesn't it?",
     image: "/services/mystery.png",
   },
@@ -177,30 +147,6 @@ function MenuNav() {
   );
 }
 
-// Status icon component
-function StatusIcon({ status }: { status: string }) {
-  if (status === "done") {
-    return (
-      <span className="text-green-600 mr-3 opacity-60">✓</span>
-    );
-  }
-  if (status === "in-progress") {
-    return (
-      <motion.span 
-        className="mr-3"
-        style={{ color: ACCENT }}
-        animate={{ x: [0, 4, 0] }}
-        transition={{ duration: 1.5, repeat: Infinity }}
-      >
-        →
-      </motion.span>
-    );
-  }
-  return (
-    <span className="mr-3 opacity-40">○</span>
-  );
-}
-
 export default function ServicesPage() {
   const [selectedService, setSelectedService] = useState<string | null>(null);
   const [hoveredService, setHoveredService] = useState<string | null>(null);
@@ -232,8 +178,6 @@ export default function ServicesPage() {
             {services.map((service, index) => {
               const isHovered = hoveredService === service.id;
               const isSelected = selectedService === service.id;
-              const isDone = service.status === "done";
-              const isInProgress = service.status === "in-progress";
               
               return (
                 <motion.div
@@ -254,17 +198,16 @@ export default function ServicesPage() {
                     }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
-                    <StatusIcon status={service.status} />
                     <motion.span
-                      className={`text-3xl md:text-4xl lg:text-5xl lowercase ${isDone ? "line-through" : ""}`}
+                      className="text-3xl md:text-4xl lg:text-5xl lowercase"
                       style={{ 
                         fontFamily: "var(--font-playfair), Georgia, serif",
-                        fontWeight: isInProgress ? 600 : 400,
-                        color: isDone ? `${TEXT}66` : isInProgress ? TEXT : `${TEXT}99`,
+                        fontWeight: isSelected ? 600 : 400,
+                        color: isSelected ? ACCENT : `${TEXT}cc`,
                         textShadow: isHovered || isSelected ? SHADOW : "none",
                       }}
                       animate={{
-                        opacity: isDone ? 0.5 : isHovered || isSelected ? 1 : 0.8,
+                        opacity: isHovered || isSelected ? 1 : 0.7,
                       }}
                     >
                       {service.name}
@@ -299,10 +242,8 @@ export default function ServicesPage() {
               >
                 {/* Placeholder - replace with actual video/image */}
                 <div className="text-center p-8">
-                  <div className="text-6xl mb-4">
-                    {selected.status === "done" ? "✓" : selected.status === "in-progress" ? "⚙️" : "🚀"}
-                  </div>
-                  <p className="text-sm opacity-50">video/image coming soon</p>
+                  <div className="text-6xl mb-4">🎬</div>
+                  <p className="text-sm opacity-50">video coming soon</p>
                 </div>
               </motion.div>
 
@@ -332,21 +273,6 @@ export default function ServicesPage() {
                 >
                   {selected.description}
                 </p>
-                
-                {/* Status badge */}
-                <div className="mt-4">
-                  <span 
-                    className={`inline-block px-3 py-1 rounded-full text-sm ${
-                      selected.status === "done" 
-                        ? "bg-green-100 text-green-700" 
-                        : selected.status === "in-progress"
-                        ? "bg-amber-100 text-amber-700"
-                        : "bg-slate-100 text-slate-600"
-                    }`}
-                  >
-                    {selected.status === "done" ? "completed" : selected.status === "in-progress" ? "in progress" : "coming soon"}
-                  </span>
-                </div>
               </motion.div>
             </motion.div>
           )}
