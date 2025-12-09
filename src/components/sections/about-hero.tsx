@@ -195,7 +195,7 @@ export function AboutHero() {
               muted
               playsInline
               style={{
-                filter: "drop-shadow(0 22px 44px rgba(0,0,0,0.4))",
+                filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.5)) drop-shadow(0 12px 24px rgba(0,0,0,0.3))",
               }}
             />
 

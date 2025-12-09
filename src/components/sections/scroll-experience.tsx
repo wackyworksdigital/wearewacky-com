@@ -476,7 +476,7 @@ function FloatingLogo({
             height={240}
             className="w-52 md:w-64 lg:w-72 h-auto"
             style={{
-              filter: `drop-shadow(0 0 ${winner === 'player' ? '60px rgba(34,211,238,0.6)' : winner === 'wacky' ? '60px rgba(236,72,153,0.6)' : '40px rgba(139,92,246,0.5)'})`,
+              filter: `drop-shadow(0 0 ${winner === 'player' ? '60px rgba(34,211,238,0.6)' : winner === 'wacky' ? '60px rgba(236,72,153,0.6)' : '40px rgba(139,92,246,0.5)'}) drop-shadow(0 16px 32px rgba(0,0,0,0.25))`,
             }}
             draggable={false}
           />
@@ -671,7 +671,7 @@ export function ScrollExperience() {
           >
             <motion.p
               className="text-xs md:text-sm font-mono tracking-widest uppercase"
-              style={{ color: "#3d3428" }}
+              style={{ color: "#3d3428", textShadow: "0 2px 8px rgba(0,0,0,0.18)" }}
             >
               Wacky Works Digital
             </motion.p>
@@ -730,6 +730,7 @@ export function ScrollExperience() {
             style={{ 
               color: textColor,
               scale: logoScale,
+              textShadow: "0 8px 32px rgba(0,0,0,0.25), 0 4px 12px rgba(0,0,0,0.15)",
             }}
           >
             we build
@@ -748,6 +749,7 @@ export function ScrollExperience() {
               x: tickerX, 
               color: textColor,
               fontFamily: "var(--font-space), system-ui, sans-serif",
+              textShadow: "0 2px 8px rgba(0,0,0,0.2)",
             }}
           >
             {services.map((service, i) => (
@@ -773,7 +775,7 @@ export function ScrollExperience() {
         >
           <motion.p
             className="text-xs md:text-sm font-mono tracking-widest uppercase"
-            style={{ color: textColor }}
+            style={{ color: textColor, textShadow: "0 2px 8px rgba(0,0,0,0.18)" }}
           >
             Wacky Works Digital
           </motion.p>
