@@ -45,7 +45,7 @@ function MenuNav() {
               animate={{
                 y: pushY,
                 scale: isHovered ? 1.12 : isOtherHovered ? 0.94 : 1,
-                opacity: isOtherHovered ? 0.6 : 1,
+                opacity: isHovered ? 1 : isOtherHovered ? 0.5 : isActive ? 1 : 0.7,
               }}
               transition={{ type: "spring", stiffness: 300, damping: 20, mass: 0.8 }}
             >
