@@ -1,16 +1,16 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
+import { motion, useScroll, useSpring, useMotionValue, useTransform, AnimatePresence } from "framer-motion";
 
-const BG = "#e8ddd0"; // Lighter warm background
+const BG = "#e8ddd0";
 const TILE_LIGHT = "#f5ebe0";
 const TILE_DARK = "#3d3428";
 const TEXT_DARK = "#3d3428";
 const TEXT_LIGHT = "#f5ebe0";
 const ACCENT = "#B07C4F";
 
-// All sections - same structure
+// All sections
 const sections = [
   { id: "intro", title: "we build.", inverted: true },
   { id: "services", title: "services", inverted: false },
@@ -20,37 +20,36 @@ const sections = [
   { id: "outro", title: "WACKY WORKS DIGITAL", subtitle: "we're not for everyone.\nand that's the point.", inverted: true },
 ];
 
-// Card tile with 3D tilt and dynamic shadows
-function CardTile({ 
+// Credit card shaped tile with tilt
+function CreditCardTile({ 
   title,
   subtitle,
   inverted = false,
-  index,
-  totalCards,
+  isActive,
+  position, // 'top', 'underneath', 'exited'
 }: { 
   title: string;
   subtitle?: string;
   inverted?: boolean;
-  index: number;
-  totalCards: number;
+  isActive: boolean;
+  position: 'top' | 'underneath' | 'exited';
 }) {
   const ref = useRef<HTMLDivElement>(null);
   
-  // Mouse position for tilt
+  // Mouse position for tilt (only when active)
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   
-  // Smooth spring for tilt
   const springConfig = { stiffness: 200, damping: 20, mass: 0.5 };
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), springConfig);
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), springConfig);
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), springConfig);
   
-  // Dynamic text shadow based on tilt
-  const textShadowX = useTransform(mouseX, [-0.5, 0.5], [6, -6]);
-  const textShadowY = useTransform(mouseY, [-0.5, 0.5], [6, -6]);
+  // Dynamic text shadow
+  const textShadowX = useTransform(mouseX, [-0.5, 0.5], [5, -5]);
+  const textShadowY = useTransform(mouseY, [-0.5, 0.5], [5, -5]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
+    if (!ref.current || !isActive) return;
     const rect = ref.current.getBoundingClientRect();
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
@@ -63,99 +62,94 @@ function CardTile({
     mouseY.set(0);
   };
 
-  // Colors
   const tileBg = inverted ? TILE_DARK : TILE_LIGHT;
   const textColor = inverted ? TEXT_LIGHT : TEXT_DARK;
-  
-  // Stagger for organic floating
-  const floatDuration = 3 + index * 0.4;
-  const floatDelay = index * 0.3;
-  
-  // Stack offset - each card peeks out ~60px from the one above
-  const stackOffset = index * 60;
+
+  // Animation variants based on position
+  const variants = {
+    top: {
+      y: 0,
+      scale: 1,
+      rotateX: 0,
+      opacity: 1,
+      zIndex: 10,
+    },
+    underneath: {
+      y: 20,
+      scale: 0.95,
+      rotateX: 0,
+      opacity: 0.5,
+      zIndex: 1,
+    },
+    exited: {
+      y: -400,
+      scale: 0.9,
+      rotateX: -20,
+      opacity: 0,
+      zIndex: 0,
+    },
+  };
 
   return (
     <motion.div
       ref={ref}
-      className="absolute left-1/2 cursor-pointer"
+      className="absolute inset-0 flex items-center justify-center cursor-pointer"
       style={{
-        top: stackOffset,
-        x: "-50%",
-        zIndex: totalCards - index, // First card on top
-        rotateX,
-        rotateY,
+        rotateX: isActive ? rotateX : 0,
+        rotateY: isActive ? rotateY : 0,
         transformStyle: "preserve-3d",
         transformPerspective: 1200,
       }}
-      initial={{ 
-        opacity: 0, 
-        y: -50,
-        scale: 0.95,
+      variants={variants}
+      initial="underneath"
+      animate={position}
+      transition={{
+        type: "spring",
+        stiffness: 100,
+        damping: 20,
+        mass: 0.8,
       }}
-      animate={{ 
-        opacity: 1, 
-        y: [0, -6, 0],
-        scale: 1,
-        transition: {
-          opacity: { duration: 0.6, delay: index * 0.1 },
-          scale: { duration: 0.6, delay: index * 0.1, type: "spring", stiffness: 100 },
-          y: { 
-            duration: floatDuration, 
-            repeat: Infinity, 
-            ease: "easeInOut",
-            delay: floatDelay,
-          },
-        }
-      }}
-      whileHover={{ 
-        scale: 1.03,
-        y: -15,
-        zIndex: 100,
-        transition: { type: "spring", stiffness: 300, damping: 20 }
-      }}
-      whileTap={{ scale: 0.98 }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Badge shape with rim */}
+      {/* Credit card shape */}
       <div
-        className="rounded-2xl p-[2px]"
+        className="rounded-2xl p-[3px]"
         style={{
-          width: "500px",
-          maxWidth: "90vw",
+          width: "min(600px, 85vw)",
+          aspectRatio: "1.6 / 1", // Credit card ratio
           background: inverted 
             ? `linear-gradient(145deg, #5a5248 0%, #2a2722 50%, #1a1816 100%)`
             : `linear-gradient(145deg, #fff 0%, #e8ddd0 50%, #c9bba8 100%)`,
-          boxShadow: `
-            0 15px 35px rgba(0,0,0,0.25),
-            0 5px 15px rgba(0,0,0,0.15),
-            inset 0 1px 0 rgba(255,255,255,${inverted ? 0.1 : 0.6})
-          `,
+          boxShadow: isActive
+            ? `0 25px 50px rgba(0,0,0,0.3), 0 10px 20px rgba(0,0,0,0.2)`
+            : `0 10px 30px rgba(0,0,0,0.2)`,
         }}
       >
-        {/* Inner convex surface */}
+        {/* Inner surface */}
         <div
-          className="rounded-xl px-10 py-8"
+          className="w-full h-full rounded-xl flex flex-col items-center justify-center px-8"
           style={{
             background: inverted
               ? `linear-gradient(165deg, #4a4540 0%, ${tileBg} 35%, #2d2a26 100%)`
               : `linear-gradient(165deg, #fff 0%, ${tileBg} 35%, #e0d5c8 100%)`,
             boxShadow: inverted
-              ? `inset 0 2px 3px rgba(255,255,255,0.08), inset 0 -2px 3px rgba(0,0,0,0.2)`
-              : `inset 0 2px 3px rgba(255,255,255,0.7), inset 0 -2px 3px rgba(0,0,0,0.08)`,
+              ? `inset 0 2px 4px rgba(255,255,255,0.08), inset 0 -2px 4px rgba(0,0,0,0.2)`
+              : `inset 0 2px 4px rgba(255,255,255,0.7), inset 0 -2px 4px rgba(0,0,0,0.08)`,
           }}
         >
-          {/* Text with dynamic shadow */}
           <motion.h1
-            className={`font-black lowercase text-center ${subtitle ? 'text-3xl md:text-4xl' : 'text-4xl md:text-5xl'}`}
+            className={`font-black lowercase text-center ${subtitle ? 'text-3xl md:text-4xl lg:text-5xl' : 'text-4xl md:text-5xl lg:text-6xl'}`}
             style={{
               fontFamily: "var(--font-playfair), Georgia, serif",
               color: textColor,
-              textShadow: useTransform(
-                [textShadowX, textShadowY],
-                ([x, y]) => `${x}px ${y}px 10px rgba(0,0,0,${inverted ? 0.4 : 0.2}), 0 2px 4px rgba(0,0,0,${inverted ? 0.2 : 0.1})`
-              ),
-              transform: "translateZ(25px)",
+              textShadow: isActive 
+                ? useTransform(
+                    [textShadowX, textShadowY],
+                    ([x, y]) => `${x}px ${y}px 10px rgba(0,0,0,${inverted ? 0.4 : 0.2})`
+                  )
+                : `0 3px 6px rgba(0,0,0,${inverted ? 0.3 : 0.15})`,
+              transform: "translateZ(30px)",
             }}
           >
             {title}
@@ -163,15 +157,11 @@ function CardTile({
           
           {subtitle && (
             <motion.p
-              className="text-base md:text-lg mt-4 opacity-70 whitespace-pre-line text-center"
+              className="text-base md:text-lg lg:text-xl mt-4 opacity-70 whitespace-pre-line text-center"
               style={{ 
                 fontFamily: "var(--font-space), system-ui, sans-serif",
                 color: textColor,
-                textShadow: useTransform(
-                  [textShadowX, textShadowY],
-                  ([x, y]) => `${Number(x) * 0.4}px ${Number(y) * 0.4}px 5px rgba(0,0,0,0.15)`
-                ),
-                transform: "translateZ(15px)",
+                transform: "translateZ(20px)",
               }}
             >
               {subtitle}
@@ -184,54 +174,116 @@ function CardTile({
 }
 
 export default function PrototypePage() {
-  const totalHeight = sections.length * 60 + 200; // Stack height + padding
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 50,
+    damping: 20,
+  });
+
+  // Update current card based on scroll
+  useEffect(() => {
+    const unsubscribe = smoothProgress.on("change", (v) => {
+      const newIndex = Math.min(
+        Math.floor(v * sections.length),
+        sections.length - 1
+      );
+      setCurrentIndex(Math.max(0, newIndex));
+    });
+    return () => unsubscribe();
+  }, [smoothProgress]);
 
   return (
     <div 
-      className="relative min-h-screen"
-      style={{ backgroundColor: BG }}
+      ref={containerRef}
+      className="relative"
+      style={{ 
+        height: `${sections.length * 100}vh`,
+        backgroundColor: BG,
+      }}
     >
-      {/* Subtle gradient background */}
+      {/* Background */}
       <div 
         className="fixed inset-0 pointer-events-none"
         style={{
-          background: `radial-gradient(ellipse at 50% 30%, #f0e6da 0%, ${BG} 70%)`,
+          background: `radial-gradient(ellipse at 50% 40%, #f0e6da 0%, ${BG} 70%)`,
         }}
       />
       
-      {/* Noise texture */}
+      {/* Noise */}
       <div
         className="fixed inset-0 pointer-events-none mix-blend-overlay"
         style={{
-          opacity: 0.05,
+          opacity: 0.04,
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
         }}
       />
 
-      {/* Card stack container */}
+      {/* Card deck - fixed in center */}
       <div 
-        className="relative z-10 flex items-center justify-center py-20"
-        style={{ 
-          minHeight: "100vh",
-          perspective: "1500px",
-        }}
+        className="fixed inset-0 z-10"
+        style={{ perspective: "1500px" }}
       >
-        <div 
-          className="relative"
-          style={{ height: totalHeight }}
-        >
-          {sections.map((section, index) => (
-            <CardTile
+        {sections.map((section, index) => {
+          let position: 'top' | 'underneath' | 'exited';
+          if (index < currentIndex) {
+            position = 'exited';
+          } else if (index === currentIndex) {
+            position = 'top';
+          } else {
+            position = 'underneath';
+          }
+
+          return (
+            <CreditCardTile
               key={section.id}
               title={section.title}
               subtitle={section.subtitle}
               inverted={section.inverted}
-              index={index}
-              totalCards={sections.length}
+              isActive={index === currentIndex}
+              position={position}
             />
-          ))}
-        </div>
+          );
+        })}
       </div>
+
+      {/* Progress indicator - small dots */}
+      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 flex gap-2">
+        {sections.map((_, i) => (
+          <div
+            key={i}
+            className="w-2 h-2 rounded-full transition-all duration-300"
+            style={{
+              backgroundColor: i === currentIndex ? ACCENT : `${TEXT_DARK}33`,
+              transform: i === currentIndex ? 'scale(1.3)' : 'scale(1)',
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Scroll hint */}
+      {currentIndex === 0 && (
+        <motion.div
+          className="fixed bottom-20 left-1/2 -translate-x-1/2 z-50"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.4, y: [0, 8, 0] }}
+          transition={{ 
+            opacity: { delay: 1 },
+            y: { duration: 2, repeat: Infinity, ease: "easeInOut" }
+          }}
+          style={{ color: TEXT_DARK }}
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </motion.div>
+      )}
     </div>
   );
 }
