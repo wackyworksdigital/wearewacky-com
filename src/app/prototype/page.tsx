@@ -1,73 +1,71 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 
 const BG = "#f5ebe0";
 const TEXT = "#3d3428";
 const ACCENT = "#B07C4F";
 
-// Layer content with sub-items
-const layers = [
+// Main sections
+const sections = [
   {
     id: "intro",
     title: "we build.",
-    subtitle: null,
     bg: "#3d3428",
     textColor: "#f5ebe0",
-    hasDetail: false,
+    subItems: null,
   },
   {
     id: "services",
     title: "services",
-    subtitle: "what we do",
     bg: BG,
     textColor: TEXT,
-    hasDetail: true,
-    detail: {
-      title: "services",
-      items: ["ai agents", "automations", "websites", "apps", "video", "graphics", "branding"],
-      description: "we build things that work. fast. no bullshit. just results.",
-    },
+    subItems: [
+      { name: "ai agents", desc: "smart helpers that never sleep" },
+      { name: "automations", desc: "connect everything" },
+      { name: "websites", desc: "not wordpress anymore" },
+      { name: "apps", desc: "in your pocket" },
+      { name: "video", desc: "30 seconds of magic" },
+      { name: "graphics", desc: "pretty pixels" },
+      { name: "branding", desc: "who even are you?" },
+    ],
   },
   {
     id: "about",
     title: "about",
-    subtitle: "who we are",
     bg: BG,
     textColor: TEXT,
-    hasDetail: true,
-    detail: {
-      title: "our team",
-      items: ["definitely real humans", "not AI generated", "we promise", "stop looking at us like that"],
-      description: "a small team of creative technologists who ship fast and iterate faster.",
-    },
+    subItems: [
+      { name: "our team", desc: "definitely real humans" },
+      { name: "not AI", desc: "we promise" },
+      { name: "seriously", desc: "stop asking" },
+    ],
   },
   {
     id: "portfolio",
     title: "portfolio",
-    subtitle: "what we've done",
     bg: BG,
     textColor: TEXT,
-    hasDetail: true,
-    detail: {
-      title: "projects",
-      items: ["✓ ai course", "✓ brand refresh", "→ saas platform", "→ content engine", "○ mobile app", "○ video series"],
-      description: "from idea to live in weeks, not months.",
-    },
+    subItems: [
+      { name: "✓ ai course", desc: "completed" },
+      { name: "✓ brand refresh", desc: "completed" },
+      { name: "→ saas platform", desc: "in progress" },
+      { name: "→ content engine", desc: "in progress" },
+      { name: "○ mobile app", desc: "coming soon" },
+      { name: "○ video series", desc: "coming soon" },
+    ],
   },
   {
     id: "contact",
     title: "contact",
-    subtitle: "let's talk",
     bg: BG,
     textColor: TEXT,
-    hasDetail: true,
-    detail: {
-      title: "get in touch",
-      items: ["hello@wearewacky.com", "+44 7460 460318"],
-      description: "every hour is office hour. because we're winners.",
-    },
+    subItems: [
+      { name: "email", desc: "hello@wearewacky.com" },
+      { name: "whatsapp", desc: "+44 7460 460318" },
+      { name: "office hours", desc: "every hour is office hour" },
+    ],
   },
   {
     id: "outro",
@@ -75,44 +73,116 @@ const layers = [
     subtitle: "we're not for everyone.\nand that's the point.",
     bg: "#3d3428",
     textColor: "#f5ebe0",
-    hasDetail: false,
+    subItems: null,
   },
 ];
 
+// Floaty tile component
+function FloatyTile({ 
+  children, 
+  delay = 0, 
+  onClick,
+  isMain = false,
+  style = {},
+}: { 
+  children: React.ReactNode;
+  delay?: number;
+  onClick?: () => void;
+  isMain?: boolean;
+  style?: any;
+}) {
+  return (
+    <motion.div
+      className={`rounded-2xl cursor-pointer ${isMain ? 'p-10 md:p-14' : 'p-6 md:p-8'}`}
+      style={{
+        backgroundColor: style.bg || BG,
+        color: style.textColor || TEXT,
+        boxShadow: "0 25px 50px rgba(0,0,0,0.25), 0 10px 20px rgba(0,0,0,0.15)",
+        ...style,
+      }}
+      initial={{ 
+        opacity: 0, 
+        y: 100,
+        rotateX: -15,
+        rotateY: Math.random() * 10 - 5,
+        scale: 0.8,
+      }}
+      animate={{ 
+        opacity: 1, 
+        y: 0,
+        rotateX: 0,
+        rotateY: 0,
+        scale: 1,
+      }}
+      exit={{ 
+        opacity: 0, 
+        y: -100,
+        rotateX: 15,
+        scale: 0.8,
+      }}
+      whileHover={{ 
+        scale: 1.05, 
+        y: -10,
+        rotateY: 3,
+        boxShadow: "0 35px 70px rgba(0,0,0,0.3), 0 15px 30px rgba(0,0,0,0.2)",
+      }}
+      whileTap={{ scale: 0.98 }}
+      transition={{
+        type: "spring",
+        stiffness: 100,
+        damping: 15,
+        mass: 1,
+        delay,
+      }}
+      onClick={onClick}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 export default function PrototypePage() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [selectedLayer, setSelectedLayer] = useState<string | null>(null);
+  const [selectedSection, setSelectedSection] = useState<string | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  // Smooth spring for liquid feel
+  // Super smooth spring
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 50,
+    stiffness: 30,
     damping: 20,
-    restDelta: 0.001,
+    restDelta: 0.0001,
   });
 
-  const selected = layers.find(l => l.id === selectedLayer);
+  // Update current index based on scroll
+  smoothProgress.on("change", (v) => {
+    const newIndex = Math.min(
+      Math.floor(v * sections.length),
+      sections.length - 1
+    );
+    if (newIndex !== currentIndex && !selectedSection) {
+      setCurrentIndex(newIndex);
+    }
+  });
+
+  const currentSection = sections[currentIndex];
+  const selected = sections.find(s => s.id === selectedSection);
 
   return (
     <div 
       ref={containerRef} 
       className="relative"
       style={{ 
-        height: `${layers.length * 150}vh`, // More space between
+        height: `${sections.length * 120}vh`,
         backgroundColor: BG,
       }}
     >
       {/* Fixed background */}
-      <div 
-        className="fixed inset-0"
-        style={{ 
-          backgroundColor: BG,
-        }}
-      >
+      <div className="fixed inset-0" style={{ backgroundColor: BG }}>
         {/* Noise texture */}
         <div
           className="absolute inset-0 pointer-events-none mix-blend-overlay"
@@ -123,227 +193,171 @@ export default function PrototypePage() {
         />
       </div>
 
-      {/* Left side - Stacked tiles */}
-      <div className="fixed left-8 md:left-16 top-0 bottom-0 w-[40vw] max-w-md flex items-center z-10">
-        <div className="space-y-6 w-full">
-          {layers.map((layer, index) => {
-            const layerStart = index / layers.length;
-            const layerEnd = (index + 1) / layers.length;
-            
-            // Y position with more spacing
-            const y = useTransform(
-              smoothProgress,
-              [layerStart - 0.3, layerStart, layerEnd, layerEnd + 0.3],
-              [300, 0, 0, -300]
-            );
-            
-            // Opacity
-            const opacity = useTransform(
-              smoothProgress,
-              [layerStart - 0.15, layerStart, layerEnd, layerEnd + 0.15],
-              [0, 1, 1, 0]
-            );
-            
-            // Scale for depth
-            const scale = useTransform(
-              smoothProgress,
-              [layerStart - 0.1, layerStart, layerEnd, layerEnd + 0.1],
-              [0.85, 1, 1, 0.85]
-            );
-
-            const isSelected = selectedLayer === layer.id;
-
-            return (
-              <motion.div
-                key={layer.id}
-                className={`rounded-2xl p-8 md:p-10 cursor-pointer transition-all duration-500 ${
-                  layer.hasDetail ? "hover:translate-x-2" : ""
-                }`}
-                style={{
-                  y,
-                  opacity,
-                  scale,
-                  backgroundColor: layer.bg,
-                  color: layer.textColor,
-                  boxShadow: isSelected 
-                    ? "0 30px 60px rgba(0,0,0,0.4), 0 15px 30px rgba(0,0,0,0.3)"
-                    : "0 20px 50px rgba(0,0,0,0.25), 0 10px 20px rgba(0,0,0,0.15)",
-                  border: isSelected ? `3px solid ${ACCENT}` : "3px solid transparent",
-                }}
-                onClick={() => {
-                  if (layer.hasDetail) {
-                    setSelectedLayer(isSelected ? null : layer.id);
-                  }
-                }}
-                whileHover={layer.hasDetail ? { x: 8, scale: 1.02 } : {}}
-                transition={{ type: "spring", stiffness: 200, damping: 20 }}
-              >
-                <motion.h2
-                  className="text-3xl md:text-4xl lg:text-5xl font-black lowercase"
+      {/* Main content area */}
+      <div 
+        className="fixed inset-0 flex items-center justify-center z-10"
+        style={{ perspective: "1200px" }}
+      >
+        <AnimatePresence mode="wait">
+          {!selectedSection ? (
+            // MAIN VIEW - Center tiles
+            <motion.div
+              key="main"
+              className="flex flex-col items-center gap-6"
+              initial={{ opacity: 0, x: 0 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -300, scale: 0.8 }}
+              transition={{ type: "spring", stiffness: 100, damping: 20 }}
+            >
+              <AnimatePresence mode="wait">
+                <FloatyTile
+                  key={currentSection.id}
+                  isMain
+                  onClick={() => {
+                    if (currentSection.subItems) {
+                      setSelectedSection(currentSection.id);
+                    }
+                  }}
                   style={{
-                    fontFamily: "var(--font-playfair), Georgia, serif",
-                    textShadow: "0 3px 6px rgba(0,0,0,0.2)",
+                    bg: currentSection.bg,
+                    textColor: currentSection.textColor,
                   }}
                 >
-                  {layer.title}
-                </motion.h2>
-                
-                {layer.subtitle && (
-                  <motion.p
-                    className="text-base md:text-lg mt-2 opacity-60 whitespace-pre-line"
-                    style={{
-                      fontFamily: "var(--font-space), system-ui, sans-serif",
-                    }}
-                  >
-                    {layer.subtitle}
-                  </motion.p>
-                )}
-
-                {layer.hasDetail && (
-                  <div className="mt-4 text-sm opacity-40">
-                    click to expand →
-                  </div>
-                )}
-              </motion.div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Right side - Expanded detail panel */}
-      <AnimatePresence>
-        {selected && selected.detail && (
-          <motion.div
-            className="fixed right-8 md:right-16 top-1/2 -translate-y-1/2 w-[45vw] max-w-2xl z-20"
-            initial={{ opacity: 0, x: 100, scale: 0.9 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: 100, scale: 0.9 }}
-            transition={{ type: "spring", stiffness: 150, damping: 20 }}
-          >
-            <motion.div
-              className="rounded-3xl p-10 md:p-14"
-              style={{
-                backgroundColor: "#fff",
-                color: TEXT,
-                boxShadow: "0 40px 80px rgba(0,0,0,0.3), 0 20px 40px rgba(0,0,0,0.2)",
-              }}
-            >
-              {/* Close button */}
-              <button
-                onClick={() => setSelectedLayer(null)}
-                className="absolute top-6 right-6 w-10 h-10 rounded-full flex items-center justify-center opacity-40 hover:opacity-100 transition-opacity"
-                style={{ backgroundColor: `${TEXT}11` }}
-              >
-                ✕
-              </button>
-
-              <motion.h3
-                className="text-4xl md:text-5xl font-black lowercase mb-6"
-                style={{
-                  fontFamily: "var(--font-playfair), Georgia, serif",
-                  color: ACCENT,
-                  textShadow: "0 3px 6px rgba(0,0,0,0.15)",
-                }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-              >
-                {selected.detail.title}
-              </motion.h3>
-
-              {/* Items list */}
-              <motion.div
-                className="space-y-3 mb-8"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15 }}
-              >
-                {selected.detail.items.map((item, i) => (
-                  <motion.div
-                    key={i}
-                    className="text-xl md:text-2xl lowercase"
+                  <motion.h1
+                    className="text-5xl md:text-7xl lg:text-8xl font-black lowercase"
                     style={{
                       fontFamily: "var(--font-playfair), Georgia, serif",
-                      textShadow: "0 2px 4px rgba(0,0,0,0.1)",
+                      textShadow: "0 4px 8px rgba(0,0,0,0.2)",
                     }}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 + i * 0.05 }}
                   >
-                    {item}
-                  </motion.div>
+                    {currentSection.title}
+                  </motion.h1>
+                  
+                  {currentSection.subtitle && (
+                    <motion.p
+                      className="text-xl md:text-2xl mt-4 opacity-60 whitespace-pre-line"
+                      style={{ fontFamily: "var(--font-space), system-ui, sans-serif" }}
+                    >
+                      {currentSection.subtitle}
+                    </motion.p>
+                  )}
+
+                  {currentSection.subItems && (
+                    <motion.p
+                      className="text-sm mt-6 opacity-40"
+                      animate={{ x: [0, 5, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity }}
+                    >
+                      click to explore →
+                    </motion.p>
+                  )}
+                </FloatyTile>
+              </AnimatePresence>
+
+              {/* Navigation dots */}
+              <div className="flex gap-3 mt-8">
+                {sections.map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="w-2 h-2 rounded-full"
+                    style={{
+                      backgroundColor: i === currentIndex ? ACCENT : `${TEXT}33`,
+                    }}
+                    animate={{
+                      scale: i === currentIndex ? 1.3 : 1,
+                    }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  />
                 ))}
+              </div>
+            </motion.div>
+          ) : (
+            // EXPANDED VIEW - Sub items floating in
+            <motion.div
+              key="expanded"
+              className="w-full h-full flex"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              {/* Left side - Main tile (smaller, moved left) */}
+              <motion.div
+                className="w-1/3 flex items-center justify-center"
+                initial={{ x: 0 }}
+                animate={{ x: 0 }}
+              >
+                <FloatyTile
+                  onClick={() => setSelectedSection(null)}
+                  style={{
+                    bg: selected?.bg,
+                    textColor: selected?.textColor,
+                  }}
+                >
+                  <motion.h2
+                    className="text-3xl md:text-4xl font-black lowercase"
+                    style={{
+                      fontFamily: "var(--font-playfair), Georgia, serif",
+                      textShadow: "0 3px 6px rgba(0,0,0,0.2)",
+                    }}
+                  >
+                    {selected?.title}
+                  </motion.h2>
+                  <p className="text-sm mt-4 opacity-40">← back</p>
+                </FloatyTile>
               </motion.div>
 
-              {/* Description */}
-              <motion.p
-                className="text-lg opacity-70 leading-relaxed"
-                style={{
-                  fontFamily: "var(--font-space), system-ui, sans-serif",
-                }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
+              {/* Right side - Floating sub-tiles */}
+              <motion.div
+                className="w-2/3 flex flex-wrap items-center justify-center gap-4 p-8"
+                initial={{ opacity: 0, x: 200 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ type: "spring", stiffness: 80, damping: 20 }}
               >
-                {selected.detail.description}
-              </motion.p>
-
-              {/* CTA Button */}
-              {selected.id === "contact" ? (
-                <motion.a
-                  href="mailto:hello@wearewacky.com"
-                  className="inline-block mt-8 px-8 py-4 rounded-full text-lg font-medium lowercase"
-                  style={{
-                    backgroundColor: ACCENT,
-                    color: "#fff",
-                    boxShadow: "0 8px 20px rgba(0,0,0,0.2)",
-                    fontFamily: "var(--font-playfair), Georgia, serif",
-                  }}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.35 }}
-                >
-                  send us a message
-                </motion.a>
-              ) : (
-                <motion.button
-                  className="mt-8 px-8 py-4 rounded-full text-lg font-medium lowercase"
-                  style={{
-                    backgroundColor: ACCENT,
-                    color: "#fff",
-                    boxShadow: "0 8px 20px rgba(0,0,0,0.2)",
-                    fontFamily: "var(--font-playfair), Georgia, serif",
-                  }}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.35 }}
-                >
-                  learn more
-                </motion.button>
-              )}
+                {selected?.subItems?.map((item, i) => (
+                  <FloatyTile
+                    key={item.name}
+                    delay={i * 0.08}
+                  >
+                    <h3
+                      className="text-xl md:text-2xl font-bold lowercase"
+                      style={{
+                        fontFamily: "var(--font-playfair), Georgia, serif",
+                        color: ACCENT,
+                        textShadow: "0 2px 4px rgba(0,0,0,0.15)",
+                      }}
+                    >
+                      {item.name}
+                    </h3>
+                    <p
+                      className="text-sm mt-2 opacity-60"
+                      style={{ fontFamily: "var(--font-space), system-ui, sans-serif" }}
+                    >
+                      {item.desc}
+                    </p>
+                  </FloatyTile>
+                ))}
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50"
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        style={{ color: TEXT }}
-      >
-        <div className="flex flex-col items-center gap-2 opacity-40">
-          <span className="text-xs uppercase tracking-widest">scroll</span>
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </div>
-      </motion.div>
+      {/* Scroll indicator - only show in main view */}
+      {!selectedSection && (
+        <motion.div
+          className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          style={{ color: TEXT }}
+        >
+          <div className="flex flex-col items-center gap-2 opacity-40">
+            <span className="text-xs uppercase tracking-widest">scroll</span>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </div>
+        </motion.div>
+      )}
 
       {/* Progress bar */}
       <motion.div
