@@ -45,7 +45,7 @@ function MenuNav() {
               animate={{
                 y: pushY,
                 scale: isHovered ? 1.12 : isOtherHovered ? 0.94 : 1,
-                opacity: isHovered ? 1 : isOtherHovered ? 0.5 : isActive ? 1 : 0.7,
+                opacity: isHovered ? 1 : isOtherHovered ? 0.5 : 1,
               }}
               transition={{ type: "spring", stiffness: 300, damping: 20, mass: 0.8 }}
             >
@@ -57,7 +57,7 @@ function MenuNav() {
                   fontWeight: 500, 
                   letterSpacing: "-0.02em",
                   color: isActive ? ACCENT : TEXT,
-                  textShadow: "0 2px 6px rgba(0,0,0,0.18)",
+                  textShadow: "0 3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)",
                 }}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
@@ -115,14 +115,14 @@ export default function ContactPage() {
             style={{
               fontFamily: "var(--font-playfair), Georgia, serif",
               color: TEXT,
-              textShadow: "0 6px 24px rgba(0,0,0,0.2)",
+              textShadow: "0 6px 8px rgba(0,0,0,0.35), 0 3px 3px rgba(0,0,0,0.25)",
             }}
           >
             let's talk!
           </h1>
 
           {/* Contact links */}
-          <div className="space-y-3 text-xl md:text-2xl lg:text-3xl" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.15)" }}>
+          <div className="space-y-3 text-xl md:text-2xl lg:text-3xl" style={{ textShadow: "0 3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)" }}>
             <p>
               email:{" "}
               <Link
@@ -146,7 +146,7 @@ export default function ContactPage() {
           </div>
 
           {/* Funny office hours */}
-          <div className="space-y-1 text-lg md:text-xl pt-4" style={{ textShadow: "0 2px 6px rgba(0,0,0,0.12)" }}>
+          <div className="space-y-1 text-lg md:text-xl pt-4" style={{ textShadow: "0 3px 4px rgba(0,0,0,0.25), 0 1px 2px rgba(0,0,0,0.15)" }}>
             <p><span style={{ color: TEXT }}>office hours:</span> <span style={{ color: ACCENT }}>every hour is office hour bro!</span></p>
             <p style={{ color: ACCENT }}>you know why? cos we are winners bro!</p>
             <p className="pt-2" style={{ color: ACCENT }}>also the robots. those guys doing all the work.</p>

@@ -146,7 +146,7 @@ function MenuNav({
               animate={{
                 y: pushY,
                 scale: isHovered ? 1.12 : isOtherHovered ? 0.94 : 1,
-                opacity: isHovered ? 1 : isOtherHovered ? 0.5 : isActive ? 1 : 0.7,
+                opacity: isHovered ? 1 : isOtherHovered ? 0.5 : 1,
               }}
               transition={{ 
                 type: "spring", 
@@ -163,7 +163,7 @@ function MenuNav({
                   fontWeight: 500, 
                   letterSpacing: "-0.02em",
                   color: isActive ? WARM_BROWN : textColor,
-                  textShadow: "0 2px 6px rgba(0,0,0,0.18)",
+                  textShadow: "0 3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)",
                 }}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
@@ -476,7 +476,7 @@ function FloatingLogo({
             height={240}
             className="w-52 md:w-64 lg:w-72 h-auto"
             style={{
-              filter: `drop-shadow(0 0 ${winner === 'player' ? '60px rgba(34,211,238,0.6)' : winner === 'wacky' ? '60px rgba(236,72,153,0.6)' : '40px rgba(139,92,246,0.5)'}) drop-shadow(0 16px 32px rgba(0,0,0,0.25))`,
+              filter: `drop-shadow(0 0 ${winner === 'player' ? '60px rgba(34,211,238,0.6)' : winner === 'wacky' ? '60px rgba(236,72,153,0.6)' : '40px rgba(139,92,246,0.5)'}) drop-shadow(0 16px 16px rgba(0,0,0,0.4)) drop-shadow(0 6px 6px rgba(0,0,0,0.3))`,
             }}
             draggable={false}
           />
@@ -671,7 +671,7 @@ export function ScrollExperience() {
           >
             <motion.p
               className="text-xs md:text-sm font-mono tracking-widest uppercase"
-              style={{ color: "#3d3428", textShadow: "0 2px 8px rgba(0,0,0,0.18)" }}
+              style={{ color: "#3d3428", textShadow: "0 3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)" }}
             >
               Wacky Works Digital
             </motion.p>
@@ -730,7 +730,7 @@ export function ScrollExperience() {
             style={{ 
               color: textColor,
               scale: logoScale,
-              textShadow: "0 8px 32px rgba(0,0,0,0.25), 0 4px 12px rgba(0,0,0,0.15)",
+              textShadow: "0 8px 10px rgba(0,0,0,0.35), 0 4px 4px rgba(0,0,0,0.25)",
             }}
           >
             we build
@@ -749,7 +749,7 @@ export function ScrollExperience() {
               x: tickerX, 
               color: textColor,
               fontFamily: "var(--font-space), system-ui, sans-serif",
-              textShadow: "0 2px 8px rgba(0,0,0,0.2)",
+              textShadow: "0 3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)",
             }}
           >
             {services.map((service, i) => (
@@ -775,7 +775,7 @@ export function ScrollExperience() {
         >
           <motion.p
             className="text-xs md:text-sm font-mono tracking-widest uppercase"
-            style={{ color: textColor, textShadow: "0 2px 8px rgba(0,0,0,0.18)" }}
+            style={{ color: textColor, textShadow: "0 3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)" }}
           >
             Wacky Works Digital
           </motion.p>

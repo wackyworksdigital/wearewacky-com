@@ -61,7 +61,7 @@ function MenuNav({ textColor }: { textColor: string }) {
               animate={{
                 y: pushY,
                 scale: isHovered ? 1.12 : isOtherHovered ? 0.94 : 1,
-                opacity: isHovered ? 1 : isOtherHovered ? 0.5 : isActive ? 1 : 0.7,
+                opacity: isHovered ? 1 : isOtherHovered ? 0.5 : 1,
               }}
               transition={{ type: "spring", stiffness: 300, damping: 20, mass: 0.8 }}
             >
@@ -73,7 +73,7 @@ function MenuNav({ textColor }: { textColor: string }) {
                   fontWeight: 500, 
                   letterSpacing: "-0.02em",
                   color: isActive ? LOGO_COLORS.purple : textColor,
-                  textShadow: "0 2px 6px rgba(0,0,0,0.25)",
+                  textShadow: "0 3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)",
                 }}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
@@ -195,7 +195,7 @@ export function AboutHero() {
               muted
               playsInline
               style={{
-                filter: "drop-shadow(0 30px 60px rgba(0,0,0,0.5)) drop-shadow(0 12px 24px rgba(0,0,0,0.3))",
+                filter: "drop-shadow(0 20px 20px rgba(0,0,0,0.5)) drop-shadow(0 8px 8px rgba(0,0,0,0.4))",
               }}
             />
 
@@ -237,7 +237,7 @@ export function AboutHero() {
                     className={`${className} text-center px-4`}
                     style={{
                       color: "#F7F4ED",
-                      textShadow: "0 6px 24px rgba(0,0,0,0.55), 0 3px 8px rgba(0,0,0,0.35)",
+                      textShadow: "0 6px 8px rgba(0,0,0,0.5), 0 3px 3px rgba(0,0,0,0.4)",
                       fontFamily: "var(--font-space), Impact, sans-serif",
                     }}
                   >
