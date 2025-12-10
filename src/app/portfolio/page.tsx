@@ -20,9 +20,11 @@ const projects = [
   { id: "news-scraper", name: "AI news scraper workflow", status: "done", fadeLevel: 0 },
   { id: "shopify-blog", name: "automated shopify blog poster", status: "done", fadeLevel: 0 },
   { id: "ai-agent-setup", name: "AI agent setup", status: "done", fadeLevel: 0 },
-  { id: "etsy-assistant", name: "etsy listing assistant", status: "done", fadeLevel: 0 },
+  { id: "etsy-assistant", name: "AI etsy listing assistant", status: "done", fadeLevel: 0 },
   { id: "full-brand", name: "full brand setup", status: "done", fadeLevel: 0 },
-  { id: "video-campaign", name: "social video campaign", status: "done", fadeLevel: 0 },
+  { id: "video-campaign", name: "social AI video campaign", status: "done", fadeLevel: 0 },
+  { id: "course-app", name: "self-hosted course app", status: "done", fadeLevel: 0 },
+  { id: "rag-agency", name: "company RAG setup", status: "done", fadeLevel: 0 },
   
   // CURRENT - what we're working on NOW (accent color)
   { id: "wordpress-makeover", name: "wordpress website makeover", status: "current", fadeLevel: 0 },
@@ -30,11 +32,9 @@ const projects = [
   // COMING - empty circles
   { id: "shopify-decor", name: "home decor shopify store makeover", status: "coming", fadeLevel: 0 },
   { id: "faceless-channel", name: "faceless youtube channel", status: "coming", fadeLevel: 0 },
-  { id: "roblox-world", name: "roblox world", status: "coming", fadeLevel: 0 },
+  { id: "roblox-world", name: "roblox world coding", status: "coming", fadeLevel: 0 },
   { id: "bakery-website", name: "bakery wix website redo", status: "coming", fadeLevel: 0 },
   { id: "home-assistant", name: "self-hosted home assistant", status: "coming", fadeLevel: 0 },
-  { id: "course-app", name: "self-hosted course app", status: "coming", fadeLevel: 0 },
-  { id: "rag-agency", name: "company RAG setup", status: "coming", fadeLevel: 0 },
   { id: "your-project", name: "your project here?", status: "coming", fadeLevel: 0, isLast: true },
 ];
 
@@ -48,14 +48,14 @@ const projectStories: Record<string, string> = {
   "etsy-assistant": "AI that writes killer product listings.",
   "full-brand": "logo, website, socials, strategy, everything.",
   "video-campaign": "AI-generated video content that performs.",
+  "course-app": "self-hosted learning platform. own your content.",
+  "rag-agency": "internal knowledge base that knows YOUR business.",
   "wordpress-makeover": "complete website rebuild. you're looking at it right now.",
   "shopify-decor": "beautiful e-commerce store for beautiful things.",
   "faceless-channel": "youtube channel that makes money anonymously.",
-  "roblox-world": "virtual experience for school leavers.",
+  "roblox-world": "virtual roblox experience. gaming meets learning.",
   "bakery-website": "making pastries look as good online as they taste.",
   "home-assistant": "smart home, private. your own AI butler.",
-  "course-app": "self-hosted learning platform. own your content.",
-  "rag-agency": "internal knowledge base that knows YOUR business.",
   "your-project": "this could be you!",
 };
 
@@ -142,7 +142,7 @@ export default function PortfolioPage() {
                 >
                   <StatusIcon status={project.status} />
                   <motion.span
-                    className={`text-lg lowercase inline-block ${isDone ? "line-through" : ""} ${isCurrent ? "font-semibold" : ""}`}
+                    className={`text-lg lowercase inline-block ${isCurrent ? "font-semibold" : ""}`}
                     style={{ 
                       fontFamily: "var(--font-playfair), Georgia, serif",
                       color: isCurrent ? ACCENT : isLast ? ACCENT : TEXT,
