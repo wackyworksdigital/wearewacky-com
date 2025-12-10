@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 // Gary Vee-style quotes - bold, punchy, motivational
 const quotes = [
@@ -29,20 +29,24 @@ interface QuoteConfig {
   y: number; // percentage
   rotation: number; // degrees
   scale: number; // 0.8 - 1.5
-  opacity: number; // 0.03 - 0.08
+  opacity: number; // varies by visibility mode
   blur: number; // px
 }
 
-function generateQuoteConfigs(count: number = 6): QuoteConfig[] {
+function generateQuoteConfigs(count: number = 6, highVisibility: boolean = false): QuoteConfig[] {
   const shuffled = [...quotes].sort(() => Math.random() - 0.5);
   return shuffled.slice(0, count).map((text, i) => ({
     text,
     x: 10 + Math.random() * 80, // 10-90%
     y: 10 + Math.random() * 80, // 10-90%
-    rotation: -15 + Math.random() * 30, // -15 to +15 degrees
-    scale: 0.7 + Math.random() * 0.6, // 0.7 - 1.3
-    opacity: 0.04 + Math.random() * 0.04, // 0.04 - 0.08
-    blur: 2 + Math.random() * 3, // 2-5px blur
+    rotation: -12 + Math.random() * 24, // -12 to +12 degrees
+    scale: 0.8 + Math.random() * 0.5, // 0.8 - 1.3
+    opacity: highVisibility 
+      ? 0.12 + Math.random() * 0.08 // 0.12 - 0.20 (more visible)
+      : 0.06 + Math.random() * 0.06, // 0.06 - 0.12 (subtle)
+    blur: highVisibility 
+      ? 1 + Math.random() * 2 // 1-3px (sharper)
+      : 2 + Math.random() * 2, // 2-4px (softer)
   }));
 }
 
@@ -58,13 +62,13 @@ function FloatingQuote({
   index: number;
 }) {
   // Parallax effect based on mouse position
-  const parallaxStrength = 15 + index * 5; // Different for each quote
+  const parallaxStrength = 20 + index * 8; // Different for each quote
   const offsetX = (mouseX - 0.5) * parallaxStrength;
   const offsetY = (mouseY - 0.5) * parallaxStrength;
   
   // Floating animation timing - different for each
-  const floatDuration = 8 + index * 2;
-  const floatDelay = index * 1.5;
+  const floatDuration = 10 + index * 2;
+  const floatDelay = index * 1.2;
   
   return (
     <motion.div
@@ -77,18 +81,18 @@ function FloatingQuote({
         filter: `blur(${config.blur}px)`,
         fontFamily: "var(--font-space), system-ui, sans-serif",
         fontWeight: 800,
-        fontSize: "clamp(1.5rem, 4vw, 3.5rem)",
+        fontSize: "clamp(1.2rem, 3.5vw, 3rem)",
         color: "#3d3428",
         textTransform: "lowercase",
         letterSpacing: "-0.02em",
         zIndex: 1,
       }}
       animate={{
-        x: [offsetX, offsetX + 5, offsetX],
-        y: [offsetY, offsetY - 8, offsetY],
+        x: [offsetX, offsetX + 8, offsetX],
+        y: [offsetY, offsetY - 10, offsetY],
       }}
       transition={{
-        x: { duration: 0.3, ease: "easeOut" },
+        x: { duration: 0.4, ease: "easeOut" },
         y: {
           duration: floatDuration,
           repeat: Infinity,
@@ -102,16 +106,21 @@ function FloatingQuote({
   );
 }
 
-export function BackgroundQuotes({ count = 5 }: { count?: number }) {
+interface BackgroundQuotesProps {
+  count?: number;
+  highVisibility?: boolean; // More visible quotes for pages with space
+}
+
+export function BackgroundQuotes({ count = 5, highVisibility = true }: BackgroundQuotesProps) {
   const [quoteConfigs, setQuoteConfigs] = useState<QuoteConfig[]>([]);
   const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
   const [mounted, setMounted] = useState(false);
   
   // Generate random configs on mount (client-side only)
   useEffect(() => {
-    setQuoteConfigs(generateQuoteConfigs(count));
+    setQuoteConfigs(generateQuoteConfigs(count, highVisibility));
     setMounted(true);
-  }, [count]);
+  }, [count, highVisibility]);
   
   // Track mouse position
   useEffect(() => {
@@ -142,4 +151,3 @@ export function BackgroundQuotes({ count = 5 }: { count?: number }) {
     </div>
   );
 }
-

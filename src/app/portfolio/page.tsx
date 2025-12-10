@@ -11,19 +11,22 @@ const TEXT = "#3d3428";
 const BG = "#f5ebe0";
 const SHADOW = "0 3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)";
 
-// Portfolio projects - from the actual project list
+// Portfolio projects - shopping list style with tech names visible
+// Order: most faded at top → current highlighted → coming soon
 const projects = [
   // IN PROGRESS - Current work
   {
     id: "wordpress-makeover",
-    name: "website makeover",
+    name: "wordpress website makeover",
     status: "in-progress",
     story: "complete website rebuild with modern design, fluid animations, and that 'wow' factor. you're looking at it right now.",
     link: null,
     linkText: null,
+    highlight: false,
+    fadeLevel: 0, // 0 = normal, 1 = slight fade, 2 = more fade
   },
   
-  // COMING UP - Future projects (from the list)
+  // COMING UP - with tech names visible (shopify, wix, n8n, etsy, AI, etc.)
   {
     id: "shopify-branding",
     name: "shopify store branding",
@@ -31,6 +34,8 @@ const projects = [
     story: "full brand identity for a new e-commerce store. logo, colors, vibes, the works.",
     link: null,
     linkText: null,
+    highlight: false,
+    fadeLevel: 2, // Most faded - implies many before
   },
   {
     id: "n8n-hosting",
@@ -39,38 +44,38 @@ const projects = [
     story: "private automation server. no subscriptions, no limits, all yours.",
     link: null,
     linkText: null,
+    highlight: false,
+    fadeLevel: 1, // Slightly faded
   },
   {
     id: "news-scraper",
-    name: "news scraper workflow",
+    name: "AI news scraper workflow",
     status: "coming",
     story: "automated news aggregation. AI picks the good stuff, you stay informed.",
     link: null,
     linkText: null,
+    highlight: false,
+    fadeLevel: 0,
   },
   {
-    id: "blog-automation",
-    name: "automated blog poster",
+    id: "shopify-blog",
+    name: "automated shopify blog poster",
     status: "coming",
-    story: "AI writes, schedules, and posts. your blog stays fresh while you sleep.",
+    story: "AI writes, schedules, and posts to your shopify store. your blog stays fresh while you sleep.",
     link: null,
     linkText: null,
-  },
-  {
-    id: "shopify-agent",
-    name: "shopify blog agent",
-    status: "coming",
-    story: "AI assistant that writes product descriptions and blog posts for your store.",
-    link: null,
-    linkText: null,
+    highlight: false,
+    fadeLevel: 0,
   },
   {
     id: "ai-agent-setup",
-    name: "ai agent setup",
+    name: "AI agent setup",
     status: "coming",
     story: "custom AI assistant trained on your business. like hiring someone who actually read the manual.",
     link: null,
     linkText: null,
+    highlight: false,
+    fadeLevel: 0,
   },
   {
     id: "etsy-assistant",
@@ -79,14 +84,18 @@ const projects = [
     story: "AI that writes killer product listings. SEO-optimized, buyer-focused, conversion-ready.",
     link: null,
     linkText: null,
+    highlight: false,
+    fadeLevel: 0,
   },
   {
     id: "full-brand",
-    name: "full brand setup",
+    name: "full brand setup from scratch",
     status: "coming",
     story: "from zero to brand hero. logo, website, socials, strategy, everything.",
     link: null,
     linkText: null,
+    highlight: false,
+    fadeLevel: 0,
   },
   {
     id: "video-campaign",
@@ -95,54 +104,68 @@ const projects = [
     story: "AI-generated video content that actually performs. no dancing required.",
     link: null,
     linkText: null,
+    highlight: false,
+    fadeLevel: 0,
   },
   {
     id: "rag-agency",
-    name: "company rag setup",
+    name: "company RAG setup",
     status: "coming",
     story: "internal knowledge base that answers questions about YOUR business.",
     link: null,
     linkText: null,
+    highlight: false,
+    fadeLevel: 0,
   },
   {
     id: "shopify-decor",
-    name: "home decor shopify store",
+    name: "home decor shopify store makeover",
     status: "coming",
-    story: "beautiful e-commerce store for beautiful things.",
+    story: "beautiful e-commerce store for beautiful things. full redesign and optimization.",
     link: null,
     linkText: null,
+    highlight: true, // ACCENT COLOR - featured example
+    fadeLevel: 0,
   },
   {
     id: "faceless-channel",
-    name: "faceless video channel",
+    name: "faceless youtube channel",
     status: "coming",
     story: "youtube channel that makes money while you stay anonymous.",
     link: null,
     linkText: null,
+    highlight: false,
+    fadeLevel: 0,
   },
   {
     id: "roblox-world",
-    name: "roblox world",
+    name: "roblox world for school leavers",
     status: "coming",
     story: "virtual experience for school leavers. gaming meets education.",
     link: null,
     linkText: null,
+    highlight: false,
+    fadeLevel: 0,
   },
   {
     id: "bakery-website",
-    name: "bakery website redo",
+    name: "bakery wix website redo",
     status: "coming",
     story: "wix to something better. making pastries look as good online as they taste.",
     link: null,
     linkText: null,
+    highlight: false,
+    fadeLevel: 0,
   },
   {
     id: "home-assistant",
-    name: "home assistant setup",
+    name: "self-hosted home assistant setup",
     status: "coming",
     story: "smart home, private. no alexa listening, just your own AI butler.",
     link: null,
     linkText: null,
+    highlight: false,
+    fadeLevel: 0,
   },
   {
     id: "your-project",
@@ -151,15 +174,17 @@ const projects = [
     story: "this could be you! we've got a spot with your name on it.",
     link: "/contact",
     linkText: "let's talk!",
+    highlight: false,
+    fadeLevel: 0,
   },
 ];
 
 // Status icon component
-function StatusIcon({ status }: { status: string }) {
+function StatusIcon({ status, highlight }: { status: string; highlight?: boolean }) {
   if (status === "done") {
     return (
       <motion.span 
-        className="mr-4 text-green-600"
+        className="mr-3 text-green-600"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ type: "spring", stiffness: 400, damping: 15 }}
@@ -171,7 +196,7 @@ function StatusIcon({ status }: { status: string }) {
   if (status === "in-progress") {
     return (
       <motion.span 
-        className="mr-4"
+        className="mr-3"
         style={{ color: ACCENT }}
         animate={{ x: [0, 4, 0] }}
         transition={{ duration: 1.5, repeat: Infinity }}
@@ -181,7 +206,7 @@ function StatusIcon({ status }: { status: string }) {
     );
   }
   return (
-    <span className="mr-4 opacity-40">○</span>
+    <span className="mr-3" style={{ opacity: highlight ? 0.8 : 0.4 }}>○</span>
   );
 }
 
@@ -190,15 +215,23 @@ export default function PortfolioPage() {
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
   
   // Group projects by status
-  const doneProjects = projects.filter(p => p.status === "done");
   const inProgressProjects = projects.filter(p => p.status === "in-progress");
   const comingProjects = projects.filter(p => p.status === "coming");
   
   const selected = projects.find(p => p.id === selectedProject);
 
+  // Get opacity based on fade level
+  const getFadeOpacity = (fadeLevel: number) => {
+    switch (fadeLevel) {
+      case 2: return 0.25; // Most faded
+      case 1: return 0.45; // Slightly faded
+      default: return 0.7; // Normal
+    }
+  };
+
   return (
     <main className="relative min-h-screen overflow-hidden" style={{ backgroundColor: BG, color: TEXT }}>
-      {/* Background quotes */}
+      {/* Background quotes - more visible */}
       <BackgroundQuotes count={4} />
       
       {/* Noise + vignette */}
@@ -223,7 +256,7 @@ export default function PortfolioPage() {
           <div className="max-w-lg">
             
             {/* Section: In Progress */}
-            <div className="mb-8">
+            <div className="mb-6">
               <motion.h2 
                 className="text-sm uppercase tracking-[0.3em] mb-3"
                 style={{ color: ACCENT }}
@@ -273,7 +306,7 @@ export default function PortfolioPage() {
               })}
             </div>
 
-            {/* Section: Coming Up */}
+            {/* Section: Coming Up - Shopping list style */}
             <div>
               <motion.h2 
                 className="text-sm uppercase tracking-[0.3em] mb-3 opacity-50"
@@ -287,6 +320,8 @@ export default function PortfolioPage() {
                 const isSelected = selectedProject === project.id;
                 const isHovered = hoveredProject === project.id;
                 const isLast = project.id === "your-project";
+                const isHighlighted = project.highlight;
+                const baseOpacity = getFadeOpacity(project.fadeLevel);
                 
                 return (
                   <motion.div
@@ -299,17 +334,17 @@ export default function PortfolioPage() {
                     onMouseLeave={() => setHoveredProject(null)}
                     onClick={() => setSelectedProject(isSelected ? null : project.id)}
                   >
-                    <StatusIcon status={project.status} />
+                    <StatusIcon status={project.status} highlight={isHighlighted} />
                     <motion.span
-                      className={`text-lg md:text-xl lowercase inline-block ${isLast ? "font-medium" : ""}`}
+                      className={`text-lg md:text-xl lowercase inline-block ${isHighlighted ? "font-semibold" : ""}`}
                       style={{ 
                         fontFamily: "var(--font-playfair), Georgia, serif",
-                        color: isSelected ? ACCENT : isLast ? ACCENT : `${TEXT}99`,
-                        textShadow: isHovered || isSelected ? SHADOW : "none",
+                        color: isSelected ? ACCENT : isHighlighted ? ACCENT : isLast ? ACCENT : TEXT,
+                        textShadow: isHovered || isSelected || isHighlighted ? SHADOW : "none",
                       }}
                       animate={{
-                        x: isHovered ? 12 : isSelected ? 8 : 0,
-                        opacity: isHovered || isSelected ? 1 : isLast ? 0.9 : 0.6,
+                        x: isHovered ? 12 : isSelected ? 8 : isHighlighted ? 4 : 0,
+                        opacity: isHovered || isSelected ? 1 : isHighlighted ? 1 : isLast ? 0.9 : baseOpacity,
                         y: [0, -1.5, 0],
                       }}
                       transition={{ 

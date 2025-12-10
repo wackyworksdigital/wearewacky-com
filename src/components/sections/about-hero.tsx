@@ -3,7 +3,6 @@
 import { useRef, useEffect, useState } from "react";
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
 import { FluidMenu } from "@/components/ui/fluid-menu";
-import { BackgroundQuotes } from "@/components/ui/background-quotes";
 
 // The rotating text lines - ONE AT A TIME, rotates in/out
 const textLines = [
@@ -74,9 +73,6 @@ export function AboutHero() {
   return (
     <div ref={containerRef} className="relative" style={{ height: "300vh" }}>
       <div className="fixed inset-0 overflow-hidden" style={{ backgroundColor: COLORS.background }}>
-        {/* Background quotes */}
-        <BackgroundQuotes count={4} />
-        
         {/* Noise texture */}
         <div 
           className="absolute inset-0 pointer-events-none z-[100] mix-blend-overlay"
