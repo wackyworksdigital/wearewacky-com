@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
+import { motion, useAnimationFrame } from "framer-motion";
 
 // Gary Vee-style quotes - bold, punchy, motivational
 const quotes = [
@@ -19,134 +19,149 @@ const quotes = [
   "less meetings. more shipping.",
   "your website should make money.",
   "good enough today beats perfect never.",
-  "build in public. fail in public. win in public.",
 ];
 
-// Each quote has random position, rotation, size
-interface QuoteConfig {
+// Fish-like quote that swims around
+interface FishQuote {
   text: string;
-  x: number; // percentage
-  y: number; // percentage
-  rotation: number; // degrees
-  scale: number; // 0.8 - 1.5
-  opacity: number; // varies by visibility mode
-  blur: number; // px
+  x: number; // percentage 0-100
+  y: number; // percentage 0-100
+  vx: number; // velocity x
+  vy: number; // velocity y
+  rotation: number;
+  scale: number;
+  z: number; // depth 0-1 (0 = far/faded, 1 = close/visible)
+  vz: number; // velocity z (swimming closer/further)
 }
 
-function generateQuoteConfigs(count: number = 6, highVisibility: boolean = false): QuoteConfig[] {
-  const shuffled = [...quotes].sort(() => Math.random() - 0.5);
-  return shuffled.slice(0, count).map((text, i) => ({
-    text,
-    x: 10 + Math.random() * 80, // 10-90%
-    y: 10 + Math.random() * 80, // 10-90%
-    rotation: -12 + Math.random() * 24, // -12 to +12 degrees
-    scale: 0.8 + Math.random() * 0.5, // 0.8 - 1.3
-    opacity: highVisibility 
-      ? 0.12 + Math.random() * 0.08 // 0.12 - 0.20 (more visible)
-      : 0.06 + Math.random() * 0.06, // 0.06 - 0.12 (subtle)
-    blur: highVisibility 
-      ? 1 + Math.random() * 2 // 1-3px (sharper)
-      : 2 + Math.random() * 2, // 2-4px (softer)
-  }));
-}
-
-function FloatingQuote({ 
-  config, 
-  mouseX, 
-  mouseY,
-  index,
-}: { 
-  config: QuoteConfig;
-  mouseX: number;
-  mouseY: number;
-  index: number;
-}) {
-  // Parallax effect based on mouse position
-  const parallaxStrength = 20 + index * 8; // Different for each quote
-  const offsetX = (mouseX - 0.5) * parallaxStrength;
-  const offsetY = (mouseY - 0.5) * parallaxStrength;
-  
-  // Floating animation timing - different for each
-  const floatDuration = 10 + index * 2;
-  const floatDelay = index * 1.2;
+function SwimmingQuote({ quote }: { quote: FishQuote }) {
+  // Opacity and blur based on depth (z)
+  const opacity = 0.05 + quote.z * 0.2; // 0.05 (far) to 0.25 (close)
+  const blur = 4 - quote.z * 3; // 4px (far) to 1px (close)
+  const scale = 0.7 + quote.z * 0.5; // 0.7 (far) to 1.2 (close)
   
   return (
-    <motion.div
+    <div
       className="fixed pointer-events-none select-none whitespace-nowrap"
       style={{
-        left: `${config.x}%`,
-        top: `${config.y}%`,
-        transform: `translate(-50%, -50%) rotate(${config.rotation}deg) scale(${config.scale})`,
-        opacity: config.opacity,
-        filter: `blur(${config.blur}px)`,
+        left: `${quote.x}%`,
+        top: `${quote.y}%`,
+        transform: `translate(-50%, -50%) rotate(${quote.rotation}deg) scale(${scale * quote.scale})`,
+        opacity,
+        filter: `blur(${blur}px)`,
         fontFamily: "var(--font-space), system-ui, sans-serif",
         fontWeight: 800,
-        fontSize: "clamp(1.2rem, 3.5vw, 3rem)",
+        fontSize: "clamp(1rem, 3vw, 2.5rem)",
         color: "#3d3428",
         textTransform: "lowercase",
         letterSpacing: "-0.02em",
-        zIndex: 1,
-      }}
-      animate={{
-        x: [offsetX, offsetX + 8, offsetX],
-        y: [offsetY, offsetY - 10, offsetY],
-      }}
-      transition={{
-        x: { duration: 0.4, ease: "easeOut" },
-        y: {
-          duration: floatDuration,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: floatDelay,
-        },
+        zIndex: Math.floor(quote.z * 10),
+        transition: "opacity 0.5s ease, filter 0.5s ease",
       }}
     >
-      {config.text}
-    </motion.div>
+      {quote.text}
+    </div>
   );
 }
 
 interface BackgroundQuotesProps {
   count?: number;
-  highVisibility?: boolean; // More visible quotes for pages with space
 }
 
-export function BackgroundQuotes({ count = 5, highVisibility = true }: BackgroundQuotesProps) {
-  const [quoteConfigs, setQuoteConfigs] = useState<QuoteConfig[]>([]);
-  const [mousePos, setMousePos] = useState({ x: 0.5, y: 0.5 });
+export function BackgroundQuotes({ count = 6 }: BackgroundQuotesProps) {
+  const [fishes, setFishes] = useState<FishQuote[]>([]);
   const [mounted, setMounted] = useState(false);
+  const animationRef = useRef<number>();
   
-  // Generate random configs on mount (client-side only)
+  // Initialize fish positions
   useEffect(() => {
-    setQuoteConfigs(generateQuoteConfigs(count, highVisibility));
+    const shuffled = [...quotes].sort(() => Math.random() - 0.5);
+    const initialFishes: FishQuote[] = shuffled.slice(0, count).map((text) => ({
+      text,
+      x: 10 + Math.random() * 80,
+      y: 10 + Math.random() * 80,
+      vx: (Math.random() - 0.5) * 0.3, // slow movement
+      vy: (Math.random() - 0.5) * 0.3,
+      rotation: -10 + Math.random() * 20,
+      scale: 0.8 + Math.random() * 0.4,
+      z: Math.random(), // random depth
+      vz: (Math.random() - 0.5) * 0.01, // slow depth change
+    }));
+    setFishes(initialFishes);
     setMounted(true);
-  }, [count, highVisibility]);
+  }, [count]);
   
-  // Track mouse position
+  // Animation loop - fish swimming
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({
-        x: e.clientX / window.innerWidth,
-        y: e.clientY / window.innerHeight,
-      });
+    if (!mounted) return;
+    
+    let lastTime = performance.now();
+    
+    const animate = (time: number) => {
+      const delta = (time - lastTime) / 16; // normalize to ~60fps
+      lastTime = time;
+      
+      setFishes(prev => prev.map(fish => {
+        let { x, y, vx, vy, z, vz, rotation } = fish;
+        
+        // Update position
+        x += vx * delta;
+        y += vy * delta;
+        z += vz * delta;
+        
+        // Bounce off edges (with some padding)
+        if (x < 5 || x > 95) {
+          vx = -vx * (0.8 + Math.random() * 0.4);
+          rotation = -rotation + (Math.random() - 0.5) * 10;
+        }
+        if (y < 5 || y > 95) {
+          vy = -vy * (0.8 + Math.random() * 0.4);
+          rotation = -rotation + (Math.random() - 0.5) * 10;
+        }
+        
+        // Bounce z (depth) between 0 and 1
+        if (z < 0 || z > 1) {
+          vz = -vz;
+          z = Math.max(0, Math.min(1, z));
+        }
+        
+        // Add slight random drift
+        if (Math.random() < 0.02) {
+          vx += (Math.random() - 0.5) * 0.1;
+          vy += (Math.random() - 0.5) * 0.1;
+          vz += (Math.random() - 0.5) * 0.005;
+        }
+        
+        // Clamp velocities
+        vx = Math.max(-0.5, Math.min(0.5, vx));
+        vy = Math.max(-0.5, Math.min(0.5, vy));
+        vz = Math.max(-0.02, Math.min(0.02, vz));
+        
+        // Clamp position
+        x = Math.max(5, Math.min(95, x));
+        y = Math.max(5, Math.min(95, y));
+        
+        return { ...fish, x, y, vx, vy, z, vz, rotation };
+      }));
+      
+      animationRef.current = requestAnimationFrame(animate);
     };
     
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+    animationRef.current = requestAnimationFrame(animate);
+    
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [mounted]);
   
   if (!mounted) return null;
   
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-[1]">
-      {quoteConfigs.map((config, index) => (
-        <FloatingQuote
-          key={`${config.text}-${index}`}
-          config={config}
-          mouseX={mousePos.x}
-          mouseY={mousePos.y}
-          index={index}
-        />
+      {fishes.map((fish, index) => (
+        <SwimmingQuote key={`${fish.text}-${index}`} quote={fish} />
       ))}
     </div>
   );
