@@ -38,13 +38,14 @@ export default function ContactPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          {/* Title with breathing */}
+          {/* Title with breathing - using wacky marker font */}
           <motion.h1
-            className="text-5xl md:text-7xl lg:text-8xl font-black lowercase"
+            className="text-5xl md:text-7xl lg:text-8xl"
             style={{
-              fontFamily: "var(--font-playfair), Georgia, serif",
+              fontFamily: "var(--font-marker), cursive",
               color: TEXT,
               textShadow: "0 6px 8px rgba(0,0,0,0.35), 0 3px 3px rgba(0,0,0,0.25)",
+              transform: "rotate(-2deg)",
             }}
             animate={{
               y: [0, -5, 0],

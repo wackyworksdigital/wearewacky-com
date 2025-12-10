@@ -1,44 +1,44 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { motion, useAnimationFrame } from "framer-motion";
 
-// Gary Vee-style quotes - bold, punchy, motivational
+// Gary Vee-style quotes
 const quotes = [
   "we're not for everyone. and that's the point.",
   "done beats perfect.",
   "ship it.",
   "ideas are cheap. execution is everything.",
   "automate the boring stuff.",
-  "your competitors are sleeping. are you?",
+  "your competitors are sleeping.",
   "the robots work for us.",
-  "move fast. break things. fix them faster.",
   "stop planning. start building.",
   "nobody cares about your logo.",
   "AI won't replace you. someone using AI will.",
   "less meetings. more shipping.",
-  "your website should make money.",
   "good enough today beats perfect never.",
 ];
 
-// Fish-like quote that swims around
+// Fish-like quote that swims slowly
 interface FishQuote {
   text: string;
-  x: number; // percentage 0-100
-  y: number; // percentage 0-100
-  vx: number; // velocity x
-  vy: number; // velocity y
-  rotation: number;
-  scale: number;
-  z: number; // depth 0-1 (0 = far/faded, 1 = close/visible)
-  vz: number; // velocity z (swimming closer/further)
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  z: number; // depth
+  vz: number;
+  wigglePhase: number; // for tail wiggle
+  wiggleSpeed: number;
 }
 
 function SwimmingQuote({ quote }: { quote: FishQuote }) {
-  // Opacity and blur based on depth (z)
-  const opacity = 0.05 + quote.z * 0.2; // 0.05 (far) to 0.25 (close)
-  const blur = 4 - quote.z * 3; // 4px (far) to 1px (close)
-  const scale = 0.7 + quote.z * 0.5; // 0.7 (far) to 1.2 (close)
+  // Opacity and blur based on depth
+  const opacity = 0.06 + quote.z * 0.14; // 0.06 (far) to 0.20 (close)
+  const blur = 3 - quote.z * 2; // 3px (far) to 1px (close)
+  const scale = 0.8 + quote.z * 0.3; // 0.8 (far) to 1.1 (close)
+  
+  // Wiggle effect - slight horizontal wave like a fish tail
+  const wiggle = Math.sin(quote.wigglePhase) * 2;
   
   return (
     <div
@@ -46,17 +46,17 @@ function SwimmingQuote({ quote }: { quote: FishQuote }) {
       style={{
         left: `${quote.x}%`,
         top: `${quote.y}%`,
-        transform: `translate(-50%, -50%) rotate(${quote.rotation}deg) scale(${scale * quote.scale})`,
+        transform: `translate(-50%, -50%) scale(${scale}) skewX(${wiggle}deg)`,
         opacity,
         filter: `blur(${blur}px)`,
-        fontFamily: "var(--font-space), system-ui, sans-serif",
-        fontWeight: 800,
-        fontSize: "clamp(1rem, 3vw, 2.5rem)",
+        fontFamily: "var(--font-bebas), var(--font-space), system-ui, sans-serif",
+        fontWeight: 400,
+        fontSize: "clamp(1.2rem, 3vw, 2.5rem)",
         color: "#3d3428",
-        textTransform: "lowercase",
-        letterSpacing: "-0.02em",
-        zIndex: Math.floor(quote.z * 10),
-        transition: "opacity 0.5s ease, filter 0.5s ease",
+        textTransform: "uppercase",
+        letterSpacing: "-0.01em",
+        zIndex: Math.floor(quote.z * 5),
+        transition: "opacity 0.8s ease, filter 0.8s ease",
       }}
     >
       {quote.text}
@@ -68,7 +68,7 @@ interface BackgroundQuotesProps {
   count?: number;
 }
 
-export function BackgroundQuotes({ count = 6 }: BackgroundQuotesProps) {
+export function BackgroundQuotes({ count = 5 }: BackgroundQuotesProps) {
   const [fishes, setFishes] = useState<FishQuote[]>([]);
   const [mounted, setMounted] = useState(false);
   const animationRef = useRef<number | null>(null);
@@ -80,68 +80,67 @@ export function BackgroundQuotes({ count = 6 }: BackgroundQuotesProps) {
       text,
       x: 10 + Math.random() * 80,
       y: 10 + Math.random() * 80,
-      vx: (Math.random() - 0.5) * 0.3, // slow movement
-      vy: (Math.random() - 0.5) * 0.3,
-      rotation: -10 + Math.random() * 20,
-      scale: 0.8 + Math.random() * 0.4,
-      z: Math.random(), // random depth
-      vz: (Math.random() - 0.5) * 0.01, // slow depth change
+      vx: (Math.random() - 0.5) * 0.03, // VERY slow movement
+      vy: (Math.random() - 0.5) * 0.03,
+      z: 0.3 + Math.random() * 0.7, // depth
+      vz: (Math.random() - 0.5) * 0.002, // very slow depth change
+      wigglePhase: Math.random() * Math.PI * 2,
+      wiggleSpeed: 0.02 + Math.random() * 0.02, // slow wiggle
     }));
     setFishes(initialFishes);
     setMounted(true);
   }, [count]);
   
-  // Animation loop - fish swimming
+  // Animation loop - slow fish swimming with wiggle
   useEffect(() => {
     if (!mounted) return;
     
     let lastTime = performance.now();
     
     const animate = (time: number) => {
-      const delta = (time - lastTime) / 16; // normalize to ~60fps
+      const delta = (time - lastTime) / 16;
       lastTime = time;
       
       setFishes(prev => prev.map(fish => {
-        let { x, y, vx, vy, z, vz, rotation } = fish;
+        let { x, y, vx, vy, z, vz, wigglePhase, wiggleSpeed } = fish;
         
-        // Update position
+        // Update wiggle phase (constant swimming motion)
+        wigglePhase += wiggleSpeed * delta;
+        
+        // Update position (very slow drift)
         x += vx * delta;
         y += vy * delta;
         z += vz * delta;
         
-        // Bounce off edges (with some padding)
-        if (x < 5 || x > 95) {
-          vx = -vx * (0.8 + Math.random() * 0.4);
-          rotation = -rotation + (Math.random() - 0.5) * 10;
+        // Soft bounce off edges
+        if (x < 8 || x > 92) {
+          vx = -vx * 0.9;
         }
-        if (y < 5 || y > 95) {
-          vy = -vy * (0.8 + Math.random() * 0.4);
-          rotation = -rotation + (Math.random() - 0.5) * 10;
+        if (y < 8 || y > 92) {
+          vy = -vy * 0.9;
         }
         
-        // Bounce z (depth) between 0 and 1
-        if (z < 0 || z > 1) {
+        // Bounce z between 0.2 and 1
+        if (z < 0.2 || z > 1) {
           vz = -vz;
-          z = Math.max(0, Math.min(1, z));
+          z = Math.max(0.2, Math.min(1, z));
         }
         
-        // Add slight random drift
-        if (Math.random() < 0.02) {
-          vx += (Math.random() - 0.5) * 0.1;
-          vy += (Math.random() - 0.5) * 0.1;
-          vz += (Math.random() - 0.5) * 0.005;
+        // Very occasional random drift change
+        if (Math.random() < 0.005) {
+          vx += (Math.random() - 0.5) * 0.01;
+          vy += (Math.random() - 0.5) * 0.01;
         }
         
-        // Clamp velocities
-        vx = Math.max(-0.5, Math.min(0.5, vx));
-        vy = Math.max(-0.5, Math.min(0.5, vy));
-        vz = Math.max(-0.02, Math.min(0.02, vz));
+        // Clamp velocities (keep slow)
+        vx = Math.max(-0.08, Math.min(0.08, vx));
+        vy = Math.max(-0.08, Math.min(0.08, vy));
         
         // Clamp position
         x = Math.max(5, Math.min(95, x));
         y = Math.max(5, Math.min(95, y));
         
-        return { ...fish, x, y, vx, vy, z, vz, rotation };
+        return { ...fish, x, y, vx, vy, z, vz, wigglePhase };
       }));
       
       animationRef.current = requestAnimationFrame(animate);

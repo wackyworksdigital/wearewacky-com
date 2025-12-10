@@ -11,63 +11,61 @@ const TEXT = "#3d3428";
 const BG = "#f5ebe0";
 const SHADOW = "0 3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)";
 
-// 8 main service categories
+// 9 main service categories
 const services = [
   {
     id: "ai-agents",
     name: "ai agents",
     tagline: "smart helpers that never sleep",
     description: "custom AI assistants that handle customer support, data analysis, and repetitive tasks 24/7. they're like interns but they don't need coffee breaks or complain about the wifi.",
-    video: "/services/ai-brain.webm",
   },
   {
     id: "automation",
     name: "workflow automation",
     tagline: "connect everything",
     description: "we wire up your apps using n8n, zapier, and make.com so they actually talk to each other. your CRM updates your spreadsheet updates your slack updates your sanity.",
-    video: "/services/robot-arm.webm",
   },
   {
     id: "rag",
     name: "rag & knowledge",
     tagline: "make your docs smart",
     description: "turn your messy documents into an AI that actually knows your business. like having an employee who read ALL the documentation. yes, even the 2019 onboarding PDF.",
-    video: "/services/rag.webm",
+  },
+  {
+    id: "apps",
+    name: "app development",
+    tagline: "build something cool",
+    description: "mobile apps, web apps, SaaS platforms. from idea to app store. we build stuff that works on phones, tablets, and whatever weird device you're using.",
   },
   {
     id: "websites",
     name: "websites",
     tagline: "not your grandma's wordpress",
     description: "fast, modern websites built with next.js and react. animations that go whoosh, SEO that actually works, and no more 'please update your plugins' nightmares.",
-    video: "/services/website.webm",
   },
   {
     id: "ecommerce",
     name: "e-commerce",
     tagline: "sell stuff online",
     description: "shopify stores, product listings, checkout optimization. we make people click 'buy now' instead of 'maybe later'. your accountant will thank us.",
-    video: "/services/ecommerce.webm",
   },
   {
     id: "social-video",
     name: "social & video",
     tagline: "content that doesn't suck",
     description: "faceless channels, video campaigns, AI-generated content that actually performs. we'll make you look cool on the internet without you having to dance on camera.",
-    video: "/services/socials.webm",
   },
   {
     id: "branding",
     name: "branding",
     tagline: "who even are you?",
     description: "full brand identity packages: strategy, visual identity, tone of voice, guidelines. we'll make you look like you've got your life together, even if you don't.",
-    video: "/services/branding.webm",
   },
   {
     id: "self-hosted",
     name: "self-hosted tools",
     tagline: "own your stack",
     description: "n8n, home assistant, private AI, all on your own servers. no subscriptions, no data leaving your control, no big tech knowing your business.",
-    video: "/services/self-hosted.webm",
   },
 ];
 
@@ -248,24 +246,6 @@ export default function ServicesPage() {
                     yeah, i want that!
                   </motion.button>
                 </Link>
-              </motion.div>
-
-              {/* Video placeholder - at bottom */}
-              <motion.div
-                className="aspect-video rounded-2xl mt-8 flex items-center justify-center overflow-hidden"
-                style={{ 
-                  backgroundColor: `${TEXT}11`,
-                  boxShadow: "0 20px 40px rgba(0,0,0,0.15), 0 8px 16px rgba(0,0,0,0.1)",
-                }}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.25 }}
-              >
-                {/* Placeholder - replace with actual video */}
-                <div className="text-center p-8">
-                  <div className="text-5xl mb-3">🎬</div>
-                  <p className="text-sm opacity-50">animated video coming soon</p>
-                </div>
               </motion.div>
             </motion.div>
           )}

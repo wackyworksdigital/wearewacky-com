@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Geist_Mono, Cormorant_Garamond, Space_Grotesk, Playfair_Display } from "next/font/google";
+import { Plus_Jakarta_Sans, Geist_Mono, Cormorant_Garamond, Space_Grotesk, Playfair_Display, Bebas_Neue, Permanent_Marker } from "next/font/google";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 import "./globals.css";
 
@@ -35,6 +35,20 @@ const playfair = Playfair_Display({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
   style: ["normal", "italic"],
+});
+
+// Bold display font - impactful headlines
+const bebas = Bebas_Neue({
+  variable: "--font-bebas",
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
+// Handwritten marker style - wacky/playful
+const marker = Permanent_Marker({
+  variable: "--font-marker",
+  subsets: ["latin"],
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {
@@ -82,7 +96,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${plusJakarta.variable} ${geistMono.variable} ${cormorant.variable} ${spaceGrotesk.variable} ${playfair.variable} antialiased`}
+        className={`${plusJakarta.variable} ${geistMono.variable} ${cormorant.variable} ${spaceGrotesk.variable} ${playfair.variable} ${bebas.variable} ${marker.variable} antialiased`}
       >
         <LenisProvider>
           {children}
