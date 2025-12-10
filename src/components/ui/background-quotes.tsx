@@ -71,7 +71,7 @@ interface BackgroundQuotesProps {
 export function BackgroundQuotes({ count = 6 }: BackgroundQuotesProps) {
   const [fishes, setFishes] = useState<FishQuote[]>([]);
   const [mounted, setMounted] = useState(false);
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number | null>(null);
   
   // Initialize fish positions
   useEffect(() => {
