@@ -3,104 +3,144 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { FluidMenu } from "@/components/ui/fluid-menu";
+import { BackgroundQuotes } from "@/components/ui/background-quotes";
 
 const ACCENT = "#B07C4F";
 const TEXT = "#3d3428";
 const BG = "#f5ebe0";
 const SHADOW = "0 3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)";
 
-// Portfolio projects - TODO list style with stories and links
+// Portfolio projects - from the actual project list
 const projects = [
-  // DONE - Old projects (3-4 items)
+  // IN PROGRESS - Current work
   {
-    id: "ai-course",
-    name: "ai fundamentals course",
-    status: "done",
-    story: "built a comprehensive AI course for complete beginners. from 'what is AI' to building your first chatbot in 8 weeks. partnered with waitrose & john lewis partners for internal training.",
-    link: "https://example.com/ai-course",
-    linkText: "view the course",
-  },
-  {
-    id: "automation-workshop",
-    name: "automation workshop",
-    status: "done",
-    story: "ran a hands-on workshop teaching small business owners how to automate their boring tasks. 50+ attendees, lots of 'aha!' moments, one person cried (happy tears).",
-    link: null,
-    linkText: null,
-  },
-  {
-    id: "brand-refresh",
-    name: "startup brand refresh",
-    status: "done",
-    story: "complete rebrand for a fintech startup. new logo, colours, website, the works. they got funded 3 months later. coincidence? maybe. but we're taking credit anyway.",
-    link: null,
-    linkText: null,
-  },
-  {
-    id: "chatbot-build",
-    name: "customer service chatbot",
-    status: "done",
-    story: "AI chatbot that handles 70% of customer queries for an e-commerce client. their support team finally got to take lunch breaks.",
+    id: "wordpress-makeover",
+    name: "website makeover",
+    status: "in-progress",
+    story: "complete website rebuild with modern design, fluid animations, and that 'wow' factor. you're looking at it right now.",
     link: null,
     linkText: null,
   },
   
-  // IN PROGRESS - Current work (2 items)
+  // COMING UP - Future projects (from the list)
   {
-    id: "saas-platform",
-    name: "saas platform build",
-    status: "in-progress",
-    story: "building a full SaaS product from scratch. AI-powered, subscription-based, all the buzzwords. launching soon™.",
-    link: null,
-    linkText: null,
-  },
-  {
-    id: "content-engine",
-    name: "social content engine",
-    status: "in-progress",
-    story: "automated content creation system that generates, schedules, and posts social content. because nobody has time for that manual stuff anymore.",
-    link: null,
-    linkText: null,
-  },
-  
-  // COMING UP - Future projects (6-7 items)
-  {
-    id: "mobile-app",
-    name: "fitness app",
+    id: "shopify-branding",
+    name: "shopify store branding",
     status: "coming",
-    story: "mobile app with AI personal trainer. it'll judge your form and your life choices. coming to app stores near you.",
+    story: "full brand identity for a new e-commerce store. logo, colors, vibes, the works.",
     link: null,
     linkText: null,
   },
   {
-    id: "video-series",
-    name: "video ad campaign",
+    id: "n8n-hosting",
+    name: "n8n self-hosting setup",
     status: "coming",
-    story: "series of AI-generated video ads for a DTC brand. 30 variations, A/B tested to death. the algorithm will decide what's funny.",
+    story: "private automation server. no subscriptions, no limits, all yours.",
     link: null,
     linkText: null,
   },
   {
-    id: "ai-assistant",
-    name: "industry-specific ai assistant",
+    id: "news-scraper",
+    name: "news scraper workflow",
     status: "coming",
-    story: "custom AI assistant trained on industry-specific knowledge. like having a junior employee who actually read all the documentation.",
+    story: "automated news aggregation. AI picks the good stuff, you stay informed.",
     link: null,
     linkText: null,
   },
   {
-    id: "dashboard",
-    name: "analytics dashboard",
+    id: "blog-automation",
+    name: "automated blog poster",
     status: "coming",
-    story: "real-time dashboard that makes data look pretty and executives feel smart. lots of graphs. maybe some pie charts if we're feeling wild.",
+    story: "AI writes, schedules, and posts. your blog stays fresh while you sleep.",
     link: null,
     linkText: null,
   },
   {
-    id: "integration",
-    name: "enterprise integration",
+    id: "shopify-agent",
+    name: "shopify blog agent",
     status: "coming",
-    story: "connecting a bunch of enterprise systems that were never meant to talk to each other. digital diplomacy at its finest.",
+    story: "AI assistant that writes product descriptions and blog posts for your store.",
+    link: null,
+    linkText: null,
+  },
+  {
+    id: "ai-agent-setup",
+    name: "ai agent setup",
+    status: "coming",
+    story: "custom AI assistant trained on your business. like hiring someone who actually read the manual.",
+    link: null,
+    linkText: null,
+  },
+  {
+    id: "etsy-assistant",
+    name: "etsy listing assistant",
+    status: "coming",
+    story: "AI that writes killer product listings. SEO-optimized, buyer-focused, conversion-ready.",
+    link: null,
+    linkText: null,
+  },
+  {
+    id: "full-brand",
+    name: "full brand setup",
+    status: "coming",
+    story: "from zero to brand hero. logo, website, socials, strategy, everything.",
+    link: null,
+    linkText: null,
+  },
+  {
+    id: "video-campaign",
+    name: "social video campaign",
+    status: "coming",
+    story: "AI-generated video content that actually performs. no dancing required.",
+    link: null,
+    linkText: null,
+  },
+  {
+    id: "rag-agency",
+    name: "company rag setup",
+    status: "coming",
+    story: "internal knowledge base that answers questions about YOUR business.",
+    link: null,
+    linkText: null,
+  },
+  {
+    id: "shopify-decor",
+    name: "home decor shopify store",
+    status: "coming",
+    story: "beautiful e-commerce store for beautiful things.",
+    link: null,
+    linkText: null,
+  },
+  {
+    id: "faceless-channel",
+    name: "faceless video channel",
+    status: "coming",
+    story: "youtube channel that makes money while you stay anonymous.",
+    link: null,
+    linkText: null,
+  },
+  {
+    id: "roblox-world",
+    name: "roblox world",
+    status: "coming",
+    story: "virtual experience for school leavers. gaming meets education.",
+    link: null,
+    linkText: null,
+  },
+  {
+    id: "bakery-website",
+    name: "bakery website redo",
+    status: "coming",
+    story: "wix to something better. making pastries look as good online as they taste.",
+    link: null,
+    linkText: null,
+  },
+  {
+    id: "home-assistant",
+    name: "home assistant setup",
+    status: "coming",
+    story: "smart home, private. no alexa listening, just your own AI butler.",
     link: null,
     linkText: null,
   },
@@ -108,86 +148,11 @@ const projects = [
     id: "your-project",
     name: "your project here?",
     status: "coming",
-    story: "this could be you! we've got a spot with your name on it. well, not literally. but we could add your name. if you want.",
+    story: "this could be you! we've got a spot with your name on it.",
     link: "/contact",
     linkText: "let's talk!",
   },
 ];
-
-const menuItems = [
-  { name: "home", href: "/" },
-  { name: "about", href: "/about" },
-  { name: "services", href: "/services" },
-  { name: "portfolio", href: "/portfolio" },
-  { name: "contact", href: "/contact" },
-];
-
-function MenuNav() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  
-  return (
-    <motion.nav
-      className="fixed top-8 left-8 md:top-10 md:left-10 z-30"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.3 }}
-    >
-      <ul className="space-y-1">
-        {menuItems.map((item, index) => {
-          const isHovered = hoveredIndex === index;
-          const isOtherHovered = hoveredIndex !== null && hoveredIndex !== index;
-          const isActive = item.name === "portfolio";
-          
-          let pushY = 0;
-          if (isOtherHovered && hoveredIndex !== null) {
-            const distance = index - hoveredIndex;
-            pushY = distance < 0 ? -8 : 8;
-          }
-          
-          return (
-            <motion.li
-              key={item.name}
-              style={{ color: TEXT }}
-              animate={{
-                y: pushY,
-                scale: isOtherHovered ? 0.94 : 1,
-              }}
-              transition={{ type: "spring", stiffness: 300, damping: 20, mass: 0.8 }}
-            >
-              <motion.a
-                href={item.href}
-                className="text-xl md:text-2xl lg:text-3xl lowercase inline-block leading-tight origin-left"
-                style={{ 
-                  fontFamily: "var(--font-playfair), Georgia, serif", 
-                  fontWeight: 500, 
-                  letterSpacing: "-0.02em",
-                  color: isActive ? ACCENT : TEXT,
-                  textShadow: SHADOW,
-                }}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                onClick={() => {
-                  if (item.name === "home") {
-                    sessionStorage.setItem("skipHomeIntro", "true");
-                  }
-                }}
-                animate={{
-                  scale: isHovered ? 1.12 : 1,
-                  x: isHovered ? 10 : isActive ? 6 : 0,
-                  y: isHovered ? -4 : 0,
-                  opacity: isHovered ? 1 : isOtherHovered ? 0.5 : 1,
-                }}
-                transition={{ type: "spring", stiffness: 200, damping: 15, mass: 0.6 }}
-              >
-                {item.name}
-              </motion.a>
-            </motion.li>
-          );
-        })}
-      </ul>
-    </motion.nav>
-  );
-}
 
 // Status icon component
 function StatusIcon({ status }: { status: string }) {
@@ -233,107 +198,73 @@ export default function PortfolioPage() {
 
   return (
     <main className="relative min-h-screen overflow-hidden" style={{ backgroundColor: BG, color: TEXT }}>
+      {/* Background quotes */}
+      <BackgroundQuotes count={4} />
+      
       {/* Noise + vignette */}
       <div
-        className="fixed inset-0 pointer-events-none mix-blend-overlay"
+        className="fixed inset-0 pointer-events-none mix-blend-overlay z-[2]"
         style={{
           opacity: 0.12,
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
         }}
       />
       <div
-        className="fixed inset-0 pointer-events-none"
+        className="fixed inset-0 pointer-events-none z-[2]"
         style={{ background: "radial-gradient(ellipse at center, transparent 0%, transparent 50%, rgba(0,0,0,0.08) 100%)" }}
       />
 
-      <MenuNav />
+      <FluidMenu activePage="portfolio" />
 
       {/* Main content */}
       <div className="relative z-10 min-h-screen flex">
         {/* Project List - Left */}
-        <div className="flex-1 flex items-center justify-center pl-48 pr-8">
+        <div className="flex-1 flex items-center justify-center pl-48 pr-8 py-12">
           <div className="max-w-lg">
-            {/* Section: Done */}
-            <div className="mb-6">
-              <motion.h2 
-                className="text-sm uppercase tracking-[0.3em] mb-3 opacity-50"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 0.5 }}
-                transition={{ delay: 0.1 }}
-              >
-                completed
-              </motion.h2>
-              {doneProjects.map((project, index) => {
-                const isSelected = selectedProject === project.id;
-                return (
-                  <motion.div
-                    key={project.id}
-                    className="flex items-center py-1.5 cursor-pointer"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.05 }}
-                    onMouseEnter={() => setHoveredProject(project.id)}
-                    onMouseLeave={() => setHoveredProject(null)}
-                    onClick={() => setSelectedProject(isSelected ? null : project.id)}
-                  >
-                    <StatusIcon status={project.status} />
-                    <motion.span
-                      className="text-xl md:text-2xl lowercase line-through"
-                      style={{ 
-                        fontFamily: "var(--font-playfair), Georgia, serif",
-                        color: isSelected ? ACCENT : `${TEXT}55`,
-                        textShadow: hoveredProject === project.id || isSelected ? "0 2px 4px rgba(0,0,0,0.15)" : "none",
-                      }}
-                      animate={{
-                        x: hoveredProject === project.id ? 8 : isSelected ? 6 : 0,
-                        opacity: hoveredProject === project.id || isSelected ? 0.8 : 0.4,
-                      }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    >
-                      {project.name}
-                    </motion.span>
-                  </motion.div>
-                );
-              })}
-            </div>
-
+            
             {/* Section: In Progress */}
-            <div className="mb-6">
+            <div className="mb-8">
               <motion.h2 
                 className="text-sm uppercase tracking-[0.3em] mb-3"
                 style={{ color: ACCENT }}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.2 }}
+                transition={{ delay: 0.1 }}
               >
                 in progress
               </motion.h2>
               {inProgressProjects.map((project, index) => {
                 const isSelected = selectedProject === project.id;
+                const isHovered = hoveredProject === project.id;
                 return (
                   <motion.div
                     key={project.id}
                     className="flex items-center py-1.5 cursor-pointer"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 + index * 0.05 }}
+                    transition={{ delay: 0.1 + index * 0.05 }}
                     onMouseEnter={() => setHoveredProject(project.id)}
                     onMouseLeave={() => setHoveredProject(null)}
                     onClick={() => setSelectedProject(isSelected ? null : project.id)}
                   >
                     <StatusIcon status={project.status} />
                     <motion.span
-                      className="text-xl md:text-2xl lowercase font-semibold"
+                      className="text-xl md:text-2xl lowercase font-semibold inline-block"
                       style={{ 
                         fontFamily: "var(--font-playfair), Georgia, serif",
                         color: isSelected ? ACCENT : TEXT,
                         textShadow: SHADOW,
                       }}
                       animate={{
-                        x: hoveredProject === project.id ? 12 : isSelected ? 8 : 0,
-                        scale: hoveredProject === project.id ? 1.05 : 1,
+                        x: isHovered ? 15 : isSelected ? 10 : 0,
+                        scale: isHovered ? 1.05 : 1,
+                        y: [0, -2, 0],
                       }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      transition={{ 
+                        x: { type: "spring", stiffness: 300, damping: 20 },
+                        scale: { type: "spring", stiffness: 300, damping: 20 },
+                        y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+                      }}
                     >
                       {project.name}
                     </motion.span>
@@ -348,36 +279,44 @@ export default function PortfolioPage() {
                 className="text-sm uppercase tracking-[0.3em] mb-3 opacity-50"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 0.5 }}
-                transition={{ delay: 0.3 }}
+                transition={{ delay: 0.2 }}
               >
                 coming up
               </motion.h2>
               {comingProjects.map((project, index) => {
                 const isSelected = selectedProject === project.id;
+                const isHovered = hoveredProject === project.id;
+                const isLast = project.id === "your-project";
+                
                 return (
                   <motion.div
                     key={project.id}
-                    className="flex items-center py-1.5 cursor-pointer"
+                    className={`flex items-center py-1 cursor-pointer ${isLast ? "mt-4 pt-4 border-t border-current/10" : ""}`}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.3 + index * 0.05 }}
+                    transition={{ delay: 0.2 + index * 0.03 }}
                     onMouseEnter={() => setHoveredProject(project.id)}
                     onMouseLeave={() => setHoveredProject(null)}
                     onClick={() => setSelectedProject(isSelected ? null : project.id)}
                   >
                     <StatusIcon status={project.status} />
                     <motion.span
-                      className="text-xl md:text-2xl lowercase"
+                      className={`text-lg md:text-xl lowercase inline-block ${isLast ? "font-medium" : ""}`}
                       style={{ 
                         fontFamily: "var(--font-playfair), Georgia, serif",
-                        color: isSelected ? ACCENT : `${TEXT}99`,
-                        textShadow: hoveredProject === project.id || isSelected ? SHADOW : "none",
+                        color: isSelected ? ACCENT : isLast ? ACCENT : `${TEXT}99`,
+                        textShadow: isHovered || isSelected ? SHADOW : "none",
                       }}
                       animate={{
-                        x: hoveredProject === project.id ? 10 : isSelected ? 6 : 0,
-                        opacity: hoveredProject === project.id || isSelected ? 1 : 0.6,
+                        x: isHovered ? 12 : isSelected ? 8 : 0,
+                        opacity: isHovered || isSelected ? 1 : isLast ? 0.9 : 0.6,
+                        y: [0, -1.5, 0],
                       }}
-                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      transition={{ 
+                        x: { type: "spring", stiffness: 300, damping: 20 },
+                        opacity: { type: "spring", stiffness: 300, damping: 20 },
+                        y: { duration: 5 + index * 0.3, repeat: Infinity, ease: "easeInOut", delay: index * 0.2 },
+                      }}
                     >
                       {project.name}
                     </motion.span>
@@ -385,6 +324,29 @@ export default function PortfolioPage() {
                 );
               })}
             </div>
+            
+            {/* CTA */}
+            <motion.div
+              className="pt-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+            >
+              <Link href="/contact">
+                <motion.p
+                  className="text-lg lowercase cursor-pointer"
+                  style={{ 
+                    fontFamily: "var(--font-space), system-ui, sans-serif",
+                    color: ACCENT,
+                    textShadow: "0 2px 3px rgba(0,0,0,0.15)",
+                  }}
+                  whileHover={{ x: 10, scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  want to beta test a project? get in touch →
+                </motion.p>
+              </Link>
+            </motion.div>
           </div>
         </div>
 
@@ -468,6 +430,32 @@ export default function PortfolioPage() {
                       whileTap={{ scale: 0.98 }}
                     >
                       {selected.linkText}
+                    </motion.button>
+                  </Link>
+                </motion.div>
+              )}
+              
+              {/* Beta test CTA for coming soon projects */}
+              {selected.status === "coming" && !selected.link && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.25 }}
+                >
+                  <Link href="/contact">
+                    <motion.button
+                      className="px-6 py-3 rounded-full text-lg font-medium lowercase"
+                      style={{
+                        backgroundColor: "transparent",
+                        color: ACCENT,
+                        border: `2px solid ${ACCENT}`,
+                        boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                        fontFamily: "var(--font-playfair), Georgia, serif",
+                      }}
+                      whileHover={{ scale: 1.05, y: -2, backgroundColor: ACCENT, color: BG }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      interested? get in touch
                     </motion.button>
                   </Link>
                 </motion.div>

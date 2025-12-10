@@ -3,13 +3,15 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { FluidMenu } from "@/components/ui/fluid-menu";
+import { BackgroundQuotes } from "@/components/ui/background-quotes";
 
 const ACCENT = "#B07C4F";
 const TEXT = "#3d3428";
 const BG = "#f5ebe0";
 const SHADOW = "0 3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)";
 
-// Services we offer - with real info + jokes
+// 8 main service categories
 const services = [
   {
     id: "ai-agents",
@@ -19,11 +21,18 @@ const services = [
     video: "/services/ai-brain.webm",
   },
   {
-    id: "automations",
-    name: "automations",
+    id: "automation",
+    name: "workflow automation",
     tagline: "connect everything",
     description: "we wire up your apps using n8n, zapier, and make.com so they actually talk to each other. your CRM updates your spreadsheet updates your slack updates your sanity.",
     video: "/services/robot-arm.webm",
+  },
+  {
+    id: "rag",
+    name: "rag & knowledge",
+    tagline: "make your docs smart",
+    description: "turn your messy documents into an AI that actually knows your business. like having an employee who read ALL the documentation. yes, even the 2019 onboarding PDF.",
+    video: "/services/rag.webm",
   },
   {
     id: "websites",
@@ -33,32 +42,18 @@ const services = [
     video: "/services/website.webm",
   },
   {
-    id: "apps",
-    name: "mobile apps",
-    tagline: "in your pocket",
-    description: "iOS and android apps that people actually want to use. we handle the design, development, and the inevitable 'can you make the logo bigger' requests.",
-    video: "/services/apps.webm",
+    id: "ecommerce",
+    name: "e-commerce",
+    tagline: "sell stuff online",
+    description: "shopify stores, product listings, checkout optimization. we make people click 'buy now' instead of 'maybe later'. your accountant will thank us.",
+    video: "/services/ecommerce.webm",
   },
   {
-    id: "socials",
-    name: "social content",
-    tagline: "posts that don't suck",
-    description: "content strategy, graphics, and captions that get engagement. we'll make your brand look cool on instagram, tiktok, linkedin, and whatever new platform the kids are using.",
+    id: "social-video",
+    name: "social & video",
+    tagline: "content that doesn't suck",
+    description: "faceless channels, video campaigns, AI-generated content that actually performs. we'll make you look cool on the internet without you having to dance on camera.",
     video: "/services/socials.webm",
-  },
-  {
-    id: "video",
-    name: "video ads",
-    tagline: "30 seconds of magic",
-    description: "short-form video ads optimized for social media. AI-generated, professionally edited, designed to stop the scroll and start the sales.",
-    video: "/services/video.webm",
-  },
-  {
-    id: "graphics",
-    name: "graphics",
-    tagline: "pretty pixels",
-    description: "logos, brand assets, social graphics, pitch decks, and all the visual stuff you need to look professional. yes, we can make the gradient more... gradient-y.",
-    video: "/services/graphics.webm",
   },
   {
     id: "branding",
@@ -68,95 +63,13 @@ const services = [
     video: "/services/branding.webm",
   },
   {
-    id: "consulting",
-    name: "consulting",
-    tagline: "we'll tell you what to do",
-    description: "digital strategy, tech stack recommendations, AI implementation roadmaps. we'll figure out what you actually need and help you not waste money on shiny things.",
-    video: "/services/consulting.webm",
-  },
-  {
-    id: "something",
-    name: "something else",
-    tagline: "surprise us",
-    description: "got a weird project that doesn't fit the boxes? we love weird. tell us what you're thinking and we'll figure out if we can help. probably yes.",
-    video: "/services/mystery.webm",
+    id: "self-hosted",
+    name: "self-hosted tools",
+    tagline: "own your stack",
+    description: "n8n, home assistant, private AI, all on your own servers. no subscriptions, no data leaving your control, no big tech knowing your business.",
+    video: "/services/self-hosted.webm",
   },
 ];
-
-const menuItems = [
-  { name: "home", href: "/" },
-  { name: "about", href: "/about" },
-  { name: "services", href: "/services" },
-  { name: "portfolio", href: "/portfolio" },
-  { name: "contact", href: "/contact" },
-];
-
-function MenuNav() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  
-  return (
-    <motion.nav
-      className="fixed top-8 left-8 md:top-10 md:left-10 z-30"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 0.3 }}
-    >
-      <ul className="space-y-1">
-        {menuItems.map((item, index) => {
-          const isHovered = hoveredIndex === index;
-          const isOtherHovered = hoveredIndex !== null && hoveredIndex !== index;
-          const isActive = item.name === "services";
-          
-          let pushY = 0;
-          if (isOtherHovered && hoveredIndex !== null) {
-            const distance = index - hoveredIndex;
-            pushY = distance < 0 ? -8 : 8;
-          }
-          
-          return (
-            <motion.li
-              key={item.name}
-              style={{ color: TEXT }}
-              animate={{
-                y: pushY,
-                scale: isOtherHovered ? 0.94 : 1,
-              }}
-              transition={{ type: "spring", stiffness: 300, damping: 20, mass: 0.8 }}
-            >
-              <motion.a
-                href={item.href}
-                className="text-xl md:text-2xl lg:text-3xl lowercase inline-block leading-tight origin-left"
-                style={{ 
-                  fontFamily: "var(--font-playfair), Georgia, serif", 
-                  fontWeight: 500, 
-                  letterSpacing: "-0.02em",
-                  color: isActive ? ACCENT : TEXT,
-                  textShadow: SHADOW,
-                }}
-                onMouseEnter={() => setHoveredIndex(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-                onClick={() => {
-                  if (item.name === "home") {
-                    sessionStorage.setItem("skipHomeIntro", "true");
-                  }
-                }}
-                animate={{
-                  scale: isHovered ? 1.12 : 1,
-                  x: isHovered ? 10 : isActive ? 6 : 0,
-                  y: isHovered ? -4 : 0,
-                  opacity: isHovered ? 1 : isOtherHovered ? 0.5 : 1,
-                }}
-                transition={{ type: "spring", stiffness: 200, damping: 15, mass: 0.6 }}
-              >
-                {item.name}
-              </motion.a>
-            </motion.li>
-          );
-        })}
-      </ul>
-    </motion.nav>
-  );
-}
 
 export default function ServicesPage() {
   const [selectedService, setSelectedService] = useState<string | null>(null);
@@ -166,20 +79,23 @@ export default function ServicesPage() {
 
   return (
     <main className="relative min-h-screen overflow-hidden" style={{ backgroundColor: BG, color: TEXT }}>
+      {/* Background quotes */}
+      <BackgroundQuotes count={5} />
+      
       {/* Noise + vignette */}
       <div
-        className="fixed inset-0 pointer-events-none mix-blend-overlay"
+        className="fixed inset-0 pointer-events-none mix-blend-overlay z-[2]"
         style={{
           opacity: 0.12,
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
         }}
       />
       <div
-        className="fixed inset-0 pointer-events-none"
+        className="fixed inset-0 pointer-events-none z-[2]"
         style={{ background: "radial-gradient(ellipse at center, transparent 0%, transparent 50%, rgba(0,0,0,0.08) 100%)" }}
       />
 
-      <MenuNav />
+      <FluidMenu activePage="services" />
 
       {/* Main content area */}
       <div className="relative z-10 min-h-screen flex">
@@ -189,6 +105,7 @@ export default function ServicesPage() {
             {services.map((service, index) => {
               const isHovered = hoveredService === service.id;
               const isSelected = selectedService === service.id;
+              const isOtherHovered = hoveredService !== null && hoveredService !== service.id;
               
               return (
                 <motion.div
@@ -204,21 +121,29 @@ export default function ServicesPage() {
                   <motion.div
                     className="flex items-center py-1"
                     animate={{
-                      x: isHovered ? 20 : isSelected ? 10 : 0,
-                      scale: isHovered ? 1.05 : 1,
+                      x: isHovered ? 25 : isSelected ? 15 : 0,
+                      scale: isHovered ? 1.08 : isOtherHovered ? 0.95 : 1,
+                      opacity: isHovered ? 1 : isOtherHovered ? 0.5 : isSelected ? 1 : 0.85,
                     }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
+                    {/* Breathing animation on each item */}
                     <motion.span
-                      className="text-3xl md:text-4xl lg:text-5xl lowercase"
+                      className="text-3xl md:text-4xl lg:text-5xl lowercase inline-block"
                       style={{ 
                         fontFamily: "var(--font-playfair), Georgia, serif",
                         fontWeight: isSelected ? 600 : 400,
-                        color: isSelected ? ACCENT : `${TEXT}cc`,
-                        textShadow: isHovered || isSelected ? SHADOW : "none",
+                        color: isSelected ? ACCENT : TEXT,
+                        textShadow: isHovered || isSelected ? SHADOW : "0 2px 3px rgba(0,0,0,0.15)",
                       }}
                       animate={{
-                        opacity: isHovered || isSelected ? 1 : 0.7,
+                        y: [0, -3, 0],
+                      }}
+                      transition={{
+                        duration: 5 + index * 0.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: index * 0.3,
                       }}
                     >
                       {service.name}
@@ -227,6 +152,29 @@ export default function ServicesPage() {
                 </motion.div>
               );
             })}
+            
+            {/* CTA after list */}
+            <motion.div
+              className="pt-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6 }}
+            >
+              <Link href="/contact">
+                <motion.p
+                  className="text-lg lowercase cursor-pointer"
+                  style={{ 
+                    fontFamily: "var(--font-space), system-ui, sans-serif",
+                    color: ACCENT,
+                    textShadow: "0 2px 3px rgba(0,0,0,0.15)",
+                  }}
+                  whileHover={{ x: 10, scale: 1.05 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                >
+                  need something else? let's talk →
+                </motion.p>
+              </Link>
+            </motion.div>
           </div>
         </div>
 
