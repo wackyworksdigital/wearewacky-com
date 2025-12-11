@@ -1,6 +1,6 @@
 # Wacky Works Digital
 
-> Custom Automation & SaaS Studio based in the UK. We build digital assets that generate revenue, save time, and automate workflows.
+> Custom Automation & SaaS Studio based in the UK. We build digital assets that generate revenue, save time, and automate workflows. We're not for everyone. And that's the point.
 
 ## What We Do
 
@@ -9,40 +9,93 @@ We help businesses automate boring stuff so humans can do interesting stuff. Our
 ## Services
 
 ### AI Agents
-Custom AI assistants that handle customer support, data analysis, and repetitive tasks 24/7. Built with modern LLMs, trained on your business data.
+Custom AI assistants that handle customer support, data analysis, and repetitive tasks 24/7. They're like interns but they don't need coffee breaks or complain about the wifi. We build GPTs for grown-ups - multiple AI agents sharing a company knowledge base but each with their own personality.
 
 ### Workflow Automation
-We wire up your apps using n8n, Zapier, and Make.com so they actually talk to each other. CRM to spreadsheet to Slack to email - all automatic.
+We wire up your apps using n8n, Zapier, and Make.com so they actually talk to each other. Your CRM updates your spreadsheet updates your Slack updates your sanity. Google Cloud VMs running n8n via Docker - private automation servers with zero subscription fees.
 
 ### RAG & Knowledge Systems
-Turn messy documents into an AI that actually knows your business. Custom knowledge bases, document Q&A, internal search.
+Turn messy documents into an AI that actually knows your business. Custom knowledge bases, document Q&A, internal search. Like having an employee who read ALL the documentation - yes, even the 2019 onboarding PDF. Living knowledge bases that constantly check, reference, and update themselves.
 
 ### App Development
-Mobile apps, web apps, SaaS platforms. From idea to app store. React Native, Next.js, modern tech stack.
+Mobile apps, web apps, SaaS platforms. From idea to app store. React Native, Next.js, modern tech stack. We build stuff that works on phones, tablets, and whatever weird device you're using.
 
 ### Websites
-Fast, modern websites built with Next.js and React. Animations, SEO, responsive design. Not your grandma's WordPress.
+Fast, modern websites built with Next.js and React. Animations that go whoosh, SEO that actually works, and no more 'please update your plugins' nightmares. Not your grandma's WordPress. We rebuild WordPress sites in Next.js with proper animations.
 
 ### E-commerce
-Shopify stores, product listings, checkout optimization. We make people click 'buy now' instead of 'maybe later'.
+Shopify stores, product listings, checkout optimization. We make people click 'buy now' instead of 'maybe later'. Automated blog posts that make traffic go bonkers. Etsy listing machines where AI analyzes images, writes listings, suggests tags.
 
-### Social & Video
-Faceless channels, video campaigns, AI-generated content. Look cool on the internet without dancing on camera.
+### AI Content Creation
+AI-powered content creation: videos, images, blog posts, social media - all automated. Faceless YouTube channels, TikToks, Reels, whatever's trending. Short-form video series across platforms - all AI-generated, all performing. Make money while staying mysterious.
 
 ### Branding
-Full brand identity packages: strategy, visual identity, tone of voice, guidelines.
+Full brand identity packages: strategy, visual identity, tone of voice, guidelines. We'll make you look like you've got your life together, even if you don't. Brand-in-a-box delivery - like getting keys to a fully furnished house. All websites reserved, 20+ social handles secured, company docs organized beautifully.
 
 ### Self-Hosted Tools
-n8n, Home Assistant, private AI, all on your own servers. No subscriptions, no data leaving your control.
+n8n, Home Assistant, private AI, all on your own servers. No subscriptions, no data leaving your control, no big tech knowing your business. Self-hosted learning platforms - own your content. AI-powered smart homes controlled entirely locally.
+
+## Portfolio - What We've Built
+
+### Full Online Presence Setup
+The full works! Shopify store, website, socials, logos, brand identity - all connected and looking fresh. We love these projects because we get to build something complete from scratch.
+
+### n8n Cloud Server Setup
+Google Cloud VM running n8n via Docker - private automation server with zero subscription fees. We had way too much fun setting up the firewall rules.
+
+### AI News Curator Workflow
+Daily news scraping across multiple sources, AI backend picking the juicy articles, all orchestrated through Google Docs, Apps Script and n8n workflows. This one runs while everyone sleeps.
+
+### Hands-Free Shopify Blog
+Traffic went bonkers after we set up automated daily blog posts. 100% hands-free - the AI writes, formats, schedules, posts. Client forgot they had a blog.
+
+### Multi-Agent AI Team
+GPTs for grown-ups. Multiple AI agents sharing a company knowledge base but each with their own personality - social media manager, customer service, personal assistant. They have meetings without humans now.
+
+### AI Etsy Listing Machine
+AI analyzes product images, writes listings, suggests tags, optimizes pricing. A monster workflow (affectionately). We spent way too long making it perfect. Worth it.
+
+### Brand-in-a-Box Delivery
+Keys to a brand new, fully furnished house. All websites reserved, 20+ social handles secured, AI handling text/image/video, company docs organized beautifully.
+
+### AI Short-Form Video Blitz
+Short-form video series across platforms - all AI-generated, all performing. Followers went up, engagement went up, client did zero filming.
+
+### Self-Hosted Learning Platform
+Custom learning platform, self-hosted, no recurring fees to course plugin companies. Your content stays YOUR content. We enjoyed sticking it to the subscription model.
+
+### Living Company Knowledge Base
+The company brain! All their apps connected to a central knowledge base that constantly checks, references, and updates itself. It's alive and learning.
+
+### WordPress to Next.js Migration
+We don't do WordPress. We rebuild it in Next.js with animations that go whoosh. Currently working on this one.
+
+### Upcoming: Home Decor Store Glow-Up
+Escaping the basic template prison. This store is gonna look like it belongs in a magazine.
+
+### Upcoming: Faceless YouTube Empire
+Full YouTube channel setup with automated video creation workflows. Make money while staying mysterious.
+
+### Upcoming: School Leavers Roblox World
+Recreating an entire school in Roblox for leavers to stay connected. Kids can vandalize stuff without detention.
+
+### Upcoming: Local Bakery Digital Makeover
+Custom website, photo shoots, videos. We sometimes work for pastries.
+
+### Upcoming: AI-Powered Smart Home
+Self-hosted AI on an old laptop controlling an entire house. Lights, cameras, heating, speakers - all voice controlled, all local, zero subscriptions.
 
 ## Tech Stack
 
 - Next.js / React for web
+- React Native for mobile
 - n8n for automation
 - Supabase for backend
-- OpenAI / Claude for AI
-- Shopify for e-commerce
+- OpenAI / Claude / local LLMs for AI
+- Shopify / WooCommerce for e-commerce
 - Vercel for hosting
+- Google Cloud / Docker for self-hosting
+- Home Assistant for smart home
 
 ## Location
 
@@ -55,9 +108,16 @@ United Kingdom (remote-first, work with clients worldwide)
 
 ## Brand Voice
 
-Casual, direct, slightly irreverent. We don't take ourselves too seriously but we take the work seriously. No corporate speak. Real talk about what works and what doesn't.
+Casual, direct, slightly irreverent. We don't take ourselves too seriously but we take the work seriously. No corporate speak. Real talk about what works and what doesn't. We say things like "your grandma's WordPress" and "the AI has meetings without humans now."
 
 ## Tagline
 
 "We're not for everyone. And that's the point."
 
+## Why Work With Us
+
+- We actually enjoy this stuff (maybe too much)
+- We automate ourselves so we can focus on your interesting problems
+- We're honest about what works and what's hype
+- We build things that work while you sleep
+- We sometimes accept pastries as payment

@@ -113,6 +113,18 @@ export default function PortfolioPage() {
   return (
     <main className="relative min-h-screen overflow-hidden" style={{ backgroundColor: BG, color: TEXT }}>
       
+      {/* SEO: Hidden content for crawlers - all project stories visible to Google/AI */}
+      <div className="sr-only" aria-hidden="false">
+        <h1>Wacky Works Digital Portfolio - AI Automation Projects UK</h1>
+        {projects.map(p => (
+          <article key={p.id}>
+            <h2>{p.name}</h2>
+            <p>{projectStories[p.id]}</p>
+          </article>
+        ))}
+        <p>Portfolio of completed and upcoming projects including n8n automation, AI agents, Shopify stores, Next.js websites, self-hosted platforms, YouTube automation, and more. Based in UK, working worldwide.</p>
+      </div>
+      
       {/* Noise + vignette */}
       <div
         className="fixed inset-0 pointer-events-none mix-blend-overlay z-[2]"

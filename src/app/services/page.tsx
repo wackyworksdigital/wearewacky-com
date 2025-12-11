@@ -86,6 +86,19 @@ export default function ServicesPage() {
   return (
     <main className="relative min-h-screen overflow-hidden" style={{ backgroundColor: BG, color: TEXT }}>
       
+      {/* SEO: Hidden content for crawlers - all service descriptions visible to Google/AI */}
+      <div className="sr-only" aria-hidden="false">
+        <h1>Wacky Works Digital Services - AI, Automation, Web Development UK</h1>
+        {services.map(s => (
+          <article key={s.id}>
+            <h2>{s.name}</h2>
+            <p>{s.tagline}</p>
+            <p>{s.description}</p>
+          </article>
+        ))}
+        <p>UK-based digital agency specializing in AI agents, n8n workflow automation, Next.js websites, Shopify e-commerce, RAG knowledge systems, and self-hosted solutions. We build digital assets that work while you sleep.</p>
+      </div>
+      
       {/* Noise + vignette */}
       <div
         className="fixed inset-0 pointer-events-none mix-blend-overlay z-[2]"
