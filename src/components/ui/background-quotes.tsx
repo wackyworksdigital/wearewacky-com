@@ -18,18 +18,18 @@ const quotes = [
   "good enough today beats perfect never.",
 ];
 
-// Fish-like quote that swims with wiggle
+// Fish-like quote that swims with sinusoidal motion
 interface FishQuote {
   text: string;
   x: number;
   y: number;
+  baseY: number; // Base Y for wave calculation
   vx: number;
-  vy: number;
   targetVx: number;
-  targetVy: number;
-  z: number; // depth
-  wigglePhase: number;
-  speed: number; // current speed for wiggle calculation
+  z: number;
+  phase: number; // For wave motion
+  waveAmplitude: number;
+  waveFrequency: number;
 }
 
 interface BackgroundQuotesProps {
@@ -41,41 +41,44 @@ export function BackgroundQuotes({ count = 5 }: BackgroundQuotesProps) {
   const [mounted, setMounted] = useState(false);
   const animationRef = useRef<number | null>(null);
   
-  // Initialize fish positions
   useEffect(() => {
     const shuffled = [...quotes].sort(() => Math.random() - 0.5);
     const initialFishes: FishQuote[] = shuffled.slice(0, count).map((text) => {
-      const vx = (Math.random() - 0.5) * 0.06;
-      const vy = (Math.random() - 0.5) * 0.03;
+      const vx = (Math.random() - 0.5) * 0.08;
+      const baseY = 15 + Math.random() * 70;
       return {
         text,
-        x: 15 + Math.random() * 70,
-        y: 15 + Math.random() * 70,
+        x: 10 + Math.random() * 80,
+        y: baseY,
+        baseY,
         vx,
-        vy,
         targetVx: vx,
-        targetVy: vy,
         z: 0.3 + Math.random() * 0.7,
-        wigglePhase: Math.random() * Math.PI * 2,
-        speed: 0,
+        phase: Math.random() * Math.PI * 2,
+        waveAmplitude: 8 + Math.random() * 12, // 8-20px wave height
+        waveFrequency: 0.8 + Math.random() * 0.4, // Wave frequency variation
       };
     });
     setFishes(initialFishes);
     setMounted(true);
   }, [count]);
   
-  // Decide new direction occasionally
   const decideNewDirection = useCallback((fish: FishQuote): Partial<FishQuote> => {
-    if (Math.random() < 0.006) {
+    // Occasionally change direction
+    if (Math.random() < 0.004) {
       return {
         targetVx: (Math.random() - 0.5) * 0.1,
-        targetVy: (Math.random() - 0.5) * 0.05,
+      };
+    }
+    // Occasionally change wave amplitude
+    if (Math.random() < 0.002) {
+      return {
+        waveAmplitude: 6 + Math.random() * 14,
       };
     }
     return {};
   }, []);
   
-  // Animation loop
   useEffect(() => {
     if (!mounted) return;
     
@@ -86,53 +89,54 @@ export function BackgroundQuotes({ count = 5 }: BackgroundQuotesProps) {
       lastTime = time;
       
       setFishes(prev => prev.map(fish => {
-        let { x, y, vx, vy, targetVx, targetVy, z, wigglePhase, speed } = fish;
+        let { x, baseY, vx, targetVx, z, phase, waveAmplitude, waveFrequency } = fish;
         
-        // Maybe decide new direction
+        // Maybe change direction
         const newDirection = decideNewDirection(fish);
+        Object.assign(fish, newDirection);
         if (newDirection.targetVx !== undefined) targetVx = newDirection.targetVx;
-        if (newDirection.targetVy !== undefined) targetVy = newDirection.targetVy;
+        if (newDirection.waveAmplitude !== undefined) waveAmplitude = newDirection.waveAmplitude;
         
-        // Smoothly accelerate toward target velocity
-        const acceleration = 0.003;
+        // Smooth acceleration
+        const acceleration = 0.002;
         vx += (targetVx - vx) * acceleration * delta;
-        vy += (targetVy - vy) * acceleration * delta;
         
-        // Calculate speed
-        speed = Math.sqrt(vx * vx + vy * vy);
+        // Calculate speed for wave intensity
+        const speed = Math.abs(vx);
+        const normalizedSpeed = Math.min(speed / 0.08, 1);
         
-        // Wiggle phase - faster when moving faster
-        const baseWiggleSpeed = 0.08;
-        const speedBonus = speed * 3;
-        wigglePhase += (baseWiggleSpeed + speedBonus) * delta;
+        // Phase advances based on speed - faster = more waves
+        const phaseSpeed = 0.03 + normalizedSpeed * 0.08;
+        phase += phaseSpeed * delta;
         
-        // Update position
+        // Update X position
         x += vx * delta;
-        y += vy * delta;
         
-        // Soft bounce off edges
-        if (x < 8) {
-          targetVx = Math.abs(targetVx) * 0.7 + 0.02;
-          x = 8;
+        // Y follows a sine wave (the swimming wave motion!)
+        // Higher speed = tighter waves (more frequency)
+        const dynamicFrequency = waveFrequency * (0.8 + normalizedSpeed * 0.4);
+        const dynamicAmplitude = waveAmplitude * (0.5 + normalizedSpeed * 0.8);
+        const y = baseY + Math.sin(phase * dynamicFrequency) * dynamicAmplitude;
+        
+        // Slowly drift baseY
+        baseY += (Math.random() - 0.5) * 0.02 * delta;
+        baseY = Math.max(12, Math.min(88, baseY));
+        
+        // Bounce off horizontal edges
+        if (x < 5) {
+          targetVx = Math.abs(targetVx) * 0.8 + 0.02;
+          x = 5;
         }
-        if (x > 92) {
-          targetVx = -Math.abs(targetVx) * 0.7 - 0.02;
-          x = 92;
-        }
-        if (y < 8) {
-          targetVy = Math.abs(targetVy) * 0.7 + 0.01;
-          y = 8;
-        }
-        if (y > 92) {
-          targetVy = -Math.abs(targetVy) * 0.7 - 0.01;
-          y = 92;
+        if (x > 95) {
+          targetVx = -Math.abs(targetVx) * 0.8 - 0.02;
+          x = 95;
         }
         
         // Slow depth drift
-        z += (Math.random() - 0.5) * 0.0008 * delta;
+        z += (Math.random() - 0.5) * 0.0006 * delta;
         z = Math.max(0.25, Math.min(1, z));
         
-        return { ...fish, x, y, vx, vy, targetVx, targetVy, z, wigglePhase, speed };
+        return { ...fish, x, y, baseY, vx, targetVx, z, phase, waveAmplitude, waveFrequency };
       }));
       
       animationRef.current = requestAnimationFrame(animate);
@@ -152,18 +156,16 @@ export function BackgroundQuotes({ count = 5 }: BackgroundQuotesProps) {
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-[1]">
       {fishes.map((fish, index) => {
-        // Opacity and blur based on depth
-        const opacity = 0.06 + fish.z * 0.14; // 0.06 (far) to 0.20 (close)
-        const blur = 2.5 - fish.z * 1.5; // 2.5px (far) to 1px (close)
-        const scale = 0.75 + fish.z * 0.35; // 0.75 (far) to 1.1 (close)
+        // Depth effects
+        const opacity = 0.07 + fish.z * 0.13;
+        const blur = 2.5 - fish.z * 1.5;
+        const scale = 0.75 + fish.z * 0.35;
         
-        // Wiggle effect - wave motion (up/down + slight rotation)
-        // Faster speed = bigger wiggle
-        const maxSpeed = 0.1;
-        const normalizedSpeed = Math.min(fish.speed / maxSpeed, 1);
-        const wiggleStrength = 2 + normalizedSpeed * 6; // 2-8 degrees
-        const yWiggle = Math.sin(fish.wigglePhase) * (1 + normalizedSpeed * 3); // 1-4px
-        const rotation = Math.sin(fish.wigglePhase * 0.7) * wiggleStrength;
+        // Body flex: slight skew that changes with the wave
+        // This makes it look like the body is bending as it swims
+        const speed = Math.abs(fish.vx);
+        const normalizedSpeed = Math.min(speed / 0.08, 1);
+        const bodyFlex = Math.sin(fish.phase * 1.5) * (2 + normalizedSpeed * 4); // 2-6 degrees skew
         
         return (
           <div
@@ -172,7 +174,7 @@ export function BackgroundQuotes({ count = 5 }: BackgroundQuotesProps) {
             style={{
               left: `${fish.x}%`,
               top: `${fish.y}%`,
-              transform: `translate(-50%, -50%) translateY(${yWiggle}px) rotate(${rotation}deg) scale(${scale})`,
+              transform: `translate(-50%, -50%) scale(${scale}) skewX(${bodyFlex}deg)`,
               opacity,
               filter: `blur(${blur}px)`,
               fontFamily: "var(--font-bebas), var(--font-space), system-ui, sans-serif",
