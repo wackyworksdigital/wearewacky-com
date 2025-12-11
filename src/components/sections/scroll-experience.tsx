@@ -208,11 +208,67 @@ function FloatingLogo({
   const [wackyScore, setWackyScore] = useState(0);
   const [gameStarted, setGameStarted] = useState(false);
   const [winner, setWinner] = useState<'player' | 'wacky' | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [logoVisible, setLogoVisible] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const logoRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
   
   // CIRCULAR bounds - bigger playing field, centered
   const boundRadius = 120;
+  // Mobile bounds - use more of the screen
+  const mobileBoundX = 100; // pixels from center
+  const mobileBoundY = 150;
+  
+  // Detect mobile/touch device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.matchMedia('(max-width: 768px)').matches || 'ontouchstart' in window);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+  
+  // Mobile: Random position generator
+  const getRandomPosition = () => {
+    const x = (Math.random() - 0.5) * 2 * mobileBoundX;
+    const y = (Math.random() - 0.5) * 2 * mobileBoundY;
+    return { x, y };
+  };
+  
+  // Mobile: Start the whack-a-mole timer
+  const startMobileTimer = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    
+    // Show logo
+    setLogoVisible(true);
+    setPosition(getRandomPosition());
+    
+    // Hide after 1.5s if not tapped (wacky scores!)
+    timerRef.current = setTimeout(() => {
+      if (!winner) {
+        setWackyScore(prev => prev + 1);
+        playSound('miss');
+        setAnimation('wiggle');
+        setTimeout(() => {
+          setAnimation('idle');
+          // Pop up in new location
+          setPosition(getRandomPosition());
+        }, 300);
+      }
+    }, 1500);
+  };
+  
+  // Mobile: Start game loop when game starts
+  useEffect(() => {
+    if (isMobile && gameStarted && !winner) {
+      startMobileTimer();
+    }
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [isMobile, gameStarted, winner, wackyScore]); // Re-trigger on wackyScore change
   
   // Simple hit detection - click within a generous radius of logo center
   const isClickOnLogo = (clickX: number, clickY: number, logoRect: DOMRect): boolean => {
@@ -225,8 +281,8 @@ function FloatingLogo({
     const distY = clickY - logoCenterY;
     const distance = Math.sqrt(distX * distX + distY * distY);
     
-    // Generous hit radius - half the logo width (easy to hit!)
-    const hitRadius = logoRect.width * 0.5;
+    // Generous hit radius - logo width (very easy on mobile!)
+    const hitRadius = isMobile ? logoRect.width * 0.8 : logoRect.width * 0.5;
     
     return distance < hitRadius;
   };
@@ -283,7 +339,9 @@ function FloatingLogo({
     }
   };
   
+  // Desktop: Mouse tracking movement
   useEffect(() => {
+    if (isMobile) return; // Skip on mobile
     if (!containerRef.current || winner) return;
     
     const rect = containerRef.current.getBoundingClientRect();
@@ -321,51 +379,75 @@ function FloatingLogo({
         y: prev.y * 0.95,
       }));
     }
-  }, [mouseX, mouseY, winner]);
+  }, [mouseX, mouseY, winner, isMobile]);
 
   // Check for winner - fanfare plays for ANY winner!
   useEffect(() => {
     if (playerScore >= 5 && !winner) {
       setWinner('player');
       playSound('win');
+      if (timerRef.current) clearTimeout(timerRef.current);
     } else if (wackyScore >= 5 && !winner) {
       setWinner('wacky');
-      playSound('win'); // Fanfare for wacky too!
+      playSound('win');
+      if (timerRef.current) clearTimeout(timerRef.current);
     }
   }, [playerScore, wackyScore, winner]);
 
-  // Handle click - check if within logo radius
-  const handleClick = (e: React.MouseEvent) => {
+  // Handle click/tap
+  const handleClick = (e: React.MouseEvent | React.TouchEvent) => {
     if (winner) return;
     
-    setGameStarted(true);
+    // Get click coordinates
+    const clientX = 'touches' in e ? e.touches[0]?.clientX || 0 : e.clientX;
+    const clientY = 'touches' in e ? e.touches[0]?.clientY || 0 : e.clientY;
+    
+    // Start game on first interaction
+    if (!gameStarted) {
+      setGameStarted(true);
+      if (isMobile) {
+        // Don't process this tap as a hit, just start the game
+        return;
+      }
+    }
     
     // Get logo element bounds
     const logoEl = logoRef.current?.querySelector('img');
     if (!logoEl) {
-      setWackyScore(prev => prev + 1);
-      setAnimation('wiggle');
-      playSound('miss');
-      setTimeout(() => setAnimation('idle'), 400);
+      if (!isMobile) {
+        setWackyScore(prev => prev + 1);
+        setAnimation('wiggle');
+        playSound('miss');
+        setTimeout(() => setAnimation('idle'), 400);
+      }
       return;
     }
     
     const logoRect = logoEl.getBoundingClientRect();
-    const isHit = isClickOnLogo(e.clientX, e.clientY, logoRect);
+    const isHit = isClickOnLogo(clientX, clientY, logoRect);
     
     if (isHit) {
       // HIT!
+      if (timerRef.current) clearTimeout(timerRef.current);
       setPlayerScore(prev => prev + 1);
       setAnimation('spin');
       playSound('hit');
-      setTimeout(() => setAnimation('idle'), 600);
-    } else {
-      // MISS!
+      setTimeout(() => {
+        setAnimation('idle');
+        // Mobile: move to new position after hit
+        if (isMobile && !winner) {
+          setPosition(getRandomPosition());
+          startMobileTimer();
+        }
+      }, 400);
+    } else if (!isMobile) {
+      // Desktop only: MISS on click outside logo
       setWackyScore(prev => prev + 1);
       setAnimation('wiggle');
       playSound('miss');
       setTimeout(() => setAnimation('idle'), 400);
     }
+    // Mobile: clicking outside logo does nothing (timer handles misses)
   };
 
   // Reset game - keep scoreboard visible
@@ -384,6 +466,10 @@ function FloatingLogo({
       setPlayerScore(0);
       setWackyScore(0);
       setWinner(null);
+      if (isMobile) {
+        // Restart mobile game loop
+        startMobileTimer();
+      }
     }
   };
 
@@ -391,7 +477,7 @@ function FloatingLogo({
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="fixed top-[40px] right-[70px] z-[200]"
+      className="fixed top-4 right-4 md:top-[40px] md:right-[70px] z-[200]"
     >
       <div className="flex items-end gap-5 font-mono">
         {/* Player score */}
@@ -445,10 +531,11 @@ function FloatingLogo({
         style={{ 
           opacity, 
           transform: "translate(-50%, -50%)",
-          width: "400px",
-          height: "400px",
+          width: isMobile ? "100vw" : "400px",
+          height: isMobile ? "80vh" : "400px",
         }}
         onClick={winner ? handleWinnerClick : handleClick}
+        onTouchEnd={winner ? undefined : handleClick}
       >
         {/* The escaping logo */}
         <motion.div
