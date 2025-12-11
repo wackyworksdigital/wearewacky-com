@@ -11,64 +11,65 @@ const BG = "#f5ebe0";
 const SHADOW = "0 3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)";
 
 // Project list with real stories
+// SEO-friendly project titles - keywords people actually search for!
 const projects = [
   // DONE - ticked off (faded at top to suggest more before)
-  { id: "shopify-branding", name: "full online presence setup", status: "done", fadeLevel: 2 },
-  { id: "n8n-hosting", name: "n8n cloud server setup", status: "done", fadeLevel: 1 },
-  { id: "news-scraper", name: "AI news curator workflow", status: "done", fadeLevel: 0 },
-  { id: "shopify-blog", name: "hands-free shopify blog", status: "done", fadeLevel: 0 },
-  { id: "ai-agent-setup", name: "multi-agent AI team", status: "done", fadeLevel: 0 },
-  { id: "etsy-assistant", name: "AI etsy listing machine", status: "done", fadeLevel: 0 },
-  { id: "full-brand", name: "brand-in-a-box delivery", status: "done", fadeLevel: 0 },
-  { id: "video-campaign", name: "AI short-form video blitz", status: "done", fadeLevel: 0 },
-  { id: "course-app", name: "self-hosted learning platform", status: "done", fadeLevel: 0 },
-  { id: "rag-agency", name: "living company knowledge base", status: "done", fadeLevel: 0 },
+  { id: "shopify-branding", name: "shopify store setup + branding", status: "done", fadeLevel: 2 },
+  { id: "n8n-hosting", name: "n8n self-hosting on google cloud", status: "done", fadeLevel: 1 },
+  { id: "news-scraper", name: "AI news scraper n8n workflow", status: "done", fadeLevel: 0 },
+  { id: "shopify-blog", name: "automated shopify blog with AI", status: "done", fadeLevel: 0 },
+  { id: "ai-agent-setup", name: "custom AI agent setup", status: "done", fadeLevel: 0 },
+  { id: "etsy-assistant", name: "AI etsy listing automation", status: "done", fadeLevel: 0 },
+  { id: "full-brand", name: "full brand identity setup", status: "done", fadeLevel: 0 },
+  { id: "video-campaign", name: "AI video content automation", status: "done", fadeLevel: 0 },
+  { id: "course-app", name: "self-hosted course platform", status: "done", fadeLevel: 0 },
+  { id: "rag-agency", name: "company RAG knowledge base", status: "done", fadeLevel: 0 },
   
   // CURRENT - what we're working on NOW (accent color)
-  { id: "wordpress-makeover", name: "wordpress → next.js migration", status: "current", fadeLevel: 0 },
+  { id: "wordpress-makeover", name: "wordpress website makeover", status: "current", fadeLevel: 0 },
   
   // COMING - empty circles
-  { id: "shopify-decor", name: "home decor store glow-up", status: "coming", fadeLevel: 0 },
-  { id: "faceless-channel", name: "faceless youtube empire", status: "coming", fadeLevel: 0 },
-  { id: "roblox-world", name: "school leavers roblox world", status: "coming", fadeLevel: 0 },
-  { id: "bakery-website", name: "local bakery digital makeover", status: "coming", fadeLevel: 0 },
-  { id: "home-assistant", name: "AI-powered smart home", status: "coming", fadeLevel: 0 },
+  { id: "shopify-decor", name: "shopify store makeover", status: "coming", fadeLevel: 0 },
+  { id: "faceless-channel", name: "youtube channel setup + automation", status: "coming", fadeLevel: 0 },
+  { id: "roblox-world", name: "custom roblox world build", status: "coming", fadeLevel: 0 },
+  { id: "bakery-website", name: "wix to custom website migration", status: "coming", fadeLevel: 0 },
+  { id: "home-assistant", name: "self-hosted AI smart home", status: "coming", fadeLevel: 0 },
   { id: "your-project", name: "your project here?", status: "coming", fadeLevel: 0, isLast: true },
 ];
 
-// Project stories - fun, specific, personality-filled!
+// Project stories - fun, specific, SEO keywords included!
 const projectStories: Record<string, string> = {
-  "shopify-branding": "the full works! shopify store, website, socials, logos, brand identity - all connected and looking fresh. we love these projects because we get to build something complete from scratch. like playing god but for businesses.",
+  "shopify-branding": "the full works! shopify store setup, custom website, all socials, logos, complete brand identity - everything connected and looking fresh. we love these because we get to build something complete from scratch. like playing god but for businesses.",
 
-  "n8n-hosting": "google cloud VM running n8n via docker - their own private automation server with zero subscription fees. we had way too much fun setting up the firewall rules. yes, we're that kind of nerds.",
+  "n8n-hosting": "google cloud VM running n8n via docker - private automation server with zero subscription fees forever. we had way too much fun setting up the firewall rules. yes, we're that kind of nerds.",
 
   "news-scraper": "daily news scraping across multiple sources, AI backend picking the juicy articles, all orchestrated through google docs, apps script and n8n workflows. this one runs while everyone sleeps. beautiful.",
 
-  "shopify-blog": "traffic went bonkers after we set up the automated daily blog posts. 100% hands-free - the AI writes, formats, schedules, posts. client forgot they had a blog. that's the dream.",
+  "shopify-blog": "shopify store traffic went bonkers after we set up the automated daily blog posts. 100% hands-free - the AI writes, formats, schedules, posts. client forgot they had a blog. that's the dream.",
 
   "ai-agent-setup": "GPTs for grown-ups. multiple AI agents sharing a company knowledge base but each with their own personality - social media manager, customer service, personal assistant. they have meetings without humans now. slightly concerning.",
 
-  "etsy-assistant": "this workflow is a monster (affectionately). AI analyzes product images, writes listings, suggests tags, optimizes pricing. we spent way too long making it perfect. worth it.",
+  "etsy-assistant": "this n8n workflow is a monster (affectionately). AI analyzes product images, writes etsy listings, suggests tags, optimizes pricing. we spent way too long making it perfect. worth it.",
 
-  "full-brand": "keys to a brand new, fully furnished house. all websites reserved, 20+ social handles secured, AI handling text/image/video, company docs organized beautifully. we basically moved them in and handed over the keys.",
+  "full-brand": "like getting keys to a fully furnished house. all websites reserved, 20+ social handles secured, AI handling text/image/video, company docs organized. complete brand identity from scratch.",
 
-  "video-campaign": "short-form video series across platforms - all AI-generated, all performing. followers went up, engagement went up, client did zero filming. that's the magic.",
+  "video-campaign": "short-form video content series across platforms - all AI-generated, all performing. followers went up, engagement went up, client did zero filming. that's the magic of AI content automation.",
 
-  "course-app": "custom learning platform, self-hosted, no recurring fees to course plugin companies. your content stays YOUR content. we enjoyed sticking it to the subscription model.",
+  "course-app": "custom course platform, self-hosted, no recurring fees to course hosting companies. your content stays YOUR content. we enjoyed sticking it to the subscription model.",
 
-  "rag-agency": "the company brain! all their apps connected to a central knowledge base that constantly checks, references, and updates itself. it's alive and learning. in a good way, not a skynet way.",
+  "rag-agency": "the company brain! all their apps connected to a central RAG knowledge base that constantly checks, references, and updates itself. it's alive and learning. in a good way, not a skynet way.",
 
-  "wordpress-makeover": "do we do wordpress? no. you know who does? your grandma. we're rebuilding this in next.js with animations that go whoosh. you're looking at the result right now.",
+  "wordpress-makeover": "do we do wordpress? no. you know who does? your grandma. we rebuild wordpress sites in next.js with proper animations and modern tech. this one's gonna be fun.",
 
-  "shopify-decor": "client wants to escape the basic template prison. we've got IDEAS. this store is gonna look like it belongs in a magazine. watch this space!",
+  "shopify-decor": "home decor shopify store makeover - client wants to escape the basic template prison. we've got IDEAS. this store is gonna look like it belongs in a magazine. watch this space!",
 
-  "faceless-channel": "full youtube channel setup with automated video creation workflows. make money while staying mysterious. our kind of project.",
+  "faceless-channel": "full youtube channel setup with automated video creation workflows. faceless content, consistent uploads, AI doing the heavy lifting. make money while staying mysterious.",
 
   "roblox-world": "okay this one is NEW for us! recreating an entire school in roblox for leavers to stay connected. classrooms, corridors, the lot. kids can vandalize stuff without detention. we're unreasonably excited about this.",
 
-  "bakery-website": "time to graduate from the wix template! custom website, photo shoots, videos - if they're local we sometimes work for pastries. don't tell anyone.",
+  "bakery-website": "migrating from a basic wix template to a proper custom website. finally, a site that matches how good their pastries actually are! oh and if you're local, we sometimes do photo and video shoots too. we've worked for croissants before. don't tell anyone.",
 
-  "home-assistant": "passion project alert! squeezing a self-hosted AI into an old laptop to control an entire house. lights, cameras, heating, speakers - all voice controlled, all local, zero subscriptions. we can't wait.",
+  "home-assistant": "passion project! open source LLM self-hosted on an old laptop, controlling the whole house via voice. lights, cameras, heating, speakers - home assistant integration, everything local, zero subscriptions, zero cloud. we can't wait.",
 
   "your-project": "this spot is waiting for something cool. could be yours. no pressure. okay, a little pressure.",
 };
