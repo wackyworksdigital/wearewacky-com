@@ -67,7 +67,7 @@ const projectStories: Record<string, string> = {
 
   "roblox-world": "okay this one is NEW for us! recreating an entire school in roblox for leavers to stay connected. classrooms, corridors, the lot. kids can vandalize stuff without detention. we're unreasonably excited about this.",
 
-  "bakery-website": "migrating from a basic wix template to a proper custom website. finally, a site that matches how good their pastries actually are! oh and if you're local, we sometimes do photo and video shoots too. we've worked for croissants before. don't tell anyone.",
+  "bakery-website": "local bakery escaping their basic wix template - finally, a site that matches how good their pastries actually are! oh and if you're local, we sometimes do photo and video shoots too. we've worked for croissants before. don't tell anyone.",
 
   "home-assistant": "passion project! open source LLM self-hosted on an old laptop, controlling the whole house via voice. lights, cameras, heating, speakers - home assistant integration, everything local, zero subscriptions, zero cloud. we can't wait.",
 

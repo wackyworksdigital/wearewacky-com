@@ -7,11 +7,11 @@ import { FluidMenu } from "@/components/ui/fluid-menu";
 const ACCENT = "#B07C4F";
 const TEXT = "#3d3428";
 const BG = "#f5ebe0";
+const SHADOW = "0 3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)";
 
 export default function ContactPage() {
   return (
     <main className="relative min-h-screen" style={{ backgroundColor: BG, color: TEXT }}>
-      {/* Background quotes */}
       
       {/* Noise + vignette */}
       <div
@@ -36,18 +36,17 @@ export default function ContactPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          {/* Title with breathing - using wacky marker font */}
+          {/* Title - back to normal font */}
           <motion.h1
-            className="text-5xl md:text-7xl lg:text-8xl"
+            className="text-5xl md:text-7xl lg:text-8xl lowercase"
             style={{
-              fontFamily: "var(--font-marker), cursive",
+              fontFamily: "var(--font-syne), var(--font-space), sans-serif",
+              fontWeight: 700,
               color: TEXT,
-              textShadow: "0 6px 8px rgba(0,0,0,0.35), 0 3px 3px rgba(0,0,0,0.25)",
-              transform: "rotate(-2deg)",
+              textShadow: "0 6px 10px rgba(0,0,0,0.3), 0 3px 4px rgba(0,0,0,0.2)",
             }}
             animate={{
-              y: [0, -5, 0],
-              scale: [1, 1.01, 1],
+              y: [0, -4, 0],
             }}
             transition={{
               duration: 5,
@@ -55,11 +54,11 @@ export default function ContactPage() {
               ease: "easeInOut",
             }}
           >
-            let's talk!
+            let's talk
           </motion.h1>
 
           {/* Contact links */}
-          <div className="space-y-3 text-xl md:text-2xl lg:text-3xl" style={{ textShadow: "0 3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)" }}>
+          <div className="space-y-3 text-xl md:text-2xl" style={{ textShadow: SHADOW }}>
             <motion.p
               animate={{ y: [0, -2, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
@@ -100,25 +99,23 @@ export default function ContactPage() {
             </motion.p>
           </div>
 
-          {/* Funny office hours */}
-          <motion.div 
-            className="space-y-1 text-lg md:text-xl pt-4" 
-            style={{ textShadow: "0 3px 4px rgba(0,0,0,0.25), 0 1px 2px rgba(0,0,0,0.15)" }}
-            animate={{ y: [0, -3, 0] }}
+          {/* Office hours - simple and actually funny */}
+          <motion.p 
+            className="text-lg md:text-xl pt-4" 
+            style={{ textShadow: SHADOW }}
+            animate={{ y: [0, -2, 0] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
           >
-            <p><span style={{ color: TEXT }}>office hours:</span> <span style={{ color: ACCENT }}>every hour is office hour bro!</span></p>
-            <p style={{ color: ACCENT }}>you know why? cos we are winners bro!</p>
-            <p className="pt-2" style={{ color: ACCENT }}>also the robots. those guys doing all the work.</p>
-            <p style={{ color: ACCENT }}>yeah, they are awesome!</p>
-          </motion.div>
+            <span style={{ opacity: 0.6 }}>office hours:</span>{" "}
+            <span style={{ color: ACCENT }}>every hour is office hour when you've got robots</span>
+          </motion.p>
           
           {/* Extra CTA */}
           <motion.p
-            className="text-base pt-6 opacity-60"
+            className="text-base pt-4 opacity-50"
             style={{ fontFamily: "var(--font-space), system-ui, sans-serif" }}
             initial={{ opacity: 0 }}
-            animate={{ opacity: 0.6 }}
+            animate={{ opacity: 0.5 }}
             transition={{ delay: 0.8 }}
           >
             got an idea? weird project? just want to chat? we're here.
