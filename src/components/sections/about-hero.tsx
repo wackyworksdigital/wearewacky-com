@@ -120,24 +120,23 @@ export function AboutHero() {
           </AnimatePresence>
         </div>
 
-        {/* Video container */}
+        {/* Video container - MOBILE: full width overflow, DESKTOP: bottom-right */}
         <motion.div
           className="fixed z-10 
-            bottom-0 left-0 right-0 overflow-hidden h-[50vh]
-            md:left-auto md:right-0 md:h-screen md:w-auto md:overflow-visible"
+            bottom-0 left-1/2 -translate-x-1/2 overflow-hidden
+            md:left-auto md:translate-x-0 md:right-0 md:h-screen md:w-auto md:overflow-visible"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
+          style={{
+            width: "150vw", // Bigger than screen, sides cut off
+          }}
         >
-          {/* Panning wrapper - MOBILE: pans left-right, DESKTOP: static */}
-          <motion.div
-            className="about-video-pan relative h-full flex items-end justify-center 
-              w-[140vw] -ml-[20vw]
-              md:w-auto md:ml-0 md:justify-end md:animate-none"
-          >
+          {/* Video wrapper */}
+          <div className="relative h-full flex items-end justify-center md:justify-end">
             <video
               ref={videoRef}
-              className="h-full w-auto object-contain pointer-events-auto md:h-[85vh]"
+              className="w-full object-cover object-top pointer-events-auto md:h-[85vh] md:w-auto md:object-contain"
               src="/our-agency-guys.webm"
               autoPlay
               loop
@@ -147,7 +146,7 @@ export function AboutHero() {
                 filter: "drop-shadow(0 20px 20px rgba(0,0,0,0.5)) drop-shadow(0 8px 8px rgba(0,0,0,0.4))",
               }}
             />
-          </motion.div>
+          </div>
 
           {/* Desktop text - ON the video (hidden on mobile) */}
           <div 
@@ -188,9 +187,9 @@ export function AboutHero() {
           </div>
         </motion.div>
 
-        {/* Scroll hint */}
+        {/* Scroll hint - hidden on mobile */}
         <motion.div
-          className="fixed bottom-4 left-1/2 -translate-x-1/2 z-30 pointer-events-none"
+          className="fixed bottom-4 left-1/2 -translate-x-1/2 z-30 pointer-events-none hidden md:block"
           animate={{ opacity: currentLine < 4 ? 0.6 : 0 }}
         >
           <motion.div
