@@ -25,12 +25,11 @@ interface FishQuote {
   y: number;
   vx: number;
   vy: number;
-  targetVx: number; // Target velocity (fish decides where to go)
+  targetVx: number;
   targetVy: number;
   z: number; // depth
   wigglePhase: number;
-  wiggleAmplitude: number; // Current wiggle strength (based on speed)
-  facingRight: boolean; // Which way the fish is facing
+  speed: number; // current speed for wiggle calculation
 }
 
 interface BackgroundQuotesProps {
@@ -46,19 +45,19 @@ export function BackgroundQuotes({ count = 5 }: BackgroundQuotesProps) {
   useEffect(() => {
     const shuffled = [...quotes].sort(() => Math.random() - 0.5);
     const initialFishes: FishQuote[] = shuffled.slice(0, count).map((text) => {
-      const vx = (Math.random() - 0.5) * 0.08;
+      const vx = (Math.random() - 0.5) * 0.06;
+      const vy = (Math.random() - 0.5) * 0.03;
       return {
         text,
         x: 15 + Math.random() * 70,
         y: 15 + Math.random() * 70,
         vx,
-        vy: (Math.random() - 0.5) * 0.04,
+        vy,
         targetVx: vx,
-        targetVy: (Math.random() - 0.5) * 0.04,
+        targetVy: vy,
         z: 0.3 + Math.random() * 0.7,
         wigglePhase: Math.random() * Math.PI * 2,
-        wiggleAmplitude: 0,
-        facingRight: vx > 0,
+        speed: 0,
       };
     });
     setFishes(initialFishes);
@@ -67,85 +66,73 @@ export function BackgroundQuotes({ count = 5 }: BackgroundQuotesProps) {
   
   // Decide new direction occasionally
   const decideNewDirection = useCallback((fish: FishQuote): Partial<FishQuote> => {
-    // Random chance to change direction
-    if (Math.random() < 0.008) {
-      const newTargetVx = (Math.random() - 0.5) * 0.12;
-      const newTargetVy = (Math.random() - 0.5) * 0.06;
+    if (Math.random() < 0.006) {
       return {
-        targetVx: newTargetVx,
-        targetVy: newTargetVy,
+        targetVx: (Math.random() - 0.5) * 0.1,
+        targetVy: (Math.random() - 0.5) * 0.05,
       };
     }
     return {};
   }, []);
   
-  // Animation loop - fish swimming with wiggle
+  // Animation loop
   useEffect(() => {
     if (!mounted) return;
     
     let lastTime = performance.now();
     
     const animate = (time: number) => {
-      const delta = Math.min((time - lastTime) / 16, 3); // Cap delta to prevent jumps
+      const delta = Math.min((time - lastTime) / 16, 3);
       lastTime = time;
       
       setFishes(prev => prev.map(fish => {
-        let { x, y, vx, vy, targetVx, targetVy, z, wigglePhase, wiggleAmplitude, facingRight } = fish;
+        let { x, y, vx, vy, targetVx, targetVy, z, wigglePhase, speed } = fish;
         
         // Maybe decide new direction
         const newDirection = decideNewDirection(fish);
         if (newDirection.targetVx !== undefined) targetVx = newDirection.targetVx;
         if (newDirection.targetVy !== undefined) targetVy = newDirection.targetVy;
         
-        // Smoothly accelerate/decelerate toward target velocity (fish physics)
-        const acceleration = 0.002;
+        // Smoothly accelerate toward target velocity
+        const acceleration = 0.003;
         vx += (targetVx - vx) * acceleration * delta;
         vy += (targetVy - vy) * acceleration * delta;
         
-        // Calculate speed for wiggle amplitude
-        const speed = Math.sqrt(vx * vx + vy * vy);
-        const maxSpeed = 0.12;
-        const normalizedSpeed = Math.min(speed / maxSpeed, 1);
+        // Calculate speed
+        speed = Math.sqrt(vx * vx + vy * vy);
         
-        // Wiggle amplitude based on speed - faster = more wiggle
-        const targetWiggle = normalizedSpeed * 8; // Max 8 degrees
-        wiggleAmplitude += (targetWiggle - wiggleAmplitude) * 0.1 * delta;
-        
-        // Wiggle phase - faster when swimming faster
-        const wiggleSpeed = 0.15 + normalizedSpeed * 0.25; // 0.15 to 0.4
-        wigglePhase += wiggleSpeed * delta;
-        
-        // Update facing direction (flip when changing x direction)
-        if (vx > 0.01) facingRight = true;
-        if (vx < -0.01) facingRight = false;
+        // Wiggle phase - faster when moving faster
+        const baseWiggleSpeed = 0.08;
+        const speedBonus = speed * 3;
+        wigglePhase += (baseWiggleSpeed + speedBonus) * delta;
         
         // Update position
         x += vx * delta;
         y += vy * delta;
         
-        // Soft bounce off edges - fish turns around
-        if (x < 5) {
-          targetVx = Math.abs(targetVx) * 0.8 + 0.02;
-          x = 5;
+        // Soft bounce off edges
+        if (x < 8) {
+          targetVx = Math.abs(targetVx) * 0.7 + 0.02;
+          x = 8;
         }
-        if (x > 95) {
-          targetVx = -Math.abs(targetVx) * 0.8 - 0.02;
-          x = 95;
+        if (x > 92) {
+          targetVx = -Math.abs(targetVx) * 0.7 - 0.02;
+          x = 92;
         }
-        if (y < 5) {
-          targetVy = Math.abs(targetVy) * 0.8 + 0.01;
-          y = 5;
+        if (y < 8) {
+          targetVy = Math.abs(targetVy) * 0.7 + 0.01;
+          y = 8;
         }
-        if (y > 95) {
-          targetVy = -Math.abs(targetVy) * 0.8 - 0.01;
-          y = 95;
+        if (y > 92) {
+          targetVy = -Math.abs(targetVy) * 0.7 - 0.01;
+          y = 92;
         }
         
         // Slow depth drift
-        z += (Math.random() - 0.5) * 0.001 * delta;
-        z = Math.max(0.2, Math.min(1, z));
+        z += (Math.random() - 0.5) * 0.0008 * delta;
+        z = Math.max(0.25, Math.min(1, z));
         
-        return { ...fish, x, y, vx, vy, targetVx, targetVy, z, wigglePhase, wiggleAmplitude, facingRight };
+        return { ...fish, x, y, vx, vy, targetVx, targetVy, z, wigglePhase, speed };
       }));
       
       animationRef.current = requestAnimationFrame(animate);
@@ -166,15 +153,17 @@ export function BackgroundQuotes({ count = 5 }: BackgroundQuotesProps) {
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-[1]">
       {fishes.map((fish, index) => {
         // Opacity and blur based on depth
-        const opacity = 0.08 + fish.z * 0.12; // 0.08 (far) to 0.20 (close)
+        const opacity = 0.06 + fish.z * 0.14; // 0.06 (far) to 0.20 (close)
         const blur = 2.5 - fish.z * 1.5; // 2.5px (far) to 1px (close)
-        const scale = 0.7 + fish.z * 0.4; // 0.7 (far) to 1.1 (close)
+        const scale = 0.75 + fish.z * 0.35; // 0.75 (far) to 1.1 (close)
         
-        // Wiggle effect - sine wave for tail-like motion
-        const wiggle = Math.sin(fish.wigglePhase) * fish.wiggleAmplitude;
-        
-        // Flip horizontally when facing left
-        const scaleX = fish.facingRight ? 1 : -1;
+        // Wiggle effect - wave motion (up/down + slight rotation)
+        // Faster speed = bigger wiggle
+        const maxSpeed = 0.1;
+        const normalizedSpeed = Math.min(fish.speed / maxSpeed, 1);
+        const wiggleStrength = 2 + normalizedSpeed * 6; // 2-8 degrees
+        const yWiggle = Math.sin(fish.wigglePhase) * (1 + normalizedSpeed * 3); // 1-4px
+        const rotation = Math.sin(fish.wigglePhase * 0.7) * wiggleStrength;
         
         return (
           <div
@@ -183,17 +172,16 @@ export function BackgroundQuotes({ count = 5 }: BackgroundQuotesProps) {
             style={{
               left: `${fish.x}%`,
               top: `${fish.y}%`,
-              transform: `translate(-50%, -50%) scale(${scale * scaleX}, ${scale}) skewX(${wiggle}deg)`,
+              transform: `translate(-50%, -50%) translateY(${yWiggle}px) rotate(${rotation}deg) scale(${scale})`,
               opacity,
               filter: `blur(${blur}px)`,
               fontFamily: "var(--font-bebas), var(--font-space), system-ui, sans-serif",
               fontWeight: 400,
-              fontSize: "clamp(1.2rem, 2.8vw, 2.2rem)",
+              fontSize: "clamp(1.1rem, 2.5vw, 2rem)",
               color: "#3d3428",
               textTransform: "uppercase",
-              letterSpacing: "0.02em",
+              letterSpacing: "0.03em",
               zIndex: Math.floor(fish.z * 5),
-              transition: "opacity 0.5s ease-out",
               willChange: "transform",
             }}
           >
