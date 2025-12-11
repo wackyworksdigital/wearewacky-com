@@ -10,52 +10,67 @@ const TEXT = "#3d3428";
 const BG = "#f5ebe0";
 const SHADOW = "0 3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)";
 
-// Simple project list - visual tells the story
-// ✓ = done, → = current (accent), ○ = coming
+// Project list with real stories
 const projects = [
   // DONE - ticked off (faded at top to suggest more before)
-  { id: "shopify-branding", name: "shopify store branding", status: "done", fadeLevel: 2 },
-  { id: "n8n-hosting", name: "n8n self-hosting setup", status: "done", fadeLevel: 1 },
-  { id: "news-scraper", name: "AI news scraper workflow", status: "done", fadeLevel: 0 },
-  { id: "shopify-blog", name: "automated shopify blog poster", status: "done", fadeLevel: 0 },
-  { id: "ai-agent-setup", name: "AI agent setup", status: "done", fadeLevel: 0 },
-  { id: "etsy-assistant", name: "AI etsy listing assistant", status: "done", fadeLevel: 0 },
-  { id: "full-brand", name: "full brand setup", status: "done", fadeLevel: 0 },
-  { id: "video-campaign", name: "social AI video campaign", status: "done", fadeLevel: 0 },
-  { id: "course-app", name: "self-hosted course app", status: "done", fadeLevel: 0 },
-  { id: "rag-agency", name: "company RAG setup", status: "done", fadeLevel: 0 },
+  { id: "shopify-branding", name: "full online presence setup", status: "done", fadeLevel: 2 },
+  { id: "n8n-hosting", name: "n8n cloud server setup", status: "done", fadeLevel: 1 },
+  { id: "news-scraper", name: "AI news curator workflow", status: "done", fadeLevel: 0 },
+  { id: "shopify-blog", name: "hands-free shopify blog", status: "done", fadeLevel: 0 },
+  { id: "ai-agent-setup", name: "multi-agent AI team", status: "done", fadeLevel: 0 },
+  { id: "etsy-assistant", name: "AI etsy listing machine", status: "done", fadeLevel: 0 },
+  { id: "full-brand", name: "brand-in-a-box delivery", status: "done", fadeLevel: 0 },
+  { id: "video-campaign", name: "AI short-form video blitz", status: "done", fadeLevel: 0 },
+  { id: "course-app", name: "self-hosted learning platform", status: "done", fadeLevel: 0 },
+  { id: "rag-agency", name: "living company knowledge base", status: "done", fadeLevel: 0 },
   
   // CURRENT - what we're working on NOW (accent color)
-  { id: "wordpress-makeover", name: "wordpress website makeover", status: "current", fadeLevel: 0 },
+  { id: "wordpress-makeover", name: "wordpress → next.js migration", status: "current", fadeLevel: 0 },
   
   // COMING - empty circles
-  { id: "shopify-decor", name: "home decor shopify store makeover", status: "coming", fadeLevel: 0 },
-  { id: "faceless-channel", name: "faceless youtube channel", status: "coming", fadeLevel: 0 },
-  { id: "roblox-world", name: "roblox world coding", status: "coming", fadeLevel: 0 },
-  { id: "bakery-website", name: "bakery wix website redo", status: "coming", fadeLevel: 0 },
-  { id: "home-assistant", name: "self-hosted home assistant", status: "coming", fadeLevel: 0 },
+  { id: "shopify-decor", name: "home decor store glow-up", status: "coming", fadeLevel: 0 },
+  { id: "faceless-channel", name: "faceless youtube empire", status: "coming", fadeLevel: 0 },
+  { id: "roblox-world", name: "school leavers roblox world", status: "coming", fadeLevel: 0 },
+  { id: "bakery-website", name: "local bakery digital makeover", status: "coming", fadeLevel: 0 },
+  { id: "home-assistant", name: "AI-powered smart home", status: "coming", fadeLevel: 0 },
   { id: "your-project", name: "your project here?", status: "coming", fadeLevel: 0, isLast: true },
 ];
 
-// Project stories (only shown when clicked)
+// Project stories - fun, specific, personality-filled!
 const projectStories: Record<string, string> = {
-  "shopify-branding": "full brand identity for a new e-commerce store.",
-  "n8n-hosting": "private automation server. no subscriptions, no limits.",
-  "news-scraper": "automated news aggregation. AI picks the good stuff.",
-  "shopify-blog": "AI writes, schedules, and posts to your store.",
-  "ai-agent-setup": "custom AI assistant trained on your business.",
-  "etsy-assistant": "AI that writes killer product listings.",
-  "full-brand": "logo, website, socials, strategy, everything.",
-  "video-campaign": "AI-generated video content that performs.",
-  "course-app": "self-hosted learning platform. own your content.",
-  "rag-agency": "internal knowledge base that knows YOUR business.",
-  "wordpress-makeover": "complete website rebuild. you're looking at it right now.",
-  "shopify-decor": "beautiful e-commerce store for beautiful things.",
-  "faceless-channel": "youtube channel that makes money anonymously.",
-  "roblox-world": "virtual roblox experience. gaming meets learning.",
-  "bakery-website": "making pastries look as good online as they taste.",
-  "home-assistant": "smart home, private. your own AI butler.",
-  "your-project": "this could be you!",
+  "shopify-branding": "the full works! shopify store, website, socials, logos, brand identity - all connected and looking fresh. we love these projects because we get to build something complete from scratch. like playing god but for businesses.",
+
+  "n8n-hosting": "google cloud VM running n8n via docker - their own private automation server with zero subscription fees. we had way too much fun setting up the firewall rules. yes, we're that kind of nerds.",
+
+  "news-scraper": "daily news scraping across multiple sources, AI backend picking the juicy articles, all orchestrated through google docs, apps script and n8n workflows. this one runs while everyone sleeps. beautiful.",
+
+  "shopify-blog": "traffic went bonkers after we set up the automated daily blog posts. 100% hands-free - the AI writes, formats, schedules, posts. client forgot they had a blog. that's the dream.",
+
+  "ai-agent-setup": "GPTs for grown-ups. multiple AI agents sharing a company knowledge base but each with their own personality - social media manager, customer service, personal assistant. they have meetings without humans now. slightly concerning.",
+
+  "etsy-assistant": "this workflow is a monster (affectionately). AI analyzes product images, writes listings, suggests tags, optimizes pricing. we spent way too long making it perfect. worth it.",
+
+  "full-brand": "keys to a brand new, fully furnished house. all websites reserved, 20+ social handles secured, AI handling text/image/video, company docs organized beautifully. we basically moved them in and handed over the keys.",
+
+  "video-campaign": "short-form video series across platforms - all AI-generated, all performing. followers went up, engagement went up, client did zero filming. that's the magic.",
+
+  "course-app": "custom learning platform, self-hosted, no recurring fees to course plugin companies. your content stays YOUR content. we enjoyed sticking it to the subscription model.",
+
+  "rag-agency": "the company brain! all their apps connected to a central knowledge base that constantly checks, references, and updates itself. it's alive and learning. in a good way, not a skynet way.",
+
+  "wordpress-makeover": "do we do wordpress? no. you know who does? your grandma. we're rebuilding this in next.js with animations that go whoosh. you're looking at the result right now.",
+
+  "shopify-decor": "client wants to escape the basic template prison. we've got IDEAS. this store is gonna look like it belongs in a magazine. watch this space!",
+
+  "faceless-channel": "full youtube channel setup with automated video creation workflows. make money while staying mysterious. our kind of project.",
+
+  "roblox-world": "okay this one is NEW for us! recreating an entire school in roblox for leavers to stay connected. classrooms, corridors, the lot. kids can vandalize stuff without detention. we're unreasonably excited about this.",
+
+  "bakery-website": "time to graduate from the wix template! custom website, photo shoots, videos - if they're local we sometimes work for pastries. don't tell anyone.",
+
+  "home-assistant": "passion project alert! squeezing a self-hosted AI into an old laptop to control an entire house. lights, cameras, heating, speakers - all voice controlled, all local, zero subscriptions. we can't wait.",
+
+  "your-project": "this spot is waiting for something cool. could be yours. no pressure. okay, a little pressure.",
 };
 
 // Status icon
@@ -87,12 +102,12 @@ export default function PortfolioPage() {
     if (status === "current") return 1;
     if (status === "done") {
       switch (fadeLevel) {
-        case 2: return 0.3;
+        case 2: return 0.35;
         case 1: return 0.5;
-        default: return 0.6;
+        default: return 0.65;
       }
     }
-    return 0.7; // coming
+    return 0.7;
   };
 
   return (
@@ -115,14 +130,16 @@ export default function PortfolioPage() {
 
       {/* Main content */}
       <div className="relative z-10 min-h-screen flex">
-        {/* Project List - Simple shopping list */}
-        <div className="flex-1 flex items-center justify-center pl-48 pr-8 py-12">
-          <div className="max-w-md space-y-0.5">
+        {/* Project List */}
+        <div 
+          className="flex items-center pl-48 pr-8 py-12"
+          style={{ width: selectedProject ? "50%" : "100%", transition: "width 0.4s ease-out" }}
+        >
+          <div className="max-w-lg space-y-0.5">
             {projects.map((project, index) => {
               const isSelected = selectedProject === project.id;
               const isHovered = hoveredProject === project.id;
               const isCurrent = project.status === "current";
-              const isDone = project.status === "done";
               const isLast = project.isLast;
               const baseOpacity = getFadeOpacity(project.fadeLevel, project.status);
               
@@ -139,7 +156,7 @@ export default function PortfolioPage() {
                 >
                   <StatusIcon status={project.status} />
                   <motion.span
-                    className={`text-lg lowercase inline-block ${isCurrent ? "font-semibold" : ""}`}
+                    className={`text-lg lowercase inline-block whitespace-nowrap ${isCurrent ? "font-semibold" : ""}`}
                     style={{ 
                       fontFamily: "var(--font-syne), var(--font-space), sans-serif",
                       color: isCurrent ? ACCENT : isLast ? ACCENT : TEXT,
@@ -191,17 +208,18 @@ export default function PortfolioPage() {
         <AnimatePresence>
           {selectedProject && (
             <motion.div
-              className="w-1/2 max-w-md flex flex-col justify-center pr-16"
+              className="w-1/2 flex flex-col justify-center pr-8 md:pr-16"
               initial={{ opacity: 0, x: 80 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 80 }}
               transition={{ type: "spring", stiffness: 200, damping: 25 }}
             >
               <motion.p 
-                className="text-xl leading-relaxed mb-6"
+                className="text-lg md:text-xl leading-relaxed mb-6"
                 style={{ 
                   fontFamily: "var(--font-space), system-ui, sans-serif",
                   textShadow: "0 2px 3px rgba(0,0,0,0.15)",
+                  maxWidth: "32rem",
                 }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -209,7 +227,7 @@ export default function PortfolioPage() {
                 {projectStories[selectedProject]}
               </motion.p>
 
-              {selectedProject === "your-project" && (
+              {(selectedProject === "your-project" || projects.find(p => p.id === selectedProject)?.status === "coming") && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -227,7 +245,7 @@ export default function PortfolioPage() {
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      let's talk!
+                      interested? let's chat!
                     </motion.button>
                   </Link>
                 </motion.div>
