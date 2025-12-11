@@ -81,7 +81,7 @@ export function FluidMenu({ activePage = "" }: FluidMenuProps) {
                 href={item.href}
                 className="text-xl md:text-2xl lg:text-3xl lowercase inline-block leading-tight origin-left"
                 style={{ 
-                  fontFamily: "var(--font-playfair), Georgia, serif", 
+                  fontFamily: "var(--font-syne), var(--font-space), sans-serif", 
                   fontWeight: 500, 
                   letterSpacing: "-0.02em",
                   color: isActive ? ACCENT : TEXT,

@@ -156,7 +156,7 @@ export function AboutHero() {
                     style={{
                       color: "#F7F4ED",
                       textShadow: "0 6px 8px rgba(0,0,0,0.5), 0 3px 3px rgba(0,0,0,0.4)",
-                      fontFamily: "var(--font-space), Impact, sans-serif",
+                      fontFamily: "var(--font-archivo), var(--font-bebas), Impact, sans-serif",
                     }}
                     // Subtle breathing on the text too
                     animate={{

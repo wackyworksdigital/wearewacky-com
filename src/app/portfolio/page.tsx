@@ -144,7 +144,7 @@ export default function PortfolioPage() {
                   <motion.span
                     className={`text-lg lowercase inline-block ${isCurrent ? "font-semibold" : ""}`}
                     style={{ 
-                      fontFamily: "var(--font-playfair), Georgia, serif",
+                      fontFamily: "var(--font-syne), var(--font-space), sans-serif",
                       color: isCurrent ? ACCENT : isLast ? ACCENT : TEXT,
                       textShadow: isCurrent || isHovered ? SHADOW : "none",
                     }}
@@ -225,7 +225,7 @@ export default function PortfolioPage() {
                         backgroundColor: ACCENT,
                         color: BG,
                         boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-                        fontFamily: "var(--font-playfair), Georgia, serif",
+                        fontFamily: "var(--font-syne), var(--font-space), sans-serif",
                       }}
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.98 }}

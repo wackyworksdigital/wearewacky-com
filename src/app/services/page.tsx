@@ -129,7 +129,7 @@ export default function ServicesPage() {
                     <motion.span
                       className="text-3xl md:text-4xl lg:text-5xl lowercase inline-block"
                       style={{ 
-                        fontFamily: "var(--font-playfair), Georgia, serif",
+                        fontFamily: "var(--font-syne), var(--font-space), sans-serif",
                         fontWeight: isSelected ? 600 : 400,
                         color: isSelected ? ACCENT : TEXT,
                         textShadow: isHovered || isSelected ? SHADOW : "0 2px 3px rgba(0,0,0,0.15)",
@@ -195,7 +195,7 @@ export default function ServicesPage() {
                 <h3 
                   className="text-3xl md:text-4xl mb-1 lowercase"
                   style={{ 
-                    fontFamily: "var(--font-playfair), Georgia, serif",
+                    fontFamily: "var(--font-syne), var(--font-space), sans-serif",
                     fontWeight: 600,
                     color: ACCENT,
                     textShadow: SHADOW,
@@ -238,7 +238,7 @@ export default function ServicesPage() {
                       backgroundColor: ACCENT,
                       color: BG,
                       boxShadow: "0 4px 12px rgba(0,0,0,0.2), 0 2px 4px rgba(0,0,0,0.15)",
-                      fontFamily: "var(--font-playfair), Georgia, serif",
+                      fontFamily: "var(--font-syne), var(--font-space), sans-serif",
                     }}
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.98 }}

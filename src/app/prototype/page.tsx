@@ -202,7 +202,7 @@ function CreditCardTile({
           <h1
             className={`font-black lowercase text-center ${subtitle ? 'text-3xl md:text-4xl lg:text-5xl' : 'text-4xl md:text-5xl lg:text-6xl'}`}
             style={{
-              fontFamily: "var(--font-playfair), Georgia, serif",
+              fontFamily: "var(--font-syne), var(--font-space), sans-serif",
               color: textColor,
               textShadow: isActive ? shadowStyle : `0 4px 8px rgba(0,0,0,${inverted ? 0.3 : 0.15})`,
               transform: "translateZ(30px)",

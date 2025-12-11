@@ -1,35 +1,46 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Geist_Mono, Cormorant_Garamond, Space_Grotesk, Playfair_Display, Bebas_Neue, Permanent_Marker } from "next/font/google";
+import { 
+  Space_Grotesk, 
+  Playfair_Display, 
+  Bebas_Neue, 
+  Permanent_Marker,
+  Archivo_Black,
+  Syne,
+  DM_Serif_Display,
+} from "next/font/google";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 import "./globals.css";
 
-const plusJakarta = Plus_Jakarta_Sans({
-  variable: "--font-plus-jakarta",
+// WACKY DISPLAY - Bold, architectural, attention-grabbing headlines
+const archivo = Archivo_Black({
+  variable: "--font-archivo",
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
+// SYNE - Quirky, modern, unexpected geometric shapes
+const syne = Syne({
+  variable: "--font-syne",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// DM SERIF DISPLAY - Elegant but with personality for accents
+const dmSerif = DM_Serif_Display({
+  variable: "--font-dm-serif",
   subsets: ["latin"],
-});
-
-// Unusual serif font - elegant but quirky
-const cormorant = Cormorant_Garamond({
-  variable: "--font-serif",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400"],
   style: ["normal", "italic"],
 });
 
-// Different sans for services ticker
+// Different sans for body text
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space",
   subsets: ["latin"],
-  weight: ["300", "400", "500"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
-// Stylish, trendy serif for menu items
+// Stylish serif for some areas
 const playfair = Playfair_Display({
   variable: "--font-playfair",
   subsets: ["latin"],
@@ -96,7 +107,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${plusJakarta.variable} ${geistMono.variable} ${cormorant.variable} ${spaceGrotesk.variable} ${playfair.variable} ${bebas.variable} ${marker.variable} antialiased`}
+        className={`${archivo.variable} ${syne.variable} ${dmSerif.variable} ${spaceGrotesk.variable} ${playfair.variable} ${bebas.variable} ${marker.variable} antialiased`}
       >
         <LenisProvider>
           {children}
