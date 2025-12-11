@@ -63,39 +63,63 @@ const marker = Permanent_Marker({
 });
 
 export const metadata: Metadata = {
-  title: "Wacky Works Digital | We Build Revenue Engines",
+  metadataBase: new URL("https://wearewacky.com"),
+  title: {
+    default: "Wacky Works Digital | AI Agents & Workflow Automation Agency UK",
+    template: "%s | Wacky Works Digital",
+  },
   description:
-    "Custom Automation & SaaS Studio. We build Digital Assets that generate revenue, save time, and automate your workflows. Next.js, Supabase, n8n, AI Agents.",
+    "UK digital agency building AI agents, n8n workflow automation, RAG systems, and Next.js websites. We help businesses automate tasks, save 10-30 hours per week, and build custom solutions that actually work.",
   keywords: [
-    "automation",
-    "saas",
-    "next.js",
-    "ai courses",
-    "n8n",
-    "digital agency",
-    "web development",
-    "uk",
+    "AI agents UK",
+    "n8n automation agency",
+    "workflow automation UK",
+    "Next.js agency",
+    "RAG system development",
+    "Zapier automation",
+    "custom AI development",
+    "business automation",
+    "digital agency London",
+    "Shopify automation",
   ],
-  authors: [{ name: "Wacky Works Digital" }],
+  authors: [{ name: "Wacky Works Digital", url: "https://wearewacky.com" }],
+  creator: "Wacky Works Digital",
+  publisher: "Wacky Works Digital",
+  alternates: {
+    canonical: "https://wearewacky.com",
+  },
   openGraph: {
     type: "website",
     locale: "en_GB",
     url: "https://wearewacky.com",
     siteName: "Wacky Works Digital",
-    title: "Wacky Works Digital | We Build Revenue Engines",
+    title: "Wacky Works Digital | AI Agents & Workflow Automation Agency UK",
     description:
-      "Custom Automation & SaaS Studio. We build Digital Assets that generate revenue, save time, and automate your workflows.",
+      "UK digital agency building AI agents, n8n workflow automation, and modern web solutions. Save 10-30 hours per week with custom automation.",
+    images: [{
+      url: "/og-image.png",
+      width: 1200,
+      height: 630,
+      alt: "Wacky Works Digital - AI Agents & Automation",
+    }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Wacky Works Digital | We Build Revenue Engines",
+    title: "Wacky Works Digital | AI Agents & Automation UK",
     description:
-      "Custom Automation & SaaS Studio. We build Digital Assets that generate revenue, save time, and automate your workflows.",
+      "UK digital agency building AI agents, n8n workflow automation, and modern web solutions.",
     creator: "@wearewacky",
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -210,6 +234,53 @@ const jsonLd = {
       provider: { "@id": "https://wearewacky.com/#organization" },
       description: "n8n, Home Assistant, private AI on your own servers. Zero subscriptions, full data control.",
       serviceType: "IT Infrastructure",
+    },
+    // FAQPage schema for AI citations
+    {
+      "@type": "FAQPage",
+      "@id": "https://wearewacky.com/#faq",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "How much does AI workflow automation cost for a small business?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "AI workflow automation typically costs £2,000-£15,000 for SMBs depending on complexity. Simple n8n or Zapier integrations start lower, while custom AI agent development requires larger investment. Most clients save 10-30 hours per week, delivering ROI within 2-3 months.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What's the difference between n8n and Zapier?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "n8n is self-hosted and open-source, giving you full control and significantly lower costs at scale with no per-task fees. Zapier is cloud-based with 6,000+ integrations but higher monthly fees. n8n suits technical teams wanting control; Zapier suits non-technical users wanting simplicity.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How long does it take to build a custom AI agent?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "A basic AI agent takes 2-4 weeks from brief to deployment. Complex multi-agent systems with shared knowledge bases take 6-12 weeks. We deliver working prototypes within the first week so you can test and iterate quickly.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Do you work with international clients?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes, we're UK-based but work with clients worldwide. Our robots work 24/7 across all timezones. We've delivered projects for clients in the US, Europe, and Asia-Pacific regions.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What is RAG and why do businesses use it?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "RAG (Retrieval-Augmented Generation) turns your company documents into an AI that knows your business. Instead of generic AI responses, RAG systems pull from your actual data - policies, procedures, product info - to give accurate, company-specific answers. Perfect for customer support, internal knowledge bases, and employee onboarding.",
+          },
+        },
+      ],
     },
   ],
 };

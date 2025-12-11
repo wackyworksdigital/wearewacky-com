@@ -1,22 +1,27 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Portfolio | Wacky Works Digital - AI & Automation Projects",
-  description: "Real projects: n8n cloud hosting, AI agents, Shopify automation, self-hosted learning platforms, RAG knowledge bases, Next.js websites, and more. See what we've built.",
+  title: "AI & Automation Projects Portfolio",
+  description: "Real projects: n8n Google Cloud hosting, custom AI agents, Shopify blog automation, Etsy listing AI, company RAG systems, WordPress to Next.js migrations. UK agency, worldwide clients.",
   keywords: [
-    "n8n projects",
-    "AI automation portfolio",
-    "Shopify automation",
-    "workflow automation examples",
-    "Next.js portfolio",
-    "AI agent case studies",
-    "self-hosted platforms",
-    "digital agency portfolio UK",
+    "n8n hosting projects",
+    "AI agent development portfolio",
+    "Shopify automation examples",
+    "workflow automation case studies",
+    "WordPress to Next.js migration",
+    "AI Etsy listing automation",
+    "RAG knowledge base implementation",
+    "self-hosted course platform",
+    "n8n consultant UK",
   ],
+  alternates: {
+    canonical: "https://wearewacky.com/portfolio",
+  },
   openGraph: {
-    title: "Portfolio | Wacky Works Digital",
-    description: "Real projects we've built: AI agents, automation workflows, websites, and more. Currently working on a WordPress to Next.js migration.",
+    title: "AI & Automation Portfolio | Wacky Works Digital",
+    description: "Real projects: n8n hosting, AI agents, Shopify automation, RAG systems. Currently working on a WordPress to Next.js migration.",
     url: "https://wearewacky.com/portfolio",
+    type: "website",
   },
 };
 

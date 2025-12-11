@@ -1,23 +1,29 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Services | Wacky Works Digital - AI Agents, Automation, Web Development",
-  description: "AI agents, workflow automation with n8n, RAG knowledge systems, Next.js websites, Shopify e-commerce, AI content creation, branding, and self-hosted solutions. UK-based, working worldwide.",
+  title: "AI Agents & Workflow Automation Services UK",
+  description: "Custom AI agents, n8n workflow automation, RAG knowledge systems, Next.js websites, Shopify stores, and self-hosted solutions. UK digital agency helping businesses save 10-30 hours per week with automation.",
   keywords: [
     "AI agents UK",
-    "n8n automation",
-    "workflow automation",
-    "Next.js development",
-    "Shopify agency",
-    "RAG knowledge base",
+    "n8n automation agency",
+    "workflow automation consultant UK",
+    "custom AI development",
+    "Next.js agency UK",
+    "Shopify automation",
+    "RAG system implementation",
     "AI content creation",
-    "self-hosted n8n",
-    "digital agency UK",
+    "self-hosted n8n setup",
+    "business automation UK",
+    "Zapier alternative",
   ],
+  alternates: {
+    canonical: "https://wearewacky.com/services",
+  },
   openGraph: {
-    title: "Services | Wacky Works Digital",
-    description: "AI agents, automation, websites, e-commerce, and more. We build digital assets that work while you sleep.",
+    title: "AI Agents & Automation Services | Wacky Works Digital",
+    description: "Custom AI agents, n8n workflow automation, and modern web solutions. UK-based agency helping businesses automate and save 10-30 hours per week.",
     url: "https://wearewacky.com/services",
+    type: "website",
   },
 };
 
