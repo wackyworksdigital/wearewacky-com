@@ -241,40 +241,40 @@ function FloatingLogo({
   const startMobileTimer = () => {
     if (timerRef.current) clearTimeout(timerRef.current);
     
-    // Move to new position while hidden
-    setPosition(getRandomPosition());
+    // Hide logo first
+    setLogoVisible(false);
     
-    // Pop in after brief delay
-    setTimeout(() => {
-      setLogoVisible(true);
-    }, 100);
+    // Random delay before appearing (2-3 seconds of suspense!)
+    const hideTime = 2000 + Math.random() * 1000;
     
-    // Hide after 1.5s if not tapped (wacky scores!)
     timerRef.current = setTimeout(() => {
-      if (!winner) {
-        // Pop out
-        setLogoVisible(false);
-        setWackyScore(prev => prev + 1);
-        playSound('miss');
-        
-        // Pop up in new location after disappearing
-        setTimeout(() => {
-          setPosition(getRandomPosition());
-          setLogoVisible(true);
-        }, 400);
-      }
-    }, 1500);
+      if (winner) return;
+      
+      // Pop up in new random location
+      setPosition(getRandomPosition());
+      setLogoVisible(true);
+      
+      // Only visible for 0.5 seconds - gotta be quick!
+      setTimeout(() => {
+        if (!winner && logoVisible) {
+          // Missed it!
+          setLogoVisible(false);
+          setWackyScore(prev => prev + 1);
+          playSound('miss');
+          
+          // Start next round
+          startMobileTimer();
+        }
+      }, 500);
+    }, hideTime);
   };
   
-  // Mobile: Start game loop when game starts
+  // Mobile: Cleanup timer on unmount or game end
   useEffect(() => {
-    if (isMobile && gameStarted && !winner) {
-      startMobileTimer();
-    }
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [isMobile, gameStarted, winner, wackyScore]); // Re-trigger on wackyScore change
+  }, []);
   
   // Simple hit detection - click within a generous radius of logo center
   const isClickOnLogo = (clickX: number, clickY: number, logoRect: DOMRect): boolean => {
@@ -408,19 +408,10 @@ function FloatingLogo({
     const clientX = 'touches' in e ? e.touches[0]?.clientX || 0 : e.clientX;
     const clientY = 'touches' in e ? e.touches[0]?.clientY || 0 : e.clientY;
     
-    // Start game on first interaction
-    if (!gameStarted) {
-      setGameStarted(true);
-      if (isMobile) {
-        // Don't process this tap as a hit, just start the game
-        return;
-      }
-    }
-    
     // Get logo element bounds
     const logoEl = logoRef.current?.querySelector('img');
     if (!logoEl) {
-      if (!isMobile) {
+      if (!isMobile && gameStarted) {
         setWackyScore(prev => prev + 1);
         setAnimation('wiggle');
         playSound('miss');
@@ -432,6 +423,25 @@ function FloatingLogo({
     const logoRect = logoEl.getBoundingClientRect();
     const isHit = isClickOnLogo(clientX, clientY, logoRect);
     
+    // MOBILE: First tap on logo starts the game
+    if (isMobile && !gameStarted) {
+      if (isHit) {
+        // Tapped the logo - start the game!
+        setGameStarted(true);
+        setLogoVisible(false);
+        playSound('hit');
+        // Start the whack-a-mole loop
+        startMobileTimer();
+      }
+      // Tapping elsewhere does nothing before game starts
+      return;
+    }
+    
+    // DESKTOP: Any click starts the game
+    if (!isMobile && !gameStarted) {
+      setGameStarted(true);
+    }
+    
     if (isHit) {
       // HIT!
       if (timerRef.current) clearTimeout(timerRef.current);
@@ -439,19 +449,15 @@ function FloatingLogo({
       setAnimation('spin');
       playSound('hit');
       
-      // Mobile: pop out then pop up in new spot
+      // Mobile: pop out and start next round
       if (isMobile) {
+        setLogoVisible(false);
         setTimeout(() => {
-          setLogoVisible(false);
           setAnimation('idle');
-          setTimeout(() => {
-            if (!winner) {
-              setPosition(getRandomPosition());
-              setLogoVisible(true);
-              startMobileTimer();
-            }
-          }, 300);
-        }, 300);
+          if (!winner) {
+            startMobileTimer();
+          }
+        }, 200);
       } else {
         setTimeout(() => setAnimation('idle'), 600);
       }
@@ -462,7 +468,7 @@ function FloatingLogo({
       playSound('miss');
       setTimeout(() => setAnimation('idle'), 400);
     }
-    // Mobile: clicking outside logo does nothing (timer handles misses)
+    // Mobile: tapping outside logo does nothing (timer handles misses)
   };
 
   // Reset game - keep scoreboard visible
@@ -481,10 +487,9 @@ function FloatingLogo({
       setPlayerScore(0);
       setWackyScore(0);
       setWinner(null);
-      if (isMobile) {
-        // Restart mobile game loop
-        startMobileTimer();
-      }
+      setGameStarted(false); // Go back to "tap logo to start"
+      setLogoVisible(true); // Show logo again
+      setPosition({ x: 0, y: 0 }); // Center it
     }
   };
 
