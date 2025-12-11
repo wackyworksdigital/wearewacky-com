@@ -90,25 +90,54 @@ export function AboutHero() {
 
         <FluidMenu activePage="about" />
 
-        {/* Container for Video AND Text */}
-        {/* MOBILE: centered, bottom-anchored */}
-        {/* DESKTOP: bottom-right anchored */}
+        {/* MOBILE: Text above video, video pans left-right */}
+        {/* DESKTOP: Video bottom-right, text on video */}
+        
+        {/* Mobile text - ABOVE video */}
+        <div className="fixed top-1/3 left-0 right-0 z-20 flex items-center justify-center md:hidden"
+          style={{ perspective: "1000px" }}
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`mobile-${currentLine}`}
+              initial={{ opacity: 0, rotateX: 90, y: 30 }}
+              animate={{ opacity: 1, rotateX: 0, y: 0 }}
+              exit={{ opacity: 0, rotateX: -90, y: -30 }}
+              transition={{ type: "spring", stiffness: 150, damping: 20, mass: 0.8 }}
+              style={{ transformStyle: "preserve-3d" }}
+            >
+              <motion.h2
+                className={`${className} text-center px-4`}
+                style={{
+                  color: COLORS.text,
+                  textShadow: "0 4px 6px rgba(0,0,0,0.2), 0 2px 3px rgba(0,0,0,0.15)",
+                  fontFamily: "var(--font-archivo), var(--font-bebas), Impact, sans-serif",
+                }}
+              >
+                {currentText.text}
+              </motion.h2>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Video container */}
         <motion.div
           className="fixed z-10 
-            bottom-0 left-1/2 -translate-x-1/2 w-[90vw] h-auto
-            md:left-auto md:translate-x-0 md:right-0 md:w-auto md:origin-bottom-right"
+            bottom-0 left-0 right-0 overflow-hidden h-[50vh]
+            md:left-auto md:right-0 md:h-screen md:w-auto md:overflow-visible"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          style={{
-            maxHeight: "85vh",
-          }}
         >
-          {/* Relative wrapper to contain both video and text */}
-          <div className="relative w-full h-full flex items-end justify-center md:justify-end">
+          {/* Panning wrapper - MOBILE: pans left-right, DESKTOP: static */}
+          <motion.div
+            className="about-video-pan relative h-full flex items-end justify-center 
+              w-[140vw] -ml-[20vw]
+              md:w-auto md:ml-0 md:justify-end md:animate-none"
+          >
             <video
               ref={videoRef}
-              className="w-full md:w-auto md:h-[85vh] object-contain pointer-events-auto"
+              className="h-full w-auto object-contain pointer-events-auto md:h-[85vh]"
               src="/our-agency-guys.webm"
               autoPlay
               loop
@@ -118,63 +147,44 @@ export function AboutHero() {
                 filter: "drop-shadow(0 20px 20px rgba(0,0,0,0.5)) drop-shadow(0 8px 8px rgba(0,0,0,0.4))",
               }}
             />
+          </motion.div>
 
-            {/* Text - Centered on the video */}
-            <div 
-              className="absolute inset-0 flex items-center justify-center pointer-events-none"
-              style={{ 
-                top: "10%", // Push down to chest level
-                perspective: "1000px" 
-              }}
-            >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentLine}
-                  initial={{ 
-                    opacity: 0, 
-                    rotateX: 90,
-                    y: 30,
+          {/* Desktop text - ON the video (hidden on mobile) */}
+          <div 
+            className="absolute inset-0 hidden md:flex items-center justify-center pointer-events-none"
+            style={{ 
+              top: "10%",
+              perspective: "1000px" 
+            }}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentLine}
+                initial={{ opacity: 0, rotateX: 90, y: 30 }}
+                animate={{ opacity: 1, rotateX: 0, y: 0 }}
+                exit={{ opacity: 0, rotateX: -90, y: -30 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 150,
+                  damping: 20,
+                  mass: 0.8,
+                }}
+                style={{ transformStyle: "preserve-3d" }}
+              >
+                <motion.h2
+                  className={`${className} text-center px-4`}
+                  style={{
+                    color: "#F7F4ED",
+                    textShadow: "0 6px 8px rgba(0,0,0,0.5), 0 3px 3px rgba(0,0,0,0.4)",
+                    fontFamily: "var(--font-archivo), var(--font-bebas), Impact, sans-serif",
                   }}
-                  animate={{ 
-                    opacity: 1, 
-                    rotateX: 0,
-                    y: 0,
-                  }}
-                  exit={{ 
-                    opacity: 0, 
-                    rotateX: -90,
-                    y: -30,
-                  }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 150,
-                    damping: 20,
-                    mass: 0.8,
-                  }}
-                  style={{ transformStyle: "preserve-3d" }}
+                  animate={{ scale: [1, 1.01, 1] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  <motion.h2
-                    className={`${className} text-center px-4`}
-                    style={{
-                      color: "#F7F4ED",
-                      textShadow: "0 6px 8px rgba(0,0,0,0.5), 0 3px 3px rgba(0,0,0,0.4)",
-                      fontFamily: "var(--font-archivo), var(--font-bebas), Impact, sans-serif",
-                    }}
-                    // Subtle breathing on the text too
-                    animate={{
-                      scale: [1, 1.01, 1],
-                    }}
-                    transition={{
-                      duration: 4,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                    }}
-                  >
-                    {currentText.text}
-                  </motion.h2>
-                </motion.div>
-              </AnimatePresence>
-            </div>
+                  {currentText.text}
+                </motion.h2>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </motion.div>
 
