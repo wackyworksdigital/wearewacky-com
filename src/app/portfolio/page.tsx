@@ -4,7 +4,6 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { FluidMenu } from "@/components/ui/fluid-menu";
-import { BackgroundQuotes } from "@/components/ui/background-quotes";
 
 const ACCENT = "#B07C4F";
 const TEXT = "#3d3428";
@@ -98,8 +97,6 @@ export default function PortfolioPage() {
 
   return (
     <main className="relative min-h-screen overflow-hidden" style={{ backgroundColor: BG, color: TEXT }}>
-      {/* Swimming quotes */}
-      <BackgroundQuotes count={5} />
       
       {/* Noise + vignette */}
       <div

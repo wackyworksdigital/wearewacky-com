@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { FluidMenu } from "@/components/ui/fluid-menu";
-import { BackgroundQuotes } from "@/components/ui/background-quotes";
 
 const ACCENT = "#B07C4F";
 const TEXT = "#3d3428";
@@ -13,7 +12,6 @@ export default function ContactPage() {
   return (
     <main className="relative min-h-screen" style={{ backgroundColor: BG, color: TEXT }}>
       {/* Background quotes */}
-      <BackgroundQuotes count={6} />
       
       {/* Noise + vignette */}
       <div
