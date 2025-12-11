@@ -36,8 +36,8 @@ export default function ContactPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          {/* Title - back to normal font */}
-          <motion.h1
+          {/* Title */}
+          <h1
             className="text-5xl md:text-7xl lg:text-8xl lowercase"
             style={{
               fontFamily: "var(--font-syne), var(--font-space), sans-serif",
@@ -45,24 +45,13 @@ export default function ContactPage() {
               color: TEXT,
               textShadow: "0 6px 10px rgba(0,0,0,0.3), 0 3px 4px rgba(0,0,0,0.2)",
             }}
-            animate={{
-              y: [0, -4, 0],
-            }}
-            transition={{
-              duration: 5,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
           >
             let's talk
-          </motion.h1>
+          </h1>
 
           {/* Contact links */}
           <div className="space-y-3 text-xl md:text-2xl" style={{ textShadow: SHADOW }}>
-            <motion.p
-              animate={{ y: [0, -2, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-            >
+            <p>
               email:{" "}
               <Link
                 href="mailto:hello@wearewacky.com"
@@ -77,11 +66,8 @@ export default function ContactPage() {
                   hello@wearewacky.com
                 </motion.span>
               </Link>
-            </motion.p>
-            <motion.p
-              animate={{ y: [0, -2, 0] }}
-              transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
-            >
+            </p>
+            <p>
               whatsapp:{" "}
               <Link
                 href="https://wa.me/447460460318"
@@ -96,30 +82,22 @@ export default function ContactPage() {
                   +44 7460 460318
                 </motion.span>
               </Link>
-            </motion.p>
+            </p>
           </div>
 
-          {/* Office hours - simple and actually funny */}
-          <motion.p 
-            className="text-lg md:text-xl pt-4" 
-            style={{ textShadow: SHADOW }}
-            animate={{ y: [0, -2, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          >
+          {/* Office hours */}
+          <p className="text-lg md:text-xl pt-4" style={{ textShadow: SHADOW }}>
             <span style={{ opacity: 0.6 }}>office hours:</span>{" "}
             <span style={{ color: ACCENT }}>every hour is office hour when you've got robots</span>
-          </motion.p>
+          </p>
           
           {/* Extra CTA */}
-          <motion.p
+          <p
             className="text-base pt-4 opacity-50"
             style={{ fontFamily: "var(--font-space), system-ui, sans-serif" }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.5 }}
-            transition={{ delay: 0.8 }}
           >
             got an idea? weird project? just want to chat? we're here.
-          </motion.p>
+          </p>
         </motion.div>
       </div>
     </main>
