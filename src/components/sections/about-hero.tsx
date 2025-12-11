@@ -90,23 +90,25 @@ export function AboutHero() {
 
         <FluidMenu activePage="about" />
 
-        {/* Container for Video AND Text - Anchored Bottom Right */}
+        {/* Container for Video AND Text */}
+        {/* MOBILE: centered, bottom-anchored */}
+        {/* DESKTOP: bottom-right anchored */}
         <motion.div
-          className="fixed bottom-0 right-0 z-10 origin-bottom-right"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
+          className="fixed z-10 
+            bottom-0 left-1/2 -translate-x-1/2 w-[90vw] h-auto
+            md:left-auto md:translate-x-0 md:right-0 md:w-auto md:origin-bottom-right"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           style={{
-            height: "100vh",
-            aspectRatio: "16/9", // Force container to match video ratio
-            marginRight: "-5vw", // Push right
+            maxHeight: "85vh",
           }}
         >
           {/* Relative wrapper to contain both video and text */}
-          <div className="relative w-full h-full flex items-end">
+          <div className="relative w-full h-full flex items-end justify-center md:justify-end">
             <video
               ref={videoRef}
-              className="w-full h-full object-contain pointer-events-auto"
+              className="w-full md:w-auto md:h-[85vh] object-contain pointer-events-auto"
               src="/our-agency-guys.webm"
               autoPlay
               loop
@@ -117,11 +119,11 @@ export function AboutHero() {
               }}
             />
 
-            {/* Text - Centered ABSOLUTELY within this 16:9 container */}
+            {/* Text - Centered on the video */}
             <div 
               className="absolute inset-0 flex items-center justify-center pointer-events-none"
               style={{ 
-                top: "15%", // Push down to chest level
+                top: "10%", // Push down to chest level
                 perspective: "1000px" 
               }}
             >
