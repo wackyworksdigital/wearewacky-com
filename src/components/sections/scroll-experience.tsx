@@ -241,21 +241,27 @@ function FloatingLogo({
   const startMobileTimer = () => {
     if (timerRef.current) clearTimeout(timerRef.current);
     
-    // Show logo
-    setLogoVisible(true);
+    // Move to new position while hidden
     setPosition(getRandomPosition());
+    
+    // Pop in after brief delay
+    setTimeout(() => {
+      setLogoVisible(true);
+    }, 100);
     
     // Hide after 1.5s if not tapped (wacky scores!)
     timerRef.current = setTimeout(() => {
       if (!winner) {
+        // Pop out
+        setLogoVisible(false);
         setWackyScore(prev => prev + 1);
         playSound('miss');
-        setAnimation('wiggle');
+        
+        // Pop up in new location after disappearing
         setTimeout(() => {
-          setAnimation('idle');
-          // Pop up in new location
           setPosition(getRandomPosition());
-        }, 300);
+          setLogoVisible(true);
+        }, 400);
       }
     }, 1500);
   };
@@ -432,14 +438,23 @@ function FloatingLogo({
       setPlayerScore(prev => prev + 1);
       setAnimation('spin');
       playSound('hit');
-      setTimeout(() => {
-        setAnimation('idle');
-        // Mobile: move to new position after hit
-        if (isMobile && !winner) {
-          setPosition(getRandomPosition());
-          startMobileTimer();
-        }
-      }, 400);
+      
+      // Mobile: pop out then pop up in new spot
+      if (isMobile) {
+        setTimeout(() => {
+          setLogoVisible(false);
+          setAnimation('idle');
+          setTimeout(() => {
+            if (!winner) {
+              setPosition(getRandomPosition());
+              setLogoVisible(true);
+              startMobileTimer();
+            }
+          }, 300);
+        }, 300);
+      } else {
+        setTimeout(() => setAnimation('idle'), 600);
+      }
     } else if (!isMobile) {
       // Desktop only: MISS on click outside logo
       setWackyScore(prev => prev + 1);
@@ -545,11 +560,19 @@ function FloatingLogo({
             x: position.x,
             y: position.y,
             rotate: animation === 'spin' ? 360 : animation === 'wiggle' ? [0, -10, 10, -10, 10, 0] : [0, 2, 0, -2, 0],
-            scale: animation === 'spin' ? [1, 1.15, 1] : animation === 'wiggle' ? [1, 1.05, 1] : 1,
+            scale: isMobile 
+              ? (logoVisible ? (animation === 'spin' ? [1, 1.2, 1] : 1) : 0)
+              : (animation === 'spin' ? [1, 1.15, 1] : animation === 'wiggle' ? [1, 1.05, 1] : 1),
+            opacity: isMobile ? (logoVisible ? 1 : 0) : 1,
           }}
           transition={animation !== 'idle' ? {
             duration: animation === 'spin' ? 0.6 : 0.4,
             ease: "easeOut",
+          } : isMobile ? {
+            x: { duration: 0.1 },
+            y: { duration: 0.1 },
+            scale: { type: "spring", stiffness: 400, damping: 20 },
+            opacity: { duration: 0.15 },
           } : {
             x: { type: "spring", stiffness: 120, damping: 15 },
             y: { type: "spring", stiffness: 120, damping: 15 },
