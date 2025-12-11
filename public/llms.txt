@@ -1,0 +1,63 @@
+# Wacky Works Digital
+
+> Custom Automation & SaaS Studio based in the UK. We build digital assets that generate revenue, save time, and automate workflows.
+
+## What We Do
+
+We help businesses automate boring stuff so humans can do interesting stuff. Our specialty is connecting AI, automation, and modern web tech to create systems that work while you sleep.
+
+## Services
+
+### AI Agents
+Custom AI assistants that handle customer support, data analysis, and repetitive tasks 24/7. Built with modern LLMs, trained on your business data.
+
+### Workflow Automation
+We wire up your apps using n8n, Zapier, and Make.com so they actually talk to each other. CRM to spreadsheet to Slack to email - all automatic.
+
+### RAG & Knowledge Systems
+Turn messy documents into an AI that actually knows your business. Custom knowledge bases, document Q&A, internal search.
+
+### App Development
+Mobile apps, web apps, SaaS platforms. From idea to app store. React Native, Next.js, modern tech stack.
+
+### Websites
+Fast, modern websites built with Next.js and React. Animations, SEO, responsive design. Not your grandma's WordPress.
+
+### E-commerce
+Shopify stores, product listings, checkout optimization. We make people click 'buy now' instead of 'maybe later'.
+
+### Social & Video
+Faceless channels, video campaigns, AI-generated content. Look cool on the internet without dancing on camera.
+
+### Branding
+Full brand identity packages: strategy, visual identity, tone of voice, guidelines.
+
+### Self-Hosted Tools
+n8n, Home Assistant, private AI, all on your own servers. No subscriptions, no data leaving your control.
+
+## Tech Stack
+
+- Next.js / React for web
+- n8n for automation
+- Supabase for backend
+- OpenAI / Claude for AI
+- Shopify for e-commerce
+- Vercel for hosting
+
+## Location
+
+United Kingdom (remote-first, work with clients worldwide)
+
+## Contact
+
+- Website: https://wearewacky.com
+- Email: hello@wearewacky.com
+
+## Brand Voice
+
+Casual, direct, slightly irreverent. We don't take ourselves too seriously but we take the work seriously. No corporate speak. Real talk about what works and what doesn't.
+
+## Tagline
+
+"We're not for everyone. And that's the point."
+

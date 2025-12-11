@@ -99,6 +99,73 @@ export const metadata: Metadata = {
   },
 };
 
+// JSON-LD Schema for SEO and AI search
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://wearewacky.com/#organization",
+      name: "Wacky Works Digital",
+      url: "https://wearewacky.com",
+      logo: "https://wearewacky.com/logo.png",
+      description: "Custom Automation & SaaS Studio. We build digital assets that generate revenue, save time, and automate workflows.",
+      foundingDate: "2024",
+      areaServed: "Worldwide",
+      knowsAbout: [
+        "AI Agents",
+        "Workflow Automation",
+        "n8n",
+        "Zapier",
+        "Next.js",
+        "React",
+        "Shopify",
+        "RAG Systems",
+        "Web Development",
+        "App Development",
+        "Branding",
+      ],
+      slogan: "We're not for everyone. And that's the point.",
+      sameAs: [
+        "https://twitter.com/wearewacky",
+        "https://github.com/wackyworksdigital",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://wearewacky.com/#website",
+      url: "https://wearewacky.com",
+      name: "Wacky Works Digital",
+      publisher: { "@id": "https://wearewacky.com/#organization" },
+      inLanguage: "en-GB",
+    },
+    {
+      "@type": "Service",
+      "@id": "https://wearewacky.com/services#ai-agents",
+      name: "AI Agents",
+      provider: { "@id": "https://wearewacky.com/#organization" },
+      description: "Custom AI assistants that handle customer support, data analysis, and repetitive tasks 24/7.",
+      serviceType: "AI Development",
+    },
+    {
+      "@type": "Service",
+      "@id": "https://wearewacky.com/services#automation",
+      name: "Workflow Automation",
+      provider: { "@id": "https://wearewacky.com/#organization" },
+      description: "Connect your apps using n8n, Zapier, and Make.com for seamless automation.",
+      serviceType: "Business Automation",
+    },
+    {
+      "@type": "Service",
+      "@id": "https://wearewacky.com/services#websites",
+      name: "Website Development",
+      provider: { "@id": "https://wearewacky.com/#organization" },
+      description: "Fast, modern websites built with Next.js and React.",
+      serviceType: "Web Development",
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -106,6 +173,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         className={`${archivo.variable} ${syne.variable} ${dmSerif.variable} ${spaceGrotesk.variable} ${playfair.variable} ${bebas.variable} ${marker.variable} antialiased`}
       >
