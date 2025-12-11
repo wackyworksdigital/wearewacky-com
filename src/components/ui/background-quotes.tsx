@@ -18,18 +18,52 @@ const quotes = [
   "good enough today beats perfect never.",
 ];
 
-// Fish-like quote that swims with sinusoidal motion
 interface FishQuote {
   text: string;
   x: number;
   y: number;
-  baseY: number; // Base Y for wave calculation
   vx: number;
   targetVx: number;
   z: number;
-  phase: number; // For wave motion
+  phase: number;
   waveAmplitude: number;
-  waveFrequency: number;
+}
+
+// Individual letter with wave offset
+function WaveLetter({ 
+  char, 
+  index, 
+  phase, 
+  speed,
+  waveAmplitude 
+}: { 
+  char: string; 
+  index: number; 
+  phase: number;
+  speed: number;
+  waveAmplitude: number;
+}) {
+  // Each letter is offset in the wave - creates ripple effect!
+  const letterPhase = phase - index * 0.3; // Offset by 0.3 radians per letter
+  
+  // Wave amplitude based on speed
+  const normalizedSpeed = Math.min(speed / 0.08, 1);
+  const dynamicAmplitude = waveAmplitude * (0.3 + normalizedSpeed * 0.7);
+  
+  // Y offset for this letter
+  const yOffset = Math.sin(letterPhase) * dynamicAmplitude;
+  
+  return (
+    <span
+      style={{
+        display: "inline-block",
+        transform: `translateY(${yOffset}px)`,
+        transition: "transform 0.05s linear",
+      }}
+    >
+      {char === " " ? "\u00A0" : char}
+    </span>
+  );
 }
 
 interface BackgroundQuotesProps {
@@ -44,19 +78,16 @@ export function BackgroundQuotes({ count = 5 }: BackgroundQuotesProps) {
   useEffect(() => {
     const shuffled = [...quotes].sort(() => Math.random() - 0.5);
     const initialFishes: FishQuote[] = shuffled.slice(0, count).map((text) => {
-      const vx = (Math.random() - 0.5) * 0.08;
-      const baseY = 15 + Math.random() * 70;
+      const vx = (Math.random() - 0.5) * 0.06;
       return {
         text,
         x: 10 + Math.random() * 80,
-        y: baseY,
-        baseY,
+        y: 15 + Math.random() * 70,
         vx,
         targetVx: vx,
         z: 0.3 + Math.random() * 0.7,
         phase: Math.random() * Math.PI * 2,
-        waveAmplitude: 8 + Math.random() * 12, // 8-20px wave height
-        waveFrequency: 0.8 + Math.random() * 0.4, // Wave frequency variation
+        waveAmplitude: 3 + Math.random() * 4, // 3-7px per letter
       };
     });
     setFishes(initialFishes);
@@ -64,17 +95,8 @@ export function BackgroundQuotes({ count = 5 }: BackgroundQuotesProps) {
   }, [count]);
   
   const decideNewDirection = useCallback((fish: FishQuote): Partial<FishQuote> => {
-    // Occasionally change direction
-    if (Math.random() < 0.004) {
-      return {
-        targetVx: (Math.random() - 0.5) * 0.1,
-      };
-    }
-    // Occasionally change wave amplitude
-    if (Math.random() < 0.002) {
-      return {
-        waveAmplitude: 6 + Math.random() * 14,
-      };
+    if (Math.random() < 0.005) {
+      return { targetVx: (Math.random() - 0.5) * 0.08 };
     }
     return {};
   }, []);
@@ -89,54 +111,45 @@ export function BackgroundQuotes({ count = 5 }: BackgroundQuotesProps) {
       lastTime = time;
       
       setFishes(prev => prev.map(fish => {
-        let { x, baseY, vx, targetVx, z, phase, waveAmplitude, waveFrequency } = fish;
+        let { x, y, vx, targetVx, z, phase, waveAmplitude } = fish;
         
         // Maybe change direction
         const newDirection = decideNewDirection(fish);
-        Object.assign(fish, newDirection);
         if (newDirection.targetVx !== undefined) targetVx = newDirection.targetVx;
-        if (newDirection.waveAmplitude !== undefined) waveAmplitude = newDirection.waveAmplitude;
         
         // Smooth acceleration
-        const acceleration = 0.002;
-        vx += (targetVx - vx) * acceleration * delta;
+        vx += (targetVx - vx) * 0.002 * delta;
         
-        // Calculate speed for wave intensity
+        // Speed for wave intensity
         const speed = Math.abs(vx);
-        const normalizedSpeed = Math.min(speed / 0.08, 1);
+        const normalizedSpeed = Math.min(speed / 0.06, 1);
         
-        // Phase advances based on speed - faster = more waves
-        const phaseSpeed = 0.03 + normalizedSpeed * 0.08;
+        // Phase advances - faster when moving faster
+        const phaseSpeed = 0.06 + normalizedSpeed * 0.12;
         phase += phaseSpeed * delta;
         
-        // Update X position
+        // Update position
         x += vx * delta;
+        y += (Math.random() - 0.5) * 0.01 * delta; // Tiny Y drift
         
-        // Y follows a sine wave (the swimming wave motion!)
-        // Higher speed = tighter waves (more frequency)
-        const dynamicFrequency = waveFrequency * (0.8 + normalizedSpeed * 0.4);
-        const dynamicAmplitude = waveAmplitude * (0.5 + normalizedSpeed * 0.8);
-        const y = baseY + Math.sin(phase * dynamicFrequency) * dynamicAmplitude;
+        // Clamp Y
+        y = Math.max(10, Math.min(90, y));
         
-        // Slowly drift baseY
-        baseY += (Math.random() - 0.5) * 0.02 * delta;
-        baseY = Math.max(12, Math.min(88, baseY));
-        
-        // Bounce off horizontal edges
-        if (x < 5) {
-          targetVx = Math.abs(targetVx) * 0.8 + 0.02;
-          x = 5;
+        // Bounce off edges
+        if (x < 3) {
+          targetVx = Math.abs(targetVx) * 0.8 + 0.015;
+          x = 3;
         }
-        if (x > 95) {
-          targetVx = -Math.abs(targetVx) * 0.8 - 0.02;
-          x = 95;
+        if (x > 97) {
+          targetVx = -Math.abs(targetVx) * 0.8 - 0.015;
+          x = 97;
         }
         
         // Slow depth drift
-        z += (Math.random() - 0.5) * 0.0006 * delta;
+        z += (Math.random() - 0.5) * 0.0005 * delta;
         z = Math.max(0.25, Math.min(1, z));
         
-        return { ...fish, x, y, baseY, vx, targetVx, z, phase, waveAmplitude, waveFrequency };
+        return { ...fish, x, y, vx, targetVx, z, phase, waveAmplitude };
       }));
       
       animationRef.current = requestAnimationFrame(animate);
@@ -155,26 +168,20 @@ export function BackgroundQuotes({ count = 5 }: BackgroundQuotesProps) {
   
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-[1]">
-      {fishes.map((fish, index) => {
-        // Depth effects
+      {fishes.map((fish, fishIndex) => {
         const opacity = 0.07 + fish.z * 0.13;
         const blur = 2.5 - fish.z * 1.5;
         const scale = 0.75 + fish.z * 0.35;
-        
-        // Body flex: slight skew that changes with the wave
-        // This makes it look like the body is bending as it swims
         const speed = Math.abs(fish.vx);
-        const normalizedSpeed = Math.min(speed / 0.08, 1);
-        const bodyFlex = Math.sin(fish.phase * 1.5) * (2 + normalizedSpeed * 4); // 2-6 degrees skew
         
         return (
           <div
-            key={`${fish.text}-${index}`}
+            key={`${fish.text}-${fishIndex}`}
             className="fixed pointer-events-none select-none whitespace-nowrap"
             style={{
               left: `${fish.x}%`,
               top: `${fish.y}%`,
-              transform: `translate(-50%, -50%) scale(${scale}) skewX(${bodyFlex}deg)`,
+              transform: `translate(-50%, -50%) scale(${scale})`,
               opacity,
               filter: `blur(${blur}px)`,
               fontFamily: "var(--font-bebas), var(--font-space), system-ui, sans-serif",
@@ -182,12 +189,20 @@ export function BackgroundQuotes({ count = 5 }: BackgroundQuotesProps) {
               fontSize: "clamp(1.1rem, 2.5vw, 2rem)",
               color: "#3d3428",
               textTransform: "uppercase",
-              letterSpacing: "0.03em",
+              letterSpacing: "0.02em",
               zIndex: Math.floor(fish.z * 5),
-              willChange: "transform",
             }}
           >
-            {fish.text}
+            {fish.text.split("").map((char, charIndex) => (
+              <WaveLetter
+                key={charIndex}
+                char={char}
+                index={charIndex}
+                phase={fish.phase}
+                speed={speed}
+                waveAmplitude={fish.waveAmplitude}
+              />
+            ))}
           </div>
         );
       })}
