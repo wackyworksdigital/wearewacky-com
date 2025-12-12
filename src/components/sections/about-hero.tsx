@@ -156,10 +156,10 @@ export function AboutHero() {
             />
             
             {/* Text overlay - INSIDE video (tablet & desktop only) */}
-            {/* Way down on belt/waist area */}
+            {/* Responsive positioning - different for each breakpoint */}
             <div 
               className="absolute inset-0 hidden md:flex items-end justify-center pointer-events-none
-                pb-[18%]"
+                pb-[30%] lg:pb-[18%]"
               style={{ perspective: "1000px" }}
             >
               <AnimatePresence mode="wait">
