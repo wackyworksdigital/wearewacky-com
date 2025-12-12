@@ -93,8 +93,8 @@ export function AboutHero() {
         {/* MOBILE: Text above video, video pans left-right */}
         {/* DESKTOP: Video bottom-right, text on video */}
         
-        {/* Mobile text - ABOVE video */}
-        <div className="fixed top-1/3 left-0 right-0 z-20 flex items-center justify-center md:hidden"
+        {/* Mobile/Tablet text - ABOVE video (shown until lg: breakpoint) */}
+        <div className="fixed top-1/3 left-0 right-0 z-20 flex items-center justify-center lg:hidden"
           style={{ perspective: "1000px" }}
         >
           <AnimatePresence mode="wait">
@@ -120,23 +120,20 @@ export function AboutHero() {
           </AnimatePresence>
         </div>
 
-        {/* Video container - MOBILE: full width overflow, DESKTOP: bottom-right */}
+        {/* Video container - MOBILE/TABLET: full width overflow, DESKTOP: bottom-right */}
         <motion.div
           className="fixed z-10 
-            bottom-0 left-1/2 -translate-x-1/2 overflow-hidden
-            md:left-auto md:translate-x-0 md:right-0 md:h-screen md:w-auto md:overflow-visible"
+            bottom-0 left-1/2 -translate-x-1/2 overflow-hidden w-[150vw]
+            lg:left-auto lg:translate-x-0 lg:right-0 lg:h-screen lg:w-auto lg:overflow-visible"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          style={{
-            width: "150vw", // Bigger than screen, sides cut off
-          }}
         >
           {/* Video wrapper */}
-          <div className="relative h-full flex items-end justify-center md:justify-end">
+          <div className="relative h-full flex items-end justify-center lg:justify-end">
             <video
               ref={videoRef}
-              className="w-full object-cover object-top pointer-events-auto md:h-[85vh] md:w-auto md:object-contain"
+              className="w-full object-cover object-top pointer-events-auto lg:h-[85vh] lg:w-auto lg:object-contain"
               src="/our-agency-guys.webm"
               autoPlay
               loop
@@ -148,9 +145,9 @@ export function AboutHero() {
             />
           </div>
 
-          {/* Desktop text - ON the video (hidden on mobile) */}
+          {/* Desktop text - ON the video (hidden on mobile/tablet) */}
           <div 
-            className="absolute inset-0 hidden md:flex items-center justify-center pointer-events-none"
+            className="absolute inset-0 hidden lg:flex items-center justify-center pointer-events-none"
             style={{ 
               top: "10%",
               perspective: "1000px" 
@@ -187,9 +184,9 @@ export function AboutHero() {
           </div>
         </motion.div>
 
-        {/* Scroll hint - hidden on mobile */}
+        {/* Scroll hint - hidden on mobile/tablet */}
         <motion.div
-          className="fixed bottom-4 left-1/2 -translate-x-1/2 z-30 pointer-events-none hidden md:block"
+          className="fixed bottom-4 left-1/2 -translate-x-1/2 z-30 pointer-events-none hidden lg:block"
           animate={{ opacity: currentLine < 4 ? 0.6 : 0 }}
         >
           <motion.div
