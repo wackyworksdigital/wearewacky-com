@@ -90,11 +90,11 @@ export function AboutHero() {
 
         <FluidMenu activePage="about" />
 
-        {/* Narrow screens: text above video (when overlay would collide) */}
+        {/* Under 1200px: text ABOVE video (not on faces!) */}
         <div
-          className="fixed z-30 left-0 right-0 flex items-center justify-center pointer-events-none min-[900px]:hidden"
+          className="fixed z-30 left-0 right-0 flex items-center justify-center pointer-events-none xl:hidden"
           style={{
-            top: "40%",
+            top: "38%",
             perspective: "1000px",
           }}
         >
@@ -129,35 +129,17 @@ export function AboutHero() {
           }}
         />
 
-        {/* Video container */}
-        {/* Wide (>=900px): 90vh tall + side gap A on both sides. Narrow: snaps to full width bottom. */}
+        {/* Video container - always at bottom, centered */}
         <motion.div
-          className={[
-            "fixed inset-x-0 bottom-0 z-10",
-            // Side gap A only on wide screens (keep it modest)
-            "[--side-gap:0px] min-[1100px]:[--side-gap:40px] min-[1400px]:[--side-gap:56px] min-[1700px]:[--side-gap:72px]",
-          ].join(" ")}
+          className="fixed inset-x-0 bottom-0 z-10"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <div className="flex items-end justify-center">
-            {/* This box defines the “video frame”. Text is positioned relative to this box. */}
+            {/* Video frame - SIMPLE sizing */}
             <div
-              className={[
-                "relative mx-auto",
-                // Mobile should be BIG and overflow left/right.
-                // Then it gradually narrows until the snap point, where it becomes constrained by side-gap A.
-                "[--frame-w:175vw] [--frame-h:62vh]",
-                "min-[520px]:[--frame-w:155vw] min-[520px]:[--frame-h:68vh]",
-                "min-[760px]:[--frame-w:135vw] min-[760px]:[--frame-h:74vh]",
-                "min-[950px]:[--frame-w:120vw] min-[950px]:[--frame-h:78vh]",
-                "min-[1100px]:[--frame-w:calc(100vw-(var(--side-gap)*2))] min-[1100px]:[--frame-h:90vh]",
-              ].join(" ")}
-              style={{
-                width: "var(--frame-w)",
-                height: "var(--frame-h)",
-              }}
+              className="relative mx-auto w-[180vw] h-[55vh] sm:w-[160vw] sm:h-[60vh] md:w-[140vw] md:h-[65vh] lg:w-[120vw] lg:h-[75vh] xl:w-[100vw] xl:h-[85vh]"
             >
               <video
                 ref={videoRef}
@@ -173,11 +155,10 @@ export function AboutHero() {
                 }}
               />
 
-              {/* Wide screens: text overlay follows the video frame */}
+              {/* Desktop only (1280px+): text overlay on chest */}
               <div
-                className="absolute inset-x-0 hidden min-[1200px]:flex items-center justify-center pointer-events-none"
-                // Stable chest-safe zone: proportional to frame height (avoids touching heads)
-                style={{ perspective: "1000px", top: "60%", transform: "translateY(-50%)" }}
+                className="absolute inset-x-0 hidden xl:flex items-center justify-center pointer-events-none"
+                style={{ perspective: "1000px", top: "58%", transform: "translateY(-50%)" }}
               >
                 <AnimatePresence mode="wait">
                   <motion.div
