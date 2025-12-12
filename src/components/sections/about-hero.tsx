@@ -90,25 +90,56 @@ export function AboutHero() {
 
         <FluidMenu activePage="about" />
 
-        {/* Video container with text INSIDE - text scales/moves with video */}
-        {/* MOBILE: bottom, 150vw wide (cropped sides) */}
-        {/* TABLET: bottom, centered, max width */}
+        {/* MOBILE: Text separate, above video */}
+        <div 
+          className="fixed z-20 left-0 right-0 flex items-center justify-center pointer-events-none md:hidden"
+          style={{ 
+            top: "45%", // Middle of screen, closer to video than menu
+            perspective: "1000px" 
+          }}
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`mobile-${currentLine}`}
+              initial={{ opacity: 0, rotateX: 90, y: 30 }}
+              animate={{ opacity: 1, rotateX: 0, y: 0 }}
+              exit={{ opacity: 0, rotateX: -90, y: -30 }}
+              transition={{ type: "spring", stiffness: 150, damping: 20, mass: 0.8 }}
+              style={{ transformStyle: "preserve-3d" }}
+            >
+              <motion.h2
+                className={`${className} text-center px-4`}
+                style={{
+                  color: COLORS.text,
+                  textShadow: "0 4px 6px rgba(0,0,0,0.2), 0 2px 3px rgba(0,0,0,0.15)",
+                  fontFamily: "var(--font-archivo), var(--font-bebas), Impact, sans-serif",
+                }}
+              >
+                {currentText.text}
+              </motion.h2>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Video container */}
+        {/* MOBILE: bottom, cropped sides */}
+        {/* TABLET: bottom, full width, touches bottom edge */}
         {/* DESKTOP: bottom-right anchored */}
         <motion.div
           className="fixed z-10 bottom-0
-            left-1/2 -translate-x-1/2 w-[150vw] max-h-[55vh]
-            md:w-[100vw] md:max-h-[65vh]
+            left-1/2 -translate-x-1/2 w-[150vw] max-h-[50vh]
+            md:w-screen md:max-h-[70vh]
             lg:left-auto lg:translate-x-0 lg:right-0 lg:w-auto lg:max-h-none lg:h-screen"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          {/* Video + text wrapper - relative so text is positioned within */}
+          {/* Video + text wrapper */}
           <div className="relative h-full w-full flex items-end justify-center lg:justify-end">
             <video
               ref={videoRef}
               className="w-full h-full object-cover object-top pointer-events-auto 
-                md:object-contain
+                md:object-contain md:object-bottom
                 lg:h-[85vh] lg:w-auto"
               src="/our-agency-guys.webm"
               autoPlay
@@ -120,18 +151,10 @@ export function AboutHero() {
               }}
             />
             
-            {/* Stage/platform block - covers bottom on mobile/tablet (hides floating legs) */}
+            {/* Text overlay - INSIDE video (tablet & desktop only) */}
             <div 
-              className="absolute bottom-0 left-0 right-0 h-[15%] lg:hidden"
-              style={{ 
-                background: "linear-gradient(to top, #B07C4F 0%, #B07C4F 70%, transparent 100%)",
-              }}
-            />
-            
-            {/* Text overlay - INSIDE video container, centered on video */}
-            <div 
-              className="absolute inset-0 flex items-center justify-center pointer-events-none
-                top-[5%] md:top-[10%] lg:top-[20%]"
+              className="absolute inset-0 hidden md:flex items-center justify-center pointer-events-none
+                md:top-[15%] lg:top-[35%]"
               style={{ perspective: "1000px" }}
             >
               <AnimatePresence mode="wait">
