@@ -90,17 +90,17 @@ export function AboutHero() {
 
         <FluidMenu activePage="about" />
 
-        {/* MOBILE: Text separate, above video */}
-        <div 
-          className="fixed z-20 left-0 right-0 flex items-center justify-center pointer-events-none md:hidden"
-          style={{ 
-            top: "45%", // Middle of screen, closer to video than menu
-            perspective: "1000px" 
+        {/* Narrow screens: text above video (when overlay would collide) */}
+        <div
+          className="fixed z-30 left-0 right-0 flex items-center justify-center pointer-events-none min-[900px]:hidden"
+          style={{
+            top: "42%",
+            perspective: "1000px",
           }}
         >
           <AnimatePresence mode="wait">
             <motion.div
-              key={`mobile-${currentLine}`}
+              key={`narrow-${currentLine}`}
               initial={{ opacity: 0, rotateX: 90, y: 30 }}
               animate={{ opacity: 1, rotateX: 0, y: 0 }}
               exit={{ opacity: 0, rotateX: -90, y: -30 }}
@@ -130,66 +130,80 @@ export function AboutHero() {
         />
 
         {/* Video container */}
-        {/* ALL SIZES: ALWAYS anchored to bottom, centered */}
+        {/* Wide (>=900px): 90vh tall + side gap A on both sides. Narrow: snaps to full width bottom. */}
         <motion.div
-          className="fixed z-10 bottom-0 left-1/2 -translate-x-1/2
-            w-[150vw] max-h-[55vh]
-            md:w-[130vw] md:max-h-[65vh]
-            lg:w-[100vw] lg:max-h-[80vh]"
+          className={[
+            "fixed inset-x-0 bottom-0 z-10",
+            // Side gap A only on wide screens
+            "[--side-gap:0px] min-[900px]:[--side-gap:72px] min-[1400px]:[--side-gap:96px]",
+          ].join(" ")}
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          {/* Video + text wrapper */}
-          <div className="relative h-full w-full flex items-end justify-center">
-            <video
-              ref={videoRef}
-              className="w-full h-full object-cover object-top pointer-events-auto"
-              src="/our-agency-guys.webm"
-              autoPlay
-              loop
-              muted
-              playsInline
+          <div className="flex items-end justify-center px-[var(--side-gap)]">
+            {/* This box defines the “video frame”. Text is positioned relative to this box. */}
+            <div
+              className={[
+                "relative w-full",
+                // Frame height: small → tablet → wide (snap point)
+                "[--frame-h:55vh] min-[768px]:[--frame-h:65vh] min-[900px]:[--frame-h:90vh]",
+              ].join(" ")}
               style={{
-                filter: "drop-shadow(0 20px 20px rgba(0,0,0,0.5)) drop-shadow(0 8px 8px rgba(0,0,0,0.4))",
+                height: "var(--frame-h)",
+                width: "calc(100vw - (var(--side-gap) * 2))",
               }}
-            />
-            
-            {/* Text overlay - INSIDE video (tablet & desktop only) */}
-            {/* Responsive positioning - different for each breakpoint */}
-            <div 
-              className="absolute inset-0 hidden md:flex items-end justify-center pointer-events-none
-                pb-[30%] lg:pb-[28%]"
-              style={{ perspective: "1000px" }}
             >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentLine}
-                  initial={{ opacity: 0, rotateX: 90, y: 30 }}
-                  animate={{ opacity: 1, rotateX: 0, y: 0 }}
-                  exit={{ opacity: 0, rotateX: -90, y: -30 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 150,
-                    damping: 20,
-                    mass: 0.8,
-                  }}
-                  style={{ transformStyle: "preserve-3d" }}
-                >
-                  <motion.h2
-                    className={`${className} text-center px-4`}
-                    style={{
-                      color: "#F7F4ED",
-                      textShadow: "0 6px 8px rgba(0,0,0,0.5), 0 3px 3px rgba(0,0,0,0.4)",
-                      fontFamily: "var(--font-archivo), var(--font-bebas), Impact, sans-serif",
+              <video
+                ref={videoRef}
+                className="absolute bottom-0 left-0 w-full h-full object-contain object-bottom pointer-events-auto"
+                src="/our-agency-guys.webm"
+                autoPlay
+                loop
+                muted
+                playsInline
+                style={{
+                  filter:
+                    "drop-shadow(0 20px 20px rgba(0,0,0,0.5)) drop-shadow(0 8px 8px rgba(0,0,0,0.4))",
+                }}
+              />
+
+              {/* Wide screens: text overlay follows the video frame */}
+              <div
+                className="absolute inset-x-0 hidden min-[900px]:flex items-center justify-center pointer-events-none"
+                style={{ perspective: "1000px", bottom: "26%" }}
+              >
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={`overlay-${currentLine}`}
+                    initial={{ opacity: 0, rotateX: 90, y: 30 }}
+                    animate={{ opacity: 1, rotateX: 0, y: 0 }}
+                    exit={{ opacity: 0, rotateX: -90, y: -30 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 150,
+                      damping: 20,
+                      mass: 0.8,
                     }}
-                    animate={{ scale: [1, 1.01, 1] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    style={{ transformStyle: "preserve-3d" }}
                   >
-                    {currentText.text}
-                  </motion.h2>
-                </motion.div>
-              </AnimatePresence>
+                    <motion.h2
+                      className={`${className} text-center px-4`}
+                      style={{
+                        color: "#F7F4ED",
+                        textShadow:
+                          "0 6px 8px rgba(0,0,0,0.5), 0 3px 3px rgba(0,0,0,0.4)",
+                        fontFamily:
+                          "var(--font-archivo), var(--font-bebas), Impact, sans-serif",
+                      }}
+                      animate={{ scale: [1, 1.01, 1] }}
+                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      {currentText.text}
+                    </motion.h2>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </div>
           </div>
         </motion.div>
