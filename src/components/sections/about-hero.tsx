@@ -122,13 +122,12 @@ export function AboutHero() {
         </div>
 
         {/* Video container */}
-        {/* MOBILE: bottom, cropped sides */}
-        {/* TABLET: bottom, FULL width (overflows), same layout as desktop */}
+        {/* MOBILE & TABLET: bottom, full width, touches edges */}
         {/* DESKTOP: bottom-right anchored */}
         <motion.div
           className="fixed z-10 bottom-0
             left-1/2 -translate-x-1/2 w-[150vw] max-h-[50vh]
-            md:w-[130vw] md:max-h-[80vh]
+            md:w-[120vw] md:max-h-[55vh]
             lg:left-auto lg:translate-x-0 lg:right-0 lg:w-auto lg:max-h-none lg:h-screen"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -139,7 +138,6 @@ export function AboutHero() {
             <video
               ref={videoRef}
               className="w-full h-full object-cover object-top pointer-events-auto 
-                md:object-cover md:object-top
                 lg:h-[85vh] lg:w-auto lg:object-contain"
               src="/our-agency-guys.webm"
               autoPlay
