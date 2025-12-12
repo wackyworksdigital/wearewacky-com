@@ -156,10 +156,10 @@ export function AboutHero() {
             />
             
             {/* Text overlay - INSIDE video (tablet & desktop only) */}
-            {/* Lower on chest area, not on faces */}
+            {/* Way down on belt/waist area */}
             <div 
               className="absolute inset-0 hidden md:flex items-end justify-center pointer-events-none
-                pb-[25%]"
+                pb-[10%]"
               style={{ perspective: "1000px" }}
             >
               <AnimatePresence mode="wait">
