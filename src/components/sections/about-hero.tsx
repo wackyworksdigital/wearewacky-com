@@ -94,7 +94,7 @@ export function AboutHero() {
         <div
           className="fixed z-30 left-0 right-0 flex items-center justify-center pointer-events-none min-[900px]:hidden"
           style={{
-            top: "42%",
+            top: "40%",
             perspective: "1000px",
           }}
         >
@@ -135,7 +135,7 @@ export function AboutHero() {
           className={[
             "fixed inset-x-0 bottom-0 z-10",
             // Side gap A only on wide screens (keep it modest)
-            "[--side-gap:0px] min-[900px]:[--side-gap:48px] min-[1200px]:[--side-gap:64px] min-[1400px]:[--side-gap:80px]",
+            "[--side-gap:0px] min-[1100px]:[--side-gap:40px] min-[1400px]:[--side-gap:56px] min-[1700px]:[--side-gap:72px]",
           ].join(" ")}
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -148,10 +148,11 @@ export function AboutHero() {
                 "relative mx-auto",
                 // Mobile should be BIG and overflow left/right.
                 // Then it gradually narrows until the snap point, where it becomes constrained by side-gap A.
-                "[--frame-w:160vw] [--frame-h:60vh]",
-                "min-[520px]:[--frame-w:145vw] min-[520px]:[--frame-h:65vh]",
-                "min-[700px]:[--frame-w:130vw] min-[700px]:[--frame-h:72vh]",
-                "min-[900px]:[--frame-w:calc(100vw-(var(--side-gap)*2))] min-[900px]:[--frame-h:90vh]",
+                "[--frame-w:175vw] [--frame-h:62vh]",
+                "min-[520px]:[--frame-w:155vw] min-[520px]:[--frame-h:68vh]",
+                "min-[760px]:[--frame-w:135vw] min-[760px]:[--frame-h:74vh]",
+                "min-[950px]:[--frame-w:120vw] min-[950px]:[--frame-h:78vh]",
+                "min-[1100px]:[--frame-w:calc(100vw-(var(--side-gap)*2))] min-[1100px]:[--frame-h:90vh]",
               ].join(" ")}
               style={{
                 width: "var(--frame-w)",
@@ -174,9 +175,9 @@ export function AboutHero() {
 
               {/* Wide screens: text overlay follows the video frame */}
               <div
-                className="absolute inset-x-0 hidden min-[900px]:flex items-center justify-center pointer-events-none"
+                className="absolute inset-x-0 hidden min-[1200px]:flex items-center justify-center pointer-events-none"
                 // Stable chest-safe zone: proportional to frame height (avoids touching heads)
-                style={{ perspective: "1000px", top: "58%", transform: "translateY(-50%)" }}
+                style={{ perspective: "1000px", top: "60%", transform: "translateY(-50%)" }}
               >
                 <AnimatePresence mode="wait">
                   <motion.div
