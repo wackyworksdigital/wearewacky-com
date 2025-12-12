@@ -122,23 +122,21 @@ export function AboutHero() {
         </div>
 
         {/* Video container */}
-        {/* MOBILE & TABLET: bottom, full width, touches edges */}
-        {/* DESKTOP: bottom-right anchored */}
+        {/* ALL SIZES: bottom, centered, full width overflow */}
         <motion.div
-          className="fixed z-10 bottom-0
-            left-1/2 -translate-x-1/2 w-[150vw] max-h-[50vh]
+          className="fixed z-10 bottom-0 left-1/2 -translate-x-1/2
+            w-[150vw] max-h-[50vh]
             md:w-[120vw] md:max-h-[55vh]
-            lg:left-auto lg:translate-x-0 lg:right-0 lg:w-auto lg:max-h-none lg:h-screen"
+            lg:w-[110vw] lg:max-h-[75vh]"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           {/* Video + text wrapper */}
-          <div className="relative h-full w-full flex items-end justify-center lg:justify-end">
+          <div className="relative h-full w-full flex items-end justify-center">
             <video
               ref={videoRef}
-              className="w-full h-full object-cover object-top pointer-events-auto 
-                lg:h-[85vh] lg:w-auto lg:object-contain"
+              className="w-full h-full object-cover object-top pointer-events-auto"
               src="/our-agency-guys.webm"
               autoPlay
               loop
@@ -188,9 +186,10 @@ export function AboutHero() {
           </div>
         </motion.div>
 
-        {/* Scroll hint - hidden on mobile/tablet */}
+        {/* Scroll hint - hidden on all sizes (video is at bottom) */}
+        {/* Keeping component but hidden for now in case we want it back */}
         <motion.div
-          className="fixed bottom-4 left-1/2 -translate-x-1/2 z-30 pointer-events-none hidden lg:block"
+          className="fixed bottom-4 left-1/2 -translate-x-1/2 z-30 pointer-events-none hidden"
           animate={{ opacity: currentLine < 4 ? 0.6 : 0 }}
         >
           <motion.div
