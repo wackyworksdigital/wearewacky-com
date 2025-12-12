@@ -121,24 +121,30 @@ export function AboutHero() {
           </AnimatePresence>
         </div>
 
+        {/* Bottom shadow/stage effect - makes them look like they're behind something */}
+        <div 
+          className="fixed bottom-0 left-0 right-0 h-16 z-20 pointer-events-none"
+          style={{
+            background: "linear-gradient(to top, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.15) 40%, transparent 100%)",
+          }}
+        />
+
         {/* Video container */}
-        {/* MOBILE & TABLET: bottom, centered, full width */}
-        {/* DESKTOP: bottom-right anchored */}
+        {/* ALL SIZES: ALWAYS anchored to bottom, centered */}
         <motion.div
-          className="fixed z-10 bottom-0
-            left-1/2 -translate-x-1/2 w-[150vw] max-h-[50vh]
-            md:w-[120vw] md:max-h-[55vh]
-            lg:left-auto lg:translate-x-0 lg:right-0 lg:w-auto lg:max-h-none lg:h-screen"
+          className="fixed z-10 bottom-0 left-1/2 -translate-x-1/2
+            w-[150vw] max-h-[55vh]
+            md:w-[130vw] md:max-h-[65vh]
+            lg:w-[100vw] lg:max-h-[80vh]"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           {/* Video + text wrapper */}
-          <div className="relative h-full w-full flex items-end justify-center lg:justify-end">
+          <div className="relative h-full w-full flex items-end justify-center">
             <video
               ref={videoRef}
-              className="w-full h-full object-cover object-top pointer-events-auto 
-                lg:h-[85vh] lg:w-auto lg:object-contain"
+              className="w-full h-full object-cover object-top pointer-events-auto"
               src="/our-agency-guys.webm"
               autoPlay
               loop
@@ -150,10 +156,10 @@ export function AboutHero() {
             />
             
             {/* Text overlay - INSIDE video (tablet & desktop only) */}
-            {/* Same position on chest for both tablet and desktop */}
+            {/* Centered on chest area */}
             <div 
-              className="absolute inset-0 hidden md:flex items-center justify-center pointer-events-none
-                top-[35%]"
+              className="absolute inset-0 hidden md:flex items-start justify-center pointer-events-none
+                pt-[15%]"
               style={{ perspective: "1000px" }}
             >
               <AnimatePresence mode="wait">
