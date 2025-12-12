@@ -159,7 +159,7 @@ export function AboutHero() {
             {/* Way down on belt/waist area */}
             <div 
               className="absolute inset-0 hidden md:flex items-end justify-center pointer-events-none
-                pb-[10%]"
+                pb-[18%]"
               style={{ perspective: "1000px" }}
             >
               <AnimatePresence mode="wait">
