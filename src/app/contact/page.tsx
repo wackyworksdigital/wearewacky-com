@@ -29,7 +29,7 @@ export default function ContactPage() {
       <FluidMenu activePage="contact" />
 
       {/* Main content */}
-      <div className="relative z-10 flex items-center justify-center min-h-screen px-6">
+      <div className="relative z-10 flex items-center justify-center min-h-screen px-6 pt-32 md:pt-0">
         <motion.div 
           className="text-center space-y-8"
           initial={{ opacity: 0, y: 30 }}

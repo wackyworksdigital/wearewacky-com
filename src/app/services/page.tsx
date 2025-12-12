@@ -115,10 +115,10 @@ export default function ServicesPage() {
       <FluidMenu activePage="services" />
 
       {/* Main content area - fixed layout to prevent jumping */}
-      <div className="relative z-10 min-h-screen flex">
-        {/* Service List - Fixed width left panel */}
+      <div className="relative z-10 min-h-screen flex flex-col md:flex-row">
+        {/* Service List - responsive padding */}
         <div 
-          className="flex items-center pl-48 pr-8"
+          className="flex items-center px-6 pt-36 pb-8 md:pt-0 md:pl-48 md:pr-8"
           style={{ width: selected ? "50%" : "100%", transition: "width 0.4s ease-out" }}
         >
           <div className="space-y-1">
@@ -148,7 +148,7 @@ export default function ServicesPage() {
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
                     <motion.span
-                      className="text-3xl md:text-4xl lg:text-5xl lowercase inline-block whitespace-nowrap"
+                      className="text-2xl md:text-4xl lg:text-5xl lowercase inline-block"
                       style={{ 
                         fontFamily: "var(--font-syne), var(--font-space), sans-serif",
                         fontWeight: isSelected ? 600 : 400,

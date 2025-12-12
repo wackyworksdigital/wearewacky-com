@@ -142,10 +142,10 @@ export default function PortfolioPage() {
       <FluidMenu activePage="portfolio" />
 
       {/* Main content */}
-      <div className="relative z-10 min-h-screen flex">
-        {/* Project List */}
+      <div className="relative z-10 min-h-screen flex flex-col md:flex-row">
+        {/* Project List - responsive padding */}
         <div 
-          className="flex items-center pl-48 pr-8 py-12"
+          className="flex items-center px-6 pt-36 pb-8 md:pt-0 md:pl-48 md:pr-8 md:py-12"
           style={{ width: selectedProject ? "50%" : "100%", transition: "width 0.4s ease-out" }}
         >
           <div className="max-w-lg space-y-0.5">
@@ -169,7 +169,7 @@ export default function PortfolioPage() {
                 >
                   <StatusIcon status={project.status} />
                   <motion.span
-                    className={`text-lg lowercase inline-block whitespace-nowrap ${isCurrent ? "font-semibold" : ""}`}
+                    className={`text-base md:text-lg lowercase inline-block ${isCurrent ? "font-semibold" : ""}`}
                     style={{ 
                       fontFamily: "var(--font-syne), var(--font-space), sans-serif",
                       color: isCurrent ? ACCENT : isLast ? ACCENT : TEXT,
