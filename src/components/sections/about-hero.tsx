@@ -134,29 +134,33 @@ export function AboutHero() {
         <motion.div
           className={[
             "fixed inset-x-0 bottom-0 z-10",
-            // Side gap A only on wide screens
-            "[--side-gap:0px] min-[900px]:[--side-gap:72px] min-[1400px]:[--side-gap:96px]",
+            // Side gap A only on wide screens (keep it modest)
+            "[--side-gap:0px] min-[900px]:[--side-gap:48px] min-[1200px]:[--side-gap:64px] min-[1400px]:[--side-gap:80px]",
           ].join(" ")}
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <div className="flex items-end justify-center px-[var(--side-gap)]">
+          <div className="flex items-end justify-center">
             {/* This box defines the “video frame”. Text is positioned relative to this box. */}
             <div
               className={[
-                "relative w-full",
-                // Frame height: small → tablet → wide (snap point)
-                "[--frame-h:55vh] min-[768px]:[--frame-h:65vh] min-[900px]:[--frame-h:90vh]",
+                "relative mx-auto",
+                // Mobile should be BIG and overflow left/right.
+                // Then it gradually narrows until the snap point, where it becomes constrained by side-gap A.
+                "[--frame-w:160vw] [--frame-h:60vh]",
+                "min-[520px]:[--frame-w:145vw] min-[520px]:[--frame-h:65vh]",
+                "min-[700px]:[--frame-w:130vw] min-[700px]:[--frame-h:72vh]",
+                "min-[900px]:[--frame-w:calc(100vw-(var(--side-gap)*2))] min-[900px]:[--frame-h:90vh]",
               ].join(" ")}
               style={{
+                width: "var(--frame-w)",
                 height: "var(--frame-h)",
-                width: "calc(100vw - (var(--side-gap) * 2))",
               }}
             >
               <video
                 ref={videoRef}
-                className="absolute bottom-0 left-0 w-full h-full object-contain object-bottom pointer-events-auto"
+                className="absolute bottom-0 left-0 w-full h-full object-cover object-top pointer-events-auto"
                 src="/our-agency-guys.webm"
                 autoPlay
                 loop
@@ -171,7 +175,8 @@ export function AboutHero() {
               {/* Wide screens: text overlay follows the video frame */}
               <div
                 className="absolute inset-x-0 hidden min-[900px]:flex items-center justify-center pointer-events-none"
-                style={{ perspective: "1000px", bottom: "26%" }}
+                // Stable chest-safe zone: proportional to frame height (avoids touching heads)
+                style={{ perspective: "1000px", top: "58%", transform: "translateY(-50%)" }}
               >
                 <AnimatePresence mode="wait">
                   <motion.div
