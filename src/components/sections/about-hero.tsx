@@ -120,10 +120,18 @@ export function AboutHero() {
               }}
             />
             
+            {/* Stage/platform block - covers bottom on mobile/tablet (hides floating legs) */}
+            <div 
+              className="absolute bottom-0 left-0 right-0 h-[15%] lg:hidden"
+              style={{ 
+                background: "linear-gradient(to top, #B07C4F 0%, #B07C4F 70%, transparent 100%)",
+              }}
+            />
+            
             {/* Text overlay - INSIDE video container, centered on video */}
             <div 
               className="absolute inset-0 flex items-center justify-center pointer-events-none
-                -top-[15%] md:-top-[10%] lg:top-[10%]"
+                top-[5%] md:top-[10%] lg:top-[20%]"
               style={{ perspective: "1000px" }}
             >
               <AnimatePresence mode="wait">
