@@ -123,12 +123,12 @@ export function AboutHero() {
 
         {/* Video container */}
         {/* MOBILE: bottom, cropped sides */}
-        {/* TABLET: bottom, full width, touches bottom edge */}
+        {/* TABLET: bottom, FULL width (overflows), same layout as desktop */}
         {/* DESKTOP: bottom-right anchored */}
         <motion.div
           className="fixed z-10 bottom-0
             left-1/2 -translate-x-1/2 w-[150vw] max-h-[50vh]
-            md:w-screen md:max-h-[70vh]
+            md:w-[130vw] md:max-h-[80vh]
             lg:left-auto lg:translate-x-0 lg:right-0 lg:w-auto lg:max-h-none lg:h-screen"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -139,8 +139,8 @@ export function AboutHero() {
             <video
               ref={videoRef}
               className="w-full h-full object-cover object-top pointer-events-auto 
-                md:object-contain md:object-bottom
-                lg:h-[85vh] lg:w-auto"
+                md:object-cover md:object-top
+                lg:h-[85vh] lg:w-auto lg:object-contain"
               src="/our-agency-guys.webm"
               autoPlay
               loop
@@ -152,9 +152,10 @@ export function AboutHero() {
             />
             
             {/* Text overlay - INSIDE video (tablet & desktop only) */}
+            {/* Same position on chest for both tablet and desktop */}
             <div 
               className="absolute inset-0 hidden md:flex items-center justify-center pointer-events-none
-                md:top-[15%] lg:top-[35%]"
+                top-[35%]"
               style={{ perspective: "1000px" }}
             >
               <AnimatePresence mode="wait">
