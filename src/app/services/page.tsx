@@ -10,7 +10,7 @@ const TEXT = "#3d3428";
 const BG = "#f5ebe0";
 const SHADOW = "0 3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)";
 
-// 9 main service categories with unique CTA buttons
+// 9 main service categories with unique CTA buttons + visual gradients
 const services = [
   {
     id: "ai-agents",
@@ -18,6 +18,8 @@ const services = [
     tagline: "smart helpers that never sleep",
     description: "custom AI assistants that handle customer support, data analysis, and repetitive tasks 24/7. they're like interns but they don't need coffee breaks or complain about the wifi.",
     cta: "i want a robot!",
+    gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    icon: "🤖",
   },
   {
     id: "automation",
@@ -25,6 +27,8 @@ const services = [
     tagline: "connect everything",
     description: "we wire up your apps using n8n, zapier, and make.com so they actually talk to each other. your CRM updates your spreadsheet updates your slack updates your sanity.",
     cta: "automate my life!",
+    gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+    icon: "⚡",
   },
   {
     id: "rag",
@@ -32,6 +36,8 @@ const services = [
     tagline: "make your docs smart",
     description: "turn your messy documents into an AI that actually knows your business. like having an employee who read ALL the documentation. yes, even the 2019 onboarding PDF.",
     cta: "make my docs smart!",
+    gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+    icon: "📚",
   },
   {
     id: "apps",
@@ -39,6 +45,8 @@ const services = [
     tagline: "build something cool",
     description: "mobile apps, web apps, SaaS platforms. from idea to app store. we build stuff that works on phones, tablets, and whatever weird device you're using.",
     cta: "build my app!",
+    gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
+    icon: "📱",
   },
   {
     id: "websites",
@@ -46,6 +54,8 @@ const services = [
     tagline: "not your grandma's wordpress",
     description: "fast, modern websites built with next.js and react. animations that go whoosh, SEO that actually works, and no more 'please update your plugins' nightmares.",
     cta: "i need a website!",
+    gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+    icon: "🌐",
   },
   {
     id: "ecommerce",
@@ -53,6 +63,8 @@ const services = [
     tagline: "sell stuff online",
     description: "shopify stores, product listings, checkout optimization. we make people click 'buy now' instead of 'maybe later'. your accountant will thank us.",
     cta: "take my money!",
+    gradient: "linear-gradient(135deg, #30cfd0 0%, #330867 100%)",
+    icon: "🛒",
   },
   {
     id: "social-video",
@@ -60,6 +72,8 @@ const services = [
     tagline: "videos, images, posts - on autopilot",
     description: "AI-powered content creation: videos, images, blog posts, social media - all automated. faceless youtube channels, tiktoks, reels, whatever's trending. we make you look good without you doing the work.",
     cta: "seriously?!",
+    gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+    icon: "🎥",
   },
   {
     id: "branding",
@@ -67,6 +81,8 @@ const services = [
     tagline: "who even are you?",
     description: "full brand identity packages: strategy, visual identity, tone of voice, guidelines. we'll make you look like you've got your life together, even if you don't.",
     cta: "make me pretty!",
+    gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)",
+    icon: "✨",
   },
   {
     id: "self-hosted",
@@ -74,6 +90,8 @@ const services = [
     tagline: "own your stack",
     description: "n8n, home assistant, private AI, all on your own servers. no subscriptions, no data leaving your control, no big tech knowing your business.",
     cta: "i want control!",
+    gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
+    icon: "🔒",
   },
 ];
 
@@ -114,144 +132,181 @@ export default function ServicesPage() {
 
       <FluidMenu activePage="services" />
 
-      {/* Main content area - fixed layout to prevent jumping */}
-      <div className="relative z-10 min-h-screen flex flex-col lg:flex-row">
-        {/* Service List - CONSISTENT across all screens */}
-        <div 
-          className="flex items-center justify-center lg:justify-start px-6 pt-48 pb-8 lg:pt-0 lg:pl-64 lg:pr-12"
-          style={{ width: selected ? "50%" : "100%", transition: "width 0.4s ease-out" }}
-        >
-          <div className="space-y-1">
-            {services.map((service, index) => {
-              const isHovered = hoveredService === service.id;
-              const isSelected = selectedService === service.id;
-              const isOtherHovered = hoveredService !== null && hoveredService !== service.id;
-              
-              return (
-                <motion.div
-                  key={service.id}
-                  className="cursor-pointer select-none"
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                  onMouseEnter={() => setHoveredService(service.id)}
-                  onMouseLeave={() => setHoveredService(null)}
-                  onClick={() => setSelectedService(isSelected ? null : service.id)}
-                >
-                  <motion.div
-                    className="flex items-center py-1"
-                    animate={{
-                      x: isHovered ? 25 : isSelected ? 15 : 0,
-                      scale: isHovered ? 1.08 : isOtherHovered ? 0.95 : 1,
-                      opacity: isHovered ? 1 : isOtherHovered ? 0.5 : isSelected ? 1 : 0.85,
-                    }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                  >
-                    <motion.span
-                      className="text-3xl lowercase inline-block"
-                      style={{ 
-                        fontFamily: "var(--font-syne), var(--font-space), sans-serif",
-                        fontWeight: isSelected ? 600 : 400,
-                        color: isSelected ? ACCENT : TEXT,
-                        textShadow: isHovered || isSelected ? SHADOW : "0 2px 3px rgba(0,0,0,0.15)",
-                        lineHeight: "1.3",
-                      }}
-                    >
-                      {service.name}
-                    </motion.span>
-                  </motion.div>
-                </motion.div>
-              );
-            })}
-            
-            {/* CTA after list */}
+      {/* NEW LAYOUT: Bento Grid */}
+      <div className="relative z-10 min-h-screen pt-32 px-6 md:px-12 pb-12">
+        <AnimatePresence mode="wait">
+          {!selected ? (
+            // Grid View
             <motion.div
-              className="pt-8"
+              key="grid"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
+              exit={{ opacity: 0 }}
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-7xl mx-auto"
             >
-              <Link href="/contact">
-                <motion.p
-                  className="text-lg lowercase cursor-pointer"
-                  style={{ 
-                    fontFamily: "var(--font-space), system-ui, sans-serif",
-                    color: ACCENT,
-                    textShadow: "0 2px 3px rgba(0,0,0,0.15)",
+              {services.map((service, index) => (
+                <motion.div
+                  key={service.id}
+                  className="relative rounded-3xl overflow-hidden cursor-pointer group"
+                  style={{
+                    background: service.gradient,
+                    aspectRatio: index % 3 === 0 ? "1" : "4/3", // Varied card sizes
                   }}
-                  whileHover={{ x: 10, scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.05, type: "spring", stiffness: 200, damping: 20 }}
+                  whileHover={{ scale: 1.02, y: -4 }}
+                  onClick={() => setSelectedService(service.id)}
+                  onMouseEnter={() => setHoveredService(service.id)}
+                  onMouseLeave={() => setHoveredService(null)}
                 >
-                  need something else? let's talk →
-                </motion.p>
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-black/10 to-black/30" />
+                  
+                  {/* Icon + Name */}
+                  <div className="absolute inset-0 p-6 flex flex-col justify-between">
+                    <span className="text-5xl md:text-6xl opacity-90">{service.icon}</span>
+                    <div>
+                      <h3 
+                        className="text-2xl md:text-3xl font-semibold lowercase text-white mb-1"
+                        style={{ 
+                          fontFamily: "var(--font-syne), sans-serif",
+                          textShadow: "0 2px 8px rgba(0,0,0,0.3)",
+                        }}
+                      >
+                        {service.name}
+                      </h3>
+                      <p 
+                        className="text-sm opacity-90 text-white/90"
+                        style={{ fontFamily: "var(--font-space), sans-serif" }}
+                      >
+                        {service.tagline}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Hover hint */}
+                  <motion.div
+                    className="absolute bottom-4 right-4 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 text-white text-sm"
+                    style={{ fontFamily: "var(--font-space), sans-serif" }}
+                    initial={{ opacity: 0, x: 10 }}
+                    animate={{ opacity: hoveredService === service.id ? 1 : 0, x: hoveredService === service.id ? 0 : 10 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    click to learn more →
+                  </motion.div>
+                </motion.div>
+              ))}
+
+              {/* CTA Card */}
+              <Link href="/contact">
+                <motion.div
+                  className="relative rounded-3xl overflow-hidden cursor-pointer group border-4 border-dashed flex items-center justify-center"
+                  style={{
+                    aspectRatio: "4/3",
+                    borderColor: ACCENT,
+                    backgroundColor: `${ACCENT}15`,
+                  }}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: services.length * 0.05 }}
+                  whileHover={{ scale: 1.02, y: -4 }}
+                >
+                  <div className="text-center p-6">
+                    <p 
+                      className="text-3xl md:text-4xl font-semibold lowercase mb-2"
+                      style={{ 
+                        fontFamily: "var(--font-syne), sans-serif",
+                        color: ACCENT,
+                        textShadow: SHADOW,
+                      }}
+                    >
+                      need something else?
+                    </p>
+                    <p 
+                      className="text-lg opacity-70"
+                      style={{ fontFamily: "var(--font-space), sans-serif", color: TEXT }}
+                    >
+                      let's talk →
+                    </p>
+                  </div>
+                </motion.div>
               </Link>
             </motion.div>
-          </div>
-        </div>
-
-        {/* Detail Panel - Right (appears on click) */}
-        <AnimatePresence>
-          {selected && (
+          ) : (
+            // Detail View (full screen)
             <motion.div
-              className="w-1/2 flex flex-col justify-center pr-8 md:pr-16 py-8"
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 100 }}
-              transition={{ type: "spring", stiffness: 200, damping: 25 }}
+              key="detail"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="max-w-4xl mx-auto"
             >
-              {/* Title + Tagline */}
+              {/* Close button */}
+              <motion.button
+                className="mb-8 flex items-center gap-2 text-lg opacity-70 hover:opacity-100"
+                style={{ fontFamily: "var(--font-space), sans-serif", color: TEXT }}
+                onClick={() => setSelectedService(null)}
+                whileHover={{ x: -4 }}
+              >
+                ← back to services
+              </motion.button>
+
+              {/* Hero card */}
+              <motion.div
+                className="relative rounded-3xl overflow-hidden mb-8"
+                style={{
+                  background: selected.gradient,
+                  minHeight: "300px",
+                }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-black/10 to-black/30" />
+                <div className="relative p-12 flex flex-col justify-end min-h-[300px]">
+                  <span className="text-8xl mb-4 opacity-90">{selected.icon}</span>
+                  <h1 
+                    className="text-5xl md:text-6xl font-bold lowercase text-white mb-2"
+                    style={{ 
+                      fontFamily: "var(--font-syne), sans-serif",
+                      textShadow: "0 3px 12px rgba(0,0,0,0.4)",
+                    }}
+                  >
+                    {selected.name}
+                  </h1>
+                  <p 
+                    className="text-xl text-white/90 uppercase tracking-wider"
+                    style={{ fontFamily: "var(--font-space), sans-serif" }}
+                  >
+                    {selected.tagline}
+                  </p>
+                </div>
+              </motion.div>
+
+              {/* Description + CTA */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
               >
-                <h3 
-                  className="text-3xl md:text-4xl mb-1 lowercase"
+                <p 
+                  className="text-2xl md:text-3xl leading-relaxed mb-8"
                   style={{ 
-                    fontFamily: "var(--font-syne), var(--font-space), sans-serif",
-                    fontWeight: 600,
-                    color: ACCENT,
-                    textShadow: SHADOW,
+                    fontFamily: "var(--font-space), sans-serif",
+                    color: TEXT,
                   }}
                 >
-                  {selected.name}
-                </h3>
-                <p 
-                  className="text-sm uppercase tracking-[0.2em] mb-4 opacity-60"
-                  style={{ fontFamily: "var(--font-space), system-ui, sans-serif" }}
-                >
-                  {selected.tagline}
+                  {selected.description}
                 </p>
-              </motion.div>
 
-              {/* Description */}
-              <motion.p 
-                className="text-lg md:text-xl leading-relaxed mb-6"
-                style={{ 
-                  fontFamily: "var(--font-space), system-ui, sans-serif",
-                  textShadow: "0 2px 3px rgba(0,0,0,0.15)",
-                }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15 }}
-              >
-                {selected.description}
-              </motion.p>
-
-              {/* CTA Button - unique per service */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
                 <Link href="/contact">
                   <motion.button
-                    className="px-6 py-3 rounded-full text-lg font-medium lowercase"
+                    className="px-8 py-4 rounded-full text-2xl font-semibold lowercase"
                     style={{
                       backgroundColor: ACCENT,
                       color: BG,
-                      boxShadow: "0 4px 12px rgba(0,0,0,0.2), 0 2px 4px rgba(0,0,0,0.15)",
-                      fontFamily: "var(--font-syne), var(--font-space), sans-serif",
+                      boxShadow: "0 6px 20px rgba(0,0,0,0.25)",
+                      fontFamily: "var(--font-syne), sans-serif",
                     }}
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.98 }}

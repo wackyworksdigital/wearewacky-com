@@ -10,31 +10,31 @@ const TEXT = "#3d3428";
 const BG = "#f5ebe0";
 const SHADOW = "0 3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)";
 
-// Project list with real stories
+// Project list with real stories + visual gradients
 // SEO-friendly project titles - keywords people actually search for!
 const projects = [
   // DONE - ticked off (faded at top to suggest more before)
-  { id: "shopify-branding", name: "shopify store setup + branding", status: "done", fadeLevel: 2 },
-  { id: "n8n-hosting", name: "n8n self-hosting on google cloud", status: "done", fadeLevel: 1 },
-  { id: "news-scraper", name: "AI news scraper n8n workflow", status: "done", fadeLevel: 0 },
-  { id: "shopify-blog", name: "automated shopify blog with AI", status: "done", fadeLevel: 0 },
-  { id: "ai-agent-setup", name: "custom AI agent setup", status: "done", fadeLevel: 0 },
-  { id: "etsy-assistant", name: "AI etsy listing automation", status: "done", fadeLevel: 0 },
-  { id: "full-brand", name: "full brand identity setup", status: "done", fadeLevel: 0 },
-  { id: "video-campaign", name: "AI video content automation", status: "done", fadeLevel: 0 },
-  { id: "course-app", name: "self-hosted course platform", status: "done", fadeLevel: 0 },
-  { id: "rag-agency", name: "company RAG knowledge base", status: "done", fadeLevel: 0 },
+  { id: "shopify-branding", name: "shopify store setup + branding", status: "done", fadeLevel: 2, gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", image: "🛍️" },
+  { id: "n8n-hosting", name: "n8n self-hosting on google cloud", status: "done", fadeLevel: 1, gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)", image: "☁️" },
+  { id: "news-scraper", name: "AI news scraper n8n workflow", status: "done", fadeLevel: 0, gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)", image: "📰" },
+  { id: "shopify-blog", name: "automated shopify blog with AI", status: "done", fadeLevel: 0, gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)", image: "✍️" },
+  { id: "ai-agent-setup", name: "custom AI agent setup", status: "done", fadeLevel: 0, gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)", image: "🤖" },
+  { id: "etsy-assistant", name: "AI etsy listing automation", status: "done", fadeLevel: 0, gradient: "linear-gradient(135deg, #30cfd0 0%, #330867 100%)", image: "🎨" },
+  { id: "full-brand", name: "full brand identity setup", status: "done", fadeLevel: 0, gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)", image: "✨" },
+  { id: "video-campaign", name: "AI video content automation", status: "done", fadeLevel: 0, gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)", image: "🎥" },
+  { id: "course-app", name: "self-hosted course platform", status: "done", fadeLevel: 0, gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)", image: "🎓" },
+  { id: "rag-agency", name: "company RAG knowledge base", status: "done", fadeLevel: 0, gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", image: "🧠" },
   
   // CURRENT - what we're working on NOW (accent color)
-  { id: "wordpress-makeover", name: "wordpress website makeover", status: "current", fadeLevel: 0 },
+  { id: "wordpress-makeover", name: "wordpress website makeover", status: "current", fadeLevel: 0, gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)", image: "🔧" },
   
   // COMING - empty circles
-  { id: "shopify-decor", name: "shopify store makeover", status: "coming", fadeLevel: 0 },
-  { id: "faceless-channel", name: "youtube channel setup + automation", status: "coming", fadeLevel: 0 },
-  { id: "roblox-world", name: "custom roblox world build", status: "coming", fadeLevel: 0 },
-  { id: "bakery-website", name: "wix to custom website migration", status: "coming", fadeLevel: 0 },
-  { id: "home-assistant", name: "self-hosted AI smart home", status: "coming", fadeLevel: 0 },
-  { id: "your-project", name: "your project here?", status: "coming", fadeLevel: 0, isLast: true },
+  { id: "shopify-decor", name: "shopify store makeover", status: "coming", fadeLevel: 0, gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)", image: "🏠" },
+  { id: "faceless-channel", name: "youtube channel setup + automation", status: "coming", fadeLevel: 0, gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)", image: "📹" },
+  { id: "roblox-world", name: "custom roblox world build", status: "coming", fadeLevel: 0, gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)", image: "🎮" },
+  { id: "bakery-website", name: "wix to custom website migration", status: "coming", fadeLevel: 0, gradient: "linear-gradient(135deg, #30cfd0 0%, #330867 100%)", image: "🥐" },
+  { id: "home-assistant", name: "self-hosted AI smart home", status: "coming", fadeLevel: 0, gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)", image: "🏡" },
+  { id: "your-project", name: "your project here?", status: "coming", fadeLevel: 0, isLast: true, gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)", image: "💡" },
 ];
 
 // Project stories - fun, specific, SEO keywords included!
@@ -74,42 +74,11 @@ const projectStories: Record<string, string> = {
   "your-project": "this spot is waiting for something cool. could be yours. no pressure. okay, a little pressure.",
 };
 
-// Status icon
-function StatusIcon({ status }: { status: string }) {
-  if (status === "done") {
-    return <span className="mr-3 text-green-600/70">✓</span>;
-  }
-  if (status === "current") {
-    return (
-      <motion.span 
-        className="mr-3"
-        style={{ color: ACCENT }}
-        animate={{ x: [0, 4, 0] }}
-        transition={{ duration: 1.5, repeat: Infinity }}
-      >
-        →
-      </motion.span>
-    );
-  }
-  return <span className="mr-3 opacity-30">○</span>;
-}
-
 export default function PortfolioPage() {
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
 
-  // Get fade opacity
-  const getFadeOpacity = (fadeLevel: number, status: string) => {
-    if (status === "current") return 1;
-    if (status === "done") {
-      switch (fadeLevel) {
-        case 2: return 0.35;
-        case 1: return 0.5;
-        default: return 0.65;
-      }
-    }
-    return 0.7;
-  };
+  const selected = projects.find(p => p.id === selectedProject);
 
   return (
     <main className="relative min-h-screen overflow-hidden" style={{ backgroundColor: BG, color: TEXT }}>
@@ -141,119 +110,189 @@ export default function PortfolioPage() {
 
       <FluidMenu activePage="portfolio" />
 
-      {/* Main content */}
-      <div className="relative z-10 min-h-screen flex flex-col md:flex-row">
-        {/* Project List - responsive padding */}
-        <div 
-          className="flex items-center px-6 pt-36 pb-8 md:pt-0 md:pl-48 md:pr-8 md:py-12"
-          style={{ width: selectedProject ? "50%" : "100%", transition: "width 0.4s ease-out" }}
-        >
-          <div className="max-w-lg space-y-0.5">
-            {projects.map((project, index) => {
-              const isSelected = selectedProject === project.id;
-              const isHovered = hoveredProject === project.id;
-              const isCurrent = project.status === "current";
-              const isLast = project.isLast;
-              const baseOpacity = getFadeOpacity(project.fadeLevel, project.status);
-              
-              return (
-                <motion.div
-                  key={project.id}
-                  className={`flex items-center py-0.5 cursor-pointer ${isLast ? "mt-4 pt-3 border-t border-current/10" : ""}`}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.02 }}
-                  onMouseEnter={() => setHoveredProject(project.id)}
-                  onMouseLeave={() => setHoveredProject(null)}
-                  onClick={() => setSelectedProject(isSelected ? null : project.id)}
-                >
-                  <StatusIcon status={project.status} />
-                  <motion.span
-                    className={`text-base md:text-lg lowercase inline-block ${isCurrent ? "font-semibold" : ""}`}
-                    style={{ 
-                      fontFamily: "var(--font-syne), var(--font-space), sans-serif",
-                      color: isCurrent ? ACCENT : isLast ? ACCENT : TEXT,
-                      textShadow: isCurrent || isHovered ? SHADOW : "none",
-                    }}
-                    animate={{
-                      x: isHovered ? 10 : isCurrent ? 4 : 0,
-                      opacity: isHovered || isSelected ? 1 : isCurrent ? 1 : isLast ? 0.85 : baseOpacity,
-                      y: isCurrent ? [0, -2, 0] : 0,
-                    }}
-                    transition={{ 
-                      x: { type: "spring", stiffness: 300, damping: 20 },
-                      opacity: { duration: 0.2 },
-                      y: { duration: 3, repeat: Infinity, ease: "easeInOut" },
-                    }}
-                  >
-                    {project.name}
-                  </motion.span>
-                </motion.div>
-              );
-            })}
-            
-            {/* CTA at bottom */}
+      {/* NEW LAYOUT: Image Grid */}
+      <div className="relative z-10 min-h-screen pt-32 px-6 md:px-12 pb-12">
+        <AnimatePresence mode="wait">
+          {!selected ? (
+            // Grid View
             <motion.div
-              className="pt-6"
+              key="grid"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
+              exit={{ opacity: 0 }}
+              className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 max-w-7xl mx-auto"
             >
-              <Link href="/contact">
-                <motion.p
-                  className="text-base lowercase cursor-pointer"
-                  style={{ 
-                    fontFamily: "var(--font-space), system-ui, sans-serif",
-                    color: ACCENT,
-                    textShadow: "0 2px 3px rgba(0,0,0,0.15)",
-                  }}
-                  whileHover={{ x: 8, scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                >
-                  got a project? let's talk →
-                </motion.p>
-              </Link>
-            </motion.div>
-          </div>
-        </div>
+              {projects.map((project, index) => {
+                const isHovered = hoveredProject === project.id;
+                const isCurrent = project.status === "current";
+                const isDone = project.status === "done";
+                const isLast = project.isLast;
 
-        {/* Detail Panel - appears on click */}
-        <AnimatePresence>
-          {selectedProject && (
+                return (
+                  <motion.div
+                    key={project.id}
+                    className="relative rounded-2xl overflow-hidden cursor-pointer group"
+                    style={{
+                      background: project.gradient,
+                      aspectRatio: "1",
+                      opacity: isDone ? 0.7 : 1,
+                    }}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: isDone ? 0.7 : 1, scale: 1 }}
+                    transition={{ delay: index * 0.03, type: "spring", stiffness: 200, damping: 20 }}
+                    whileHover={{ scale: 1.05, opacity: 1, zIndex: 10 }}
+                    onClick={() => setSelectedProject(project.id)}
+                    onMouseEnter={() => setHoveredProject(project.id)}
+                    onMouseLeave={() => setHoveredProject(null)}
+                  >
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-black/10 to-black/30" />
+                    
+                    {/* Status badge */}
+                    <div className="absolute top-3 right-3 z-10">
+                      {isDone && (
+                        <div className="bg-green-500/90 backdrop-blur-sm rounded-full px-2 py-1 text-white text-xs font-semibold">
+                          ✓ done
+                        </div>
+                      )}
+                      {isCurrent && (
+                        <motion.div 
+                          className="backdrop-blur-sm rounded-full px-2 py-1 text-white text-xs font-semibold"
+                          style={{ backgroundColor: ACCENT }}
+                          animate={{ scale: [1, 1.05, 1] }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                        >
+                          → now
+                        </motion.div>
+                      )}
+                    </div>
+
+                    {/* Icon/Emoji */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-6xl md:text-7xl opacity-90 transition-transform group-hover:scale-110">
+                        {project.image}
+                      </span>
+                    </div>
+
+                    {/* Title overlay (always visible on mobile, hover on desktop) */}
+                    <motion.div
+                      className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-4 md:p-3"
+                      initial={{ opacity: 1 }}
+                      animate={{ opacity: isHovered ? 1 : 0.9 }}
+                    >
+                      <p 
+                        className="text-white text-sm md:text-base font-medium lowercase leading-tight"
+                        style={{ 
+                          fontFamily: "var(--font-syne), sans-serif",
+                          textShadow: "0 2px 4px rgba(0,0,0,0.3)",
+                        }}
+                      >
+                        {project.name}
+                      </p>
+                    </motion.div>
+
+                    {/* Hover hint */}
+                    <motion.div
+                      className="absolute inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: isHovered ? 1 : 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <p 
+                        className="text-white text-sm md:text-base font-medium"
+                        style={{ fontFamily: "var(--font-space), sans-serif" }}
+                      >
+                        click for story →
+                      </p>
+                    </motion.div>
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+          ) : (
+            // Detail View (full screen)
             <motion.div
-              className="w-1/2 flex flex-col justify-center pr-8 md:pr-16"
-              initial={{ opacity: 0, x: 80 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 80 }}
-              transition={{ type: "spring", stiffness: 200, damping: 25 }}
+              key="detail"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              className="max-w-4xl mx-auto"
             >
-              <motion.p 
-                className="text-lg md:text-xl leading-relaxed mb-6"
-                style={{ 
-                  fontFamily: "var(--font-space), system-ui, sans-serif",
-                  textShadow: "0 2px 3px rgba(0,0,0,0.15)",
-                  maxWidth: "32rem",
+              {/* Close button */}
+              <motion.button
+                className="mb-8 flex items-center gap-2 text-lg opacity-70 hover:opacity-100"
+                style={{ fontFamily: "var(--font-space), sans-serif", color: TEXT }}
+                onClick={() => setSelectedProject(null)}
+                whileHover={{ x: -4 }}
+              >
+                ← back to portfolio
+              </motion.button>
+
+              {/* Hero card */}
+              <motion.div
+                className="relative rounded-3xl overflow-hidden mb-8"
+                style={{
+                  background: selected.gradient,
+                  minHeight: "300px",
                 }}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
               >
-                {projectStories[selectedProject]}
-              </motion.p>
+                <div className="absolute inset-0 bg-gradient-to-br from-black/10 to-black/30" />
+                <div className="relative p-12 flex flex-col justify-center items-center min-h-[300px]">
+                  <span className="text-9xl mb-6 opacity-90">{selected.image}</span>
+                  <h1 
+                    className="text-4xl md:text-5xl font-bold lowercase text-white text-center"
+                    style={{ 
+                      fontFamily: "var(--font-syne), sans-serif",
+                      textShadow: "0 3px 12px rgba(0,0,0,0.4)",
+                    }}
+                  >
+                    {selected.name}
+                  </h1>
+                  {selected.status === "current" && (
+                    <motion.div 
+                      className="mt-4 backdrop-blur-sm rounded-full px-4 py-2 text-white text-sm font-semibold"
+                      style={{ backgroundColor: ACCENT }}
+                      animate={{ scale: [1, 1.05, 1] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      → currently working on this
+                    </motion.div>
+                  )}
+                  {selected.status === "done" && (
+                    <div className="mt-4 bg-green-500/90 backdrop-blur-sm rounded-full px-4 py-2 text-white text-sm font-semibold">
+                      ✓ completed
+                    </div>
+                  )}
+                </div>
+              </motion.div>
 
-              {(selectedProject === "your-project" || projects.find(p => p.id === selectedProject)?.status === "coming") && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
+              {/* Story */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+              >
+                <p 
+                  className="text-2xl md:text-3xl leading-relaxed mb-8"
+                  style={{ 
+                    fontFamily: "var(--font-space), sans-serif",
+                    color: TEXT,
+                  }}
                 >
+                  {projectStories[selected.id]}
+                </p>
+
+                {(selected.isLast || selected.status === "coming") && (
                   <Link href="/contact">
                     <motion.button
-                      className="px-5 py-2.5 rounded-full text-base font-medium lowercase"
+                      className="px-8 py-4 rounded-full text-xl font-semibold lowercase"
                       style={{
                         backgroundColor: ACCENT,
                         color: BG,
-                        boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-                        fontFamily: "var(--font-syne), var(--font-space), sans-serif",
+                        boxShadow: "0 6px 20px rgba(0,0,0,0.25)",
+                        fontFamily: "var(--font-syne), sans-serif",
                       }}
                       whileHover={{ scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.98 }}
@@ -261,8 +300,8 @@ export default function PortfolioPage() {
                       interested? let's chat!
                     </motion.button>
                   </Link>
-                </motion.div>
-              )}
+                )}
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
