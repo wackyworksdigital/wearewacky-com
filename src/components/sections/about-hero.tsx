@@ -17,13 +17,23 @@ const COLORS = {
   text: "#3d3428",
 };
 
+// Smooth interpolation helper
+function lerp(start: number, end: number, t: number) {
+  return start + (end - start) * t;
+}
+
+// Clamp value between min and max
+function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max);
+}
+
 export function AboutHero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [currentLine, setCurrentLine] = useState(0);
   const [viewport, setViewport] = useState({ w: 0, h: 0 });
   // Video is 1920x1080 = 16:9
-  const [videoAspect, setVideoAspect] = useState(16 / 9);
+  const videoAspect = 16 / 9;
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -65,32 +75,44 @@ export function AboutHero() {
   const vw = viewport.w;
   const vh = viewport.h;
   
-  // BREAKPOINTS
-  const isWide = vw >= 1200;
-  const isTablet = vw >= 700 && vw < 1200;
-  const isSmall = vw > 0 && vw < 700;
-
-  // HEIGHT CALCULATION
+  // SMOOTH DYNAMIC HEIGHT CALCULATION
+  // Key points:
+  // - 400px width: 40vh
+  // - 700px width: 70vh
+  // - 1200px width: 95vh
+  
   let frameH = 0;
-  if (isWide) {
-    frameH = vh * 0.95; // Desktop: 95vh (as before)
-  } else if (isTablet) {
-    frameH = vh * 0.70; // iPad: 70vh (reduced from 85vh so heads are visible)
+  if (vw < 700) {
+    // Mobile range: 40vh
+    frameH = vh * 0.40;
+  } else if (vw < 1200) {
+    // Tablet range: smoothly interpolate from 70vh to 95vh
+    const t = (vw - 700) / (1200 - 700); // 0 at 700px, 1 at 1200px
+    const heightPercent = lerp(0.70, 0.95, t);
+    frameH = vh * heightPercent;
   } else {
-    frameH = vh * 0.40; // Mobile: 40vh (working well)
+    // Desktop: 95vh
+    frameH = vh * 0.95;
   }
 
   // WIDTH from aspect ratio
-  let frameW = frameH * videoAspect;
+  const frameW = frameH * videoAspect;
 
   // TEXT POSITION
-  // Mobile: Text ABOVE video
-  // Tablet/Desktop: Text ON video
-  const textAbove = isSmall;
+  // Mobile (<700px): Text ABOVE video
+  // Tablet/Desktop (>=700px): Text ON video
+  const textAbove = vw < 700;
   
   // Calculate safe top position for text when above video
   const videoTopY = vh - frameH;
   const textTopPosition = Math.max(100, videoTopY - 50);
+
+  // TEXT VERTICAL POSITION ON VIDEO (dynamic)
+  // Smoothly transition from 62% to 62% (keep consistent for now)
+  const textTopPercent = "62%";
+
+  // DESKTOP ALIGNMENT
+  const isWide = vw >= 1200;
 
   return (
     <div ref={containerRef} className="relative" style={{ height: "300vh" }}>
@@ -172,12 +194,6 @@ export function AboutHero() {
                 loop
                 muted
                 playsInline
-                onLoadedMetadata={(e) => {
-                  const v = e.currentTarget;
-                  if (v.videoWidth && v.videoHeight) {
-                    setVideoAspect(v.videoWidth / v.videoHeight);
-                  }
-                }}
                 className="absolute inset-0 w-full h-full"
                 style={{
                   objectFit: "cover",
@@ -191,9 +207,7 @@ export function AboutHero() {
                 <div
                   className="absolute inset-x-0 flex items-center justify-center pointer-events-none"
                   style={{ 
-                    // Desktop: Lower position (62% instead of 55%)
-                    // Tablet: Same position (62%)
-                    top: "62%", 
+                    top: textTopPercent, 
                     transform: "translateY(-50%)", 
                     perspective: "1000px" 
                   }}
