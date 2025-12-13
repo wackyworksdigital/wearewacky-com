@@ -92,7 +92,7 @@ export function AboutHero() {
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              style={{ height: "90vh" }}
+              style={{ height: "95vh" }}
             >
               <video
                 ref={videoRef}
@@ -105,12 +105,13 @@ export function AboutHero() {
                   // Base: right-aligned flow uses container justify-end
                   "h-full w-auto max-w-none",
                   // Mid screens: slightly shorter
-                  "min-[900px]:max-[1199px]:h-[80vh]",
+                  "min-[900px]:max-[1199px]:h-[85vh]",
                   // Small screens: overflow both sides, keep heads visible
-                  "max-[899px]:h-[55vh] max-[899px]:min-w-[140vw] max-[899px]:object-cover max-[899px]:object-top",
+                  "max-[899px]:h-[60vh] max-[899px]:min-w-[140vw] max-[899px]:object-cover max-[899px]:object-top",
                 ].join(" ")}
                 style={{
                   filter: "drop-shadow(0 20px 20px rgba(0,0,0,0.5)) drop-shadow(0 8px 8px rgba(0,0,0,0.4))",
+                  objectPosition: "center bottom",
                 }}
               />
 
