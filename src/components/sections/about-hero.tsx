@@ -22,7 +22,7 @@ export function AboutHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [currentLine, setCurrentLine] = useState(0);
   const [viewport, setViewport] = useState({ w: 0, h: 0 });
-  // Default to 16:9, will update on load
+  // Video is 1920x1080 = 16:9
   const [videoAspect, setVideoAspect] = useState(16 / 9);
   
   const { scrollYProgress } = useScroll({
@@ -65,36 +65,32 @@ export function AboutHero() {
   const vw = viewport.w;
   const vh = viewport.h;
   
-  // BREAKPOINT LOGIC
-  // isWide: Desktop (>= 1200px)
-  // isTablet: Tablet/iPad (700px - 1199px) -> iPad Air (820px) falls here!
-  // isSmall: Phone (< 700px)
+  // BREAKPOINTS
   const isWide = vw >= 1200;
   const isTablet = vw >= 700 && vw < 1200;
   const isSmall = vw > 0 && vw < 700;
 
-  // 1. CALCULATE HEIGHT based on screen size
+  // HEIGHT CALCULATION
   let frameH = 0;
   if (isWide) {
-    frameH = vh * 0.95; // 95% height on desktop
+    frameH = vh * 0.95; // Desktop: 95vh (as before)
   } else if (isTablet) {
-    frameH = vh * 0.85; // 85% on tablet (iPad)
+    frameH = vh * 0.70; // iPad: 70vh (reduced from 85vh so heads are visible)
   } else {
-    // Mobile: 40vh.
-    // Video is 1920x1080 (16:9). At 40vh height, width becomes manageable on portrait screens.
-    // This shows all three people (heads + upper body) without extreme side cropping.
-    frameH = vh * 0.40; 
+    frameH = vh * 0.40; // Mobile: 40vh (working well)
   }
 
-  // 2. CALCULATE WIDTH STRICTLY based on video aspect ratio
-  // This prevents the "zoomed in" effect where object-fit: cover crops too much
+  // WIDTH from aspect ratio
   let frameW = frameH * videoAspect;
 
-  // 3. Text Position: ALWAYS ON VIDEO (Unified Design)
-  // Your instruction: "mobile version should look like the iPad Air version"
-  // iPad Air has white text on chest. Mobile should too.
-  // We'll trust that 60vh is tall enough for the text to sit on the "chest" area.
-  const textAbove = false;
+  // TEXT POSITION
+  // Mobile: Text ABOVE video
+  // Tablet/Desktop: Text ON video
+  const textAbove = isSmall;
+  
+  // Calculate safe top position for text when above video
+  const videoTopY = vh - frameH;
+  const textTopPosition = Math.max(100, videoTopY - 50);
 
   return (
     <div ref={containerRef} className="relative" style={{ height: "300vh" }}>
@@ -115,12 +111,47 @@ export function AboutHero() {
 
         <FluidMenu activePage="about" />
 
+        {/* Text ABOVE video (Mobile only) */}
+        {textAbove && (
+          <div
+            className="fixed left-0 right-0 z-30 flex items-center justify-center pointer-events-none"
+            style={{
+              top: textTopPosition,
+              perspective: "1000px",
+            }}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={`above-${currentLine}`}
+                initial={{ opacity: 0, rotateX: 90, y: 30 }}
+                animate={{ opacity: 1, rotateX: 0, y: 0 }}
+                exit={{ opacity: 0, rotateX: -90, y: -30 }}
+                transition={{ type: "spring", stiffness: 150, damping: 20, mass: 0.8 }}
+                style={{ transformStyle: "preserve-3d" }}
+              >
+                <motion.h2
+                  className={`text-center px-4 font-black uppercase tracking-tight
+                    ${isTitle ? "text-4xl sm:text-5xl" : "text-xl sm:text-2xl font-bold"}`}
+                  style={{
+                    color: COLORS.text,
+                    textShadow: "0 2px 4px rgba(0,0,0,0.12)",
+                    fontFamily: "var(--font-archivo), var(--font-bebas), Impact, sans-serif",
+                  }}
+                  animate={{ scale: [1, 1.01, 1] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                >
+                  {currentText.text}
+                </motion.h2>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        )}
+
         {/* VIDEO CONTAINER */}
         <div className="fixed bottom-0 left-0 right-0 z-10">
           <div 
             className="flex items-end w-full h-full"
             style={{
-              // Wide: Right align. Others: Center align.
               justifyContent: isWide ? "flex-end" : "center"
             }}
           >
@@ -155,36 +186,44 @@ export function AboutHero() {
                 }}
               />
 
-              {/* Text ON video (ALL Screens - Unified Design) */}
-              <div
-                className="absolute inset-x-0 flex items-center justify-center pointer-events-none"
-                style={{ top: "55%", transform: "translateY(-50%)", perspective: "1000px" }}
-              >
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={`overlay-${currentLine}`}
-                    initial={{ opacity: 0, rotateX: 90, y: 30 }}
-                    animate={{ opacity: 1, rotateX: 0, y: 0 }}
-                    exit={{ opacity: 0, rotateX: -90, y: -30 }}
-                    transition={{ type: "spring", stiffness: 150, damping: 20, mass: 0.8 }}
-                    style={{ transformStyle: "preserve-3d" }}
-                  >
-                    <motion.h2
-                      className={`text-center px-4 font-black uppercase tracking-tight whitespace-nowrap
-                        ${isTitle ? "text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl" : "text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold"}`}
-                      style={{
-                        color: "#F7F4ED",
-                        textShadow: "0 4px 12px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.4), 0 0 40px rgba(0,0,0,0.3)",
-                        fontFamily: "var(--font-archivo), var(--font-bebas), Impact, sans-serif",
-                      }}
-                      animate={{ scale: [1, 1.01, 1] }}
-                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              {/* Text ON video (Tablet/Desktop) */}
+              {!textAbove && (
+                <div
+                  className="absolute inset-x-0 flex items-center justify-center pointer-events-none"
+                  style={{ 
+                    // Desktop: Lower position (62% instead of 55%)
+                    // Tablet: Same position (62%)
+                    top: "62%", 
+                    transform: "translateY(-50%)", 
+                    perspective: "1000px" 
+                  }}
+                >
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={`overlay-${currentLine}`}
+                      initial={{ opacity: 0, rotateX: 90, y: 30 }}
+                      animate={{ opacity: 1, rotateX: 0, y: 0 }}
+                      exit={{ opacity: 0, rotateX: -90, y: -30 }}
+                      transition={{ type: "spring", stiffness: 150, damping: 20, mass: 0.8 }}
+                      style={{ transformStyle: "preserve-3d" }}
                     >
-                      {currentText.text}
-                    </motion.h2>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
+                      <motion.h2
+                        className={`text-center px-4 font-black uppercase tracking-tight whitespace-nowrap
+                          ${isTitle ? "text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl" : "text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold"}`}
+                        style={{
+                          color: "#F7F4ED",
+                          textShadow: "0 4px 12px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.4), 0 0 40px rgba(0,0,0,0.3)",
+                          fontFamily: "var(--font-archivo), var(--font-bebas), Impact, sans-serif",
+                        }}
+                        animate={{ scale: [1, 1.01, 1] }}
+                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                      >
+                        {currentText.text}
+                      </motion.h2>
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              )}
             </motion.div>
           </div>
         </div>
