@@ -115,10 +115,10 @@ export default function ServicesPage() {
       <FluidMenu activePage="services" />
 
       {/* Main content area - fixed layout to prevent jumping */}
-      <div className="relative z-10 min-h-screen flex flex-col md:flex-row">
-        {/* Service List - responsive padding */}
+      <div className="relative z-10 min-h-screen flex flex-col lg:flex-row">
+        {/* Service List - CENTERED on mobile/tablet, LEFT on desktop */}
         <div 
-          className="flex items-center px-6 pt-36 pb-8 md:pt-0 md:pl-48 md:pr-8"
+          className="flex items-center justify-center lg:justify-start px-6 pt-40 pb-8 lg:pt-0 lg:pl-48 lg:pr-8"
           style={{ width: selected ? "50%" : "100%", transition: "width 0.4s ease-out" }}
         >
           <div className="space-y-1">
