@@ -80,24 +80,22 @@ export function AboutHero() {
   } else if (isTablet) {
     frameH = vh * 0.85; // 85% on tablet (iPad)
   } else {
-    // Mobile: Reduce height to 55% so the width shrinks too.
-    // This brings the side guys back onto the screen while keeping them anchored to the bottom.
-    frameH = vh * 0.55; 
+    // Mobile: 60vh.
+    // - Big enough to feel premium (not a tiny strip).
+    // - Not so big that "object-fit: cover" zooms in and cuts off everyone.
+    // - Allows text to sit comfortably on the chest/stomach area.
+    frameH = vh * 0.60; 
   }
 
   // 2. CALCULATE WIDTH STRICTLY based on video aspect ratio
   // This prevents the "zoomed in" effect where object-fit: cover crops too much
   let frameW = frameH * videoAspect;
 
-  // 3. Determine text position (above video or on chest)
-  // ONLY on phones (isSmall) does text go above.
-  // Tablet (iPad) gets text ON CHEST.
-  const textAbove = isSmall;
-  
-  // Calculate safe top position for text when above video
-  // Sits between menu and video top, closer to video
-  const videoTopY = vh - frameH;
-  const textTopPosition = Math.max(100, videoTopY - 50);
+  // 3. Text Position: ALWAYS ON VIDEO (Unified Design)
+  // Your instruction: "mobile version should look like the iPad Air version"
+  // iPad Air has white text on chest. Mobile should too.
+  // We'll trust that 60vh is tall enough for the text to sit on the "chest" area.
+  const textAbove = false;
 
   return (
     <div ref={containerRef} className="relative" style={{ height: "300vh" }}>
@@ -117,42 +115,6 @@ export function AboutHero() {
         />
 
         <FluidMenu activePage="about" />
-
-        {/* Text ABOVE video (Small screens ONLY) */}
-        {textAbove && (
-          <div
-            className="fixed left-0 right-0 z-30 flex items-center justify-center pointer-events-none"
-            style={{
-              top: textTopPosition,
-              perspective: "1000px",
-            }}
-          >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={`above-${currentLine}`}
-                initial={{ opacity: 0, rotateX: 90, y: 30 }}
-                animate={{ opacity: 1, rotateX: 0, y: 0 }}
-                exit={{ opacity: 0, rotateX: -90, y: -30 }}
-                transition={{ type: "spring", stiffness: 150, damping: 20, mass: 0.8 }}
-                style={{ transformStyle: "preserve-3d" }}
-              >
-                <motion.h2
-                  className={`text-center px-4 font-black uppercase tracking-tight
-                    ${isTitle ? "text-4xl sm:text-5xl" : "text-xl sm:text-2xl font-bold"}`}
-                  style={{
-                    color: COLORS.text,
-                    textShadow: "0 2px 4px rgba(0,0,0,0.12)",
-                    fontFamily: "var(--font-archivo), var(--font-bebas), Impact, sans-serif",
-                  }}
-                  animate={{ scale: [1, 1.01, 1] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  {currentText.text}
-                </motion.h2>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        )}
 
         {/* VIDEO CONTAINER */}
         <div className="fixed bottom-0 left-0 right-0 z-10">
@@ -194,38 +156,36 @@ export function AboutHero() {
                 }}
               />
 
-              {/* Text ON video (Large/Tablet screens) */}
-              {!textAbove && (
-                <div
-                  className="absolute inset-x-0 flex items-center justify-center pointer-events-none"
-                  style={{ top: "55%", transform: "translateY(-50%)", perspective: "1000px" }}
-                >
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={`overlay-${currentLine}`}
-                      initial={{ opacity: 0, rotateX: 90, y: 30 }}
-                      animate={{ opacity: 1, rotateX: 0, y: 0 }}
-                      exit={{ opacity: 0, rotateX: -90, y: -30 }}
-                      transition={{ type: "spring", stiffness: 150, damping: 20, mass: 0.8 }}
-                      style={{ transformStyle: "preserve-3d" }}
+              {/* Text ON video (ALL Screens - Unified Design) */}
+              <div
+                className="absolute inset-x-0 flex items-center justify-center pointer-events-none"
+                style={{ top: "55%", transform: "translateY(-50%)", perspective: "1000px" }}
+              >
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={`overlay-${currentLine}`}
+                    initial={{ opacity: 0, rotateX: 90, y: 30 }}
+                    animate={{ opacity: 1, rotateX: 0, y: 0 }}
+                    exit={{ opacity: 0, rotateX: -90, y: -30 }}
+                    transition={{ type: "spring", stiffness: 150, damping: 20, mass: 0.8 }}
+                    style={{ transformStyle: "preserve-3d" }}
+                  >
+                    <motion.h2
+                      className={`text-center px-4 font-black uppercase tracking-tight whitespace-nowrap
+                        ${isTitle ? "text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl" : "text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold"}`}
+                      style={{
+                        color: "#F7F4ED",
+                        textShadow: "0 4px 12px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.4), 0 0 40px rgba(0,0,0,0.3)",
+                        fontFamily: "var(--font-archivo), var(--font-bebas), Impact, sans-serif",
+                      }}
+                      animate={{ scale: [1, 1.01, 1] }}
+                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                     >
-                      <motion.h2
-                        className={`text-center px-4 font-black uppercase tracking-tight whitespace-nowrap
-                          ${isTitle ? "text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl" : "text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold"}`}
-                        style={{
-                          color: "#F7F4ED",
-                          textShadow: "0 4px 12px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.4), 0 0 40px rgba(0,0,0,0.3)",
-                          fontFamily: "var(--font-archivo), var(--font-bebas), Impact, sans-serif",
-                        }}
-                        animate={{ scale: [1, 1.01, 1] }}
-                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                      >
-                        {currentText.text}
-                      </motion.h2>
-                    </motion.div>
-                  </AnimatePresence>
-                </div>
-              )}
+                      {currentText.text}
+                    </motion.h2>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
             </motion.div>
           </div>
         </div>
