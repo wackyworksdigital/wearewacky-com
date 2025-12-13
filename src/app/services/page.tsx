@@ -156,15 +156,6 @@ export default function ServicesPage() {
                         textShadow: isHovered || isSelected ? SHADOW : "0 2px 3px rgba(0,0,0,0.15)",
                         lineHeight: "1.3",
                       }}
-                      animate={{
-                        y: [0, -3, 0],
-                      }}
-                      transition={{
-                        duration: 5 + index * 0.5,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: index * 0.3,
-                      }}
                     >
                       {service.name}
                     </motion.span>
