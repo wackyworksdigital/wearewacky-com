@@ -82,68 +82,110 @@ export function AboutHero() {
         />
 
         {/* 
-          VIDEO CONTAINER - positioned at bottom center
-          
-          Desktop (xl+): Video has side gaps "A", height 85vh
-          Tablet/Mobile: Video fills width and overflows, staying at bottom
-          
-          The TEXT is INSIDE this container, positioned relative to the video!
+          ═══════════════════════════════════════════════════════════════
+          TEXT - ABOVE VIDEO (for small screens where it won't fit on video)
+          Shows on screens < 900px width
+          ═══════════════════════════════════════════════════════════════
         */}
-        <div className="fixed bottom-0 left-0 right-0 z-10 flex justify-center items-end">
-          <motion.div
-            className="relative"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            style={{
-              // Height scales with viewport
-              height: "clamp(55vh, 70vh, 85vh)",
-            }}
-          >
-            {/* 
-              VIDEO element
-              - Uses aspect-ratio to maintain proportions
-              - On desktop: constrained by max-width to create side gaps
-              - On mobile: wider than screen, overflows
-            */}
+        <div 
+          className="fixed z-30 left-0 right-0 flex items-center justify-center pointer-events-none
+                     block max-[899px]:block min-[900px]:hidden"
+          style={{ 
+            top: "35%",
+            perspective: "1000px" 
+          }}
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`above-${currentLine}`}
+              initial={{ opacity: 0, rotateX: 90, y: 30 }}
+              animate={{ opacity: 1, rotateX: 0, y: 0 }}
+              exit={{ opacity: 0, rotateX: -90, y: -30 }}
+              transition={{ type: "spring", stiffness: 150, damping: 20, mass: 0.8 }}
+              style={{ transformStyle: "preserve-3d" }}
+            >
+              <motion.h2
+                className={`text-center px-4 font-black uppercase tracking-tight
+                  ${isTitle ? "text-4xl sm:text-5xl" : "text-xl sm:text-2xl font-bold"}`}
+                style={{
+                  color: COLORS.text,
+                  textShadow: "0 2px 4px rgba(0,0,0,0.1)",
+                  fontFamily: "var(--font-archivo), var(--font-bebas), Impact, sans-serif",
+                }}
+                animate={{ scale: [1, 1.01, 1] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              >
+                {currentText.text}
+              </motion.h2>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* 
+          ═══════════════════════════════════════════════════════════════
+          VIDEO CONTAINER
+          
+          PHASE 1 (wide screens, min-width 1200px):
+            - Height: 90vh
+            - Position: RIGHT-ALIGNED (right: 0)
+            - Left margin "A" exists naturally
+          
+          PHASE 2 (medium screens, 900px - 1200px):
+            - Video touches both edges, CENTERED
+            - Starts scaling down
+          
+          PHASE 3 (small screens, < 900px):
+            - Video OVERFLOWS on both sides (centered)
+            - Heads visible, shoulders can cut off
+            - Text moves ABOVE video
+          ═══════════════════════════════════════════════════════════════
+        */}
+        <motion.div
+          className="fixed bottom-0 z-10
+                     max-[899px]:left-1/2 max-[899px]:-translate-x-1/2
+                     min-[900px]:left-1/2 min-[900px]:-translate-x-1/2
+                     min-[1200px]:left-auto min-[1200px]:translate-x-0 min-[1200px]:right-0"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <div className="relative">
             <video
               ref={videoRef}
-              className={[
-                "h-full w-auto",
-                // Mobile: big and overflowing
-                "min-w-[140vw]",
-                // Tablet: slightly less overflow
-                "sm:min-w-[120vw]",
-                // Desktop: constrained to create gaps A
-                "lg:min-w-0 lg:max-w-[calc(100vw-8rem)]",
-                "xl:max-w-[calc(100vw-12rem)]",
-              ].join(" ")}
               src="/our-agency-guys.webm"
               autoPlay
               loop
               muted
               playsInline
+              className="
+                h-[90vh] w-auto
+                
+                max-[599px]:h-[50vh] max-[599px]:min-w-[150vw]
+                min-[600px]:max-[899px]:h-[55vh] min-[600px]:max-[899px]:min-w-[130vw]
+                min-[900px]:max-[1199px]:h-[80vh]
+                min-[1200px]:h-[90vh]
+              "
               style={{
                 filter: "drop-shadow(0 20px 20px rgba(0,0,0,0.5)) drop-shadow(0 8px 8px rgba(0,0,0,0.4))",
               }}
             />
 
             {/* 
-              TEXT - INSIDE the video container
-              Positioned at 55% from top = chest area (below faces, above waist)
-              This means text moves WITH the video!
+              TEXT ON VIDEO (for large screens where text fits on chest)
+              Shows on screens >= 900px width
             */}
             <div 
-              className="absolute inset-x-0 flex items-center justify-center pointer-events-none"
+              className="absolute inset-x-0 items-center justify-center pointer-events-none
+                         hidden min-[900px]:flex"
               style={{ 
-                top: "55%", // Chest level - the green zone in your diagram
+                top: "55%",
                 transform: "translateY(-50%)",
                 perspective: "1000px" 
               }}
             >
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={currentLine}
+                  key={`overlay-${currentLine}`}
                   initial={{ opacity: 0, rotateX: 90, y: 30 }}
                   animate={{ opacity: 1, rotateX: 0, y: 0 }}
                   exit={{ opacity: 0, rotateX: -90, y: -30 }}
@@ -152,7 +194,7 @@ export function AboutHero() {
                 >
                   <motion.h2
                     className={`text-center px-4 font-black uppercase tracking-tight whitespace-nowrap
-                      ${isTitle ? "text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl 2xl:text-8xl" : "text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-bold"}`}
+                      ${isTitle ? "text-5xl md:text-6xl lg:text-7xl xl:text-8xl" : "text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold"}`}
                     style={{
                       color: "#F7F4ED",
                       textShadow: "0 4px 12px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.4), 0 0 40px rgba(0,0,0,0.3)",
@@ -167,8 +209,8 @@ export function AboutHero() {
                 </motion.div>
               </AnimatePresence>
             </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       </div>
     </div>
   );
