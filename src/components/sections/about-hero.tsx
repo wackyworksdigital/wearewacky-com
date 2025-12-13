@@ -22,6 +22,7 @@ export function AboutHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [currentLine, setCurrentLine] = useState(0);
   const [viewport, setViewport] = useState({ w: 0, h: 0 });
+  // Default to 16:9, will update on load
   const [videoAspect, setVideoAspect] = useState(16 / 9);
   
   const { scrollYProgress } = useScroll({
@@ -61,52 +62,37 @@ export function AboutHero() {
   const currentText = textLines[currentLine];
   const isTitle = currentText.style === "title";
 
-  const clamp = (min: number, v: number, max: number) => Math.min(max, Math.max(min, v));
   const vw = viewport.w;
   const vh = viewport.h;
+  // Breakpoints
+  const isWide = vw >= 1200;
+  const isTablet = vw >= 900 && vw < 1200;
   const isSmall = vw > 0 && vw < 900;
-  const isPhone = vw > 0 && vw < 520;
 
-  // "A" margin target after snap-to-center
-  const gapA = vw > 0 ? clamp(24, vw * 0.05, 96) : 48;
-  // "B" headroom: keep video at ~90% viewport height while right-stuck
-  const maxH = vh > 0 ? vh * 0.9 : 0;
-
-  // Frame sizing + alignment matches your rules:
-  // - While frame width < viewport width: stick to right, keep height = 90vh
-  // - Once frame would hit left edge: center and shrink with viewport (keep gaps A)
-  // - On small screens: overflow both sides + move text above video
-  let frameH = maxH;
-  let frameW = maxH * videoAspect;
-  let align: "right" | "center" = "right";
-
-  if (vw > 0 && vh > 0) {
-    if (isSmall) {
-      // Small screens should look like iPad Air: gentle side crop, heads visible.
-      // Critical: keep the FRAME aspect not too narrow, otherwise cover() zooms too much.
-      frameH = isPhone ? vh * 0.72 : vh * 0.82;
-      frameW = isPhone ? vw * 1.35 : vw * 1.08;
-      align = "center";
-    } else {
-      const widthLimitedH = (vw - 2 * gapA) / videoAspect;
-      if (widthLimitedH < maxH) {
-        frameH = clamp(320, widthLimitedH, maxH);
-        frameW = frameH * videoAspect;
-        align = "center";
-      } else {
-        frameH = maxH;
-        frameW = frameH * videoAspect;
-        align = "right";
-      }
-    }
+  // 1. CALCULATE HEIGHT based on screen size
+  let frameH = 0;
+  if (isWide) {
+    frameH = vh * 0.95; // 95% height on desktop
+  } else if (isTablet) {
+    frameH = vh * 0.85; // 85% on tablet
+  } else {
+    // Mobile: Need enough height so heads are visible, but sides crop gently.
+    // 70vh usually balances this well for 16:9 videos on portrait phones.
+    frameH = vh * 0.70; 
   }
 
-  // Above-video text should always live in the empty space between menu and video.
-  // Compute a safe top position from the video top edge.
-  const videoTop = vh > 0 ? vh - frameH : 0;
-  const aboveTextTop = vh > 0
-    ? clamp(120, videoTop * 0.55, Math.max(140, videoTop - 80))
-    : 200;
+  // 2. CALCULATE WIDTH STRICTLY based on video aspect ratio
+  // This prevents the "zoomed in" effect where object-fit: cover crops too much
+  let frameW = frameH * videoAspect;
+
+  // 3. Determine text position (above video or on chest)
+  // On small screens, text goes above video.
+  const textAbove = isSmall;
+  
+  // Calculate safe top position for text when above video
+  // Sits between menu (approx 100px) and video top
+  const videoTopY = vh - frameH;
+  const textTopPosition = Math.max(120, videoTopY - 60);
 
   return (
     <div ref={containerRef} className="relative" style={{ height: "300vh" }}>
@@ -127,21 +113,12 @@ export function AboutHero() {
 
         <FluidMenu activePage="about" />
 
-        {/* Stage shadow */}
-        <div 
-          className="fixed bottom-0 left-0 right-0 h-20 z-20 pointer-events-none"
-          style={{
-            background: "linear-gradient(to top, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.1) 50%, transparent 100%)",
-          }}
-        />
-
-        {/* Text ABOVE video on small (when it won't fit on chest) */}
-        {isSmall && (
+        {/* Text ABOVE video (Small screens) */}
+        {textAbove && (
           <div
             className="fixed left-0 right-0 z-30 flex items-center justify-center pointer-events-none"
             style={{
-              // Always sits between menu and video (never collides with menu).
-              top: aboveTextTop,
+              top: textTopPosition,
               perspective: "1000px",
             }}
           >
@@ -172,9 +149,15 @@ export function AboutHero() {
           </div>
         )}
 
-        {/* Video frame: ALWAYS touches bottom of screen */}
+        {/* VIDEO CONTAINER */}
         <div className="fixed bottom-0 left-0 right-0 z-10">
-          <div className={`flex items-end ${align === "right" ? "justify-end" : "justify-center"}`}>
+          <div 
+            className="flex items-end w-full h-full"
+            style={{
+              // Wide: Right align. Others: Center align.
+              justifyContent: isWide ? "flex-end" : "center"
+            }}
+          >
             <motion.div
               className="relative overflow-hidden"
               initial={{ opacity: 0, y: 50 }}
@@ -185,11 +168,6 @@ export function AboutHero() {
                 height: frameH,
               }}
             >
-              {/* 
-                Key to "legs on the floor":
-                - The frame is pinned to bottom (via flex items-end + fixed bottom-0)
-                - We crop inside the frame with object-fit cover + object-position bottom
-              */}
               <video
                 ref={videoRef}
                 src="/our-agency-guys.webm"
@@ -197,23 +175,22 @@ export function AboutHero() {
                 loop
                 muted
                 playsInline
-                onLoadedMetadata={() => {
-                  const v = videoRef.current;
-                  if (!v) return;
-                  if (v.videoWidth && v.videoHeight) setVideoAspect(v.videoWidth / v.videoHeight);
+                onLoadedMetadata={(e) => {
+                  const v = e.currentTarget;
+                  if (v.videoWidth && v.videoHeight) {
+                    setVideoAspect(v.videoWidth / v.videoHeight);
+                  }
                 }}
                 className="absolute inset-0 w-full h-full"
                 style={{
                   objectFit: "cover",
                   objectPosition: "center bottom",
-                  // Nudge down a touch (helps if the source has extra transparent/border at bottom).
-                  transform: isSmall ? "translateY(0%)" : "translateY(2.5%)",
                   filter: "drop-shadow(0 20px 20px rgba(0,0,0,0.5)) drop-shadow(0 8px 8px rgba(0,0,0,0.4))",
                 }}
               />
 
-              {/* Text on chest when not small */}
-              {!isSmall && (
+              {/* Text ON video (Large screens) */}
+              {!textAbove && (
                 <div
                   className="absolute inset-x-0 flex items-center justify-center pointer-events-none"
                   style={{ top: "55%", transform: "translateY(-50%)", perspective: "1000px" }}
