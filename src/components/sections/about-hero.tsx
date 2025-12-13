@@ -80,8 +80,9 @@ export function AboutHero() {
   } else if (isTablet) {
     frameH = vh * 0.85; // 85% on tablet (iPad)
   } else {
-    // Mobile: 75% height. Taller than before to avoid "floating" look.
-    frameH = vh * 0.75; 
+    // Mobile: Reduce height to 55% so the width shrinks too.
+    // This brings the side guys back onto the screen while keeping them anchored to the bottom.
+    frameH = vh * 0.55; 
   }
 
   // 2. CALCULATE WIDTH STRICTLY based on video aspect ratio
