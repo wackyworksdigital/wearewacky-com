@@ -80,61 +80,72 @@ export function AboutHero() {
         />
 
         {/* 
-          SIMPLE: Video container at bottom-right, 90vh tall
-          That's it. No complicated breakpoints.
+          VIDEO PLACEMENT — matches your spec:
+          - Wide (>=1200px): right aligned, 90vh tall, touch bottom/right, margin A on left
+          - Mid (900-1199px): centered, scale to ~80vh
+          - Small (<900px): centered, overflows both sides, shorter height; text moves above
         */}
-        <div className="fixed bottom-0 right-0 z-10">
-          <motion.div
-            className="relative"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            style={{ height: "90vh" }}
-          >
-            <video
-              ref={videoRef}
-              src="/our-agency-guys.webm"
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="h-full w-auto"
-              style={{
-                filter: "drop-shadow(0 20px 20px rgba(0,0,0,0.5)) drop-shadow(0 8px 8px rgba(0,0,0,0.4))",
-              }}
-            />
-
-            {/* Text on chest */}
-            <div 
-              className="absolute inset-x-0 flex items-center justify-center pointer-events-none"
-              style={{ top: "55%", transform: "translateY(-50%)", perspective: "1000px" }}
+        <div className="fixed bottom-0 left-0 right-0 z-10">
+          <div className="flex items-end justify-end min-[900px]:justify-center min-[1200px]:justify-end">
+            <motion.div
+              className="relative"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              style={{ height: "90vh" }}
             >
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentLine}
-                  initial={{ opacity: 0, rotateX: 90, y: 30 }}
-                  animate={{ opacity: 1, rotateX: 0, y: 0 }}
-                  exit={{ opacity: 0, rotateX: -90, y: -30 }}
-                  transition={{ type: "spring", stiffness: 150, damping: 20, mass: 0.8 }}
-                  style={{ transformStyle: "preserve-3d" }}
-                >
-                  <motion.h2
-                    className={`text-center px-4 font-black uppercase tracking-tight whitespace-nowrap
-                      ${isTitle ? "text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl" : "text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold"}`}
-                    style={{
-                      color: "#F7F4ED",
-                      textShadow: "0 4px 12px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.4), 0 0 40px rgba(0,0,0,0.3)",
-                      fontFamily: "var(--font-archivo), var(--font-bebas), Impact, sans-serif",
-                    }}
-                    animate={{ scale: [1, 1.01, 1] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              <video
+                ref={videoRef}
+                src="/our-agency-guys.webm"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className={[
+                  // Base: right-aligned flow uses container justify-end
+                  "h-full w-auto max-w-none",
+                  // Mid screens: slightly shorter
+                  "min-[900px]:max-[1199px]:h-[80vh]",
+                  // Small screens: overflow both sides, keep heads visible
+                  "max-[899px]:h-[55vh] max-[899px]:min-w-[140vw] max-[899px]:object-cover max-[899px]:object-top",
+                ].join(" ")}
+                style={{
+                  filter: "drop-shadow(0 20px 20px rgba(0,0,0,0.5)) drop-shadow(0 8px 8px rgba(0,0,0,0.4))",
+                }}
+              />
+
+              {/* Text on chest for >=900px */}
+              <div
+                className="absolute inset-x-0 hidden min-[900px]:flex items-center justify-center pointer-events-none"
+                style={{ top: "55%", transform: "translateY(-50%)", perspective: "1000px" }}
+              >
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentLine}
+                    initial={{ opacity: 0, rotateX: 90, y: 30 }}
+                    animate={{ opacity: 1, rotateX: 0, y: 0 }}
+                    exit={{ opacity: 0, rotateX: -90, y: -30 }}
+                    transition={{ type: "spring", stiffness: 150, damping: 20, mass: 0.8 }}
+                    style={{ transformStyle: "preserve-3d" }}
                   >
-                    {currentText.text}
-                  </motion.h2>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-          </motion.div>
+                    <motion.h2
+                      className={`text-center px-4 font-black uppercase tracking-tight whitespace-nowrap
+                        ${isTitle ? "text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl" : "text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold"}`}
+                      style={{
+                        color: "#F7F4ED",
+                        textShadow: "0 4px 12px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,0.4), 0 0 40px rgba(0,0,0,0.3)",
+                        fontFamily: "var(--font-archivo), var(--font-bebas), Impact, sans-serif",
+                      }}
+                      animate={{ scale: [1, 1.01, 1] }}
+                      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      {currentText.text}
+                    </motion.h2>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </div>
