@@ -83,9 +83,9 @@ export function AboutHero() {
   if (vw > 0 && vh > 0) {
     if (isSmall) {
       // Small screens should look like iPad Air: gentle side crop, heads visible.
-      // Phones get a touch more overflow (but not the extreme 140vw we had before).
-      frameH = isPhone ? vh * 0.78 : vh * 0.82;
-      frameW = isPhone ? vw * 1.22 : vw * 1.08;
+      // Critical: keep the FRAME aspect not too narrow, otherwise cover() zooms too much.
+      frameH = isPhone ? vh * 0.72 : vh * 0.82;
+      frameW = isPhone ? vw * 1.35 : vw * 1.08;
       align = "center";
     } else {
       const widthLimitedH = (vw - 2 * gapA) / videoAspect;
@@ -100,6 +100,13 @@ export function AboutHero() {
       }
     }
   }
+
+  // Above-video text should always live in the empty space between menu and video.
+  // Compute a safe top position from the video top edge.
+  const videoTop = vh > 0 ? vh - frameH : 0;
+  const aboveTextTop = vh > 0
+    ? clamp(120, videoTop * 0.55, Math.max(140, videoTop - 80))
+    : 200;
 
   return (
     <div ref={containerRef} className="relative" style={{ height: "300vh" }}>
@@ -133,8 +140,8 @@ export function AboutHero() {
           <div
             className="fixed left-0 right-0 z-30 flex items-center justify-center pointer-events-none"
             style={{
-              // Always sits between menu and video: anchored to the video height.
-              bottom: frameH + clamp(12, vh * 0.02, 24),
+              // Always sits between menu and video (never collides with menu).
+              top: aboveTextTop,
               perspective: "1000px",
             }}
           >
