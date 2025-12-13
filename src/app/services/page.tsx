@@ -116,12 +116,12 @@ export default function ServicesPage() {
 
       {/* Main content area - fixed layout to prevent jumping */}
       <div className="relative z-10 min-h-screen flex flex-col lg:flex-row">
-        {/* Service List - Different layouts per device */}
+        {/* Service List - CONSISTENT across all screens */}
         <div 
-          className="flex items-center justify-center lg:justify-start lg:items-center px-6 pt-40 pb-8 lg:pt-0 lg:pl-64 lg:pr-12"
+          className="flex items-center justify-center lg:justify-start px-6 pt-48 pb-8 lg:pt-0 lg:pl-64 lg:pr-12"
           style={{ width: selected ? "50%" : "100%", transition: "width 0.4s ease-out" }}
         >
-          <div className="space-y-0.5 lg:space-y-1">
+          <div className="space-y-1">
             {services.map((service, index) => {
               const isHovered = hoveredService === service.id;
               const isSelected = selectedService === service.id;
@@ -139,7 +139,7 @@ export default function ServicesPage() {
                   onClick={() => setSelectedService(isSelected ? null : service.id)}
                 >
                   <motion.div
-                    className="flex items-center py-0.5 lg:py-1"
+                    className="flex items-center py-1"
                     animate={{
                       x: isHovered ? 25 : isSelected ? 15 : 0,
                       scale: isHovered ? 1.08 : isOtherHovered ? 0.95 : 1,
@@ -148,13 +148,13 @@ export default function ServicesPage() {
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
                     <motion.span
-                      className="text-xl md:text-2xl lg:text-4xl xl:text-5xl lowercase inline-block"
+                      className="text-3xl lowercase inline-block"
                       style={{ 
                         fontFamily: "var(--font-syne), var(--font-space), sans-serif",
-                        fontWeight: isSelected ? 600 : 300,
+                        fontWeight: isSelected ? 600 : 400,
                         color: isSelected ? ACCENT : TEXT,
-                        textShadow: isHovered || isSelected ? SHADOW : "0 1px 2px rgba(0,0,0,0.1)",
-                        lineHeight: "1.2",
+                        textShadow: isHovered || isSelected ? SHADOW : "0 2px 3px rgba(0,0,0,0.15)",
+                        lineHeight: "1.3",
                       }}
                       animate={{
                         y: [0, -3, 0],
