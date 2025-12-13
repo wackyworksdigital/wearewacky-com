@@ -64,21 +64,24 @@ export function AboutHero() {
 
   const vw = viewport.w;
   const vh = viewport.h;
-  // Breakpoints
+  
+  // BREAKPOINT LOGIC
+  // isWide: Desktop (>= 1200px)
+  // isTablet: Tablet/iPad (700px - 1199px) -> iPad Air (820px) falls here!
+  // isSmall: Phone (< 700px)
   const isWide = vw >= 1200;
-  const isTablet = vw >= 900 && vw < 1200;
-  const isSmall = vw > 0 && vw < 900;
+  const isTablet = vw >= 700 && vw < 1200;
+  const isSmall = vw > 0 && vw < 700;
 
   // 1. CALCULATE HEIGHT based on screen size
   let frameH = 0;
   if (isWide) {
     frameH = vh * 0.95; // 95% height on desktop
   } else if (isTablet) {
-    frameH = vh * 0.85; // 85% on tablet
+    frameH = vh * 0.85; // 85% on tablet (iPad)
   } else {
-    // Mobile: Need enough height so heads are visible, but sides crop gently.
-    // 70vh usually balances this well for 16:9 videos on portrait phones.
-    frameH = vh * 0.70; 
+    // Mobile: 75% height. Taller than before to avoid "floating" look.
+    frameH = vh * 0.75; 
   }
 
   // 2. CALCULATE WIDTH STRICTLY based on video aspect ratio
@@ -86,13 +89,14 @@ export function AboutHero() {
   let frameW = frameH * videoAspect;
 
   // 3. Determine text position (above video or on chest)
-  // On small screens, text goes above video.
+  // ONLY on phones (isSmall) does text go above.
+  // Tablet (iPad) gets text ON CHEST.
   const textAbove = isSmall;
   
   // Calculate safe top position for text when above video
-  // Sits between menu (approx 100px) and video top
+  // Sits between menu and video top, closer to video
   const videoTopY = vh - frameH;
-  const textTopPosition = Math.max(120, videoTopY - 60);
+  const textTopPosition = Math.max(100, videoTopY - 50);
 
   return (
     <div ref={containerRef} className="relative" style={{ height: "300vh" }}>
@@ -113,7 +117,7 @@ export function AboutHero() {
 
         <FluidMenu activePage="about" />
 
-        {/* Text ABOVE video (Small screens) */}
+        {/* Text ABOVE video (Small screens ONLY) */}
         {textAbove && (
           <div
             className="fixed left-0 right-0 z-30 flex items-center justify-center pointer-events-none"
@@ -189,7 +193,7 @@ export function AboutHero() {
                 }}
               />
 
-              {/* Text ON video (Large screens) */}
+              {/* Text ON video (Large/Tablet screens) */}
               {!textAbove && (
                 <div
                   className="absolute inset-x-0 flex items-center justify-center pointer-events-none"
