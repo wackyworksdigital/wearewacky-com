@@ -65,6 +65,7 @@ export function AboutHero() {
   const vw = viewport.w;
   const vh = viewport.h;
   const isSmall = vw > 0 && vw < 900;
+  const isPhone = vw > 0 && vw < 520;
 
   // "A" margin target after snap-to-center
   const gapA = vw > 0 ? clamp(24, vw * 0.05, 96) : 48;
@@ -81,8 +82,10 @@ export function AboutHero() {
 
   if (vw > 0 && vh > 0) {
     if (isSmall) {
-      frameH = vh * 0.6;
-      frameW = vw * 1.4; // overflow left/right (heads stay on)
+      // Small screens should look like iPad Air: gentle side crop, heads visible.
+      // Phones get a touch more overflow (but not the extreme 140vw we had before).
+      frameH = isPhone ? vh * 0.78 : vh * 0.82;
+      frameW = isPhone ? vw * 1.22 : vw * 1.08;
       align = "center";
     } else {
       const widthLimitedH = (vw - 2 * gapA) / videoAspect;
@@ -131,7 +134,7 @@ export function AboutHero() {
             className="fixed left-0 right-0 z-30 flex items-center justify-center pointer-events-none"
             style={{
               // Always sits between menu and video: anchored to the video height.
-              bottom: frameH + 20,
+              bottom: frameH + clamp(12, vh * 0.02, 24),
               perspective: "1000px",
             }}
           >
