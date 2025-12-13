@@ -77,18 +77,19 @@ export function AboutHero() {
   
   // SMOOTH DYNAMIC HEIGHT CALCULATION
   // Key points:
-  // - 400px width: 40vh
-  // - 700px width: 70vh
-  // - 1200px width: 95vh
+  // - <700px: 40vh (mobile)
+  // - 700-1200px: interpolate from 45vh to 95vh (tablet starts small like mobile)
+  // - >=1200px: 95vh (desktop)
   
   let frameH = 0;
   if (vw < 700) {
     // Mobile range: 40vh
     frameH = vh * 0.40;
   } else if (vw < 1200) {
-    // Tablet range: smoothly interpolate from 70vh to 95vh
+    // Tablet range: smoothly interpolate from 45vh to 95vh
+    // This keeps iPad closer to mobile size
     const t = (vw - 700) / (1200 - 700); // 0 at 700px, 1 at 1200px
-    const heightPercent = lerp(0.70, 0.95, t);
+    const heightPercent = lerp(0.45, 0.95, t);
     frameH = vh * heightPercent;
   } else {
     // Desktop: 95vh
