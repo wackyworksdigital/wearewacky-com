@@ -80,11 +80,10 @@ export function AboutHero() {
   } else if (isTablet) {
     frameH = vh * 0.85; // 85% on tablet (iPad)
   } else {
-    // Mobile: 60vh.
-    // - Big enough to feel premium (not a tiny strip).
-    // - Not so big that "object-fit: cover" zooms in and cuts off everyone.
-    // - Allows text to sit comfortably on the chest/stomach area.
-    frameH = vh * 0.60; 
+    // Mobile: 40vh.
+    // Video is 1920x1080 (16:9). At 40vh height, width becomes manageable on portrait screens.
+    // This shows all three people (heads + upper body) without extreme side cropping.
+    frameH = vh * 0.40; 
   }
 
   // 2. CALCULATE WIDTH STRICTLY based on video aspect ratio
