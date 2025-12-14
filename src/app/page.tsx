@@ -199,17 +199,17 @@ export default function Home() {
       </motion.div>
 
       {/* HERO SECTION */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-6 pt-32 lg:pt-0 pb-20">
+      <div className="relative z-10 min-h-screen flex items-center justify-center px-6 pt-40 md:pt-32 lg:pt-0 pb-20">
         <div className="w-full max-w-6xl">
           
           {/* Big title */}
           <motion.div
-            className="mb-12 relative text-center"
+            className="mb-8 md:mb-12 relative text-center"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-6xl md:text-8xl lg:text-[140px] font-black tracking-tighter leading-[0.9]">
+            <h1 className="text-5xl md:text-8xl lg:text-[140px] font-black tracking-tighter leading-[0.9]">
               <motion.span 
                 className="inline-block"
                 animate={{ rotate: [-2, 2, -2] }}
