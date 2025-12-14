@@ -210,32 +210,22 @@ export default function Home() {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-5xl md:text-8xl lg:text-[140px] font-black tracking-tighter leading-[0.9]">
-              <motion.span 
-                className="inline-block"
-                animate={{ rotate: [-2, 2, -2] }}
-                transition={{ duration: 3, repeat: Infinity }}
-              >
+              <span className="inline-block -rotate-2">
                 WE
-              </motion.span>{" "}
-              <motion.span 
-                className="inline-block text-outline"
-                animate={{ rotate: [2, -2, 2] }}
-                transition={{ duration: 3.5, repeat: Infinity }}
-              >
+              </span>{" "}
+              <span className="inline-block text-outline rotate-2">
                 BUILD
-              </motion.span>
+              </span>
               <br />
-              <motion.span 
+              <span 
                 className="relative inline-block"
                 style={{ color: "#ff4757" }}
-                animate={{ scale: [1, 1.05, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
               >
                 STUFF
                 <span className="absolute -top-8 -right-12 text-3xl rotate-12">
                   💥
                 </span>
-              </motion.span>
+              </span>
             </h1>
 
             <motion.p
@@ -340,14 +330,12 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <motion.div
+            <div
               className="mb-4 text-3xl"
               style={{ fontFamily: "var(--font-marker), cursive", color: TEXT }}
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
             >
               ↓ click me!
-            </motion.div>
+            </div>
 
             <Link href="/services">
               <motion.div
@@ -412,21 +400,17 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* Floating decorative elements */}
-          <motion.div
+          {/* Floating decorative elements - NO ANIMATIONS */}
+          <div
             className="absolute top-40 right-10 text-6xl opacity-20 hidden lg:block pointer-events-none"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
           >
             ⚙️
-          </motion.div>
-          <motion.div
+          </div>
+          <div
             className="absolute bottom-40 left-10 text-7xl opacity-20 hidden lg:block pointer-events-none"
-            animate={{ y: [0, -20, 0] }}
-            transition={{ duration: 4, repeat: Infinity }}
           >
             💡
-          </motion.div>
+          </div>
 
         </div>
       </div>
