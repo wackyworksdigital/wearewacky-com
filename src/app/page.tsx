@@ -232,7 +232,7 @@ export default function Home() {
                 transition={{ duration: 2, repeat: Infinity }}
               >
                 STUFF
-                <span className="absolute -top-8 -right-12 text-3xl rotate-12 animate-wiggle">
+                <span className="absolute -top-8 -right-12 text-3xl rotate-12">
                   💥
                 </span>
               </motion.span>
@@ -261,9 +261,9 @@ export default function Home() {
               {/* Only show score/timer after game starts */}
               {gameStarted && (
                 <motion.div 
-                  className="flex justify-between items-center mb-4 pb-3 border-b-2 border-black"
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
+                  className="flex justify-between items-center mb-4 pb-3 border-b-2 border-black overflow-hidden"
+                  initial={{ opacity: 0, maxHeight: 0 }}
+                  animate={{ opacity: 1, maxHeight: 200 }}
                   transition={{ duration: 0.3 }}
                 >
                   <div>
@@ -405,9 +405,9 @@ export default function Home() {
                 (we work WITH robots, not AS robots)
               </p>
               <div className="flex justify-center gap-4 mt-3 text-3xl">
-                <span className="animate-bounce">🇬🇧</span>
-                <span className="animate-pulse">🌍</span>
-                <span className="animate-wiggle">👨‍💻</span>
+                <span>🇬🇧</span>
+                <span>🌍</span>
+                <span>👨‍💻</span>
               </div>
             </div>
           </motion.div>
