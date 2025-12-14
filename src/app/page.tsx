@@ -10,74 +10,40 @@ const BG = "#f0eadd";
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Desktop Chase Game State
-  const [chaseScore, setChaseScore] = useState(0);
-  const [chaseTime, setChaseTime] = useState(30);
-  const [chaseGameActive, setChaseGameActive] = useState(false);
-  const [robotPosition, setRobotPosition] = useState({ x: 0, y: 0 });
-
-  // Mobile Whack-a-Mole State
+  // Whack-a-Mole State (ALL screens)
   const [whackScore, setWhackScore] = useState(0);
   const [whackTime, setWhackTime] = useState(30);
   const [whackGameActive, setWhackGameActive] = useState(false);
   const [activeMole, setActiveMole] = useState<number | null>(null);
+  const [gameStarted, setGameStarted] = useState(false); // Track if game has been discovered
 
-  // Desktop Chase Game Logic
-  const moveRobot = useCallback(() => {
-    const maxX = 250;
-    const maxY = 100;
-    setRobotPosition({
-      x: Math.random() * maxX - maxX / 2,
-      y: Math.random() * maxY - maxY / 2,
-    });
-  }, []);
+  // Idle mode - robot appears occasionally before game starts
+  const [idleMole, setIdleMole] = useState<number | null>(null);
 
-  const startChaseGame = () => {
-    setChaseScore(0);
-    setChaseTime(30);
-    setChaseGameActive(true);
-    moveRobot();
-  };
-
-  const catchRobot = () => {
-    if (chaseGameActive) {
-      setChaseScore(prev => prev + 1);
-      moveRobot();
+  // Start the game when first robot is clicked
+  const startSecretGame = () => {
+    if (!gameStarted) {
+      setGameStarted(true);
+      setWhackScore(0);
+      setWhackTime(30);
+      setWhackGameActive(true);
+      setIdleMole(null);
     }
-  };
-
-  useEffect(() => {
-    if (chaseGameActive && chaseTime > 0) {
-      const timer = setInterval(() => {
-        setChaseTime(prev => prev - 1);
-      }, 1000);
-      return () => clearInterval(timer);
-    } else if (chaseTime === 0) {
-      setChaseGameActive(false);
-    }
-  }, [chaseGameActive, chaseTime]);
-
-  useEffect(() => {
-    if (chaseGameActive) {
-      const moveInterval = setInterval(moveRobot, 1500);
-      return () => clearInterval(moveInterval);
-    }
-  }, [chaseGameActive, moveRobot]);
-
-  // Mobile Whack-a-Mole Logic
-  const startWhackGame = () => {
-    setWhackScore(0);
-    setWhackTime(30);
-    setWhackGameActive(true);
   };
 
   const whackMole = (index: number) => {
-    if (whackGameActive && activeMole === index) {
+    if (!gameStarted) {
+      // First click - start the game!
+      startSecretGame();
+      setWhackScore(1); // Count the first click
+      setActiveMole(null);
+    } else if (whackGameActive && activeMole === index) {
       setWhackScore(prev => prev + 1);
       setActiveMole(null);
     }
   };
 
+  // Timer countdown
   useEffect(() => {
     if (whackGameActive && whackTime > 0) {
       const timer = setInterval(() => {
@@ -89,15 +55,27 @@ export default function Home() {
     }
   }, [whackGameActive, whackTime]);
 
+  // Mole appearance during game (HARDER - 500ms window)
   useEffect(() => {
     if (whackGameActive) {
       const moleInterval = setInterval(() => {
         setActiveMole(Math.floor(Math.random() * 9));
-        setTimeout(() => setActiveMole(null), 800);
-      }, 1000);
+        setTimeout(() => setActiveMole(null), 500); // Shorter window = harder!
+      }, 800);
       return () => clearInterval(moleInterval);
     }
   }, [whackGameActive]);
+
+  // Idle robot appearance (before game starts)
+  useEffect(() => {
+    if (!gameStarted) {
+      const idleInterval = setInterval(() => {
+        setIdleMole(Math.floor(Math.random() * 9));
+        setTimeout(() => setIdleMole(null), 2000);
+      }, 4000); // Every 4 seconds
+      return () => clearInterval(idleInterval);
+    }
+  }, [gameStarted]);
 
   return (
     <main className="relative min-h-screen overflow-x-hidden" style={{ backgroundColor: BG, color: TEXT }}>
@@ -267,132 +245,84 @@ export default function Home() {
             </motion.p>
           </motion.div>
 
-          {/* DESKTOP CHASE GAME */}
+          {/* SECRET WHACK-A-MOLE GAME - ALL SCREENS */}
           <motion.div
-            className="hidden lg:block mb-16 mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-          >
-            <div className="bg-white p-8 border-4 border-black shadow-brutal rotate-1 max-w-2xl mx-auto">
-              <div className="flex justify-between items-center mb-4">
-                <div>
-                  <h3 
-                    className="text-2xl font-black uppercase"
-                    style={{ fontFamily: "var(--font-bebas), sans-serif" }}
-                  >
-                    CATCH THE ROBOT!
-                  </h3>
-                  <p 
-                    className="text-sm"
-                    style={{ fontFamily: "var(--font-caveat), cursive" }}
-                  >
-                    {chaseGameActive ? "Click it quickly!" : "Click START to play"}
-                  </p>
-                </div>
-                <div className="text-right">
-                  <div className="text-2xl font-black">Score: {chaseScore}</div>
-                  <div className="text-lg font-mono">Time: {chaseTime}s</div>
-                </div>
-              </div>
-
-              {!chaseGameActive && chaseScore > 0 && (
-                <div className="mb-4 p-3 bg-yellow-200 border-2 border-black text-center">
-                  <div className="text-xl font-black">Game Over!</div>
-                  <div className="text-lg">Final Score: {chaseScore}</div>
-                </div>
-              )}
-
-              <div className="bg-gradient-to-br from-purple-100 to-pink-100 border-2 border-black h-64 flex items-center justify-center relative overflow-hidden cursor-crosshair">
-                {chaseGameActive ? (
-                  <motion.div
-                    className="text-6xl cursor-pointer absolute z-10"
-                    onClick={catchRobot}
-                    animate={{
-                      x: robotPosition.x,
-                      y: robotPosition.y,
-                    }}
-                    transition={{
-                      duration: 0.5,
-                      ease: "easeInOut"
-                    }}
-                    whileHover={{ scale: 1.2 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    🤖
-                  </motion.div>
-                ) : (
-                  <button
-                    onClick={startChaseGame}
-                    className="bg-black text-white px-8 py-4 text-2xl font-black uppercase border-2 border-black shadow-brutal hover:shadow-brutal-hover hover:translate-x-1 hover:translate-y-1 transition-all"
-                  >
-                    START GAME
-                  </button>
-                )}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* MOBILE WHACK-A-MOLE GAME */}
-          <motion.div
-            className="lg:hidden mb-16 mx-auto px-4"
+            className="mb-16 mx-auto px-4 max-w-md"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
           >
             <div className="bg-white p-6 border-4 border-black shadow-brutal -rotate-1">
-              <div className="flex justify-between items-center mb-4">
-                <div>
-                  <h3 
-                    className="text-xl font-black uppercase"
-                    style={{ fontFamily: "var(--font-bebas), sans-serif" }}
-                  >
-                    WHACK-A-MOLE!
-                  </h3>
-                  <p 
-                    className="text-xs"
-                    style={{ fontFamily: "var(--font-caveat), cursive" }}
-                  >
-                    {whackGameActive ? "Tap the robots!" : "Tap START to play"}
-                  </p>
-                </div>
-                <div className="text-right">
-                  <div className="text-xl font-black">Score: {whackScore}</div>
-                  <div className="text-sm font-mono">Time: {whackTime}s</div>
-                </div>
-              </div>
-
-              {!whackGameActive && whackScore > 0 && (
-                <div className="mb-4 p-3 bg-yellow-200 border-2 border-black text-center">
-                  <div className="text-lg font-black">Game Over!</div>
-                  <div className="text-base">Final Score: {whackScore}</div>
-                </div>
+              
+              {/* Only show score/timer after game starts */}
+              {gameStarted && (
+                <motion.div 
+                  className="flex justify-between items-center mb-4 pb-3 border-b-2 border-black"
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div>
+                    <h3 
+                      className="text-xl md:text-2xl font-black uppercase"
+                      style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+                    >
+                      WHACK-A-MOLE!
+                    </h3>
+                    <p 
+                      className="text-xs"
+                      style={{ fontFamily: "var(--font-caveat), cursive" }}
+                    >
+                      {whackGameActive ? "Quick! Tap them!" : "Game Over!"}
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-2xl font-black">Score: {whackScore}</div>
+                    <div className="text-lg font-mono">Time: {whackTime}s</div>
+                  </div>
+                </motion.div>
               )}
 
-              {whackGameActive ? (
-                <div className="grid grid-cols-3 gap-3">
-                  {[...Array(9)].map((_, i) => (
+              {/* Game Over Message */}
+              {gameStarted && !whackGameActive && (
+                <motion.div 
+                  className="mb-4 p-4 bg-yellow-200 border-2 border-black text-center"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                >
+                  <div className="text-xl font-black">Game Over!</div>
+                  <div className="text-lg mb-2">Final Score: {whackScore}</div>
+                  <button
+                    onClick={startSecretGame}
+                    className="bg-black text-white px-6 py-2 text-sm font-black uppercase border-2 border-black shadow-brutal-sm hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
+                  >
+                    PLAY AGAIN
+                  </button>
+                </motion.div>
+              )}
+
+              {/* The Grid - Always visible */}
+              <div className="grid grid-cols-3 gap-3">
+                {[...Array(9)].map((_, i) => {
+                  const showRobot = gameStarted 
+                    ? activeMole === i 
+                    : idleMole === i;
+
+                  return (
                     <button
                       key={i}
                       onClick={() => whackMole(i)}
-                      className={`border-2 border-black aspect-square flex items-center justify-center text-4xl transition-all ${
-                        activeMole === i 
+                      className={`border-2 border-black aspect-square flex items-center justify-center text-3xl md:text-4xl transition-all ${
+                        showRobot
                           ? 'bg-yellow-300 scale-110' 
                           : 'bg-gradient-to-br from-green-100 to-blue-100'
                       }`}
                     >
-                      {activeMole === i ? "🤖" : ""}
+                      {showRobot ? "🤖" : ""}
                     </button>
-                  ))}
-                </div>
-              ) : (
-                <button
-                  onClick={startWhackGame}
-                  className="w-full bg-black text-white px-6 py-4 text-xl font-black uppercase border-2 border-black shadow-brutal hover:shadow-brutal-hover hover:translate-x-1 hover:translate-y-1 transition-all"
-                >
-                  START GAME
-                </button>
-              )}
+                  );
+                })}
+              </div>
             </div>
           </motion.div>
 
