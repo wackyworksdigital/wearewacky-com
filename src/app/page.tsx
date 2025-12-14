@@ -82,7 +82,7 @@ export default function Home() {
   }, [gameStarted]);
 
   return (
-    <main className="relative min-h-screen overflow-x-hidden" style={{ backgroundColor: BG, color: TEXT }}>
+    <main className="relative min-h-screen pb-20 overflow-x-hidden" style={{ backgroundColor: BG, color: TEXT }}>
       {/* Grid paper background */}
       <div 
         className="fixed inset-0 pointer-events-none opacity-10 z-0"
