@@ -61,20 +61,31 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Mobile Menu */}
-      <header className="lg:hidden fixed top-0 w-full z-50 px-4 py-3 backdrop-blur border-b-2 border-black flex justify-between items-center shadow-brutal-sm" style={{ backgroundColor: 'rgba(240, 234, 221, 0.95)' }}>
-        <div className="font-black text-2xl tracking-tighter bg-black text-white px-2 rotate-2">WAW!</div>
-        <button 
-          className="text-4xl border-2 border-black rounded-full hover:bg-black hover:text-white transition-colors w-12 h-12 flex items-center justify-center"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          {menuOpen ? "✕" : "☰"}
-        </button>
+      {/* Mobile Menu - Top LEFT with branding */}
+      <header className="lg:hidden fixed top-0 left-0 z-50 px-4 py-3 backdrop-blur border-b-2 border-r-2 border-black shadow-brutal-sm" style={{ backgroundColor: 'rgba(240, 234, 221, 0.95)' }}>
+        <div className="bg-yellow-300 px-3 py-2 border-2 border-black shadow-brutal-sm rotate-1">
+          <div className="text-center">
+            <div className="text-sm font-black uppercase leading-none" style={{ fontFamily: "var(--font-bebas), sans-serif" }}>
+              WACKY WORKS
+            </div>
+            <div className="text-[8px]" style={{ fontFamily: "var(--font-caveat), cursive" }}>
+              @wackyworksdigital
+            </div>
+          </div>
+        </div>
       </header>
+
+      {/* Mobile Menu Button - Top RIGHT */}
+      <button 
+        className="lg:hidden fixed top-4 right-4 z-50 text-4xl border-2 border-black rounded-full hover:bg-black hover:text-white transition-colors w-12 h-12 flex items-center justify-center bg-white shadow-brutal-sm"
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+        {menuOpen ? "✕" : "☰"}
+      </button>
 
       {/* Mobile Menu Dropdown */}
       {menuOpen && (
-        <div className="lg:hidden fixed top-16 left-0 right-0 z-40 bg-paper-white border-b-2 border-black p-6 shadow-brutal">
+        <div className="lg:hidden fixed top-20 left-0 right-0 z-40 bg-paper-white border-b-2 border-black p-6 shadow-brutal">
           <ul className="flex flex-col gap-4 text-xl font-bold lowercase">
             <li><span className="bg-black text-white px-2">home</span></li>
             <li><Link href="/about" className="hover:text-red-600 transition-colors">about</Link></li>
@@ -85,7 +96,7 @@ export default function Home() {
         </div>
       )}
 
-      {/* Brand Badge - Top Right */}
+      {/* Brand Badge - Top Right - Desktop only */}
       <motion.div
         className="fixed top-6 right-6 z-40 hidden lg:block"
         initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
@@ -116,30 +127,11 @@ export default function Home() {
         </div>
       </motion.div>
 
-      {/* Mobile Brand - Below menu button */}
-      <motion.div
-        className="lg:hidden fixed top-20 left-1/2 -translate-x-1/2 z-30"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-      >
-        <div className="bg-yellow-300 px-4 py-2 border-2 border-black shadow-brutal-sm rotate-1">
-          <div className="text-center">
-            <div className="text-sm font-black uppercase" style={{ fontFamily: "var(--font-bebas), sans-serif" }}>
-              Wacky Works Digital
-            </div>
-            <div className="text-[10px]" style={{ fontFamily: "var(--font-caveat), cursive" }}>
-              @wackyworksdigital
-            </div>
-          </div>
-        </div>
-      </motion.div>
-
       {/* HERO SECTION */}
       <div className="relative z-10 min-h-screen flex items-center justify-center px-6 pt-32 lg:pt-0 pb-20">
         <div className="w-full max-w-6xl">
           
-          {/* Big chaotic title */}
+          {/* Big title - simplified */}
           <motion.div
             className="mb-12 relative text-center"
             initial={{ opacity: 0, scale: 0.9 }}
@@ -168,18 +160,16 @@ export default function Home() {
                 animate={{ scale: [1, 1.05, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                WEIRD
+                STUFF
                 <span className="absolute -top-8 -right-12 text-3xl rotate-12 animate-wiggle">
                   💥
                 </span>
               </motion.span>
-              <br />
-              <span className="inline-block -rotate-2">STUFF</span>
             </h1>
 
             {/* Handwriting tagline */}
             <motion.p
-              className="text-2xl md:text-4xl mt-8 -rotate-1"
+              className="text-2xl md:text-4xl mt-6 -rotate-1"
               style={{ fontFamily: "var(--font-caveat), cursive", color: "#2563eb" }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -189,51 +179,133 @@ export default function Home() {
             </motion.p>
           </motion.div>
 
+          {/* Mini Game Placeholder - Desktop */}
+          <motion.div
+            className="hidden lg:block mb-16 mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            <div className="bg-white p-8 border-4 border-black shadow-brutal rotate-1 max-w-2xl mx-auto">
+              <div className="text-center mb-4">
+                <h3 
+                  className="text-2xl font-black uppercase"
+                  style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+                >
+                  CATCH THE ROBOT!
+                </h3>
+                <p 
+                  className="text-sm mt-1"
+                  style={{ fontFamily: "var(--font-caveat), cursive" }}
+                >
+                  (click the moving emoji)
+                </p>
+              </div>
+              <div className="bg-gradient-to-br from-purple-100 to-pink-100 border-2 border-black h-64 flex items-center justify-center relative overflow-hidden">
+                <motion.div
+                  className="text-6xl cursor-pointer absolute"
+                  animate={{
+                    x: [0, 200, -200, 100, -100, 0],
+                    y: [0, -100, 100, -50, 50, 0],
+                  }}
+                  transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                >
+                  🤖
+                </motion.div>
+                <div 
+                  className="text-sm font-mono opacity-30"
+                  style={{ fontFamily: "var(--font-space), sans-serif" }}
+                >
+                  [GAME AREA]
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Mini Game Placeholder - Mobile/Tablet */}
+          <motion.div
+            className="lg:hidden mb-16 mx-auto px-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+          >
+            <div className="bg-white p-6 border-4 border-black shadow-brutal -rotate-1">
+              <div className="text-center mb-4">
+                <h3 
+                  className="text-xl font-black uppercase"
+                  style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+                >
+                  WHACK-A-MOLE!
+                </h3>
+                <p 
+                  className="text-xs mt-1"
+                  style={{ fontFamily: "var(--font-caveat), cursive" }}
+                >
+                  (tap the robots)
+                </p>
+              </div>
+              <div className="grid grid-cols-3 gap-3">
+                {[...Array(9)].map((_, i) => (
+                  <div 
+                    key={i}
+                    className="bg-gradient-to-br from-green-100 to-blue-100 border-2 border-black aspect-square flex items-center justify-center text-3xl cursor-pointer hover:bg-yellow-200 transition-colors"
+                  >
+                    {i % 3 === 0 ? "🤖" : ""}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
           {/* CTA Button */}
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-16 relative"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
+            {/* Arrow pointing DOWN to button */}
+            <motion.div
+              className="mb-4 text-3xl"
+              style={{ fontFamily: "var(--font-marker), cursive", color: TEXT }}
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              ↓ click me!
+            </motion.div>
+
             <Link href="/services">
               <motion.div
-                className="inline-block bg-black text-white p-8 md:p-12 border-4 border-black shadow-brutal-lg hover:shadow-brutal hover:translate-x-2 hover:translate-y-2 transition-all cursor-pointer relative"
+                className="inline-block bg-black text-white p-8 md:p-12 border-4 border-black shadow-brutal-lg hover:shadow-brutal hover:translate-x-2 hover:translate-y-2 transition-all cursor-pointer"
                 whileHover={{ rotate: -2 }}
               >
                 <h2 className="text-4xl md:text-6xl font-black uppercase">
                   SEE WHAT<br/>WE DO
                 </h2>
-                
-                {/* Arrow pointing UP */}
-                <motion.div
-                  className="absolute -top-16 left-1/2 -translate-x-1/2 text-3xl"
-                  style={{ fontFamily: "var(--font-marker), cursive", color: TEXT }}
-                  animate={{ y: [0, 8, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  ↑ click me!
-                </motion.div>
               </motion.div>
             </Link>
           </motion.div>
 
-          {/* Slogan - Big statement card */}
+          {/* Slogan - Tighter spacing */}
           <motion.div
             className="text-center mb-16"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.7 }}
           >
-            <div className="inline-block bg-white p-8 md:p-12 border-4 border-black shadow-brutal rotate-1 max-w-3xl">
+            <div className="inline-block bg-white p-8 md:p-10 border-4 border-black shadow-brutal rotate-1 max-w-2xl">
               <h3 
-                className="text-3xl md:text-5xl font-black uppercase leading-tight mb-4"
+                className="text-3xl md:text-5xl font-black uppercase leading-tight mb-2"
                 style={{ fontFamily: "var(--font-bebas), sans-serif" }}
               >
                 WE'RE NOT<br/>FOR EVERYONE
               </h3>
               <p 
-                className="text-2xl md:text-3xl -rotate-1"
+                className="text-xl md:text-2xl -rotate-1"
                 style={{ fontFamily: "var(--font-caveat), cursive" }}
               >
                 and that's the whole point.
@@ -241,7 +313,7 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* Bottom info card */}
+          {/* Bottom info card - Tighter spacing */}
           <motion.div
             className="text-center"
             initial={{ opacity: 0 }}
@@ -250,14 +322,18 @@ export default function Home() {
           >
             <div className="inline-block bg-green-300 p-6 border-2 border-black shadow-brutal rotate-1 max-w-2xl">
               <p 
-                className="text-base md:text-lg leading-relaxed"
-                style={{ fontFamily: "var(--font-caveat), cursive", fontSize: "24px" }}
+                className="text-lg md:text-xl leading-snug"
+                style={{ fontFamily: "var(--font-caveat), cursive" }}
               >
                 UK-based • worldwide clients • 100% real humans
-                <br/>
-                <span className="text-sm">(we work WITH robots, not AS robots)</span>
               </p>
-              <div className="flex justify-center gap-4 mt-4 text-3xl">
+              <p 
+                className="text-sm mt-1"
+                style={{ fontFamily: "var(--font-caveat), cursive" }}
+              >
+                (we work WITH robots, not AS robots)
+              </p>
+              <div className="flex justify-center gap-4 mt-3 text-3xl">
                 <span className="animate-bounce">🇬🇧</span>
                 <span className="animate-pulse">🌍</span>
                 <span className="animate-wiggle">👨‍💻</span>
