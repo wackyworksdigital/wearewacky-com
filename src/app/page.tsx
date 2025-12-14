@@ -86,6 +86,56 @@ export default function Home() {
         </div>
       )}
 
+      {/* Brand Badge - Top Right */}
+      <motion.div
+        className="fixed top-6 right-6 z-40 hidden lg:block"
+        initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+        animate={{ opacity: 1, scale: 1, rotate: 0 }}
+        transition={{ delay: 0.5, duration: 0.6 }}
+      >
+        <div className="bg-white p-4 border-2 border-black shadow-brutal rotate-3 hover:rotate-0 transition-transform cursor-default">
+          <div className="text-center">
+            <h2 
+              className="text-xl font-black uppercase leading-none mb-1"
+              style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+            >
+              WACKY WORKS
+            </h2>
+            <p 
+              className="text-xs tracking-widest"
+              style={{ fontFamily: "var(--font-space), sans-serif" }}
+            >
+              DIGITAL
+            </p>
+            <div 
+              className="text-[10px] mt-1"
+              style={{ fontFamily: "var(--font-caveat), cursive" }}
+            >
+              @wackyworksdigital
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Mobile Brand - Below menu button */}
+      <motion.div
+        className="lg:hidden fixed top-20 left-1/2 -translate-x-1/2 z-30"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+      >
+        <div className="bg-yellow-300 px-4 py-2 border-2 border-black shadow-brutal-sm rotate-1">
+          <div className="text-center">
+            <div className="text-sm font-black uppercase" style={{ fontFamily: "var(--font-bebas), sans-serif" }}>
+              Wacky Works Digital
+            </div>
+            <div className="text-[10px]" style={{ fontFamily: "var(--font-caveat), cursive" }}>
+              @wackyworksdigital
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
       {/* HERO SECTION - WILD & SCATTERED */}
       <div className="relative z-10 min-h-screen flex items-center justify-center px-6 pt-20 lg:pt-0">
         <div className="w-full max-w-7xl">
