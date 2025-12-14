@@ -2,13 +2,102 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const TEXT = "#3d3428";
 const BG = "#f0eadd";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  // Desktop Chase Game State
+  const [chaseScore, setChaseScore] = useState(0);
+  const [chaseTime, setChaseTime] = useState(30);
+  const [chaseGameActive, setChaseGameActive] = useState(false);
+  const [robotPosition, setRobotPosition] = useState({ x: 0, y: 0 });
+
+  // Mobile Whack-a-Mole State
+  const [whackScore, setWhackScore] = useState(0);
+  const [whackTime, setWhackTime] = useState(30);
+  const [whackGameActive, setWhackGameActive] = useState(false);
+  const [activeMole, setActiveMole] = useState<number | null>(null);
+
+  // Desktop Chase Game Logic
+  const moveRobot = useCallback(() => {
+    const maxX = 250;
+    const maxY = 100;
+    setRobotPosition({
+      x: Math.random() * maxX - maxX / 2,
+      y: Math.random() * maxY - maxY / 2,
+    });
+  }, []);
+
+  const startChaseGame = () => {
+    setChaseScore(0);
+    setChaseTime(30);
+    setChaseGameActive(true);
+    moveRobot();
+  };
+
+  const catchRobot = () => {
+    if (chaseGameActive) {
+      setChaseScore(prev => prev + 1);
+      moveRobot();
+    }
+  };
+
+  useEffect(() => {
+    if (chaseGameActive && chaseTime > 0) {
+      const timer = setInterval(() => {
+        setChaseTime(prev => prev - 1);
+      }, 1000);
+      return () => clearInterval(timer);
+    } else if (chaseTime === 0) {
+      setChaseGameActive(false);
+    }
+  }, [chaseGameActive, chaseTime]);
+
+  useEffect(() => {
+    if (chaseGameActive) {
+      const moveInterval = setInterval(moveRobot, 1500);
+      return () => clearInterval(moveInterval);
+    }
+  }, [chaseGameActive, moveRobot]);
+
+  // Mobile Whack-a-Mole Logic
+  const startWhackGame = () => {
+    setWhackScore(0);
+    setWhackTime(30);
+    setWhackGameActive(true);
+  };
+
+  const whackMole = (index: number) => {
+    if (whackGameActive && activeMole === index) {
+      setWhackScore(prev => prev + 1);
+      setActiveMole(null);
+    }
+  };
+
+  useEffect(() => {
+    if (whackGameActive && whackTime > 0) {
+      const timer = setInterval(() => {
+        setWhackTime(prev => prev - 1);
+      }, 1000);
+      return () => clearInterval(timer);
+    } else if (whackTime === 0) {
+      setWhackGameActive(false);
+    }
+  }, [whackGameActive, whackTime]);
+
+  useEffect(() => {
+    if (whackGameActive) {
+      const moleInterval = setInterval(() => {
+        setActiveMole(Math.floor(Math.random() * 9));
+        setTimeout(() => setActiveMole(null), 800);
+      }, 1000);
+      return () => clearInterval(moleInterval);
+    }
+  }, [whackGameActive]);
 
   return (
     <main className="relative min-h-screen overflow-x-hidden" style={{ backgroundColor: BG, color: TEXT }}>
@@ -131,7 +220,7 @@ export default function Home() {
       <div className="relative z-10 min-h-screen flex items-center justify-center px-6 pt-32 lg:pt-0 pb-20">
         <div className="w-full max-w-6xl">
           
-          {/* Big title - simplified */}
+          {/* Big title */}
           <motion.div
             className="mb-12 relative text-center"
             initial={{ opacity: 0, scale: 0.9 }}
@@ -167,7 +256,6 @@ export default function Home() {
               </motion.span>
             </h1>
 
-            {/* Handwriting tagline */}
             <motion.p
               className="text-2xl md:text-4xl mt-6 -rotate-1"
               style={{ fontFamily: "var(--font-caveat), cursive", color: "#2563eb" }}
@@ -179,7 +267,7 @@ export default function Home() {
             </motion.p>
           </motion.div>
 
-          {/* Mini Game Placeholder - Desktop */}
+          {/* DESKTOP CHASE GAME */}
           <motion.div
             className="hidden lg:block mb-16 mx-auto"
             initial={{ opacity: 0, y: 20 }}
@@ -187,46 +275,65 @@ export default function Home() {
             transition={{ delay: 0.4 }}
           >
             <div className="bg-white p-8 border-4 border-black shadow-brutal rotate-1 max-w-2xl mx-auto">
-              <div className="text-center mb-4">
-                <h3 
-                  className="text-2xl font-black uppercase"
-                  style={{ fontFamily: "var(--font-bebas), sans-serif" }}
-                >
-                  CATCH THE ROBOT!
-                </h3>
-                <p 
-                  className="text-sm mt-1"
-                  style={{ fontFamily: "var(--font-caveat), cursive" }}
-                >
-                  (click the moving emoji)
-                </p>
-              </div>
-              <div className="bg-gradient-to-br from-purple-100 to-pink-100 border-2 border-black h-64 flex items-center justify-center relative overflow-hidden">
-                <motion.div
-                  className="text-6xl cursor-pointer absolute"
-                  animate={{
-                    x: [0, 200, -200, 100, -100, 0],
-                    y: [0, -100, 100, -50, 50, 0],
-                  }}
-                  transition={{
-                    duration: 8,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
-                >
-                  🤖
-                </motion.div>
-                <div 
-                  className="text-sm font-mono opacity-30"
-                  style={{ fontFamily: "var(--font-space), sans-serif" }}
-                >
-                  [GAME AREA]
+              <div className="flex justify-between items-center mb-4">
+                <div>
+                  <h3 
+                    className="text-2xl font-black uppercase"
+                    style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+                  >
+                    CATCH THE ROBOT!
+                  </h3>
+                  <p 
+                    className="text-sm"
+                    style={{ fontFamily: "var(--font-caveat), cursive" }}
+                  >
+                    {chaseGameActive ? "Click it quickly!" : "Click START to play"}
+                  </p>
                 </div>
+                <div className="text-right">
+                  <div className="text-2xl font-black">Score: {chaseScore}</div>
+                  <div className="text-lg font-mono">Time: {chaseTime}s</div>
+                </div>
+              </div>
+
+              {!chaseGameActive && chaseScore > 0 && (
+                <div className="mb-4 p-3 bg-yellow-200 border-2 border-black text-center">
+                  <div className="text-xl font-black">Game Over!</div>
+                  <div className="text-lg">Final Score: {chaseScore}</div>
+                </div>
+              )}
+
+              <div className="bg-gradient-to-br from-purple-100 to-pink-100 border-2 border-black h-64 flex items-center justify-center relative overflow-hidden cursor-crosshair">
+                {chaseGameActive ? (
+                  <motion.div
+                    className="text-6xl cursor-pointer absolute z-10"
+                    onClick={catchRobot}
+                    animate={{
+                      x: robotPosition.x,
+                      y: robotPosition.y,
+                    }}
+                    transition={{
+                      duration: 0.5,
+                      ease: "easeInOut"
+                    }}
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    🤖
+                  </motion.div>
+                ) : (
+                  <button
+                    onClick={startChaseGame}
+                    className="bg-black text-white px-8 py-4 text-2xl font-black uppercase border-2 border-black shadow-brutal hover:shadow-brutal-hover hover:translate-x-1 hover:translate-y-1 transition-all"
+                  >
+                    START GAME
+                  </button>
+                )}
               </div>
             </div>
           </motion.div>
 
-          {/* Mini Game Placeholder - Mobile/Tablet */}
+          {/* MOBILE WHACK-A-MOLE GAME */}
           <motion.div
             className="lg:hidden mb-16 mx-auto px-4"
             initial={{ opacity: 0, y: 20 }}
@@ -234,30 +341,58 @@ export default function Home() {
             transition={{ delay: 0.4 }}
           >
             <div className="bg-white p-6 border-4 border-black shadow-brutal -rotate-1">
-              <div className="text-center mb-4">
-                <h3 
-                  className="text-xl font-black uppercase"
-                  style={{ fontFamily: "var(--font-bebas), sans-serif" }}
-                >
-                  WHACK-A-MOLE!
-                </h3>
-                <p 
-                  className="text-xs mt-1"
-                  style={{ fontFamily: "var(--font-caveat), cursive" }}
-                >
-                  (tap the robots)
-                </p>
-              </div>
-              <div className="grid grid-cols-3 gap-3">
-                {[...Array(9)].map((_, i) => (
-                  <div 
-                    key={i}
-                    className="bg-gradient-to-br from-green-100 to-blue-100 border-2 border-black aspect-square flex items-center justify-center text-3xl cursor-pointer hover:bg-yellow-200 transition-colors"
+              <div className="flex justify-between items-center mb-4">
+                <div>
+                  <h3 
+                    className="text-xl font-black uppercase"
+                    style={{ fontFamily: "var(--font-bebas), sans-serif" }}
                   >
-                    {i % 3 === 0 ? "🤖" : ""}
-                  </div>
-                ))}
+                    WHACK-A-MOLE!
+                  </h3>
+                  <p 
+                    className="text-xs"
+                    style={{ fontFamily: "var(--font-caveat), cursive" }}
+                  >
+                    {whackGameActive ? "Tap the robots!" : "Tap START to play"}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <div className="text-xl font-black">Score: {whackScore}</div>
+                  <div className="text-sm font-mono">Time: {whackTime}s</div>
+                </div>
               </div>
+
+              {!whackGameActive && whackScore > 0 && (
+                <div className="mb-4 p-3 bg-yellow-200 border-2 border-black text-center">
+                  <div className="text-lg font-black">Game Over!</div>
+                  <div className="text-base">Final Score: {whackScore}</div>
+                </div>
+              )}
+
+              {whackGameActive ? (
+                <div className="grid grid-cols-3 gap-3">
+                  {[...Array(9)].map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => whackMole(i)}
+                      className={`border-2 border-black aspect-square flex items-center justify-center text-4xl transition-all ${
+                        activeMole === i 
+                          ? 'bg-yellow-300 scale-110' 
+                          : 'bg-gradient-to-br from-green-100 to-blue-100'
+                      }`}
+                    >
+                      {activeMole === i ? "🤖" : ""}
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <button
+                  onClick={startWhackGame}
+                  className="w-full bg-black text-white px-6 py-4 text-xl font-black uppercase border-2 border-black shadow-brutal hover:shadow-brutal-hover hover:translate-x-1 hover:translate-y-1 transition-all"
+                >
+                  START GAME
+                </button>
+              )}
             </div>
           </motion.div>
 
@@ -268,7 +403,6 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            {/* Arrow pointing DOWN to button */}
             <motion.div
               className="mb-4 text-3xl"
               style={{ fontFamily: "var(--font-marker), cursive", color: TEXT }}
@@ -290,7 +424,7 @@ export default function Home() {
             </Link>
           </motion.div>
 
-          {/* Slogan - Tighter spacing */}
+          {/* Slogan */}
           <motion.div
             className="text-center mb-16"
             initial={{ opacity: 0, scale: 0.9 }}
@@ -313,7 +447,7 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* Bottom info card - Tighter spacing */}
+          {/* Bottom info card */}
           <motion.div
             className="text-center"
             initial={{ opacity: 0 }}
@@ -343,14 +477,14 @@ export default function Home() {
 
           {/* Floating decorative elements */}
           <motion.div
-            className="absolute top-40 right-10 text-6xl opacity-20 hidden lg:block"
+            className="absolute top-40 right-10 text-6xl opacity-20 hidden lg:block pointer-events-none"
             animate={{ rotate: 360 }}
             transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
           >
             ⚙️
           </motion.div>
           <motion.div
-            className="absolute bottom-40 left-10 text-7xl opacity-20 hidden lg:block"
+            className="absolute bottom-40 left-10 text-7xl opacity-20 hidden lg:block pointer-events-none"
             animate={{ y: [0, -20, 0] }}
             transition={{ duration: 4, repeat: Infinity }}
           >
