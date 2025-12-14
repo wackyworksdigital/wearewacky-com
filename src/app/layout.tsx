@@ -144,14 +144,26 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
+      "@type": ["Organization", "LocalBusiness"],
       "@id": "https://wearewacky.com/#organization",
       name: "Wacky Works Digital",
       url: "https://wearewacky.com",
       logo: "https://wearewacky.com/logo.png",
+      image: "https://wearewacky.com/og-image.png",
       description: "Custom Automation & SaaS Studio. We build digital assets that generate revenue, save time, and automate workflows.",
       foundingDate: "2024",
-      areaServed: "Worldwide",
+      areaServed: ["United Kingdom", "Worldwide"],
+      address: {
+        "@type": "PostalAddress",
+        addressCountry: "GB",
+        addressRegion: "England",
+      },
+      contactPoint: {
+        "@type": "ContactPoint",
+        contactType: "Customer Service",
+        email: "hello@wearewacky.com",
+        availableLanguage: ["English"],
+      },
       knowsAbout: [
         "AI Agents",
         "Workflow Automation",
@@ -166,6 +178,8 @@ const jsonLd = {
         "Branding",
       ],
       slogan: "We're not for everyone. And that's the point.",
+      priceRange: "££-£££",
+      openingHours: "Mo-Fr 09:00-17:00",
       sameAs: [
         "https://www.instagram.com/wackyworksdigital/",
         "https://www.facebook.com/wackyworksdigital/",
@@ -179,6 +193,42 @@ const jsonLd = {
         "https://www.twitch.tv/wackyworksdigital",
         "https://github.com/wackyworksdigital",
         "https://medium.com/@wackyworksdigital",
+      ],
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://wearewacky.com/#breadcrumb",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://wearewacky.com/",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "About",
+          item: "https://wearewacky.com/about",
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Services",
+          item: "https://wearewacky.com/services",
+        },
+        {
+          "@type": "ListItem",
+          position: 4,
+          name: "Portfolio",
+          item: "https://wearewacky.com/portfolio",
+        },
+        {
+          "@type": "ListItem",
+          position: 5,
+          name: "Contact",
+          item: "https://wearewacky.com/contact",
+        },
       ],
     },
     {

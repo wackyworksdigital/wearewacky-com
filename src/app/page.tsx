@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
 import { useState } from "react";
 
 const TEXT = "#3d3428";
@@ -136,18 +135,18 @@ export default function Home() {
         </div>
       </motion.div>
 
-      {/* HERO SECTION - WILD & SCATTERED */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-6 pt-20 lg:pt-0">
-        <div className="w-full max-w-7xl">
+      {/* HERO SECTION */}
+      <div className="relative z-10 min-h-screen flex items-center justify-center px-6 pt-32 lg:pt-0 pb-20">
+        <div className="w-full max-w-6xl">
           
           {/* Big chaotic title */}
           <motion.div
-            className="mb-16 relative"
+            className="mb-12 relative text-center"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-6xl md:text-8xl lg:text-[140px] font-black tracking-tighter leading-[0.9] text-center">
+            <h1 className="text-6xl md:text-8xl lg:text-[140px] font-black tracking-tighter leading-[0.9]">
               <motion.span 
                 className="inline-block"
                 animate={{ rotate: [-2, 2, -2] }}
@@ -180,7 +179,7 @@ export default function Home() {
 
             {/* Handwriting tagline */}
             <motion.p
-              className="text-2xl md:text-4xl text-center mt-8 -rotate-1"
+              className="text-2xl md:text-4xl mt-8 -rotate-1"
               style={{ fontFamily: "var(--font-caveat), cursive", color: "#2563eb" }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -188,146 +187,14 @@ export default function Home() {
             >
               (that actually works)
             </motion.p>
-
-            {/* Background doodles */}
-            <div className="absolute -top-20 -left-10 text-[200px] opacity-5 -rotate-12 select-none pointer-events-none hidden md:block">
-              ⚡
-            </div>
-            <div className="absolute -bottom-10 -right-20 text-[180px] opacity-5 rotate-45 select-none pointer-events-none hidden md:block">
-              🚀
-            </div>
           </motion.div>
 
-          {/* Service cards - SCATTERED & UNIQUE */}
-          <div className="relative max-w-5xl mx-auto mb-20">
-            
-            {/* Card 1 - AI AGENTS (Yellow sticky) */}
-            <motion.div
-              className="absolute top-0 left-[5%] md:left-[10%] w-64 md:w-80"
-              initial={{ opacity: 0, y: 30, rotate: -8 }}
-              animate={{ opacity: 1, y: 0, rotate: -6 }}
-              transition={{ delay: 0.4 }}
-              whileHover={{ rotate: 0, scale: 1.05, zIndex: 20 }}
-            >
-              <Link href="/services">
-                <div className="bg-yellow-300 p-6 border-2 border-black shadow-brutal relative group cursor-pointer">
-                  {/* Paper clip */}
-                  <div className="absolute -top-3 right-4 w-6 h-12 bg-gray-400 rounded-full opacity-40 rotate-12" />
-                  
-                  <div className="relative h-48 mb-4 border-2 border-black overflow-hidden">
-                    <Image
-                      src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500&h=400&fit=crop"
-                      alt="AI Robot"
-                      fill
-                      className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-                    />
-                  </div>
-                  
-                  <h3 
-                    className="text-3xl font-black uppercase mb-2"
-                    style={{ fontFamily: "var(--font-bebas), sans-serif" }}
-                  >
-                    AI AGENTS
-                  </h3>
-                  <p 
-                    className="text-lg"
-                    style={{ fontFamily: "var(--font-caveat), cursive" }}
-                  >
-                    robots that work while you sleep
-                  </p>
-                  <div className="absolute -bottom-2 -right-2 text-4xl group-hover:scale-125 transition-transform">
-                    🤖
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
-
-            {/* Card 2 - AUTOMATION (Cyan paper) */}
-            <motion.div
-              className="absolute top-24 right-[5%] md:right-[10%] w-64 md:w-80"
-              initial={{ opacity: 0, y: 30, rotate: 8 }}
-              animate={{ opacity: 1, y: 0, rotate: 5 }}
-              transition={{ delay: 0.5 }}
-              whileHover={{ rotate: 0, scale: 1.05, zIndex: 20 }}
-            >
-              <Link href="/services">
-                <div className="bg-cyan-200 p-6 border-2 border-black shadow-brutal relative group cursor-pointer clip-paper">
-                  <div className="relative h-48 mb-4 border border-black overflow-hidden bg-black">
-                    <Image
-                      src="https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=500&h=400&fit=crop"
-                      alt="Automation circuits"
-                      fill
-                      className="object-cover opacity-70 group-hover:opacity-100 transition-opacity"
-                    />
-                  </div>
-                  
-                  <h3 
-                    className="text-3xl font-black uppercase mb-2"
-                    style={{ fontFamily: "var(--font-bebas), sans-serif" }}
-                  >
-                    AUTOMATION
-                  </h3>
-                  <p 
-                    className="text-lg"
-                    style={{ fontFamily: "var(--font-kalam), cursive" }}
-                  >
-                    connect all the things! ⚡
-                  </p>
-                </div>
-              </Link>
-            </motion.div>
-
-            {/* Card 3 - WEBSITES (Pink card) */}
-            <motion.div
-              className="absolute top-72 left-[15%] md:left-[25%] w-64 md:w-80"
-              initial={{ opacity: 0, y: 30, rotate: -5 }}
-              animate={{ opacity: 1, y: 0, rotate: -3 }}
-              transition={{ delay: 0.6 }}
-              whileHover={{ rotate: 0, scale: 1.05, zIndex: 20 }}
-            >
-              <Link href="/services">
-                <div className="p-6 border-2 border-black shadow-brutal relative group cursor-pointer" style={{ backgroundColor: "#f9a8d4" }}>
-                  {/* Tape */}
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-20 h-6 tape-effect -rotate-3 z-10" />
-                  
-                  <div className="relative h-48 mb-4 border-2 border-black overflow-hidden bg-white">
-                    <Image
-                      src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=500&h=400&fit=crop"
-                      alt="Modern website"
-                      fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                  </div>
-                  
-                  <h3 
-                    className="text-3xl font-black uppercase mb-2 bg-white inline-block px-2 border border-black rotate-1"
-                    style={{ fontFamily: "var(--font-bebas), sans-serif" }}
-                  >
-                    WEBSITES
-                  </h3>
-                  <p 
-                    className="text-lg mt-2"
-                    style={{ fontFamily: "var(--font-marker), cursive" }}
-                  >
-                    fast, modern, NOT BORING
-                  </p>
-                  <div className="absolute -bottom-3 -right-3 text-4xl group-hover:rotate-12 transition-transform">
-                    🌐
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
-
-            {/* Spacer to prevent overlap */}
-            <div className="h-[600px] md:h-[500px]" />
-          </div>
-
-          {/* BRUTALIST CTA */}
+          {/* CTA Button */}
           <motion.div
-            className="text-center mb-20"
+            className="text-center mb-16"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8 }}
+            transition={{ delay: 0.5 }}
           >
             <Link href="/services">
               <motion.div
@@ -338,25 +205,48 @@ export default function Home() {
                   SEE WHAT<br/>WE DO
                 </h2>
                 
-                {/* Hand-drawn arrow */}
+                {/* Arrow pointing UP */}
                 <motion.div
-                  className="absolute -bottom-12 left-1/2 -translate-x-1/2 text-3xl"
+                  className="absolute -top-16 left-1/2 -translate-x-1/2 text-3xl"
                   style={{ fontFamily: "var(--font-marker), cursive", color: TEXT }}
-                  animate={{ y: [0, -8, 0] }}
+                  animate={{ y: [0, 8, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
                 >
-                  ↓ click me!
+                  ↑ click me!
                 </motion.div>
               </motion.div>
             </Link>
           </motion.div>
 
+          {/* Slogan - Big statement card */}
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.7 }}
+          >
+            <div className="inline-block bg-white p-8 md:p-12 border-4 border-black shadow-brutal rotate-1 max-w-3xl">
+              <h3 
+                className="text-3xl md:text-5xl font-black uppercase leading-tight mb-4"
+                style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+              >
+                WE'RE NOT<br/>FOR EVERYONE
+              </h3>
+              <p 
+                className="text-2xl md:text-3xl -rotate-1"
+                style={{ fontFamily: "var(--font-caveat), cursive" }}
+              >
+                and that's the whole point.
+              </p>
+            </div>
+          </motion.div>
+
           {/* Bottom info card */}
           <motion.div
-            className="text-center mt-24"
+            className="text-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
+            transition={{ delay: 0.9 }}
           >
             <div className="inline-block bg-green-300 p-6 border-2 border-black shadow-brutal rotate-1 max-w-2xl">
               <p 
@@ -365,7 +255,7 @@ export default function Home() {
               >
                 UK-based • worldwide clients • 100% real humans
                 <br/>
-                <span className="text-sm">(the robots work FOR us, not AS us)</span>
+                <span className="text-sm">(we work WITH robots, not AS robots)</span>
               </p>
               <div className="flex justify-center gap-4 mt-4 text-3xl">
                 <span className="animate-bounce">🇬🇧</span>
