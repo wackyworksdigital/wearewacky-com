@@ -62,20 +62,31 @@ export default function AboutPage() {
         </div>
       </nav>
 
-      {/* Mobile Menu */}
-      <header className="lg:hidden fixed top-0 w-full z-50 px-4 py-3 backdrop-blur border-b-2 border-black flex justify-between items-center shadow-brutal-sm" style={{ backgroundColor: 'rgba(240, 234, 221, 0.95)' }}>
-        <div className="font-black text-2xl tracking-tighter bg-black text-white px-2 rotate-2">WAW!</div>
-        <button 
-          className="text-4xl border-2 border-black rounded-full hover:bg-black hover:text-white transition-colors w-12 h-12 flex items-center justify-center"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          {menuOpen ? "✕" : "☰"}
-        </button>
+      {/* Mobile Menu - Top LEFT with branding */}
+      <header className="lg:hidden fixed top-0 left-0 z-50 px-3 py-3 backdrop-blur border-b-2 border-r-2 border-black shadow-brutal-sm" style={{ backgroundColor: 'rgba(240, 234, 221, 0.95)' }}>
+        <div className="bg-yellow-300 px-4 py-2 border-2 border-black shadow-brutal-sm rotate-1">
+          <div className="text-center">
+            <div className="text-xs font-black uppercase leading-none" style={{ fontFamily: "var(--font-bebas), sans-serif" }}>
+              WACKY WORKS DIGITAL
+            </div>
+            <div className="text-[8px] mt-0.5" style={{ fontFamily: "var(--font-caveat), cursive" }}>
+              @wackyworksdigital
+            </div>
+          </div>
+        </div>
       </header>
+
+      {/* Mobile Menu Button - Top RIGHT */}
+      <button 
+        className="lg:hidden fixed top-4 right-4 z-50 text-4xl border-2 border-black rounded-full hover:bg-black hover:text-white transition-colors w-12 h-12 flex items-center justify-center bg-white shadow-brutal-sm"
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+        {menuOpen ? "✕" : "☰"}
+      </button>
 
       {/* Mobile Menu Dropdown */}
       {menuOpen && (
-        <div className="lg:hidden fixed top-16 left-0 right-0 z-40 bg-paper-white border-b-2 border-black p-6 shadow-brutal">
+        <div className="lg:hidden fixed top-20 left-0 right-0 z-40 bg-paper-white border-b-2 border-black p-6 shadow-brutal">
           <ul className="flex flex-col gap-4 text-xl font-bold lowercase">
             <li><Link href="/" className="hover:text-red-600 transition-colors">home</Link></li>
             <li><span className="bg-black text-white px-2">about</span></li>
@@ -86,8 +97,39 @@ export default function AboutPage() {
         </div>
       )}
 
+      {/* Brand Badge - Desktop only */}
+      <motion.div
+        className="fixed top-6 right-6 z-40 hidden lg:block"
+        initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+        animate={{ opacity: 1, scale: 1, rotate: 0 }}
+        transition={{ delay: 0.5, duration: 0.6 }}
+      >
+        <div className="bg-white p-4 border-2 border-black shadow-brutal rotate-3 hover:rotate-0 transition-transform cursor-default">
+          <div className="text-center">
+            <h2 
+              className="text-xl font-black uppercase leading-none mb-1"
+              style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+            >
+              WACKY WORKS
+            </h2>
+            <p 
+              className="text-xs tracking-widest"
+              style={{ fontFamily: "var(--font-space), sans-serif" }}
+            >
+              DIGITAL
+            </p>
+            <div 
+              className="text-[10px] mt-1"
+              style={{ fontFamily: "var(--font-caveat), cursive" }}
+            >
+              @wackyworksdigital
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
       {/* Content */}
-      <div className="relative z-10 min-h-screen px-6 pt-24 lg:pt-16 lg:pl-64 pb-16">
+      <div className="relative z-10 min-h-screen px-6 pt-32 lg:pt-16 lg:pl-64 pb-16">
         <div className="w-full max-w-5xl mx-auto">
           
           {/* Sticky Note Title */}
@@ -108,50 +150,59 @@ export default function AboutPage() {
             </div>
           </motion.div>
 
-          {/* Stacked conversation cards */}
+          {/* The REAL story - creative street art style */}
           <div className="space-y-12 mb-20">
             
-            {/* Card 1 */}
+            {/* Card 1 - Stencil style */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-white border-4 border-black p-6 md:p-8 shadow-brutal -rotate-1 max-w-2xl"
+              className="bg-white border-4 border-black p-6 md:p-8 shadow-brutal -rotate-1 max-w-3xl relative"
             >
+              <div className="absolute -top-4 -right-4 bg-red-600 text-white px-3 py-1 border-2 border-black rotate-12 text-xs font-black">
+                REDACTED
+              </div>
               <h2 
                 className="text-3xl md:text-4xl font-black uppercase mb-4"
                 style={{ fontFamily: "var(--font-bebas), sans-serif" }}
               >
-                I'M NOT LYING
+                <span className="line-through opacity-50">TOP SECRET AGENCY</span>
               </h2>
               <p 
-                className="text-2xl"
+                className="text-xl md:text-2xl"
                 style={{ fontFamily: "var(--font-caveat), cursive" }}
               >
-                you're lying!
+                Actually, we're just a bunch of nerds who got tired of boring corporate jobs.
               </p>
             </motion.div>
 
-            {/* Card 2 */}
+            {/* Card 2 - Spray paint style */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="bg-pink-200 border-4 border-black p-6 md:p-8 shadow-brutal rotate-2 ml-auto max-w-2xl"
+              className="bg-pink-200 border-4 border-black p-6 md:p-8 shadow-brutal rotate-2 ml-auto max-w-3xl relative"
             >
+              <div 
+                className="absolute -top-8 -left-8 text-7xl opacity-20 -rotate-12"
+                style={{ fontFamily: "var(--font-marker), cursive" }}
+              >
+                UK
+              </div>
               <h2 
                 className="text-3xl md:text-4xl font-black uppercase mb-4"
                 style={{ fontFamily: "var(--font-bebas), sans-serif" }}
               >
-                NO, YOU SHUT UP!
+                SMALL UK AGENCY
               </h2>
               <p className="text-base md:text-lg leading-relaxed">
-                (okay but seriously, we're a small UK-based digital agency that builds AI agents, automation workflows, and modern websites. we keep things fun because life's too short for boring agencies.)
+                We build AI agents, automation workflows, and websites. We keep it fun because life's too short for boring agencies. No suits here, just hoodies and good code.
               </p>
             </motion.div>
 
-            {/* Card 3 - Big info card */}
+            {/* Card 3 - Poster style */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -160,31 +211,42 @@ export default function AboutPage() {
               className="bg-cyan-200 border-4 border-black p-6 md:p-8 shadow-brutal -rotate-1"
             >
               <h2 
-                className="text-3xl font-black uppercase mb-6"
+                className="text-3xl font-black uppercase mb-6 text-center"
                 style={{ fontFamily: "var(--font-bebas), sans-serif" }}
               >
-                WHAT WE'RE ACTUALLY ABOUT
+                WHAT WE'RE ABOUT
               </h2>
               <div className="space-y-4 text-base md:text-lg">
-                <p>✓ We build stuff that works while you sleep</p>
-                <p>✓ AI agents, n8n workflows, Next.js websites</p>
-                <p>✓ No corporate BS, just honest work</p>
-                <p>✓ Based in the UK, clients worldwide</p>
-                <p>✓ We reply to emails (shocking, we know)</p>
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl">→</span>
+                  <p>Build stuff that works while you sleep</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl">→</span>
+                  <p>No bullshit, just honest work</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl">→</span>
+                  <p>We actually reply to emails (shocking!)</p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl">→</span>
+                  <p>Based in UK, clients worldwide</p>
+                </div>
               </div>
             </motion.div>
 
           </div>
 
           {/* Info cards grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
             
             {/* Location */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="bg-green-300 p-6 border-2 border-black shadow-brutal rotate-1 hover:rotate-0 transition-transform"
+              className="bg-green-300 p-6 border-2 border-black shadow-brutal rotate-1 hover:rotate-0 transition-transform text-center"
             >
               <div className="text-5xl mb-3">📍</div>
               <h3 
@@ -198,31 +260,7 @@ export default function AboutPage() {
                 style={{ fontFamily: "var(--font-caveat), cursive" }}
               >
                 UK-based<br/>
-                (we work in our pajamas)
-              </p>
-            </motion.div>
-
-            {/* Hours */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="p-6 border-2 border-black shadow-brutal -rotate-1 hover:rotate-0 transition-transform" style={{ backgroundColor: "#f9a8d4" }}
-            >
-              <div className="text-5xl mb-3">⏰</div>
-              <h3 
-                className="text-2xl font-black uppercase mb-2"
-                style={{ fontFamily: "var(--font-bebas), sans-serif" }}
-              >
-                HOURS
-              </h3>
-              <p 
-                className="text-lg"
-                style={{ fontFamily: "var(--font-kalam), cursive" }}
-              >
-                Mon-Fri<br/>
-                (the bots work 24/7 tho)
+                (working in pajamas since 2024)
               </p>
             </motion.div>
 
@@ -231,8 +269,8 @@ export default function AboutPage() {
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-              className="bg-purple-300 p-6 border-2 border-black shadow-brutal rotate-2 hover:rotate-0 transition-transform"
+              transition={{ delay: 0.1 }}
+              className="p-6 border-2 border-black shadow-brutal -rotate-1 hover:rotate-0 transition-transform text-center" style={{ backgroundColor: "#f9a8d4" }}
             >
               <div className="text-5xl mb-3">✨</div>
               <h3 
@@ -250,6 +288,30 @@ export default function AboutPage() {
               </p>
             </motion.div>
 
+            {/* Stack */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="bg-purple-300 p-6 border-2 border-black shadow-brutal rotate-2 hover:rotate-0 transition-transform text-center"
+            >
+              <div className="text-5xl mb-3">⚙️</div>
+              <h3 
+                className="text-2xl font-black uppercase mb-2"
+                style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+              >
+                TECH
+              </h3>
+              <p 
+                className="text-sm"
+                style={{ fontFamily: "var(--font-space), sans-serif" }}
+              >
+                Next.js • OpenAI<br/>
+                Claude • n8n • Zapier
+              </p>
+            </motion.div>
+
           </div>
 
           {/* Team photo section */}
@@ -259,7 +321,10 @@ export default function AboutPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <div className="bg-white p-4 md:p-6 border-2 border-black shadow-brutal -rotate-1">
+            <div className="bg-white p-4 md:p-6 border-2 border-black shadow-brutal -rotate-1 relative">
+              <div className="absolute -top-3 left-8 bg-yellow-300 px-3 py-1 border-2 border-black rotate-3 text-xs font-black">
+                NOT STOCK PHOTO
+              </div>
               <div className="relative h-64 md:h-96 border-2 border-black overflow-hidden mb-4">
                 <Image
                   src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=500&fit=crop"
@@ -273,49 +338,16 @@ export default function AboutPage() {
                     className="text-white text-2xl md:text-3xl"
                     style={{ fontFamily: "var(--font-marker), cursive" }}
                   >
-                    This could be us working on your project →
+                    This could be us building your next project →
                   </p>
                 </div>
               </div>
               <p 
-                className="text-center text-sm"
+                className="text-center text-sm line-through opacity-50"
                 style={{ fontFamily: "var(--font-caveat), cursive" }}
               >
-                (stock photo, but you get the idea)
+                (okay fine, it's a stock photo, but you get the idea)
               </p>
-            </div>
-          </motion.div>
-
-          {/* Technologies we use */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="bg-black text-white p-8 border-2 border-black shadow-brutal rotate-1 mb-20"
-          >
-            <h2 
-              className="text-3xl md:text-4xl font-black uppercase mb-6 text-center"
-              style={{ fontFamily: "var(--font-bebas), sans-serif" }}
-            >
-              TECH WE USE
-            </h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-              <div className="border border-gray-700 p-4">
-                <div className="text-3xl mb-2">⚛️</div>
-                <div className="font-mono text-sm">Next.js<br/>React</div>
-              </div>
-              <div className="border border-gray-700 p-4">
-                <div className="text-3xl mb-2">🤖</div>
-                <div className="font-mono text-sm">OpenAI<br/>Claude</div>
-              </div>
-              <div className="border border-gray-700 p-4">
-                <div className="text-3xl mb-2">⚙️</div>
-                <div className="font-mono text-sm">n8n<br/>Zapier</div>
-              </div>
-              <div className="border border-gray-700 p-4">
-                <div className="text-3xl mb-2">🎨</div>
-                <div className="font-mono text-sm">Figma<br/>Tailwind</div>
-              </div>
             </div>
           </motion.div>
 
@@ -328,12 +360,12 @@ export default function AboutPage() {
           >
             <Link href="/contact">
               <div className="relative inline-block">
-                <div className="bg-white p-8 md:p-12 border-4 border-black shadow-brutal-lg hover:shadow-brutal hover:translate-x-2 hover:translate-y-2 transition-all duration-200">
+                <div className="bg-black text-white p-8 md:p-12 border-4 border-black shadow-brutal-lg hover:shadow-brutal hover:translate-x-2 hover:translate-y-2 transition-all duration-200">
                   <h2 className="text-4xl md:text-5xl font-black uppercase mb-4">
-                    WANNA WORK<br/>WITH US?
+                    LIKE WHAT<br/>YOU SEE?
                   </h2>
                   <p 
-                    className="text-xl text-gray-600"
+                    className="text-xl text-white/90"
                     style={{ fontFamily: "var(--font-caveat), cursive" }}
                   >
                     Let's make something weird together
