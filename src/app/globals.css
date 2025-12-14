@@ -204,7 +204,7 @@ html.lenis, html.lenis body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #8b5e3c;
+  background: #000000;
   border-radius: 4px;
 }
 
