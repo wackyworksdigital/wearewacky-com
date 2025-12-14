@@ -405,24 +405,28 @@ export default function Home() {
                 (we work WITH robots, not AS robots)
               </p>
               <div className="flex justify-center gap-4 mt-3 text-3xl">
-                <span>🇬🇧</span>
-                <span>🌍</span>
-                <span>👨‍💻</span>
+                <span className="animate-pulse">🇬🇧</span>
+                <span className="animate-spin-slow">🌍</span>
+                <span className="animate-wiggle">👨‍💻</span>
               </div>
             </div>
           </motion.div>
 
           {/* Floating decorative elements */}
-          <div
+          <motion.div
             className="absolute top-40 right-10 text-6xl opacity-20 hidden lg:block pointer-events-none"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
           >
             ⚙️
-          </div>
-          <div
+          </motion.div>
+          <motion.div
             className="absolute bottom-40 left-10 text-7xl opacity-20 hidden lg:block pointer-events-none"
+            animate={{ y: [0, -20, 0] }}
+            transition={{ duration: 4, repeat: Infinity }}
           >
             💡
-          </div>
+          </motion.div>
 
         </div>
       </div>
