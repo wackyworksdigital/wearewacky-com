@@ -306,7 +306,7 @@ export default function PortfolioPage() {
                   "It writes better than me..." <br/>
                   - An unhappy copywriter
                 </p>
-                <div className="mt-4 flex justify-end text-3xl animate-bounce">
+                <div className="mt-4 flex justify-end text-3xl">
                   ✍️
                 </div>
               </div>

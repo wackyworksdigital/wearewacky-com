@@ -371,7 +371,7 @@ export default function AboutPage() {
                     Let's make something weird together
                   </p>
                 </div>
-                <div className="absolute -bottom-8 -right-8 text-6xl animate-bounce">
+                <div className="absolute -bottom-8 -right-8 text-6xl">
                   💬
                 </div>
               </div>
