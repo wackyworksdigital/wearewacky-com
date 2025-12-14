@@ -32,11 +32,11 @@ export default function Home() {
   };
 
   const whackMole = (index: number) => {
-    if (!gameStarted) {
+    if (!gameStarted && idleMole === index) {
       // First click - start the game!
       startSecretGame();
       setWhackScore(1); // Count the first click
-      setActiveMole(null);
+      setIdleMole(null);
     } else if (whackGameActive && activeMole === index) {
       setWhackScore(prev => prev + 1);
       setActiveMole(null);
@@ -55,13 +55,13 @@ export default function Home() {
     }
   }, [whackGameActive, whackTime]);
 
-  // Mole appearance during game (HARDER - 500ms window)
+  // Mole appearance during game (600ms window, bigger gap)
   useEffect(() => {
     if (whackGameActive) {
       const moleInterval = setInterval(() => {
         setActiveMole(Math.floor(Math.random() * 9));
-        setTimeout(() => setActiveMole(null), 500); // Shorter window = harder!
-      }, 800);
+        setTimeout(() => setActiveMole(null), 600); // 600ms to hit
+      }, 1200); // Bigger gap between appearances
       return () => clearInterval(moleInterval);
     }
   }, [whackGameActive]);
@@ -72,7 +72,7 @@ export default function Home() {
       const idleInterval = setInterval(() => {
         setIdleMole(Math.floor(Math.random() * 9));
         setTimeout(() => setIdleMole(null), 2000);
-      }, 4000); // Every 4 seconds
+      }, 5000); // Every 5 seconds
       return () => clearInterval(idleInterval);
     }
   }, [gameStarted]);
@@ -129,13 +129,13 @@ export default function Home() {
       </nav>
 
       {/* Mobile Menu - Top LEFT with branding */}
-      <header className="lg:hidden fixed top-0 left-0 z-50 px-4 py-3 backdrop-blur border-b-2 border-r-2 border-black shadow-brutal-sm" style={{ backgroundColor: 'rgba(240, 234, 221, 0.95)' }}>
-        <div className="bg-yellow-300 px-3 py-2 border-2 border-black shadow-brutal-sm rotate-1">
+      <header className="lg:hidden fixed top-0 left-0 z-50 px-3 py-3 backdrop-blur border-b-2 border-r-2 border-black shadow-brutal-sm" style={{ backgroundColor: 'rgba(240, 234, 221, 0.95)' }}>
+        <div className="bg-yellow-300 px-4 py-2 border-2 border-black shadow-brutal-sm rotate-1">
           <div className="text-center">
-            <div className="text-sm font-black uppercase leading-none" style={{ fontFamily: "var(--font-bebas), sans-serif" }}>
-              WACKY WORKS
+            <div className="text-xs font-black uppercase leading-none" style={{ fontFamily: "var(--font-bebas), sans-serif" }}>
+              WACKY WORKS DIGITAL
             </div>
-            <div className="text-[8px]" style={{ fontFamily: "var(--font-caveat), cursive" }}>
+            <div className="text-[8px] mt-0.5" style={{ fontFamily: "var(--font-caveat), cursive" }}>
               @wackyworksdigital
             </div>
           </div>
@@ -241,7 +241,7 @@ export default function Home() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
-              (that actually works)
+              (beep boop, we're robots now)
             </motion.p>
           </motion.div>
 
@@ -267,7 +267,7 @@ export default function Home() {
                       className="text-xl md:text-2xl font-black uppercase"
                       style={{ fontFamily: "var(--font-bebas), sans-serif" }}
                     >
-                      WHACK-A-MOLE!
+                      WHACK A BOT!
                     </h3>
                     <p 
                       className="text-xs"
@@ -363,7 +363,7 @@ export default function Home() {
           >
             <div className="inline-block bg-white p-8 md:p-10 border-4 border-black shadow-brutal rotate-1 max-w-2xl">
               <h3 
-                className="text-3xl md:text-5xl font-black uppercase leading-tight mb-2"
+                className="text-3xl md:text-5xl font-black uppercase leading-tight mb-1"
                 style={{ fontFamily: "var(--font-bebas), sans-serif" }}
               >
                 WE'RE NOT<br/>FOR EVERYONE
@@ -372,7 +372,7 @@ export default function Home() {
                 className="text-xl md:text-2xl -rotate-1"
                 style={{ fontFamily: "var(--font-caveat), cursive" }}
               >
-                and that's the whole point.
+                and that's the point. honestly!
               </p>
             </div>
           </motion.div>
