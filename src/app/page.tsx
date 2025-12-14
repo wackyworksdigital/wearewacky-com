@@ -210,22 +210,32 @@ export default function Home() {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-5xl md:text-8xl lg:text-[140px] font-black tracking-tighter leading-[0.9]">
-              <span className="inline-block -rotate-2">
+              <motion.span 
+                className="inline-block"
+                animate={{ rotate: [-2, 2, -2] }}
+                transition={{ duration: 3, repeat: Infinity }}
+              >
                 WE
-              </span>{" "}
-              <span className="inline-block text-outline rotate-2">
+              </motion.span>{" "}
+              <motion.span 
+                className="inline-block text-outline"
+                animate={{ rotate: [2, -2, 2] }}
+                transition={{ duration: 3.5, repeat: Infinity }}
+              >
                 BUILD
-              </span>
+              </motion.span>
               <br />
-              <span 
+              <motion.span 
                 className="relative inline-block"
                 style={{ color: "#ff4757" }}
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
               >
                 STUFF
-                <span className="absolute -top-8 -right-12 text-3xl rotate-12">
+                <span className="absolute -top-8 -right-12 text-3xl rotate-12 animate-wiggle">
                   💥
                 </span>
-              </span>
+              </motion.span>
             </h1>
 
             <motion.p
@@ -330,12 +340,14 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <div
+            <motion.div
               className="mb-4 text-3xl"
               style={{ fontFamily: "var(--font-marker), cursive", color: TEXT }}
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
             >
               ↓ click me!
-            </div>
+            </motion.div>
 
             <Link href="/services">
               <motion.div
@@ -393,24 +405,28 @@ export default function Home() {
                 (we work WITH robots, not AS robots)
               </p>
               <div className="flex justify-center gap-4 mt-3 text-3xl">
-                <span>🇬🇧</span>
-                <span>🌍</span>
-                <span>👨‍💻</span>
+                <span className="animate-bounce">🇬🇧</span>
+                <span className="animate-pulse">🌍</span>
+                <span className="animate-wiggle">👨‍💻</span>
               </div>
             </div>
           </motion.div>
 
-          {/* Floating decorative elements - NO ANIMATIONS */}
-          <div
+          {/* Floating decorative elements */}
+          <motion.div
             className="absolute top-40 right-10 text-6xl opacity-20 hidden lg:block pointer-events-none"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
           >
             ⚙️
-          </div>
-          <div
+          </motion.div>
+          <motion.div
             className="absolute bottom-40 left-10 text-7xl opacity-20 hidden lg:block pointer-events-none"
+            animate={{ y: [0, -20, 0] }}
+            transition={{ duration: 4, repeat: Infinity }}
           >
             💡
-          </div>
+          </motion.div>
 
         </div>
       </div>
