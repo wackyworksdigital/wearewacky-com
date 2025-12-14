@@ -22,22 +22,26 @@ export default function Home() {
 
   // Start the game when first robot is clicked
   const startSecretGame = () => {
-    if (!gameStarted) {
-      setGameStarted(true);
-      setWhackScore(0);
-      setWhackTime(30);
-      setWhackGameActive(true);
-      setIdleMole(null);
-    }
+    setGameStarted(true);
+    setWhackScore(0);
+    setWhackTime(30);
+    setWhackGameActive(true);
+    setIdleMole(null);
+    setActiveMole(null);
   };
 
   const whackMole = (index: number) => {
-    if (!gameStarted && idleMole === index) {
-      // First click - start the game!
-      startSecretGame();
-      setWhackScore(1); // Count the first click
-      setIdleMole(null);
-    } else if (whackGameActive && activeMole === index) {
+    // Before game starts - must click the visible idle robot
+    if (!gameStarted) {
+      if (idleMole === index) {
+        startSecretGame();
+        setWhackScore(1); // Count the first click
+      }
+      return;
+    }
+    
+    // During game - only count if clicking the active mole
+    if (whackGameActive && activeMole === index) {
       setWhackScore(prev => prev + 1);
       setActiveMole(null);
     }
@@ -293,7 +297,9 @@ export default function Home() {
                   <div className="text-xl font-black">Game Over!</div>
                   <div className="text-lg mb-2">Final Score: {whackScore}</div>
                   <button
-                    onClick={startSecretGame}
+                    onClick={() => {
+                      startSecretGame();
+                    }}
                     className="bg-black text-white px-6 py-2 text-sm font-black uppercase border-2 border-black shadow-brutal-sm hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
                   >
                     PLAY AGAIN
@@ -312,9 +318,10 @@ export default function Home() {
                     <button
                       key={i}
                       onClick={() => whackMole(i)}
-                      className={`border-2 border-black aspect-square flex items-center justify-center text-3xl md:text-4xl transition-all ${
+                      disabled={!showRobot && !gameStarted} // Only clickable if robot is visible OR game started
+                      className={`border-2 border-black aspect-square flex items-center justify-center text-3xl md:text-4xl transition-all disabled:cursor-default ${
                         showRobot
-                          ? 'bg-yellow-300 scale-110' 
+                          ? 'bg-yellow-300 scale-110 cursor-pointer' 
                           : 'bg-gradient-to-br from-green-100 to-blue-100'
                       }`}
                     >
