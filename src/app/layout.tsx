@@ -7,6 +7,8 @@ import {
   Archivo_Black,
   Syne,
   DM_Serif_Display,
+  Caveat,
+  Kalam,
 } from "next/font/google";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 import "./globals.css";
@@ -60,6 +62,20 @@ const marker = Permanent_Marker({
   variable: "--font-marker",
   subsets: ["latin"],
   weight: ["400"],
+});
+
+// Caveat - handwritten/cursive style for annotations
+const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+// Kalam - another handwritten style (more informal notes)
+const kalam = Kalam({
+  variable: "--font-kalam",
+  subsets: ["latin"],
+  weight: ["300", "400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -299,7 +315,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${archivo.variable} ${syne.variable} ${dmSerif.variable} ${spaceGrotesk.variable} ${playfair.variable} ${bebas.variable} ${marker.variable} antialiased`}
+        className={`${archivo.variable} ${syne.variable} ${dmSerif.variable} ${spaceGrotesk.variable} ${playfair.variable} ${bebas.variable} ${marker.variable} ${caveat.variable} ${kalam.variable} antialiased`}
       >
         <LenisProvider>
           {children}

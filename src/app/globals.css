@@ -1,75 +1,43 @@
 @import "tailwindcss";
 
 /* ============================================
-   WACKY WORKS DIGITAL - Design System
-   Light Mode / Playful / Fun
+   WACKY WORKS DIGITAL - Brutalist Design System
+   Based on Google Stitch Output
    ============================================ */
 
 :root {
-  /* Core Brand Colors (from logo) */
-  --wacky-cyan: #22D3EE;
-  --wacky-purple: #8B5CF6;
-  --wacky-pink: #EC4899;
+  /* Wacky Color Palette */
+  --wacky-cream: #f0eadd;
+  --wacky-brown: #8b5e3c;
+  --wacky-orange: #d97706;
+  --wacky-green: #16a34a;
+  --wacky-red: #dc2626;
+  --wacky-blue: #2563eb;
+  --wacky-yellow: #fcd34d;
+  --wacky-pink: #f9a8d4;
+  --paper-white: #fcfaf5;
   
-  /* NEW: Dark/Light Grey System (no pure black/white) */
-  --wacky-dark: #1a1a1a;
-  --wacky-dark-grey: #2a2a2a;
-  --wacky-mid-grey: #4a4a4a;
-  --wacky-light-grey: #e8e8e8;
-  --wacky-off-white: #f5f5f5;
-  
-  /* Warm Neutrals (NO pure white/black) */
-  --wacky-cream: #FAF8F5;
-  --wacky-warm-white: #FFFDF9;
-  --wacky-charcoal: #2D3748;
-  --wacky-slate: #64748B;
-  
-  /* Gradients */
-  --gradient-brand: linear-gradient(135deg, #22D3EE 0%, #8B5CF6 50%, #EC4899 100%);
-  --gradient-subtle: linear-gradient(135deg, rgba(34, 211, 238, 0.1) 0%, rgba(139, 92, 246, 0.1) 50%, rgba(236, 72, 153, 0.1) 100%);
-  
-  /* Theme Variables */
-  --background: #FAF8F5;
-  --foreground: #2D3748;
-  --muted: #64748B;
+  /* Shadows */
+  --shadow-brutal: 5px 5px 0px 0px #000000;
+  --shadow-brutal-sm: 3px 3px 0px 0px #000000;
+  --shadow-brutal-lg: 10px 10px 0px 0px #000000;
+  --shadow-brutal-hover: 2px 2px 0px 0px #000000;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
-  
-  /* Brand Colors */
-  --color-cream: #FAF8F5;
-  --color-warm-white: #FFFDF9;
-  --color-charcoal: #2D3748;
-  --color-slate: #64748B;
-  
-  /* NEW: Dark/Light Grey System */
-  --color-dark: #1a1a1a;
-  --color-dark-grey: #2a2a2a;
-  --color-mid-grey: #4a4a4a;
-  --color-light-grey: #e8e8e8;
-  --color-off-white: #f5f5f5;
-  
-  --color-purple: #8B5CF6;
-  --color-purple-light: #A78BFA;
-  --color-purple-dark: #7C3AED;
-  --color-cyan: #22D3EE;
-  --color-cyan-light: #67E8F9;
-  --color-cyan-dark: #06B6D4;
-  --color-pink: #EC4899;
-  --color-pink-light: #F472B6;
-  
-  /* Fonts */
-  --font-sans: var(--font-plus-jakarta), system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), monospace;
-  --font-serif: var(--font-playfair), Georgia, serif;
-  --font-space: var(--font-space), system-ui, sans-serif;
+  --color-wacky-cream: #f0eadd;
+  --color-wacky-brown: #8b5e3c;
+  --color-wacky-orange: #d97706;
+  --color-wacky-green: #16a34a;
+  --color-wacky-red: #dc2626;
+  --color-wacky-blue: #2563eb;
+  --color-wacky-yellow: #fcd34d;
+  --color-wacky-pink: #f9a8d4;
+  --color-paper-white: #fcfaf5;
 }
 
 /* ============================================
-   Base Styles
+   Base Styles - Grid Paper Background
    ============================================ */
 
 html {
@@ -77,9 +45,12 @@ html {
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans, system-ui, sans-serif);
+  background-color: #f0eadd;
+  background-image: 
+    linear-gradient(rgba(139, 94, 60, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 94, 60, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  font-family: var(--font-space), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -106,194 +77,105 @@ html.lenis, html.lenis body {
 }
 
 /* ============================================
-   Custom Utilities
+   Brutal Utilities
    ============================================ */
 
-/* Text Gradient - Rainbow Brand */
-.text-gradient {
-  background: var(--gradient-brand);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* Text Outline Effects */
+.text-outline {
+  -webkit-text-stroke: 1.5px black;
+  color: transparent;
 }
 
-/* Colored Shadows for light mode */
-.shadow-purple {
-  box-shadow: 0 4px 30px rgba(139, 92, 246, 0.2);
+.text-outline-white {
+  -webkit-text-stroke: 2px white;
+  color: transparent;
 }
 
-.shadow-cyan {
-  box-shadow: 0 4px 30px rgba(34, 211, 238, 0.2);
+/* Clip Path Effects */
+.clip-paper {
+  clip-path: polygon(100% 0, 100% 100%, 0 100%, 0 5%, 5% 0);
 }
 
-.shadow-pink {
-  box-shadow: 0 4px 30px rgba(236, 72, 153, 0.2);
+.clip-jagged {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 95% 100%, 90% 95%, 85% 100%, 80% 95%, 75% 100%, 70% 95%, 65% 100%, 60% 95%, 55% 100%, 50% 95%, 45% 100%, 40% 95%, 35% 100%, 30% 95%, 25% 100%, 20% 95%, 15% 100%, 10% 95%, 5% 100%, 0% 95%);
 }
 
-.shadow-brand {
-  box-shadow: 
-    0 4px 20px rgba(139, 92, 246, 0.15),
-    0 8px 40px rgba(34, 211, 238, 0.1);
+/* Tape Effect */
+.tape {
+  background-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  backdrop-filter: blur(1px);
+  border-left: 1px dashed rgba(0,0,0,0.1);
+  border-right: 1px dashed rgba(0,0,0,0.1);
+  opacity: 0.8;
 }
 
-/* Glow for buttons */
-.glow-purple {
-  box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
+/* Brutal Shadows */
+.shadow-brutal {
+  box-shadow: 5px 5px 0px 0px #000000;
 }
 
-.glow-cyan {
-  box-shadow: 0 0 30px rgba(34, 211, 238, 0.4);
+.shadow-brutal-sm {
+  box-shadow: 3px 3px 0px 0px #000000;
 }
 
-/* Glass Effect - Light Mode */
-.glass {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(139, 92, 246, 0.1);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+.shadow-brutal-lg {
+  box-shadow: 10px 10px 0px 0px #000000;
 }
 
-/* Card Style */
-.card {
-  background: var(--wacky-warm-white);
-  border-radius: 20px;
-  border: 1px solid rgba(139, 92, 246, 0.08);
-  box-shadow: 
-    0 1px 3px rgba(0, 0, 0, 0.04),
-    0 4px 20px rgba(139, 92, 246, 0.06);
+.shadow-brutal-hover {
+  box-shadow: 2px 2px 0px 0px #000000;
 }
 
-.card:hover {
-  box-shadow: 
-    0 4px 20px rgba(139, 92, 246, 0.12),
-    0 8px 40px rgba(34, 211, 238, 0.08);
-  transform: translateY(-2px);
-  transition: all 0.3s ease;
-}
-
-/* Dot Pattern - Colorful */
-.bg-dots {
-  background-image: 
-    radial-gradient(rgba(139, 92, 246, 0.15) 1.5px, transparent 1.5px),
-    radial-gradient(rgba(34, 211, 238, 0.1) 1px, transparent 1px);
-  background-size: 32px 32px, 16px 16px;
-  background-position: 0 0, 8px 8px;
-}
-
-/* Grid Pattern - Light */
-.bg-grid {
-  background-image: 
-    linear-gradient(rgba(139, 92, 246, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
-  background-size: 40px 40px;
-}
-
-/* Noise Texture - Subtle */
-.noise {
-  position: relative;
-}
-
-.noise::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  opacity: 0.03;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Gradient Background Sections */
-.bg-gradient-section {
-  background: linear-gradient(180deg, 
-    var(--wacky-cream) 0%, 
-    rgba(139, 92, 246, 0.03) 50%,
-    var(--wacky-cream) 100%
-  );
-}
-
-/* Colorful gradient blobs */
-.blob-cyan {
-  background: radial-gradient(circle, rgba(34, 211, 238, 0.2) 0%, transparent 70%);
-}
-
-.blob-purple {
-  background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
-}
-
-.blob-pink {
-  background: radial-gradient(circle, rgba(236, 72, 153, 0.12) 0%, transparent 70%);
-}
-
-/* Selection - Colorful */
-::selection {
-  background: rgba(139, 92, 246, 0.2);
-  color: var(--wacky-charcoal);
-}
-
-/* Scrollbar - Light & Colorful */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #3d3428; /* Warm chocolate brown */
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #B07C4F; /* Warm brown accent on hover */
+/* Glow Effect */
+.shadow-glow {
+  box-shadow: 0 0 15px rgba(22, 163, 74, 0.5);
 }
 
 /* ============================================
    Animations
    ============================================ */
 
-/* Floating animation */
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
+  0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
 }
 
 .animate-float {
-  animation: float 3s ease-in-out infinite;
+  animation: float 6s ease-in-out infinite;
 }
 
-/* Wiggle animation */
 @keyframes wiggle {
   0%, 100% { transform: rotate(-3deg); }
   50% { transform: rotate(3deg); }
 }
 
 .animate-wiggle {
-  animation: wiggle 2s ease-in-out infinite;
+  animation: wiggle 1s ease-in-out infinite;
 }
 
-/* Pulse grow */
-@keyframes pulse-grow {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+.animate-wiggle-fast {
+  animation: wiggle 0.3s ease-in-out infinite;
 }
 
-.animate-pulse-grow {
-  animation: pulse-grow 2s ease-in-out infinite;
-}
-
-/* Spin slow */
 @keyframes spin-slow {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
 .animate-spin-slow {
-  animation: spin-slow 20s linear infinite;
+  animation: spin-slow 12s linear infinite;
 }
 
-/* Bounce subtle */
+@keyframes pulse-fast {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-pulse-fast {
+  animation: pulse-fast 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
 @keyframes bounce-subtle {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-5px); }
@@ -304,54 +186,90 @@ html.lenis, html.lenis body {
 }
 
 /* ============================================
-   Scroll Snap
+   Selection & Scrollbar
    ============================================ */
 
-.snap-container {
-  scroll-snap-type: y proximity;
-  overflow-y: auto;
-  height: 100vh;
+::selection {
+  background: #f9a8d4;
+  color: #000;
 }
 
-.snap-section {
-  scroll-snap-align: start;
-  scroll-snap-stop: normal;
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-/* Gradient shift */
-@keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradient-shift 4s ease infinite;
+::-webkit-scrollbar-thumb {
+  background: #8b5e3c;
+  border-radius: 4px;
 }
 
-/* Spin animation for logo click */
-@keyframes spin {
-  0% { transform: rotate(0deg) scale(1); }
-  50% { transform: rotate(180deg) scale(1.1); }
-  100% { transform: rotate(360deg) scale(1); }
+::-webkit-scrollbar-thumb:hover {
+  background: #dc2626;
 }
 
-/* Pan left-right animation for about page video */
-@keyframes pan-lr {
-  0%, 100% { transform: translateX(0%); }
-  25% { transform: translateX(-10%); }
-  75% { transform: translateX(10%); }
+/* ============================================
+   Background Patterns
+   ============================================ */
+
+.bg-lined-paper {
+  background-image: 
+    repeating-linear-gradient(transparent, transparent 27px, #94a3b8 28px),
+    repeating-linear-gradient(90deg, transparent, transparent 27px, transparent 28px);
 }
 
-.about-video-pan {
-  animation: pan-lr 20s ease-in-out infinite;
+.bg-grid-paper {
+  background-image: radial-gradient(#000000 1px, transparent 1px);
+  background-size: 20px 20px;
 }
 
-/* Disable pan on desktop */
-@media (min-width: 768px) {
-  .about-video-pan {
-    animation: none !important;
-    transform: none !important;
-  }
+/* ============================================
+   Typography Helpers
+   ============================================ */
+
+.font-marker {
+  font-family: var(--font-marker), cursive;
 }
+
+.font-handwriting {
+  font-family: var(--font-caveat), cursive;
+}
+
+.font-handwriting-alt {
+  font-family: var(--font-kalam), cursive;
+}
+
+/* ============================================
+   Terminal/Code Aesthetics
+   ============================================ */
+
+.terminal {
+  background: #000;
+  color: #22c55e;
+  font-family: 'Courier New', monospace;
+  padding: 1rem;
+  border: 2px solid #000;
+}
+
+.terminal::before {
+  content: ">";
+  margin-right: 0.5rem;
+}
+
+/* ============================================
+   Rotations for Wacky Layout
+   ============================================ */
+
+.rotate-1 { transform: rotate(1deg); }
+.rotate-2 { transform: rotate(2deg); }
+.rotate-3 { transform: rotate(3deg); }
+.-rotate-1 { transform: rotate(-1deg); }
+.-rotate-2 { transform: rotate(-2deg); }
+.-rotate-3 { transform: rotate(-3deg); }
+
+/* Skew effects */
+.skew-x-10 { transform: skewX(-10deg); }
+.-skew-x-10 { transform: skewX(10deg); }

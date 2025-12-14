@@ -1,323 +1,471 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import { FluidMenu } from "@/components/ui/fluid-menu";
+import Image from "next/image";
+import { useState } from "react";
 
-const ACCENT = "#B07C4F";
 const TEXT = "#3d3428";
-const BG = "#f5ebe0";
-const SHADOW = "0 3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)";
-
-// 9 main service categories with unique CTA buttons + visual gradients
-const services = [
-  {
-    id: "ai-agents",
-    name: "ai agents",
-    tagline: "smart helpers that never sleep",
-    description: "custom AI assistants that handle customer support, data analysis, and repetitive tasks 24/7. they're like interns but they don't need coffee breaks or complain about the wifi.",
-    cta: "i want a robot!",
-    gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-    icon: "🤖",
-  },
-  {
-    id: "automation",
-    name: "workflow automation",
-    tagline: "connect everything",
-    description: "we wire up your apps using n8n, zapier, and make.com so they actually talk to each other. your CRM updates your spreadsheet updates your slack updates your sanity.",
-    cta: "automate my life!",
-    gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
-    icon: "⚡",
-  },
-  {
-    id: "rag",
-    name: "rag & knowledge",
-    tagline: "make your docs smart",
-    description: "turn your messy documents into an AI that actually knows your business. like having an employee who read ALL the documentation. yes, even the 2019 onboarding PDF.",
-    cta: "make my docs smart!",
-    gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-    icon: "📚",
-  },
-  {
-    id: "apps",
-    name: "app development",
-    tagline: "build something cool",
-    description: "mobile apps, web apps, SaaS platforms. from idea to app store. we build stuff that works on phones, tablets, and whatever weird device you're using.",
-    cta: "build my app!",
-    gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
-    icon: "📱",
-  },
-  {
-    id: "websites",
-    name: "websites",
-    tagline: "not your grandma's wordpress",
-    description: "fast, modern websites built with next.js and react. animations that go whoosh, SEO that actually works, and no more 'please update your plugins' nightmares.",
-    cta: "i need a website!",
-    gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
-    icon: "🌐",
-  },
-  {
-    id: "ecommerce",
-    name: "e-commerce",
-    tagline: "sell stuff online",
-    description: "shopify stores, product listings, checkout optimization. we make people click 'buy now' instead of 'maybe later'. your accountant will thank us.",
-    cta: "take my money!",
-    gradient: "linear-gradient(135deg, #30cfd0 0%, #330867 100%)",
-    icon: "🛒",
-  },
-  {
-    id: "social-video",
-    name: "ai content",
-    tagline: "videos, images, posts - on autopilot",
-    description: "AI-powered content creation: videos, images, blog posts, social media - all automated. faceless youtube channels, tiktoks, reels, whatever's trending. we make you look good without you doing the work.",
-    cta: "seriously?!",
-    gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
-    icon: "🎥",
-  },
-  {
-    id: "branding",
-    name: "branding",
-    tagline: "who even are you?",
-    description: "full brand identity packages: strategy, visual identity, tone of voice, guidelines. we'll make you look like you've got your life together, even if you don't.",
-    cta: "make me pretty!",
-    gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)",
-    icon: "✨",
-  },
-  {
-    id: "self-hosted",
-    name: "self-hosted tools",
-    tagline: "own your stack",
-    description: "n8n, home assistant, private AI, all on your own servers. no subscriptions, no data leaving your control, no big tech knowing your business.",
-    cta: "i want control!",
-    gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
-    icon: "🔒",
-  },
-];
+const BG = "#f0eadd";
 
 export default function ServicesPage() {
-  const [selectedService, setSelectedService] = useState<string | null>(null);
-  const [hoveredService, setHoveredService] = useState<string | null>(null);
-  
-  const selected = services.find(s => s.id === selectedService);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <main className="relative min-h-screen overflow-hidden" style={{ backgroundColor: BG, color: TEXT }}>
-      
-      {/* SEO: Hidden content for crawlers - all service descriptions visible to Google/AI */}
-      <div className="sr-only" aria-hidden="false">
-        <h1>Wacky Works Digital Services - AI, Automation, Web Development UK</h1>
-        {services.map(s => (
-          <article key={s.id}>
-            <h2>{s.name}</h2>
-            <p>{s.tagline}</p>
-            <p>{s.description}</p>
-          </article>
-        ))}
-        <p>UK-based digital agency specializing in AI agents, n8n workflow automation, Next.js websites, Shopify e-commerce, RAG knowledge systems, and self-hosted solutions. We build digital assets that work while you sleep.</p>
-      </div>
-      
-      {/* Noise + vignette */}
-      <div
-        className="fixed inset-0 pointer-events-none mix-blend-overlay z-[2]"
+    <main className="relative min-h-screen overflow-x-hidden" style={{ backgroundColor: BG, color: TEXT }}>
+      {/* Grid paper background */}
+      <div 
+        className="fixed inset-0 pointer-events-none opacity-10 z-0"
         style={{
-          opacity: 0.12,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          backgroundImage: `
+            linear-gradient(rgba(139, 94, 60, 0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(139, 94, 60, 0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: "40px 40px"
         }}
       />
-      <div
-        className="fixed inset-0 pointer-events-none z-[2]"
-        style={{ background: "radial-gradient(ellipse at center, transparent 0%, transparent 50%, rgba(0,0,0,0.08) 100%)" }}
-      />
 
-      <FluidMenu activePage="services" />
-
-      {/* NEW LAYOUT: Bento Grid */}
-      <div className="relative z-10 min-h-screen pt-32 px-6 md:px-12 pb-12">
-        <AnimatePresence mode="wait">
-          {!selected ? (
-            // Grid View
-            <motion.div
-              key="grid"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 max-w-7xl mx-auto"
-            >
-              {services.map((service, index) => (
-                <motion.div
-                  key={service.id}
-                  className="relative rounded-3xl overflow-hidden cursor-pointer group"
-                  style={{
-                    background: service.gradient,
-                    aspectRatio: index % 3 === 0 ? "1" : "4/3", // Varied card sizes
-                  }}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: index * 0.05, type: "spring", stiffness: 200, damping: 20 }}
-                  whileHover={{ scale: 1.02, y: -4 }}
-                  onClick={() => setSelectedService(service.id)}
-                  onMouseEnter={() => setHoveredService(service.id)}
-                  onMouseLeave={() => setHoveredService(null)}
-                >
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-black/10 to-black/30" />
-                  
-                  {/* Icon + Name */}
-                  <div className="absolute inset-0 p-6 flex flex-col justify-between">
-                    <span className="text-5xl md:text-6xl opacity-90">{service.icon}</span>
-                    <div>
-                      <h3 
-                        className="text-2xl md:text-3xl font-semibold lowercase text-white mb-1"
-                        style={{ 
-                          fontFamily: "var(--font-syne), sans-serif",
-                          textShadow: "0 2px 8px rgba(0,0,0,0.3)",
-                        }}
-                      >
-                        {service.name}
-                      </h3>
-                      <p 
-                        className="text-sm opacity-90 text-white/90"
-                        style={{ fontFamily: "var(--font-space), sans-serif" }}
-                      >
-                        {service.tagline}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Hover hint */}
-                  <motion.div
-                    className="absolute bottom-4 right-4 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 text-white text-sm"
-                    style={{ fontFamily: "var(--font-space), sans-serif" }}
-                    initial={{ opacity: 0, x: 10 }}
-                    animate={{ opacity: hoveredService === service.id ? 1 : 0, x: hoveredService === service.id ? 0 : 10 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    click to learn more →
-                  </motion.div>
-                </motion.div>
-              ))}
-
-              {/* CTA Card */}
-              <Link href="/contact">
-                <motion.div
-                  className="relative rounded-3xl overflow-hidden cursor-pointer group border-4 border-dashed flex items-center justify-center"
-                  style={{
-                    aspectRatio: "4/3",
-                    borderColor: ACCENT,
-                    backgroundColor: `${ACCENT}15`,
-                  }}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: services.length * 0.05 }}
-                  whileHover={{ scale: 1.02, y: -4 }}
-                >
-                  <div className="text-center p-6">
-                    <p 
-                      className="text-3xl md:text-4xl font-semibold lowercase mb-2"
-                      style={{ 
-                        fontFamily: "var(--font-syne), sans-serif",
-                        color: ACCENT,
-                        textShadow: SHADOW,
-                      }}
-                    >
-                      need something else?
-                    </p>
-                    <p 
-                      className="text-lg opacity-70"
-                      style={{ fontFamily: "var(--font-space), sans-serif", color: TEXT }}
-                    >
-                      let's talk →
-                    </p>
-                  </div>
-                </motion.div>
+      {/* NEW WACKY MENU - Desktop */}
+      <nav className="hidden lg:block fixed top-10 left-10 z-50 pointer-events-none">
+        <div className="pointer-events-auto relative bg-paper-white p-4 lg:p-6 shadow-brutal -rotate-1 hover:rotate-0 transition-transform duration-300 border-2 border-black group">
+          <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-12 tape-effect rotate-0 z-10" />
+          <ul className="flex flex-col gap-4 text-lg lg:text-xl font-bold lowercase">
+            <li>
+              <Link href="/" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+                home
               </Link>
-            </motion.div>
-          ) : (
-            // Detail View (full screen)
-            <motion.div
-              key="detail"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="max-w-4xl mx-auto"
-            >
-              {/* Close button */}
-              <motion.button
-                className="mb-8 flex items-center gap-2 text-lg opacity-70 hover:opacity-100"
-                style={{ fontFamily: "var(--font-space), sans-serif", color: TEXT }}
-                onClick={() => setSelectedService(null)}
-                whileHover={{ x: -4 }}
-              >
-                ← back to services
-              </motion.button>
+            </li>
+            <li>
+              <Link href="/about" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+                about
+              </Link>
+            </li>
+            <li>
+              <span className="bg-black text-white px-2 -ml-2 skew-x-[-10deg] inline-block">
+                services
+              </span>
+            </li>
+            <li>
+              <Link href="/portfolio" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+                portfolio
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+                contact
+              </Link>
+            </li>
+          </ul>
+          <div className="absolute -bottom-6 -right-6 text-4xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 rotate-12">
+            👀
+          </div>
+        </div>
+      </nav>
 
-              {/* Hero card */}
-              <motion.div
-                className="relative rounded-3xl overflow-hidden mb-8"
-                style={{
-                  background: selected.gradient,
-                  minHeight: "300px",
-                }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-black/10 to-black/30" />
-                <div className="relative p-12 flex flex-col justify-end min-h-[300px]">
-                  <span className="text-8xl mb-4 opacity-90">{selected.icon}</span>
-                  <h1 
-                    className="text-5xl md:text-6xl font-bold lowercase text-white mb-2"
-                    style={{ 
-                      fontFamily: "var(--font-syne), sans-serif",
-                      textShadow: "0 3px 12px rgba(0,0,0,0.4)",
-                    }}
-                  >
-                    {selected.name}
-                  </h1>
-                  <p 
-                    className="text-xl text-white/90 uppercase tracking-wider"
-                    style={{ fontFamily: "var(--font-space), sans-serif" }}
-                  >
-                    {selected.tagline}
+      {/* Mobile Menu */}
+      <header className="lg:hidden fixed top-0 w-full z-50 px-4 py-3 backdrop-blur border-b-2 border-black flex justify-between items-center shadow-brutal-sm" style={{ backgroundColor: 'rgba(240, 234, 221, 0.95)' }}>
+        <div className="font-black text-2xl tracking-tighter bg-black text-white px-2 rotate-2">WAW!</div>
+        <button 
+          className="text-4xl border-2 border-black rounded-full hover:bg-black hover:text-white transition-colors w-12 h-12 flex items-center justify-center"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? "✕" : "☰"}
+        </button>
+      </header>
+
+      {/* Mobile Menu Dropdown */}
+      {menuOpen && (
+        <div className="lg:hidden fixed top-16 left-0 right-0 z-40 bg-paper-white border-b-2 border-black p-6 shadow-brutal">
+          <ul className="flex flex-col gap-4 text-xl font-bold lowercase">
+            <li><Link href="/" className="hover:text-red-600 transition-colors">home</Link></li>
+            <li><Link href="/about" className="hover:text-red-600 transition-colors">about</Link></li>
+            <li><span className="bg-black text-white px-2">services</span></li>
+            <li><Link href="/portfolio" className="hover:text-red-600 transition-colors">portfolio</Link></li>
+            <li><Link href="/contact" className="hover:text-red-600 transition-colors">contact</Link></li>
+          </ul>
+        </div>
+      )}
+
+      {/* Main Content */}
+      <div className="w-full lg:pl-56 pr-4 lg:pr-12 pt-24 lg:pt-16 pb-24 min-h-screen">
+        
+        {/* Hero Title */}
+        <div className="mb-20 relative max-w-5xl mx-auto">
+          <div className="absolute -top-10 -left-10 text-[120px] opacity-5 -rotate-12 select-none pointer-events-none" style={{ fontFamily: "var(--font-marker), cursive", color: "#d97706" }}>
+            POW!
+          </div>
+          
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-4 relative z-10 leading-[0.85]">
+            <motion.span 
+              className="inline-block hover:-skew-x-12 transition-transform cursor-default"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+            >
+              WHAT
+            </motion.span>
+            {" "}
+            <motion.span 
+              className="inline-block text-outline hover:text-green-600 transition-colors cursor-default"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              WE
+            </motion.span>
+            <br/>
+            <motion.span 
+              className="relative inline-block rotate-2"
+              style={{ color: "#dc2626" }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              DO
+            </motion.span>
+          </h1>
+
+          <motion.p
+            className="text-2xl md:text-3xl -rotate-1 mt-6"
+            style={{ fontFamily: "var(--font-caveat), cursive" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+          >
+            (a lot, actually)
+          </motion.p>
+        </div>
+
+        {/* Services Grid - EACH ONE DIFFERENT! */}
+        <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8 px-2 max-w-[1600px] mx-auto">
+          
+          {/* 1. AI AGENTS - Terminal style */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <Link href="/contact" className="block">
+              <div className="bg-black text-green-500 p-1 border-2 border-black shadow-[8px_8px_0_0_#16a34a] hover:shadow-[4px_4px_0_0_#16a34a] hover:translate-x-1 hover:translate-y-1 transition-all duration-200 -rotate-1 group-hover:rotate-0">
+                <div className="border border-green-500 p-6">
+                  <div className="flex justify-between items-center mb-4 border-b border-green-500 pb-2">
+                    <h3 className="text-2xl font-mono uppercase">AI AGENTS</h3>
+                    <span className="w-2 h-2 bg-green-500 rounded-full animate-ping" />
+                  </div>
+                  <div className="relative h-32 mb-4 overflow-hidden">
+                    <Image
+                      src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500&h=300&fit=crop"
+                      alt="AI Agent"
+                      fill
+                      className="object-cover mix-blend-luminosity opacity-60 group-hover:opacity-80 transition-opacity"
+                    />
+                  </div>
+                  <p className="text-sm font-mono mb-2 text-gray-400">
+                    &gt; smart helpers that never sleep
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    custom AI assistants that handle customer support, data analysis, and repetitive tasks 24/7.
                   </p>
                 </div>
-              </motion.div>
+              </div>
+            </Link>
+          </motion.div>
 
-              {/* Description + CTA */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-              >
-                <p 
-                  className="text-2xl md:text-3xl leading-relaxed mb-8"
-                  style={{ 
-                    fontFamily: "var(--font-space), sans-serif",
-                    color: TEXT,
-                  }}
+          {/* 2. AUTOMATION - Sticky note */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="bg-yellow-300 p-6 border-2 border-black shadow-brutal rotate-2 group-hover:rotate-0 transition-transform duration-300 relative">
+                <div className="absolute -top-3 right-8 w-4 h-12 bg-red-400/50 rotate-12 rounded-sm border border-black/20" />
+                
+                <h3 
+                  className="text-3xl font-black uppercase mb-3"
+                  style={{ fontFamily: "var(--font-bebas), sans-serif" }}
                 >
-                  {selected.description}
+                  WORKFLOW<br/>AUTOMATION
+                </h3>
+                
+                <div className="relative h-24 mb-3 border-2 border-black overflow-hidden">
+                  <Image
+                    src="https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=400&h=200&fit=crop"
+                    alt="Automation"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                
+                <p 
+                  className="text-base mb-2"
+                  style={{ fontFamily: "var(--font-marker), cursive" }}
+                >
+                  connect everything!
                 </p>
+                <p className="text-xs leading-tight">
+                  we wire up your apps using n8n, zapier, and make.com so they actually talk to each other.
+                </p>
+              </div>
+            </Link>
+          </motion.div>
 
-                <Link href="/contact">
-                  <motion.button
-                    className="px-8 py-4 rounded-full text-2xl font-semibold lowercase"
-                    style={{
-                      backgroundColor: ACCENT,
-                      color: BG,
-                      boxShadow: "0 6px 20px rgba(0,0,0,0.25)",
-                      fontFamily: "var(--font-syne), sans-serif",
-                    }}
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    whileTap={{ scale: 0.98 }}
+          {/* 3. RAG & KNOWLEDGE - Folder style */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30 pt-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="relative">
+                <div className="absolute -top-6 left-0 w-1/3 h-8 bg-blue-200 border-2 border-b-0 border-black rounded-t-lg z-0" />
+                <div className="bg-blue-200 p-6 border-2 border-black shadow-brutal relative z-10 rounded-tr-lg rounded-br-lg rounded-bl-lg -rotate-1 group-hover:rotate-0 transition-transform">
+                  <h3 className="text-2xl font-bold uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <span className="text-3xl">📚</span>
+                    RAG & KNOWLEDGE
+                  </h3>
+                  <p 
+                    className="text-lg mb-2"
+                    style={{ fontFamily: "var(--font-caveat), cursive" }}
                   >
-                    {selected.cta}
-                  </motion.button>
-                </Link>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                    make your docs smart
+                  </p>
+                  <div className="bg-white border border-blue-300 p-3 shadow-inner text-xs text-gray-600 font-mono">
+                    turn your messy documents into an AI that actually knows your business.
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* 4. APP DEV - Polaroid style */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="bg-white p-4 pb-12 border-2 border-black shadow-brutal -rotate-2 group-hover:rotate-0 transition-transform duration-300">
+                <div className="relative h-48 mb-4 border border-black overflow-hidden">
+                  <Image
+                    src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=500&h=400&fit=crop"
+                    alt="App Development"
+                    fill
+                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                  />
+                </div>
+                <h3 
+                  className="text-2xl font-black text-center uppercase"
+                  style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+                >
+                  APP DEV
+                </h3>
+                <p 
+                  className="text-center text-sm mt-2"
+                  style={{ fontFamily: "var(--font-caveat), cursive" }}
+                >
+                  build something cool ✨
+                </p>
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* 5. WEBSITES - Big pink circle */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="aspect-square flex flex-col items-center justify-center p-8 border-2 border-black shadow-brutal hover:rounded-[50%] transition-all duration-500 overflow-hidden text-center cursor-pointer relative rotate-1" style={{ backgroundColor: "#f9a8d4" }}>
+                <h3 className="text-5xl font-black text-white leading-none group-hover:scale-110 transition-transform">
+                  WEB<br/>SITES
+                </h3>
+                <p 
+                  className="text-white mt-4 text-lg"
+                  style={{ fontFamily: "var(--font-marker), cursive" }}
+                >
+                  not your grandma's wordpress
+                </p>
+                <div className="absolute inset-0 border-[10px] border-white/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-700" />
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* 6. E-COMMERCE - Receipt style */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="bg-white p-6 border-2 border-black shadow-brutal rotate-1 group-hover:rotate-0 transition-transform duration-300 clip-jagged">
+                <div className="border-b-2 border-dashed border-black pb-3 mb-3">
+                  <h3 className="text-3xl font-black uppercase text-center">
+                    E-COMMERCE
+                  </h3>
+                </div>
+                <div className="relative h-32 mb-3 border border-black overflow-hidden">
+                  <Image
+                    src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&h=300&fit=crop"
+                    alt="E-commerce"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <p 
+                  className="text-center text-lg mb-2"
+                  style={{ fontFamily: "var(--font-marker), cursive" }}
+                >
+                  sell stuff online! 💰
+                </p>
+                <div className="text-xs text-center border-t border-dashed border-black pt-2">
+                  shopify stores • product listings • checkout optimization
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* 7. AI CONTENT - Video player style */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.6 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="bg-gray-900 p-2 border-2 border-black shadow-brutal -rotate-1 group-hover:rotate-0 transition-transform duration-300">
+                <div className="bg-black border-2 border-gray-700 p-4">
+                  <div className="flex gap-1 mb-3">
+                    <div className="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                      <div className="h-full bg-red-600 w-1/3 group-hover:w-full transition-all duration-1000" />
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-center h-24 border border-gray-800 bg-gray-900 mb-3 relative overflow-hidden">
+                    <Image
+                      src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=400&h=200&fit=crop"
+                      alt="AI Content"
+                      fill
+                      className="object-cover opacity-40"
+                    />
+                    <span className="text-5xl relative z-10">▶️</span>
+                  </div>
+                  <h3 className="text-white font-bold uppercase text-lg">
+                    AI CONTENT
+                  </h3>
+                  <p className="text-gray-400 text-xs mt-1">
+                    videos, images, posts - on autopilot
+                  </p>
+                  <div className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* 8. BRANDING - Badge style */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.7 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="p-8 border-2 border-black shadow-brutal rotate-2 group-hover:rotate-0 transition-transform duration-300 text-center relative overflow-hidden" style={{ backgroundColor: "#fecfef" }}>
+                <div className="absolute top-0 left-0 w-full h-full opacity-10">
+                  <div className="text-[120px] font-black">★</div>
+                </div>
+                <div className="relative z-10">
+                  <h3 className="text-4xl font-black uppercase mb-3 bg-white inline-block px-4 py-2 border-2 border-black -rotate-2">
+                    BRANDING
+                  </h3>
+                  <p 
+                    className="text-lg"
+                    style={{ fontFamily: "var(--font-caveat), cursive" }}
+                  >
+                    who even are you?
+                  </p>
+                  <div className="text-xs mt-3 bg-black text-white px-3 py-1 inline-block">
+                    full identity packages
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* 9. SELF-HOSTED - Server rack style */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.8 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="bg-gray-800 text-white p-6 border-2 border-black shadow-brutal -rotate-1 group-hover:rotate-0 transition-transform duration-300">
+                <div className="flex justify-between mb-4">
+                  <div className="flex flex-col gap-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }} />
+                  </div>
+                  <div className="flex-1 ml-4">
+                    <div className="h-2 bg-gray-700 mb-2 rounded" />
+                    <div className="h-2 bg-gray-700 mb-2 rounded w-2/3" />
+                    <div className="h-2 bg-gray-700 rounded w-1/2" />
+                  </div>
+                </div>
+                <h3 className="text-2xl font-bold uppercase mb-2 font-mono">
+                  SELF-HOSTED TOOLS
+                </h3>
+                <p className="text-sm text-gray-400 mb-2">own your stack</p>
+                <div className="text-xs font-mono bg-black p-2 border border-gray-700">
+                  $ ./deploy.sh --no-subscriptions
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+
+        </div>
+
+        {/* Bottom CTA */}
+        <motion.div 
+          className="mt-24 flex justify-center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <Link href="/contact">
+            <div className="relative inline-block">
+              <div className="bg-white p-8 md:p-12 border-4 border-black shadow-brutal-lg hover:shadow-brutal hover:translate-x-2 hover:translate-y-2 transition-all duration-200 rotate-1">
+                <h2 className="text-4xl md:text-5xl font-black uppercase mb-4">
+                  LET'S WORK<br/>TOGETHER
+                </h2>
+                <p 
+                  className="text-xl text-gray-600"
+                  style={{ fontFamily: "var(--font-caveat), cursive" }}
+                >
+                  seriously, let's build something weird.
+                </p>
+              </div>
+              <div className="absolute -bottom-8 -right-8 text-6xl animate-wiggle">
+                ✨
+              </div>
+            </div>
+          </Link>
+        </motion.div>
+
       </div>
     </main>
   );

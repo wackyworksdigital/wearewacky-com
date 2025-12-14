@@ -1,310 +1,683 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import { FluidMenu } from "@/components/ui/fluid-menu";
+import Image from "next/image";
+import { useState } from "react";
 
-const ACCENT = "#B07C4F";
 const TEXT = "#3d3428";
-const BG = "#f5ebe0";
-const SHADOW = "0 3px 4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2)";
-
-// Project list with real stories + visual gradients
-// SEO-friendly project titles - keywords people actually search for!
-const projects = [
-  // DONE - ticked off (faded at top to suggest more before)
-  { id: "shopify-branding", name: "shopify store setup + branding", status: "done", fadeLevel: 2, gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", image: "🛍️" },
-  { id: "n8n-hosting", name: "n8n self-hosting on google cloud", status: "done", fadeLevel: 1, gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)", image: "☁️" },
-  { id: "news-scraper", name: "AI news scraper n8n workflow", status: "done", fadeLevel: 0, gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)", image: "📰" },
-  { id: "shopify-blog", name: "automated shopify blog with AI", status: "done", fadeLevel: 0, gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)", image: "✍️" },
-  { id: "ai-agent-setup", name: "custom AI agent setup", status: "done", fadeLevel: 0, gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)", image: "🤖" },
-  { id: "etsy-assistant", name: "AI etsy listing automation", status: "done", fadeLevel: 0, gradient: "linear-gradient(135deg, #30cfd0 0%, #330867 100%)", image: "🎨" },
-  { id: "full-brand", name: "full brand identity setup", status: "done", fadeLevel: 0, gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)", image: "✨" },
-  { id: "video-campaign", name: "AI video content automation", status: "done", fadeLevel: 0, gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)", image: "🎥" },
-  { id: "course-app", name: "self-hosted course platform", status: "done", fadeLevel: 0, gradient: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)", image: "🎓" },
-  { id: "rag-agency", name: "company RAG knowledge base", status: "done", fadeLevel: 0, gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", image: "🧠" },
-  
-  // CURRENT - what we're working on NOW (accent color)
-  { id: "wordpress-makeover", name: "wordpress website makeover", status: "current", fadeLevel: 0, gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)", image: "🔧" },
-  
-  // COMING - empty circles
-  { id: "shopify-decor", name: "shopify store makeover", status: "coming", fadeLevel: 0, gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)", image: "🏠" },
-  { id: "faceless-channel", name: "youtube channel setup + automation", status: "coming", fadeLevel: 0, gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)", image: "📹" },
-  { id: "roblox-world", name: "custom roblox world build", status: "coming", fadeLevel: 0, gradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)", image: "🎮" },
-  { id: "bakery-website", name: "wix to custom website migration", status: "coming", fadeLevel: 0, gradient: "linear-gradient(135deg, #30cfd0 0%, #330867 100%)", image: "🥐" },
-  { id: "home-assistant", name: "self-hosted AI smart home", status: "coming", fadeLevel: 0, gradient: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)", image: "🏡" },
-  { id: "your-project", name: "your project here?", status: "coming", fadeLevel: 0, isLast: true, gradient: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)", image: "💡" },
-];
-
-// Project stories - fun, specific, SEO keywords included!
-const projectStories: Record<string, string> = {
-  "shopify-branding": "the full works! shopify store setup, custom website, all socials, logos, complete brand identity - everything connected and looking fresh. we love these because we get to build something complete from scratch. like playing god but for businesses.",
-
-  "n8n-hosting": "google cloud VM running n8n via docker - private automation server with zero subscription fees forever. we had way too much fun setting up the firewall rules. yes, we're that kind of nerds.",
-
-  "news-scraper": "daily news scraping across multiple sources, AI backend picking the juicy articles, all orchestrated through google docs, apps script and n8n workflows. this one runs while everyone sleeps. beautiful.",
-
-  "shopify-blog": "shopify store traffic went bonkers after we set up the automated daily blog posts. 100% hands-free - the AI writes, formats, schedules, posts. client forgot they had a blog. that's the dream.",
-
-  "ai-agent-setup": "GPTs for grown-ups. multiple AI agents sharing a company knowledge base but each with their own personality - social media manager, customer service, personal assistant. they have meetings without humans now. slightly concerning.",
-
-  "etsy-assistant": "this n8n workflow is a monster (affectionately). AI analyzes product images, writes etsy listings, suggests tags, optimizes pricing. we spent way too long making it perfect. worth it.",
-
-  "full-brand": "like getting keys to a fully furnished house. all websites reserved, 20+ social handles secured, AI handling text/image/video, company docs organized. complete brand identity from scratch.",
-
-  "video-campaign": "short-form video content series across platforms - all AI-generated, all performing. followers went up, engagement went up, client did zero filming. that's the magic of AI content automation.",
-
-  "course-app": "custom course platform, self-hosted, no recurring fees to course hosting companies. your content stays YOUR content. we enjoyed sticking it to the subscription model.",
-
-  "rag-agency": "the company brain! all their apps connected to a central RAG knowledge base that constantly checks, references, and updates itself. it's alive and learning. in a good way, not a skynet way.",
-
-  "wordpress-makeover": "do we do wordpress? no. you know who does? your grandma. we rebuild wordpress sites in next.js with proper animations and modern tech. this one's gonna be fun.",
-
-  "shopify-decor": "home decor shopify store makeover - client wants to escape the basic template prison. we've got IDEAS. this store is gonna look like it belongs in a magazine. watch this space!",
-
-  "faceless-channel": "full youtube channel setup with automated video creation workflows. faceless content, consistent uploads, AI doing the heavy lifting. make money while staying mysterious.",
-
-  "roblox-world": "okay this one is NEW for us! recreating an entire school in roblox for leavers to stay connected. classrooms, corridors, the lot. kids can vandalize stuff without detention. we're unreasonably excited about this.",
-
-  "bakery-website": "local bakery escaping their basic wix template - finally, a site that matches how good their pastries actually are! oh and if you're local, we sometimes do photo and video shoots too. we've worked for croissants before. don't tell anyone.",
-
-  "home-assistant": "passion project! open source LLM self-hosted on an old laptop, controlling the whole house via voice. lights, cameras, heating, speakers - home assistant integration, everything local, zero subscriptions, zero cloud. we can't wait.",
-
-  "your-project": "this spot is waiting for something cool. could be yours. no pressure. okay, a little pressure.",
-};
+const BG = "#f0eadd";
 
 export default function PortfolioPage() {
-  const [selectedProject, setSelectedProject] = useState<string | null>(null);
-  const [hoveredProject, setHoveredProject] = useState<string | null>(null);
-
-  const selected = projects.find(p => p.id === selectedProject);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <main className="relative min-h-screen overflow-hidden" style={{ backgroundColor: BG, color: TEXT }}>
-      
-      {/* SEO: Hidden content for crawlers - all project stories visible to Google/AI */}
-      <div className="sr-only" aria-hidden="false">
-        <h1>Wacky Works Digital Portfolio - AI Automation Projects UK</h1>
-        {projects.map(p => (
-          <article key={p.id}>
-            <h2>{p.name}</h2>
-            <p>{projectStories[p.id]}</p>
-          </article>
-        ))}
-        <p>Portfolio of completed and upcoming projects including n8n automation, AI agents, Shopify stores, Next.js websites, self-hosted platforms, YouTube automation, and more. Based in UK, working worldwide.</p>
-      </div>
-      
-      {/* Noise + vignette */}
-      <div
-        className="fixed inset-0 pointer-events-none mix-blend-overlay z-[2]"
-        style={{
-          opacity: 0.12,
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-        }}
-      />
-      <div
-        className="fixed inset-0 pointer-events-none z-[2]"
-        style={{ background: "radial-gradient(ellipse at center, transparent 0%, transparent 50%, rgba(0,0,0,0.08) 100%)" }}
-      />
+    <main className="relative min-h-screen overflow-x-hidden" style={{ backgroundColor: BG, color: TEXT }}>
+      {/* NEW WACKY MENU - Desktop */}
+      <nav className="hidden lg:block fixed top-10 left-10 z-50 pointer-events-none">
+        <div className="pointer-events-auto relative bg-paper-white p-4 lg:p-6 shadow-brutal -rotate-1 hover:rotate-0 transition-transform duration-300 border-2 border-black group">
+          <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-12 tape-effect rotate-0 z-10" />
+          <ul className="flex flex-col gap-4 text-lg lg:text-xl font-bold lowercase">
+            <li>
+              <Link href="/" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+                home
+              </Link>
+            </li>
+            <li>
+              <Link href="/about" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+                about
+              </Link>
+            </li>
+            <li>
+              <Link href="/services" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+                services
+              </Link>
+            </li>
+            <li>
+              <span className="bg-black text-white px-2 -ml-2 skew-x-[-10deg] inline-block">
+                portfolio
+              </span>
+            </li>
+            <li>
+              <Link href="/contact" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+                contact
+              </Link>
+            </li>
+          </ul>
+          <div className="absolute -bottom-6 -right-6 text-4xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 rotate-12">
+            👀
+          </div>
+        </div>
+      </nav>
 
-      <FluidMenu activePage="portfolio" />
+      {/* Mobile Menu */}
+      <header className="lg:hidden fixed top-0 w-full z-50 px-4 py-3 backdrop-blur border-b-2 border-black flex justify-between items-center shadow-brutal-sm" style={{ backgroundColor: 'rgba(240, 234, 221, 0.95)' }}>
+        <div className="font-black text-2xl tracking-tighter bg-black text-white px-2 rotate-2">WAW!</div>
+        <button 
+          className="text-4xl border-2 border-black rounded-full hover:bg-black hover:text-white transition-colors w-12 h-12 flex items-center justify-center"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          {menuOpen ? "✕" : "☰"}
+        </button>
+      </header>
 
-      {/* NEW LAYOUT: Image Grid */}
-      <div className="relative z-10 min-h-screen pt-32 px-6 md:px-12 pb-12">
-        <AnimatePresence mode="wait">
-          {!selected ? (
-            // Grid View
-            <motion.div
-              key="grid"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 max-w-7xl mx-auto"
+      {/* Mobile Menu Dropdown */}
+      {menuOpen && (
+        <div className="lg:hidden fixed top-16 left-0 right-0 z-40 bg-paper-white border-b-2 border-black p-6 shadow-brutal">
+          <ul className="flex flex-col gap-4 text-xl font-bold lowercase">
+            <li><Link href="/" className="hover:text-red-600 transition-colors">home</Link></li>
+            <li><Link href="/about" className="hover:text-red-600 transition-colors">about</Link></li>
+            <li><Link href="/services" className="hover:text-red-600 transition-colors">services</Link></li>
+            <li><span className="bg-black text-white px-2">portfolio</span></li>
+            <li><Link href="/contact" className="hover:text-red-600 transition-colors">contact</Link></li>
+          </ul>
+        </div>
+      )}
+
+      {/* Main Content */}
+      <div className="w-full lg:pl-56 pr-4 lg:pr-12 pt-24 lg:pt-16 pb-24 min-h-screen">
+        
+        {/* Hero Section */}
+        <div className="mb-20 relative max-w-5xl mx-auto">
+          {/* Background text */}
+          <div className="absolute -top-10 -left-10 text-[120px] opacity-5 font-marker -rotate-12 select-none pointer-events-none" style={{ color: "#d97706", fontFamily: "var(--font-marker), cursive" }}>
+            BOOM!
+          </div>
+          
+          {/* Main Title */}
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter mb-8 relative z-10 leading-[0.85]">
+            <motion.span 
+              className="inline-block hover:skew-x-12 transition-transform cursor-default"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
             >
-              {projects.map((project, index) => {
-                const isHovered = hoveredProject === project.id;
-                const isCurrent = project.status === "current";
-                const isDone = project.status === "done";
-                const isLast = project.isLast;
-
-                return (
-                  <motion.div
-                    key={project.id}
-                    className="relative rounded-2xl overflow-hidden cursor-pointer group"
-                    style={{
-                      background: project.gradient,
-                      aspectRatio: "1",
-                      opacity: isDone ? 0.7 : 1,
-                    }}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: isDone ? 0.7 : 1, scale: 1 }}
-                    transition={{ delay: index * 0.03, type: "spring", stiffness: 200, damping: 20 }}
-                    whileHover={{ scale: 1.05, opacity: 1, zIndex: 10 }}
-                    onClick={() => setSelectedProject(project.id)}
-                    onMouseEnter={() => setHoveredProject(project.id)}
-                    onMouseLeave={() => setHoveredProject(null)}
-                  >
-                    {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-black/10 to-black/30" />
-                    
-                    {/* Status badge */}
-                    <div className="absolute top-3 right-3 z-10">
-                      {isDone && (
-                        <div className="bg-green-500/90 backdrop-blur-sm rounded-full px-2 py-1 text-white text-xs font-semibold">
-                          ✓ done
-                        </div>
-                      )}
-                      {isCurrent && (
-                        <motion.div 
-                          className="backdrop-blur-sm rounded-full px-2 py-1 text-white text-xs font-semibold"
-                          style={{ backgroundColor: ACCENT }}
-                          animate={{ scale: [1, 1.05, 1] }}
-                          transition={{ duration: 2, repeat: Infinity }}
-                        >
-                          → now
-                        </motion.div>
-                      )}
-                    </div>
-
-                    {/* Icon/Emoji */}
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-6xl md:text-7xl opacity-90 transition-transform group-hover:scale-110">
-                        {project.image}
-                      </span>
-                    </div>
-
-                    {/* Title overlay (always visible on mobile, hover on desktop) */}
-                    <motion.div
-                      className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-4 md:p-3"
-                      initial={{ opacity: 1 }}
-                      animate={{ opacity: isHovered ? 1 : 0.9 }}
-                    >
-                      <p 
-                        className="text-white text-sm md:text-base font-medium lowercase leading-tight"
-                        style={{ 
-                          fontFamily: "var(--font-syne), sans-serif",
-                          textShadow: "0 2px 4px rgba(0,0,0,0.3)",
-                        }}
-                      >
-                        {project.name}
-                      </p>
-                    </motion.div>
-
-                    {/* Hover hint */}
-                    <motion.div
-                      className="absolute inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: isHovered ? 1 : 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <p 
-                        className="text-white text-sm md:text-base font-medium"
-                        style={{ fontFamily: "var(--font-space), sans-serif" }}
-                      >
-                        click for story →
-                      </p>
-                    </motion.div>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
-          ) : (
-            // Detail View (full screen)
-            <motion.div
-              key="detail"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="max-w-4xl mx-auto"
+              WE
+            </motion.span>
+            {" "}
+            <motion.span 
+              className="inline-block text-outline hover:text-blue-600 transition-colors cursor-default"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
             >
-              {/* Close button */}
-              <motion.button
-                className="mb-8 flex items-center gap-2 text-lg opacity-70 hover:opacity-100"
-                style={{ fontFamily: "var(--font-space), sans-serif", color: TEXT }}
-                onClick={() => setSelectedProject(null)}
-                whileHover={{ x: -4 }}
+              MAKE
+            </motion.span>
+            <br/>
+            <div className="relative inline-block">
+              <motion.span 
+                className="relative z-10 rotate-2 inline-block"
+                style={{ color: "#dc2626" }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
               >
-                ← back to portfolio
-              </motion.button>
+                STUFF
+              </motion.span>
+              <span className="absolute top-1 left-1 text-black -z-10 rotate-2 inline-block">
+                STUFF
+              </span>
+              {/* Spinning badge */}
+              <svg className="absolute -top-12 -right-12 w-24 h-24 text-black animate-spin-slow" viewBox="0 0 100 100">
+                <path d="M 25, 50 a 25,25 0 1,1 50,0 a 25,25 0 1,1 -50,0" fill="transparent" id="curve"/>
+                <text className="text-[10px] font-mono uppercase tracking-widest">
+                  <textPath xlinkHref="#curve">
+                    • Weird • Wacky • Wonderful
+                  </textPath>
+                </text>
+              </svg>
+            </div>
+            {" "}
+            <span 
+              className="text-4xl md:text-5xl -rotate-6 inline-block align-top mt-4 ml-4"
+              style={{ fontFamily: "var(--font-marker), cursive", color: "#16a34a" }}
+            >
+              (differently)
+            </span>
+          </h1>
 
-              {/* Hero card */}
-              <motion.div
-                className="relative rounded-3xl overflow-hidden mb-8"
-                style={{
-                  background: selected.gradient,
-                  minHeight: "300px",
-                }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-black/10 to-black/30" />
-                <div className="relative p-12 flex flex-col justify-center items-center min-h-[300px]">
-                  <span className="text-9xl mb-6 opacity-90">{selected.image}</span>
-                  <h1 
-                    className="text-4xl md:text-5xl font-bold lowercase text-white text-center"
-                    style={{ 
-                      fontFamily: "var(--font-syne), sans-serif",
-                      textShadow: "0 3px 12px rgba(0,0,0,0.4)",
-                    }}
-                  >
-                    {selected.name}
-                  </h1>
-                  {selected.status === "current" && (
-                    <motion.div 
-                      className="mt-4 backdrop-blur-sm rounded-full px-4 py-2 text-white text-sm font-semibold"
-                      style={{ backgroundColor: ACCENT }}
-                      animate={{ scale: [1, 1.05, 1] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    >
-                      → currently working on this
-                    </motion.div>
-                  )}
-                  {selected.status === "done" && (
-                    <div className="mt-4 bg-green-500/90 backdrop-blur-sm rounded-full px-4 py-2 text-white text-sm font-semibold">
-                      ✓ completed
-                    </div>
-                  )}
+          {/* Filter Buttons */}
+          <div className="flex flex-wrap gap-4 md:gap-6 relative z-20 pl-2">
+            <motion.button 
+              className="px-5 py-2 bg-white border-2 border-black shadow-brutal hover:shadow-brutal-hover hover:translate-x-1 hover:translate-y-1 transition-all -rotate-2 font-bold text-sm uppercase"
+              whileHover={{ rotate: 0 }}
+            >
+              All Projects <span className="ml-1">💥</span>
+            </motion.button>
+            <motion.button 
+              className="px-5 py-2 border-2 border-black shadow-brutal hover:shadow-brutal-hover hover:translate-x-1 hover:translate-y-1 transition-all rotate-1 font-bold text-sm uppercase clip-paper"
+              style={{ backgroundColor: "#fcd34d" }}
+              whileHover={{ rotate: 0 }}
+            >
+              AI Stuff
+            </motion.button>
+            <motion.button 
+              className="px-5 py-2 border-2 border-black shadow-brutal hover:shadow-brutal-hover hover:translate-x-1 hover:translate-y-1 transition-all -rotate-3 font-bold text-sm uppercase"
+              style={{ backgroundColor: "#f9a8d4" }}
+              whileHover={{ rotate: 0 }}
+            >
+              Branding
+            </motion.button>
+            <motion.button 
+              className="px-5 py-2 bg-black text-white border-2 border-white shadow-[4px_4px_0_0_#000] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all rotate-2 font-bold text-sm uppercase font-mono"
+              whileHover={{ rotate: 0 }}
+            >
+              &lt;Dev/&gt;
+            </motion.button>
+          </div>
+        </div>
+
+        {/* Masonry Grid - ALL 16 PROJECTS */}
+        <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-12 px-2 max-w-[1600px] mx-auto">
+          
+          {/* 1. Shopify Setup + Branding - DONE */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            {/* Tape effect */}
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-8 tape-effect -rotate-2 z-20" />
+            
+            <Link href="/contact" className="block">
+              <div className="bg-white p-3 pb-8 border-2 border-black shadow-brutal rotate-1 group-hover:rotate-0 transition-transform duration-300">
+                <div className="relative overflow-hidden border border-black mb-3 h-48">
+                  <Image
+                    src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=500&h=400&fit=crop"
+                    alt="Shopify Store"
+                    fill
+                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 scale-105 group-hover:scale-100"
+                  />
+                  <div className="absolute inset-0 bg-green-500 mix-blend-multiply opacity-0 group-hover:opacity-20 transition-opacity" />
                 </div>
-              </motion.div>
+                <div className="text-center font-display">
+                  <h3 className="text-2xl font-black uppercase leading-none">
+                    Shopify Setup<br/>+ Branding
+                  </h3>
+                  <p 
+                    className="text-lg -rotate-2 mt-2 group-hover:scale-110 transition-transform inline-block"
+                    style={{ fontFamily: "var(--font-marker), cursive", color: "#dc2626" }}
+                  >
+                    Cha-ching! 💰
+                  </p>
+                </div>
+              </div>
+            </Link>
+          </motion.div>
 
-              {/* Story */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-              >
-                <p 
-                  className="text-2xl md:text-3xl leading-relaxed mb-8"
-                  style={{ 
-                    fontFamily: "var(--font-space), sans-serif",
-                    color: TEXT,
-                  }}
+          {/* 2. N8N Self-Hosting - DONE */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="p-6 border-2 border-black shadow-brutal -rotate-2 group-hover:rotate-0 transition-transform duration-300 relative overflow-hidden" style={{ backgroundColor: "#fcd34d" }}>
+                <div className="absolute top-0 right-0 p-1 bg-black text-white font-mono text-xs border-b-2 border-l-2 border-black">
+                  SYS_ADMIN_MODE
+                </div>
+                <div className="h-32 mb-4 border-2 border-black bg-black relative overflow-hidden">
+                  <Image
+                    src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=500&h=300&fit=crop"
+                    alt="n8n automation"
+                    fill
+                    className="object-cover opacity-60"
+                  />
+                  <div className="absolute bottom-2 left-2 font-mono text-green-400 text-xs z-10">
+                    root@wacky:~# deploy n8n
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold font-mono lowercase">
+                  n8n self-hosting on google cloud
+                </h3>
+                <div className="mt-4 flex gap-2">
+                  <span className="w-3 h-3 rounded-full bg-red-500 border border-black" />
+                  <span className="w-3 h-3 rounded-full bg-yellow-500 border border-black" />
+                  <span className="w-3 h-3 rounded-full bg-green-500 border border-black animate-pulse" />
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* 3. AI News Scraper - DONE */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30 pt-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="bg-paper-white p-4 border-2 border-black shadow-brutal rotate-3 group-hover:rotate-0 transition-transform duration-300 clip-jagged relative">
+                <div className="absolute -left-2 top-10 w-4 h-16 bg-black/10 -rotate-3" />
+                <div className="border-b-2 border-black border-dashed pb-2 mb-2 flex justify-between items-end">
+                  <span 
+                    className="text-xs"
+                    style={{ fontFamily: "var(--font-marker), cursive" }}
+                  >
+                    The Daily Bot
+                  </span>
+                  <span className="font-bold text-xs bg-black text-white px-1">VOL. 1</span>
+                </div>
+                <h3 className="text-2xl font-black leading-none mb-2">
+                  AI NEWS SCRAPER N8N WORK
+                </h3>
+                <div className="flex gap-2 mb-2">
+                  <div className="w-1/3 bg-gray-200 border border-black h-20 relative overflow-hidden">
+                    <Image
+                      src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=200&h=200&fit=crop"
+                      alt="News scraper"
+                      fill
+                      className="object-cover grayscale contrast-150"
+                    />
+                  </div>
+                  <p className="w-2/3 text-xs font-serif leading-tight">
+                    Breaking news! Our bots are reading the internet so you don't have to. Highly efficient automated workflows tailored for lazy geniuses.
+                  </p>
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* 4. Shopify Blog Writer - DONE */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="bg-white bg-lined-paper p-6 border-2 border-black shadow-brutal -rotate-1 group-hover:scale-105 transition-transform duration-300">
+                <div className="absolute -top-3 right-8 w-4 h-12 bg-red-400/50 rotate-12 rounded-sm border border-black/20" />
+                <h3 
+                  className="text-2xl text-blue-700 mb-4"
+                  style={{ fontFamily: "var(--font-marker), cursive" }}
                 >
-                  {projectStories[selected.id]}
+                  Automated Shopify Blog Writer
+                </h3>
+                <p 
+                  className="text-gray-600 italic leading-relaxed transform -rotate-1"
+                  style={{ fontFamily: "var(--font-caveat), cursive" }}
+                >
+                  "It writes better than me..." <br/>
+                  - An unhappy copywriter
                 </p>
+                <div className="mt-4 flex justify-end text-3xl animate-bounce">
+                  ✍️
+                </div>
+              </div>
+            </Link>
+          </motion.div>
 
-                {(selected.isLast || selected.status === "coming") && (
-                  <Link href="/contact">
-                    <motion.button
-                      className="px-8 py-4 rounded-full text-xl font-semibold lowercase"
-                      style={{
-                        backgroundColor: ACCENT,
-                        color: BG,
-                        boxShadow: "0 6px 20px rgba(0,0,0,0.25)",
-                        fontFamily: "var(--font-syne), sans-serif",
-                      }}
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      whileTap={{ scale: 0.98 }}
+          {/* 5. Custom AI Agent - DONE */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="bg-black text-white p-1 border-2 border-black shadow-[8px_8px_0_0_#16a34a] hover:shadow-[4px_4px_0_0_#16a34a] hover:translate-x-1 hover:translate-y-1 transition-all duration-200">
+                <div className="border border-green-500 p-4 h-full relative overflow-hidden">
+                  <div className="flex justify-between items-center mb-4 border-b border-green-500 pb-2">
+                    <h3 className="text-lg font-mono uppercase text-green-500">
+                      Custom AI Agent
+                    </h3>
+                    <span className="w-2 h-2 bg-green-500 rounded-full animate-ping" />
+                  </div>
+                  <div className="h-40 mb-4 relative overflow-hidden">
+                    <Image
+                      src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500&h=400&fit=crop"
+                      alt="AI Agent"
+                      fill
+                      className="object-cover mix-blend-luminosity opacity-80 group-hover:hue-rotate-90 transition-all duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+                  </div>
+                  <p className="text-xs font-mono text-gray-400">
+                    &gt; Initializing neural personality...
+                  </p>
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* 6. Etsy Listing Auto - DONE */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.5 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="p-4 border-2 border-black shadow-brutal rotate-2 group-hover:-rotate-1 transition-transform duration-300 rounded-sm relative" style={{ backgroundColor: "#f9a8d4" }}>
+                <div className="absolute -top-4 -right-2 text-4xl animate-wiggle z-20 drop-shadow-md">
+                  🧵
+                </div>
+                <div className="absolute -bottom-2 -left-2 text-3xl z-20 drop-shadow-md rotate-12">
+                  🏷️
+                </div>
+                <div className="bg-white border-2 border-black p-2 mb-2 rotate-1 h-32 relative overflow-hidden">
+                  <Image
+                    src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=500&h=300&fit=crop"
+                    alt="Etsy products"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <h3 className="text-xl font-black text-center uppercase tracking-tighter bg-white inline-block px-2 border border-black rotate-1">
+                  Etsy Listing Auto
+                </h3>
+                <p 
+                  className="text-center text-sm mt-2"
+                  style={{ fontFamily: "var(--font-marker), cursive" }}
+                >
+                  Sell while you sleep!
+                </p>
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* 7. Full Brand Identity - DONE */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.6 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="aspect-square flex flex-col items-center justify-center p-6 border-2 border-black shadow-brutal hover:rounded-[50%] transition-all duration-500 overflow-hidden text-center cursor-pointer relative" style={{ backgroundColor: "#2563eb" }}>
+                <h3 className="text-4xl md:text-5xl font-black text-white leading-none group-hover:scale-110 transition-transform">
+                  FULL<br/>BRAND<br/>IDENTITY
+                </h3>
+                <div className="absolute inset-0 border-[10px] border-white/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-700" />
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* 8. AI Video Content - DONE */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.7 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="bg-gray-900 p-2 border-2 border-black shadow-brutal -rotate-1 group-hover:rotate-0 transition-transform duration-300">
+                <div className="bg-black border-2 border-gray-700 p-4 relative">
+                  <div className="flex gap-1 mb-4">
+                    <div className="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                      <div className="h-full bg-red-600 w-1/2 group-hover:w-full transition-all duration-1000 ease-linear" />
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-center h-24 border border-gray-800 bg-gray-900 mb-4 group-hover:bg-gray-800 transition-colors text-6xl">
+                    🎥
+                  </div>
+                  <h3 className="text-white font-bold uppercase text-lg leading-tight">
+                    AI Video Content<br/>Automation
+                  </h3>
+                  <div className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                </div>
+                <div className="flex justify-between px-2 pt-2">
+                  <div className="w-2 h-2 bg-black rounded-full border border-gray-500" />
+                  <div className="w-2 h-2 bg-black rounded-full border border-gray-500" />
+                  <div className="w-2 h-2 bg-black rounded-full border border-gray-500" />
+                  <div className="w-2 h-2 bg-black rounded-full border border-gray-500" />
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* 9. Course Platform - DONE */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.8 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="p-[2px] border-2 border-black shadow-brutal rotate-1 group-hover:-rotate-1 transition-transform duration-300 rounded-r-xl" style={{ backgroundColor: "#8b5e3c" }}>
+                <div className="bg-paper-white h-full border-l-8 border-l-black/20 p-4 rounded-r-lg relative">
+                  <div className="absolute top-0 left-0 w-4 h-full border-r border-dashed border-gray-300" />
+                  <div className="pl-4">
+                    <h3 className="font-serif text-2xl font-bold italic mb-2">
+                      Course Platform
+                    </h3>
+                    <ul 
+                      className="list-disc pl-4 text-sm text-gray-700 space-y-1"
+                      style={{ fontFamily: "var(--font-caveat), cursive" }}
                     >
-                      interested? let's chat!
-                    </motion.button>
-                  </Link>
-                )}
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+                      <li>Self-hosted</li>
+                      <li>No monthly fees</li>
+                      <li><span className="bg-yellow-200 px-1">Total Control</span></li>
+                    </ul>
+                    <div className="mt-4 border-t-2 border-black pt-2 flex justify-between items-center">
+                      <span 
+                        className="text-xl"
+                        style={{ fontFamily: "var(--font-marker), cursive" }}
+                      >
+                        A+
+                      </span>
+                      <span className="text-2xl">🎓</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* 10. Company RAG KB - DONE */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30 pt-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.9 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="relative">
+                <div className="absolute -top-6 left-0 w-1/3 h-8 bg-amber-100 border-2 border-b-0 border-black rounded-t-lg z-0" />
+                <div className="bg-amber-100 p-6 border-2 border-black shadow-brutal relative z-10 rounded-tr-lg rounded-br-lg rounded-bl-lg">
+                  <h3 className="text-lg font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
+                    <span className="text-2xl">📁</span>
+                    Company RAG KB
+                  </h3>
+                  <div className="bg-white border border-amber-300 p-3 shadow-inner font-mono text-xs text-gray-600">
+                    "Hey Bot, what is our return policy?"<br/><br/>
+                    &gt; Searching docs...<br/>
+                    &gt; Found in policy_2024.pdf
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* 11. WordPress Migration - CURRENT */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 1 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="bg-paper-white p-6 border-2 border-black shadow-brutal-lg rotate-2 group-hover:rotate-0 transition-transform duration-300 relative">
+                <div className="absolute -top-4 -right-4 bg-yellow-300 px-3 py-1 border-2 border-black rotate-12 font-black text-sm">
+                  IN PROGRESS!
+                </div>
+                <div className="flex items-center justify-center h-32 text-6xl mb-4">
+                  🔧
+                </div>
+                <h3 className="text-2xl font-black uppercase text-center leading-tight mb-2">
+                  WORDPRESS<br/>MIGRATION
+                </h3>
+                <div className="border-2 border-red-500 text-red-500 font-black text-center py-1 rotate-12 uppercase text-sm">
+                  FRAGILE
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* 12. Shopify Makeover - SOON */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 1.1 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="bg-white p-6 border-2 border-black shadow-brutal -rotate-1 group-hover:rotate-0 transition-transform duration-300">
+                <div className="flex justify-between items-start mb-4">
+                  <span className="text-5xl">🏠</span>
+                  <span className="bg-green-300 px-2 py-1 text-xs font-bold border border-black rotate-3">
+                    SOON
+                  </span>
+                </div>
+                <h3 className="text-xl font-black uppercase">
+                  Shopify Makeover
+                </h3>
+                <p 
+                  className="text-sm text-gray-600 mt-2"
+                  style={{ fontFamily: "var(--font-caveat), cursive" }}
+                >
+                  Fresh look, same great products
+                </p>
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* 13. YouTube Channel Setup */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 1.2 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="bg-red-600 p-6 border-2 border-black shadow-brutal rotate-1 group-hover:rotate-0 transition-transform duration-300 text-white text-center">
+                <div className="text-6xl mb-3">▶️</div>
+                <h3 className="text-2xl font-black uppercase leading-tight">
+                  Channel<br/>Setup +<br/>Branding
+                </h3>
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* 14. Roblox World */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 1.3 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="bg-green-400 p-6 border-2 border-black shadow-brutal -rotate-2 group-hover:rotate-0 transition-transform duration-300">
+                <div className="text-6xl mb-3">🎮</div>
+                <h3 className="text-xl font-black uppercase">
+                  Custom<br/>Roblox<br/>World
+                </h3>
+                <div className="mt-2 bg-black text-green-400 px-2 py-1 text-xs font-mono">
+                  GAME_MODE_ON
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* 15. Bakery Website Migration */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 1.4 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="bg-white p-6 border-2 border-black shadow-brutal rotate-2 group-hover:rotate-0 transition-transform duration-300">
+                <div className="text-center">
+                  <div className="text-5xl mb-3">🥐</div>
+                  <h3 className="text-lg font-black uppercase">
+                    Wix Website<br/>Migration
+                  </h3>
+                  <p 
+                    className="text-sm mt-2"
+                    style={{ fontFamily: "var(--font-caveat), cursive" }}
+                  >
+                    From Wix to custom platform
+                  </p>
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+
+          {/* 16. Smart Home Setup */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 1.5 }}
+          >
+            <Link href="/contact" className="block">
+              <div className="bg-gray-800 text-white p-6 border-2 border-black shadow-brutal -rotate-1 group-hover:rotate-0 transition-transform duration-300">
+                <div className="flex justify-between mb-4">
+                  <div className="flex flex-col gap-2">
+                    <div className="text-xs font-mono">Lights ✓</div>
+                    <div className="text-xs font-mono">Temp ✓</div>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <div className="text-xs font-mono">Locks ✓</div>
+                    <div className="text-xs font-mono">Cams ✓</div>
+                  </div>
+                </div>
+                <div className="text-4xl mb-2">🏡</div>
+                <h3 className="text-lg font-bold uppercase">
+                  Self-Hosted AI<br/>Smart Home
+                </h3>
+              </div>
+            </Link>
+          </motion.div>
+
+        </div>
+
+        {/* Bottom CTA */}
+        <motion.div 
+          className="mt-24 flex justify-center"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <Link href="/contact">
+            <div className="relative inline-block">
+              <div className="bg-white p-8 md:p-12 border-4 border-black shadow-brutal-lg hover:shadow-brutal hover:translate-x-2 hover:translate-y-2 transition-all duration-200">
+                <h2 className="text-4xl md:text-5xl font-black uppercase mb-4">
+                  GOT A PROJECT?
+                </h2>
+                <p 
+                  className="text-xl text-gray-600"
+                  style={{ fontFamily: "var(--font-caveat), cursive" }}
+                >
+                  Let's talk immediately.
+                </p>
+              </div>
+              <div className="absolute -bottom-8 -right-8 text-6xl">
+                ☎️
+              </div>
+            </div>
+          </Link>
+        </motion.div>
+
       </div>
     </main>
   );
