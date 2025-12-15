@@ -83,7 +83,7 @@ export default function Home() {
   }, [gameStarted]);
 
   return (
-    <main className="relative min-h-[105vh] pb-8 overflow-x-hidden" style={{ backgroundColor: BG, color: TEXT }}>
+    <main className="relative min-h-[105vh] pb-0 overflow-x-hidden" style={{ backgroundColor: BG, color: TEXT }}>
       {/* Grid paper background */}
       <div 
         className="fixed inset-0 pointer-events-none opacity-10 z-0"
@@ -200,7 +200,7 @@ export default function Home() {
       </motion.div>
 
       {/* HERO SECTION */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-6 pt-20 md:pt-40 lg:pt-12 pb-20">
+      <div className="relative z-10 min-h-screen flex items-center justify-center px-6 pt-20 md:pt-40 lg:pt-12 pb-5">
         <div className="w-full max-w-6xl">
           
           {/* Big title */}
