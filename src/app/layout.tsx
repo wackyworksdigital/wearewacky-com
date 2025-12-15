@@ -328,7 +328,7 @@ const jsonLd = {
       "@id": "https://wearewacky.com/services#photo-video",
       name: "Photo & Video Production",
       provider: { "@id": "https://wearewacky.com/#organization" },
-      description: "Professional photo and video shoots for South London businesses. Product photography, brand videos, social media content. Based in Coulsdon, serving a 10-mile radius.",
+      description: "Professional photo and video shoots for London and South East England businesses. Product photography, brand videos, social media content. Based in South London, covering Greater London, Surrey, Kent, Sussex, and Hampshire.",
       serviceType: "Photography",
       areaServed: [
         {
@@ -339,12 +339,16 @@ const jsonLd = {
             longitude: -0.1386,
             name: "Coulsdon, South London",
           },
-          geoRadius: "16093", // 10 miles in meters
+          geoRadius: "64374", // 40 miles in meters
         },
-        { "@type": "AdministrativeArea", name: "South London" },
+        { "@type": "City", name: "London" },
+        { "@type": "AdministrativeArea", name: "Greater London" },
         { "@type": "AdministrativeArea", name: "South East England" },
-        { "@type": "City", name: "Croydon" },
         { "@type": "AdministrativeArea", name: "Surrey" },
+        { "@type": "AdministrativeArea", name: "Kent" },
+        { "@type": "AdministrativeArea", name: "Sussex" },
+        { "@type": "AdministrativeArea", name: "Hampshire" },
+        { "@type": "AdministrativeArea", name: "Berkshire" },
       ],
     },
     // FAQPage schema for AI citations
