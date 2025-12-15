@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export function LegalFooter() {
   return (
-    <footer className="mt-16 pt-8 border-t-4 border-black">
+    <footer className="mt-8 pt-6 pb-4 border-t-4 border-black">
       <div className="flex flex-wrap justify-center gap-6 text-sm">
         <Link href="/" className="hover:underline font-bold">Home</Link>
         <Link href="/privacy" className="hover:underline font-bold">Privacy Policy</Link>
