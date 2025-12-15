@@ -155,6 +155,7 @@ const jsonLd = {
       areaServed: ["United Kingdom", "Worldwide"],
       address: {
         "@type": "PostalAddress",
+        addressLocality: "London",
         addressCountry: "GB",
         addressRegion: "England",
       },
@@ -176,6 +177,8 @@ const jsonLd = {
         "Web Development",
         "App Development",
         "Branding",
+        "Photo Shoots",
+        "Video Production",
       ],
       slogan: "We're not for everyone. And that's the point.",
       priceRange: "££-£££",
@@ -310,6 +313,18 @@ const jsonLd = {
       provider: { "@id": "https://wearewacky.com/#organization" },
       description: "n8n, Home Assistant, private AI on your own servers. Zero subscriptions, full data control.",
       serviceType: "IT Infrastructure",
+    },
+    {
+      "@type": "Service",
+      "@id": "https://wearewacky.com/services#photo-video",
+      name: "Photo & Video Production",
+      provider: { "@id": "https://wearewacky.com/#organization" },
+      description: "Professional photo and video shoots for London-based businesses. Product photography, brand videos, social media content.",
+      serviceType: "Photography",
+      areaServed: {
+        "@type": "City",
+        name: "London",
+      },
     },
     // FAQPage schema for AI citations
     {
