@@ -152,12 +152,21 @@ const jsonLd = {
       image: "https://wearewacky.com/og-image.png",
       description: "Custom Automation & SaaS Studio. We build digital assets that generate revenue, save time, and automate workflows.",
       foundingDate: "2024",
-      areaServed: ["United Kingdom", "Worldwide"],
+      areaServed: [
+        { "@type": "Country", name: "United Kingdom" },
+        { "@type": "Country", name: "Worldwide" },
+        { "@type": "City", name: "London" },
+        { "@type": "AdministrativeArea", name: "South London" },
+        { "@type": "AdministrativeArea", name: "South East England" },
+        { "@type": "AdministrativeArea", name: "Surrey" },
+        { "@type": "City", name: "Croydon" },
+      ],
       address: {
         "@type": "PostalAddress",
-        addressLocality: "London",
+        addressLocality: "Coulsdon",
+        addressRegion: "South London",
+        postalCode: "CR5",
         addressCountry: "GB",
-        addressRegion: "England",
       },
       contactPoint: {
         "@type": "ContactPoint",
@@ -319,12 +328,24 @@ const jsonLd = {
       "@id": "https://wearewacky.com/services#photo-video",
       name: "Photo & Video Production",
       provider: { "@id": "https://wearewacky.com/#organization" },
-      description: "Professional photo and video shoots for London-based businesses. Product photography, brand videos, social media content.",
+      description: "Professional photo and video shoots for South London businesses. Product photography, brand videos, social media content. Based in Coulsdon, serving a 10-mile radius.",
       serviceType: "Photography",
-      areaServed: {
-        "@type": "City",
-        name: "London",
-      },
+      areaServed: [
+        {
+          "@type": "GeoCircle",
+          geoMidpoint: {
+            "@type": "GeoCoordinates",
+            latitude: 51.3214,
+            longitude: -0.1386,
+            name: "Coulsdon, South London",
+          },
+          geoRadius: "16093", // 10 miles in meters
+        },
+        { "@type": "AdministrativeArea", name: "South London" },
+        { "@type": "AdministrativeArea", name: "South East England" },
+        { "@type": "City", name: "Croydon" },
+        { "@type": "AdministrativeArea", name: "Surrey" },
+      ],
     },
     // FAQPage schema for AI citations
     {
