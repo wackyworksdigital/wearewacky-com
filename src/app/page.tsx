@@ -240,7 +240,7 @@ export default function Home() {
             </h1>
 
             <motion.p
-              className="text-2xl md:text-4xl mt-6 -rotate-1"
+              className="text-2xl md:text-4xl mt-0 -rotate-1"
               style={{ fontFamily: "var(--font-caveat), cursive", color: "#2563eb" }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
