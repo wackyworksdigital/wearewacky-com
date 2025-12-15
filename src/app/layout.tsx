@@ -396,6 +396,62 @@ const jsonLd = {
             text: "RAG (Retrieval-Augmented Generation) turns your company documents into an AI that knows your business. Instead of generic AI responses, RAG systems pull from your actual data - policies, procedures, product info - to give accurate, company-specific answers. Perfect for customer support, internal knowledge bases, and employee onboarding.",
           },
         },
+        {
+          "@type": "Question",
+          name: "Where is Wacky Works Digital based?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "We're based in Coulsdon, South London, UK. For digital services like AI agents, automation, and web development, we work with clients worldwide. For photo and video shoots, we cover a 40-mile radius including all of London, Surrey, Kent, Sussex, Hampshire, and Berkshire.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Do you offer photo and video shoots for businesses?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes! We offer professional photo and video production for businesses in London and South East England. Product photography, brand videos, social media content, and behind-the-scenes footage. Based in South London, we cover Greater London, Surrey, Kent, Sussex, Hampshire, and Berkshire.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How much does a business website cost in the UK?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "A professional business website typically costs £2,000-£10,000 in the UK. Basic brochure sites start around £2,000, while e-commerce stores with custom features range £5,000-£15,000. We build with Next.js and React for speed and SEO - no WordPress maintenance nightmares.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can you automate my Shopify store?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Absolutely! We automate Shopify stores with AI-powered blog posts, inventory syncing, order processing, customer emails, review requests, and even cross-listing to Etsy and Amazon. Most store owners save 10-20 hours per week after automation.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What's the best automation tool for small businesses?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "It depends on your needs. Zapier is easiest for beginners with 6,000+ app integrations. Make.com offers powerful visual workflows at lower cost. n8n is self-hosted with zero per-task fees - best for scaling. We help you choose and set up the right tool for your specific workflows.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Do you build mobile apps?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes! We build mobile apps using React Native for both iOS and Android from a single codebase. Also web apps, PWAs, and full SaaS platforms. From initial idea through app store submission and beyond.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How do I get started with AI for my business?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Start with one specific pain point - customer support queries, content creation, data entry, or repetitive admin tasks. We offer free discovery calls to identify quick wins that deliver ROI within weeks, not months. Most businesses see results from their first AI automation within 2-4 weeks.",
+          },
+        },
       ],
     },
   ],
