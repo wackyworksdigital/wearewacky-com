@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
+import { LegalFooter } from "@/components/ui/legal-footer";
 
 const TEXT = "#3d3428";
 const BG = "#f0eadd";
@@ -427,6 +428,9 @@ export default function Home() {
           >
             💡
           </motion.div>
+
+          {/* Legal Footer */}
+          <LegalFooter />
 
         </div>
       </div>

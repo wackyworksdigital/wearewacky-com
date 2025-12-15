@@ -135,10 +135,10 @@ export function Footer() {
             © {new Date().getFullYear()} Wacky Works Digital. Made with questionable amounts of coffee.
           </p>
           <div className="flex gap-6 text-sm text-white/40">
-            <a href="#" className="hover:text-white transition-colors">
+            <a href="/privacy" className="hover:text-white transition-colors">
               Privacy Policy
             </a>
-            <a href="#" className="hover:text-white transition-colors">
+            <a href="/terms" className="hover:text-white transition-colors">
               Terms of Service
             </a>
           </div>
