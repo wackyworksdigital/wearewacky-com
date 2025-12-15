@@ -187,7 +187,7 @@ export default function AboutPage() {
               className="bg-pink-200 border-4 border-black p-6 md:p-8 shadow-brutal rotate-2 ml-auto max-w-3xl relative"
             >
               <div 
-                className="absolute -top-8 -left-8 text-7xl opacity-20 -rotate-12"
+                className="absolute -top-8 -left-8 text-7xl opacity-100 -rotate-12"
                 style={{ fontFamily: "var(--font-marker), cursive" }}
               >
                 UK
@@ -224,7 +224,7 @@ export default function AboutPage() {
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="text-2xl">→</span>
-                  <p>No bullshit, just honest work</p>
+                  <p>No nonsense, just honest work</p>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="text-2xl">→</span>
@@ -308,8 +308,9 @@ export default function AboutPage() {
                 className="text-sm"
                 style={{ fontFamily: "var(--font-space), sans-serif" }}
               >
-                Next.js • OpenAI<br/>
-                Claude • n8n • Zapier
+                React • Next.js • OpenAI<br/>
+                Claude • Gemini • n8n<br/>
+                Zapier • Make • Supabase
               </p>
             </motion.div>
 
