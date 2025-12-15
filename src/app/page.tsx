@@ -200,7 +200,7 @@ export default function Home() {
       </motion.div>
 
       {/* HERO SECTION */}
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-6 pt-40 md:pt-32 lg:pt-0 pb-20">
+      <div className="relative z-10 min-h-screen flex items-center justify-center px-6 pt-24 md:pt-20 lg:pt-0 pb-20">
         <div className="w-full max-w-6xl">
           
           {/* Big title */}
