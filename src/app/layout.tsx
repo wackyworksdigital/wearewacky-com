@@ -241,6 +241,12 @@ const jsonLd = {
           name: "Contact",
           item: "https://wearewacky.com/contact",
         },
+        {
+          "@type": "ListItem",
+          position: 6,
+          name: "FAQ",
+          item: "https://wearewacky.com/faq",
+        },
       ],
     },
     {
