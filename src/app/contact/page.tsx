@@ -134,7 +134,7 @@ export default function ContactPage() {
           {/* Contact cards scattered */}
           <div className="relative mb-20">
             
-            {/* Email card - big yellow */}
+            {/* Email card - big yellow - fully clickable */}
             <motion.div
               className="relative md:absolute top-0 left-[5%] w-full md:w-80 mb-8 md:mb-0 z-20"
               initial={{ opacity: 0, rotate: -8, y: 30 }}
@@ -142,34 +142,33 @@ export default function ContactPage() {
               viewport={{ once: true }}
               whileHover={{ rotate: 0, scale: 1.05 }}
             >
-              <div className="bg-yellow-300 p-6 border-2 border-black shadow-brutal relative group">
-                <div className="absolute -top-3 right-8 w-4 h-12 bg-red-400/50 rotate-12 rounded-sm border border-black/20" />
-                
-                <div className="text-5xl mb-3">✉️</div>
-                <h3 
-                  className="text-3xl font-black uppercase mb-3"
-                  style={{ fontFamily: "var(--font-bebas), sans-serif" }}
-                >
-                  EMAIL US
-                </h3>
-                <Link
-                  href="mailto:hello@wearewacky.com"
-                  className="text-lg font-mono underline hover:no-underline block"
-                >
-                  hello@wearewacky.com
-                </Link>
-                
-                <motion.div 
-                  className="absolute -bottom-6 -right-6 text-3xl"
-                  animate={{ rotate: [0, 10, 0] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  👈
-                </motion.div>
-              </div>
+              <Link href="mailto:hello@wearewacky.com" className="block">
+                <div className="bg-yellow-300 p-6 border-2 border-black shadow-brutal relative group hover:bg-yellow-400 transition-colors cursor-pointer">
+                  <div className="absolute -top-3 right-8 w-4 h-12 bg-red-400/50 rotate-12 rounded-sm border border-black/20" />
+                  
+                  <div className="text-5xl mb-3">✉️</div>
+                  <h3 
+                    className="text-3xl font-black uppercase mb-3"
+                    style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+                  >
+                    EMAIL US
+                  </h3>
+                  <span className="text-lg font-mono underline group-hover:no-underline block">
+                    hello@wearewacky.com
+                  </span>
+                  
+                  <motion.div 
+                    className="absolute -bottom-6 -right-6 text-3xl"
+                    animate={{ rotate: [0, 10, 0] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    👈
+                  </motion.div>
+                </div>
+              </Link>
             </motion.div>
 
-            {/* WhatsApp card - green */}
+            {/* WhatsApp card - green - fully clickable */}
             <motion.div
               className="relative md:absolute top-24 right-[10%] w-full md:w-80 mb-8 md:mb-0 z-20"
               initial={{ opacity: 0, rotate: 8, y: 30 }}
@@ -178,52 +177,111 @@ export default function ContactPage() {
               transition={{ delay: 0.1 }}
               whileHover={{ rotate: 0, scale: 1.05 }}
             >
-              <div className="bg-green-300 p-6 border-2 border-black shadow-brutal">
-                <div className="text-5xl mb-3">📱</div>
-                <h3 
-                  className="text-3xl font-black uppercase mb-3"
-                  style={{ fontFamily: "var(--font-bebas), sans-serif" }}
-                >
-                  WHATSAPP
-                </h3>
-                <Link
-                  href="https://wa.me/447460460318"
-                  className="text-lg font-mono underline hover:no-underline block"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  +44 7460 460318
-                </Link>
-              </div>
+              <Link 
+                href="https://wa.me/447460460318"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <div className="bg-green-400 p-6 border-2 border-black shadow-brutal hover:bg-green-500 transition-colors cursor-pointer">
+                  <div className="text-5xl mb-3">📱</div>
+                  <h3 
+                    className="text-3xl font-black uppercase mb-3"
+                    style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+                  >
+                    WHATSAPP
+                  </h3>
+                  <span className="text-xl font-mono font-bold block">
+                    +44 7460 460 318
+                  </span>
+                  <span 
+                    className="text-sm mt-2 block"
+                    style={{ fontFamily: "var(--font-caveat), cursive" }}
+                  >
+                    tap to chat! 💬
+                  </span>
+                </div>
+              </Link>
             </motion.div>
 
-            {/* Instagram - pink polaroid */}
+            {/* Social Media Box - All platforms */}
             <motion.div
-              className="relative md:absolute top-64 left-[15%] w-full md:w-72 mb-8 md:mb-0 z-20"
+              className="relative md:absolute top-64 left-[15%] w-full md:w-80 mb-8 md:mb-0 z-20"
               initial={{ opacity: 0, rotate: -6, y: 30 }}
-              whileInView={{ opacity: 1, rotate: -3, y: 0 }}
+              whileInView={{ opacity: 1, rotate: -2, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              whileHover={{ rotate: 0, scale: 1.05 }}
+              whileHover={{ rotate: 0, scale: 1.02 }}
             >
-              <div className="bg-white p-4 pb-12 border-2 border-black shadow-brutal" style={{ backgroundColor: "#f9a8d4" }}>
-                <div className="bg-white p-4 border border-black mb-3">
-                  <div className="text-5xl text-center">📸</div>
-                </div>
+              <div className="bg-white p-6 border-2 border-black shadow-brutal" style={{ backgroundColor: "#f9a8d4" }}>
                 <h3 
-                  className="text-2xl font-black text-center uppercase"
+                  className="text-2xl font-black text-center uppercase mb-4"
                   style={{ fontFamily: "var(--font-bebas), sans-serif" }}
                 >
-                  INSTAGRAM
+                  FIND US EVERYWHERE
                 </h3>
-                <Link
-                  href="https://www.instagram.com/wearewacky/"
-                  className="text-center font-mono text-sm underline hover:no-underline block mt-2"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <div 
+                  className="text-2xl font-bold text-center mb-4 bg-black text-white px-3 py-2"
+                  style={{ fontFamily: "var(--font-space), sans-serif" }}
                 >
-                  @wearewacky
-                </Link>
+                  @wackyworksdigital
+                </div>
+                <div className="flex flex-wrap justify-center gap-3">
+                  <Link
+                    href="https://www.instagram.com/wackyworksdigital/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-3xl hover:scale-125 transition-transform"
+                    title="Instagram"
+                  >
+                    📸
+                  </Link>
+                  <Link
+                    href="https://www.tiktok.com/@wackyworksdigital"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-3xl hover:scale-125 transition-transform"
+                    title="TikTok"
+                  >
+                    🎵
+                  </Link>
+                  <Link
+                    href="https://www.youtube.com/@wackyworksdigital"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-3xl hover:scale-125 transition-transform"
+                    title="YouTube"
+                  >
+                    ▶️
+                  </Link>
+                  <Link
+                    href="https://x.com/wackywdigital"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-3xl hover:scale-125 transition-transform"
+                    title="X / Twitter"
+                  >
+                    🐦
+                  </Link>
+                  <Link
+                    href="https://www.facebook.com/wackyworksdigital/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-3xl hover:scale-125 transition-transform"
+                    title="Facebook"
+                  >
+                    👤
+                  </Link>
+                  <Link
+                    href="https://www.threads.net/@wackyworksdigital"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-3xl hover:scale-125 transition-transform"
+                    title="Threads"
+                  >
+                    🧵
+                  </Link>
+                </div>
               </div>
             </motion.div>
 
@@ -236,23 +294,25 @@ export default function ContactPage() {
               transition={{ delay: 0.3 }}
               whileHover={{ rotate: 0, scale: 1.05 }}
             >
-              <div className="bg-blue-400 p-6 border-2 border-black shadow-brutal text-white">
-                <div className="text-5xl mb-3">💼</div>
-                <h3 
-                  className="text-3xl font-black uppercase mb-3"
-                  style={{ fontFamily: "var(--font-bebas), sans-serif" }}
-                >
-                  LINKEDIN
-                </h3>
-                <Link
-                  href="https://www.linkedin.com/company/wacky-works-digital/"
-                  className="text-sm font-mono underline hover:no-underline block"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  /company/wacky-works-digital
-                </Link>
-              </div>
+              <Link
+                href="https://www.linkedin.com/company/wackyworksdigital/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <div className="bg-blue-500 p-6 border-2 border-black shadow-brutal text-white hover:bg-blue-600 transition-colors">
+                  <div className="text-5xl mb-3">💼</div>
+                  <h3 
+                    className="text-3xl font-black uppercase mb-3"
+                    style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+                  >
+                    LINKEDIN
+                  </h3>
+                  <span className="text-sm font-mono underline">
+                    Wacky Works Digital →
+                  </span>
+                </div>
+              </Link>
             </motion.div>
 
             {/* Spacer for mobile */}
