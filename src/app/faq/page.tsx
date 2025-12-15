@@ -11,7 +11,7 @@ const BG = "#f0eadd";
 const faqs = [
   {
     question: "How much does AI workflow automation cost for a small business?",
-    answer: "AI workflow automation typically costs £2,000-£15,000 for SMBs depending on complexity. Simple n8n or Zapier integrations start lower, while custom AI agent development requires larger investment. Most clients save 10-30 hours per week, delivering ROI within 2-3 months.",
+    answer: "Simple workflow automations start from £300 / $400, while AI chatbots start from £500 / $700. Most small business projects fall in the £500-£2,000 range. We offer free discovery calls to understand your needs and give you an accurate quote. Check our pricing page for ballpark figures!",
     color: "bg-yellow-300",
     rotate: "rotate-1",
   },
@@ -53,7 +53,7 @@ const faqs = [
   },
   {
     question: "How much does a business website cost in the UK?",
-    answer: "A professional business website typically costs £2,000-£10,000 in the UK. Basic brochure sites start around £2,000, while e-commerce stores with custom features range £5,000-£15,000. We build with Next.js and React for speed and SEO - no WordPress maintenance nightmares.",
+    answer: "Our websites start from £500 / $700 for landing pages, with full 5-7 page business sites from £800-£1,500 ($1,000-$2,000). E-commerce stores start from £800 / $1,000. We build with Next.js and React for speed and SEO - no WordPress maintenance nightmares. See our pricing page for full details!",
     color: "bg-pink-200",
     rotate: "-rotate-2",
   },

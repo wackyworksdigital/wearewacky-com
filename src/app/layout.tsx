@@ -247,6 +247,12 @@ const jsonLd = {
           name: "FAQ",
           item: "https://wearewacky.com/faq",
         },
+        {
+          "@type": "ListItem",
+          position: 7,
+          name: "Pricing",
+          item: "https://wearewacky.com/pricing",
+        },
       ],
     },
     {
@@ -264,6 +270,17 @@ const jsonLd = {
       provider: { "@id": "https://wearewacky.com/#organization" },
       description: "Custom AI assistants that handle customer support, data analysis, and repetitive tasks 24/7. Multi-agent setups with shared knowledge bases.",
       serviceType: "AI Development",
+      offers: {
+        "@type": "Offer",
+        priceCurrency: "GBP",
+        price: "500",
+        priceSpecification: {
+          "@type": "PriceSpecification",
+          minPrice: "500",
+          priceCurrency: "GBP",
+          description: "AI chatbots from £500, AI agents from £800",
+        },
+      },
     },
     {
       "@type": "Service",
@@ -272,6 +289,17 @@ const jsonLd = {
       provider: { "@id": "https://wearewacky.com/#organization" },
       description: "Connect your apps using n8n, Zapier, and Make.com. Google Cloud VMs, Docker hosting, zero subscription fees.",
       serviceType: "Business Automation",
+      offers: {
+        "@type": "Offer",
+        priceCurrency: "GBP",
+        price: "300",
+        priceSpecification: {
+          "@type": "PriceSpecification",
+          minPrice: "300",
+          priceCurrency: "GBP",
+          description: "Simple automations from £300, complex workflows from £800",
+        },
+      },
     },
     {
       "@type": "Service",
@@ -296,6 +324,17 @@ const jsonLd = {
       provider: { "@id": "https://wearewacky.com/#organization" },
       description: "Fast, modern websites built with Next.js and React. WordPress to Next.js migrations.",
       serviceType: "Web Development",
+      offers: {
+        "@type": "Offer",
+        priceCurrency: "GBP",
+        price: "500",
+        priceSpecification: {
+          "@type": "PriceSpecification",
+          minPrice: "500",
+          priceCurrency: "GBP",
+          description: "Landing pages from £500, full websites from £800",
+        },
+      },
     },
     {
       "@type": "Service",
@@ -304,6 +343,17 @@ const jsonLd = {
       provider: { "@id": "https://wearewacky.com/#organization" },
       description: "Shopify stores, product listings, checkout optimization, automated blog posts, Etsy listing automation.",
       serviceType: "E-commerce Development",
+      offers: {
+        "@type": "Offer",
+        priceCurrency: "GBP",
+        price: "800",
+        priceSpecification: {
+          "@type": "PriceSpecification",
+          minPrice: "800",
+          priceCurrency: "GBP",
+          description: "Shopify store setup from £800",
+        },
+      },
     },
     {
       "@type": "Service",

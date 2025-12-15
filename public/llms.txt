@@ -6,34 +6,59 @@
 
 We help businesses automate boring stuff so humans can do interesting stuff. Our specialty is connecting AI, automation, and modern web tech to create systems that work while you sleep.
 
-## Services
+## Services & Pricing
 
-### AI Agents
-Custom AI assistants that handle customer support, data analysis, and repetitive tasks 24/7. They're like interns but they don't need coffee breaks or complain about the wifi. We build GPTs for grown-ups - multiple AI agents sharing a company knowledge base but each with their own personality.
+All prices are ballpark starting points. Every project is unique - book a free discovery call for accurate quotes! Prices shown in GBP / USD.
 
-### Workflow Automation
-We wire up your apps using n8n, Zapier, and Make.com so they actually talk to each other. Your CRM updates your spreadsheet updates your Slack updates your sanity. Google Cloud VMs running n8n via Docker - private automation servers with zero subscription fees.
+### AI Chatbot Setup — from £500 / $700
+Custom GPT-powered chatbot trained on your FAQs. Integrated with your website, handles customer queries 24/7. ChatGPT, Custom GPT, Customer Support Bot.
 
-### RAG & Knowledge Systems
-Turn messy documents into an AI that actually knows your business. Custom knowledge bases, document Q&A, internal search. Like having an employee who read ALL the documentation - yes, even the 2019 onboarding PDF. Living knowledge bases that constantly check, reference, and update themselves.
+### AI Agent Development — from £800 / $1,000
+Intelligent AI assistants that handle bookings, support tickets, data entry, or internal tasks autonomously. Multi-agent setups with shared knowledge bases.
 
-### App Development
-Mobile apps, web apps, SaaS platforms. From idea to app store. React Native, Next.js, modern tech stack. We build stuff that works on phones, tablets, and whatever weird device you're using.
+### Workflow Automation — from £300 / $400
+Connect your apps with n8n, Zapier, or Make.com. Automate repetitive tasks and save 10+ hours per week. Google Cloud VMs running n8n via Docker - private automation servers with zero subscription fees.
 
-### Websites
-Fast, modern websites built with Next.js and React. Animations that go whoosh, SEO that actually works, and no more 'please update your plugins' nightmares. Not your grandma's WordPress. We rebuild WordPress sites in Next.js with proper animations.
+### RAG & Knowledge Systems — from £600 / $800
+Turn messy documents into an AI that actually knows your business. Custom knowledge bases, document Q&A, internal search. Living knowledge bases that constantly update themselves.
 
-### E-commerce
-Shopify stores, product listings, checkout optimization. We make people click 'buy now' instead of 'maybe later'. Automated blog posts that make traffic go bonkers. Etsy listing machines where AI analyzes images, writes listings, suggests tags.
+### Website Design — from £500 / $700
+Modern, mobile-first websites built with Next.js. Lightning fast, SEO-optimized, conversion-focused. Not your grandma's WordPress.
 
-### AI Content Creation
-AI-powered content creation: videos, images, blog posts, social media - all automated. Faceless YouTube channels, TikToks, Reels, whatever's trending. Short-form video series across platforms - all AI-generated, all performing. Make money while staying mysterious.
+### E-commerce Store — from £800 / $1,000
+Shopify or custom store setup. Payment integration, product pages, inventory management. Ready to sell. Automated blog posts, Etsy listing automation included.
 
-### Branding
-Full brand identity packages: strategy, visual identity, tone of voice, guidelines. We'll make you look like you've got your life together, even if you don't. Brand-in-a-box delivery - like getting keys to a fully furnished house. All websites reserved, 20+ social handles secured, company docs organized beautifully.
+### AI Content Pipeline — from £600 / $800
+Automated content creation using AI. Blog posts, social media, newsletters generated on autopilot. Faceless YouTube channels, TikToks, Reels.
 
-### Self-Hosted Tools
-n8n, Home Assistant, private AI, all on your own servers. No subscriptions, no data leaving your control, no big tech knowing your business. Self-hosted learning platforms - own your content. AI-powered smart homes controlled entirely locally.
+### Branding Package — from £400 / $550
+Logo design, brand colours, typography, and guidelines. Create a memorable identity that stands out. 20+ social handles secured, company docs organized.
+
+### Photo Shoots — from £250 / $350
+Professional product & brand photography. Half-day sessions in London & South East England. Covers Greater London, Surrey, Kent, Sussex, Hampshire.
+
+### Video Production — from £500 / $700
+Brand videos, social content, product demos. Filmed locally in London, Surrey, Kent and beyond.
+
+### Self-Hosted Tools — from £400 / $550
+Deploy your own AI, analytics, or automation servers. No monthly SaaS fees, full data ownership. n8n, Home Assistant, private AI on your own servers.
+
+### App Development — from £2,000 / $2,500
+Mobile apps, web apps, SaaS platforms. From idea to app store. React Native, Next.js, modern tech stack.
+
+## Popular Bundles
+
+### Starter Bundle — from £800 / $1,000
+Landing page OR simple chatbot, 2-3 basic automations, mobile-responsive design, 1 week turnaround. Perfect for testing the waters!
+
+### Growth Bundle — from £1,500 / $2,000
+Full website (5-7 pages), AI chatbot integration, 5+ workflow automations, basic SEO setup, 2-3 week turnaround. Most small businesses start here!
+
+### Custom Projects — let's talk
+E-commerce stores, multi-agent AI systems, full app development, enterprise automations, ongoing retainers.
+
+## Founding Client Discount
+We're building our portfolio! Get 15-20% off in exchange for a testimonial and permission to use your project as a case study. Limited spots available.
 
 ## Portfolio - What We've Built
 
