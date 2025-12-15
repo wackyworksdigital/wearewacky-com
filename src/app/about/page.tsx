@@ -130,7 +130,7 @@ export default function AboutPage() {
       </motion.div>
 
       {/* Content */}
-      <div className="relative z-10 min-h-screen px-6 pt-32 lg:pt-16 lg:pl-64 pb-16">
+      <div className="relative z-10 min-h-screen px-6 pt-32 lg:pt-16 lg:pl-64 pb-5">
         <div className="w-full max-w-5xl mx-auto">
           
           {/* Sticky Note Title */}
@@ -260,8 +260,8 @@ export default function AboutPage() {
                 className="text-lg"
                 style={{ fontFamily: "var(--font-caveat), cursive" }}
               >
-                UK-based<br/>
-                (working in pajamas since 2024)
+                London, UK<br/>
+                Local biz? We do photo & video shoots too! 📸
               </p>
             </motion.div>
 
