@@ -136,6 +136,11 @@ export default function FAQPage() {
                 faq
               </span>
             </li>
+            <li>
+              <Link href="/pricing" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+                pricing
+              </Link>
+            </li>
           </ul>
           <div className="absolute -bottom-6 -right-6 text-4xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 rotate-12">
             🤔
@@ -175,6 +180,7 @@ export default function FAQPage() {
             <li><Link href="/portfolio" className="hover:text-red-600 transition-colors">portfolio</Link></li>
             <li><Link href="/contact" className="hover:text-red-600 transition-colors">contact</Link></li>
             <li><span className="bg-black text-white px-2">faq</span></li>
+            <li><Link href="/pricing" className="hover:text-red-600 transition-colors">pricing</Link></li>
           </ul>
         </div>
       )}

@@ -126,6 +126,16 @@ export default function Home() {
                 contact
               </Link>
             </li>
+            <li>
+              <Link href="/faq" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+                faq
+              </Link>
+            </li>
+            <li>
+              <Link href="/pricing" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+                pricing
+              </Link>
+            </li>
           </ul>
           <div className="absolute -bottom-6 -right-6 text-4xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 rotate-12">
             👀
@@ -164,6 +174,8 @@ export default function Home() {
             <li><Link href="/services" className="hover:text-red-600 transition-colors">services</Link></li>
             <li><Link href="/portfolio" className="hover:text-red-600 transition-colors">portfolio</Link></li>
             <li><Link href="/contact" className="hover:text-red-600 transition-colors">contact</Link></li>
+            <li><Link href="/faq" className="hover:text-red-600 transition-colors">faq</Link></li>
+            <li><Link href="/pricing" className="hover:text-red-600 transition-colors">pricing</Link></li>
           </ul>
         </div>
       )}
