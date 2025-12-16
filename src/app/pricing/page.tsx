@@ -31,7 +31,7 @@ const services = [
     name: "AI Agent Development",
     price: "from £800 / $1,000",
     description: "Intelligent AI assistants that handle bookings, support tickets, data entry, or internal tasks autonomously.",
-    keywords: "AI Agents • Virtual Assistants • GPT-4 • Claude",
+    keywords: "AI Agents • Virtual Assistants • ChatGPT • Claude",
     color: "bg-purple-200",
     emoji: "🧠",
     rotate: "rotate-2",
