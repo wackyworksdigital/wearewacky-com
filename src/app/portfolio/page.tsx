@@ -457,7 +457,7 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.75 }}
           >
-            <Link href="/courses" className="block">
+            <Link href="https://courses.wearewacky.com" target="_blank" rel="noopener noreferrer" className="block">
               <div className="relative">
                 {/* VIP Badge */}
                 <div className="absolute -top-4 -right-2 z-30 bg-green-600 text-white px-3 py-1 text-xs font-black uppercase rotate-12 border-2 border-black shadow-brutal-sm">
@@ -500,7 +500,7 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.8 }}
           >
-            <Link href="/courses" className="block">
+            <Link href="https://courses.wearewacky.com" target="_blank" rel="noopener noreferrer" className="block">
               <div className="p-[2px] border-2 border-black shadow-brutal rotate-1 group-hover:-rotate-1 transition-transform duration-300 rounded-r-xl" style={{ backgroundColor: "#8b5e3c" }}>
                 <div className="bg-paper-white h-full border-l-8 border-l-black/20 p-4 rounded-r-lg relative">
                   <div className="absolute top-0 left-0 w-4 h-full border-r border-dashed border-gray-300" />
