@@ -373,7 +373,7 @@ export default function AboutPage() {
                     <Image src="/images/logos/openai.svg" alt="OpenAI" width={40} height={40} />
                   </div>
                   <span className="text-xs mt-2 font-bold">OpenAI</span>
-                  <span className="text-[10px] opacity-50">GPT-4 / ChatGPT</span>
+                  <span className="text-[10px] opacity-50">ChatGPT</span>
                 </div>
                 {/* n8n */}
                 <div className="flex flex-col items-center group">
@@ -415,14 +415,6 @@ export default function AboutPage() {
                   <span className="text-xs mt-2 font-bold">React</span>
                   <span className="text-[10px] opacity-50">Frontend</span>
                 </div>
-                {/* Vercel */}
-                <div className="flex flex-col items-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
-                    <Image src="/images/logos/vercel.svg" alt="Vercel" width={40} height={40} />
-                  </div>
-                  <span className="text-xs mt-2 font-bold">Vercel</span>
-                  <span className="text-[10px] opacity-50">Hosting</span>
-                </div>
                 {/* Supabase */}
                 <div className="flex flex-col items-center group">
                   <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
@@ -430,6 +422,14 @@ export default function AboutPage() {
                   </div>
                   <span className="text-xs mt-2 font-bold">Supabase</span>
                   <span className="text-[10px] opacity-50">Database</span>
+                </div>
+                {/* Vercel */}
+                <div className="flex flex-col items-center group">
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
+                    <Image src="/images/logos/vercel.svg" alt="Vercel" width={40} height={40} />
+                  </div>
+                  <span className="text-xs mt-2 font-bold">Vercel</span>
+                  <span className="text-[10px] opacity-50">Hosting</span>
                 </div>
                 {/* Shopify */}
                 <div className="flex flex-col items-center group">
