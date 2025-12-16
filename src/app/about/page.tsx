@@ -431,10 +431,10 @@ export default function AboutPage() {
                   <span className="text-xs mt-2 font-bold">React</span>
                   <span className="text-[10px] opacity-50">Frontend</span>
                 </div>
-                {/* Antigravity - placeholder until you add the logo */}
+                {/* Antigravity */}
                 <div className="flex flex-col items-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-orange-400 to-red-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-2">
-                    <span className="text-white text-2xl font-bold">A</span>
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-2">
+                    <Image src="/images/logos/antigravity.svg" alt="Antigravity" width={40} height={40} />
                   </div>
                   <span className="text-xs mt-2 font-bold">Antigravity</span>
                   <span className="text-[10px] opacity-50">Web Studio</span>
