@@ -315,7 +315,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* BACK - Christmas Gary Vee Monologue */}
+              {/* BACK - Christmas Message */}
               <div 
                 className="absolute inset-0 bg-gradient-to-br from-red-700 to-green-800 text-white p-5 border-4 border-black shadow-brutal rotate-1"
                 style={{ 
@@ -353,30 +353,15 @@ export default function Home() {
                     She was wrong. That was 2-3 months.
                   </p>
 
-                  <div className="py-2">
+                  <div className="pt-3 border-t border-white/30">
                     <p 
-                      className="text-xs md:text-sm italic"
-                      style={{ fontFamily: "var(--font-caveat), cursive" }}
-                    >
-                      Repeat after me:
-                    </p>
-                    <p 
-                      className="text-sm md:text-base font-bold mt-1"
-                      style={{ fontFamily: "var(--font-space), sans-serif" }}
-                    >
-                      "The colour of my f@*!ing logo<br/>is NOT gonna make me any money!"
-                    </p>
-                  </div>
-
-                  <div className="pt-2 border-t border-white/30">
-                    <p 
-                      className="text-sm"
+                      className="text-base md:text-lg"
                       style={{ fontFamily: "var(--font-caveat), cursive" }}
                     >
                       ok call us when you've got an idea
                     </p>
                     <p 
-                      className="text-lg mt-1"
+                      className="text-xl md:text-2xl mt-2 font-bold"
                       style={{ fontFamily: "var(--font-caveat), cursive" }}
                     >
                       love you ❤️
@@ -384,7 +369,7 @@ export default function Home() {
                   </div>
 
                   <p 
-                    className="text-xs opacity-50"
+                    className="text-xs opacity-50 mt-2"
                     style={{ fontFamily: "var(--font-caveat), cursive" }}
                   >
                     👆 tap to flip back
