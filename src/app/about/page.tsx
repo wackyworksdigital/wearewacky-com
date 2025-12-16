@@ -328,6 +328,81 @@ export default function AboutPage() {
 
           </div>
 
+          {/* Tech Badges - Trust Signals */}
+          <motion.div
+            className="mb-20"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="bg-white p-6 border-2 border-black shadow-brutal">
+              <h3 
+                className="text-xl font-black uppercase text-center mb-4"
+                style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+              >
+                POWERED BY
+              </h3>
+              <div className="flex flex-wrap justify-center items-center gap-6 md:gap-8">
+                {/* n8n */}
+                <div className="flex flex-col items-center group">
+                  <div className="w-12 h-12 md:w-14 md:h-14 bg-[#ea4b71] rounded-lg flex items-center justify-center text-white font-black text-lg group-hover:scale-110 transition-transform">
+                    n8n
+                  </div>
+                  <span className="text-xs mt-1 opacity-60">Automation</span>
+                </div>
+                {/* Next.js */}
+                <div className="flex flex-col items-center group">
+                  <div className="w-12 h-12 md:w-14 md:h-14 bg-black rounded-lg flex items-center justify-center text-white font-bold text-xs group-hover:scale-110 transition-transform">
+                    Next.js
+                  </div>
+                  <span className="text-xs mt-1 opacity-60">Framework</span>
+                </div>
+                {/* OpenAI */}
+                <div className="flex flex-col items-center group">
+                  <div className="w-12 h-12 md:w-14 md:h-14 bg-[#10a37f] rounded-lg flex items-center justify-center text-white font-bold text-sm group-hover:scale-110 transition-transform">
+                    GPT
+                  </div>
+                  <span className="text-xs mt-1 opacity-60">OpenAI</span>
+                </div>
+                {/* Shopify */}
+                <div className="flex flex-col items-center group">
+                  <div className="w-12 h-12 md:w-14 md:h-14 bg-[#96bf48] rounded-lg flex items-center justify-center text-white font-bold text-xs group-hover:scale-110 transition-transform">
+                    Shop
+                  </div>
+                  <span className="text-xs mt-1 opacity-60">Shopify</span>
+                </div>
+                {/* Supabase */}
+                <div className="flex flex-col items-center group">
+                  <div className="w-12 h-12 md:w-14 md:h-14 bg-[#3ecf8e] rounded-lg flex items-center justify-center text-white font-bold text-xs group-hover:scale-110 transition-transform">
+                    Supa
+                  </div>
+                  <span className="text-xs mt-1 opacity-60">Supabase</span>
+                </div>
+                {/* Vercel */}
+                <div className="flex flex-col items-center group">
+                  <div className="w-12 h-12 md:w-14 md:h-14 bg-black rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform">
+                    <span className="text-2xl">▲</span>
+                  </div>
+                  <span className="text-xs mt-1 opacity-60">Vercel</span>
+                </div>
+                {/* React */}
+                <div className="flex flex-col items-center group">
+                  <div className="w-12 h-12 md:w-14 md:h-14 bg-[#61dafb] rounded-lg flex items-center justify-center text-black font-bold text-xs group-hover:scale-110 transition-transform">
+                    React
+                  </div>
+                  <span className="text-xs mt-1 opacity-60">Frontend</span>
+                </div>
+                {/* Claude */}
+                <div className="flex flex-col items-center group">
+                  <div className="w-12 h-12 md:w-14 md:h-14 bg-[#d97706] rounded-lg flex items-center justify-center text-white font-bold text-xs group-hover:scale-110 transition-transform">
+                    Claude
+                  </div>
+                  <span className="text-xs mt-1 opacity-60">Anthropic</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
           {/* Team photo section */}
           <motion.div
             className="mb-20"

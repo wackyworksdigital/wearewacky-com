@@ -864,6 +864,62 @@ export default function PortfolioPage() {
             </FlipCard>
           </motion.div>
 
+          {/* BETA TESTERS SIGNUP */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.9 }}
+          >
+            <div className="relative">
+              {/* Badge */}
+              <div className="absolute -top-4 -left-2 z-30 bg-purple-600 text-white px-3 py-1 text-xs font-black uppercase -rotate-12 border-2 border-black shadow-brutal-sm">
+                FREE 🎁
+              </div>
+              <div className="bg-gradient-to-br from-purple-100 to-pink-200 p-6 border-3 border-black shadow-brutal rotate-1 group-hover:-rotate-1 transition-transform duration-300 relative overflow-hidden">
+                {/* Sparkle pattern */}
+                <div className="absolute top-2 right-2 text-2xl animate-pulse">✨</div>
+                <div className="absolute bottom-2 left-2 text-xl animate-pulse" style={{ animationDelay: '0.5s' }}>⭐</div>
+                
+                <div className="relative z-10">
+                  <h3 
+                    className="text-xl font-black uppercase leading-tight mb-3"
+                    style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+                  >
+                    BE A BETA<br/>TESTER! 🧪
+                  </h3>
+                  <p 
+                    className="text-sm mb-4"
+                    style={{ fontFamily: "var(--font-caveat), cursive" }}
+                  >
+                    We're always building new tools & automations. Want early access?
+                  </p>
+                  <div className="space-y-2 text-xs mb-4">
+                    <div className="flex items-center gap-2">
+                      <span>✓</span>
+                      <span>First to try new AI tools</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span>✓</span>
+                      <span>Free access during beta</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span>✓</span>
+                      <span>Shape what we build next</span>
+                    </div>
+                  </div>
+                  <Link 
+                    href="/contact" 
+                    className="inline-block bg-black text-white px-4 py-2 text-sm font-black uppercase border-2 border-black shadow-brutal-sm hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
+                  >
+                    JOIN THE LIST →
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
         </div>
 
         {/* Bottom CTA */}

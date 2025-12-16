@@ -11,6 +11,7 @@ import {
   Kalam,
 } from "next/font/google";
 import { LenisProvider } from "@/components/providers/lenis-provider";
+import { ExitIntentPopup } from "@/components/ui/exit-popup";
 import "./globals.css";
 
 // WACKY DISPLAY - Bold, architectural, attention-grabbing headlines
@@ -531,6 +532,7 @@ export default function RootLayout({
       >
         <LenisProvider>
           {children}
+          <ExitIntentPopup />
         </LenisProvider>
       </body>
     </html>
