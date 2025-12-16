@@ -14,7 +14,7 @@ const projectDescriptions: Record<string, { title: string; description: string; 
   "shopify-branding": {
     title: "Shopify Setup + Branding",
     description: "Full e-commerce store setup with custom branding, product photography guidelines, and conversion-optimized design. From zero to selling in 2 weeks.",
-    tech: ["Shopify", "Canva", "Brand Strategy"]
+    tech: ["Shopify", "Photoshop", "Canva"]
   },
   "n8n-hosting": {
     title: "n8n Self-Hosting",
@@ -44,7 +44,7 @@ const projectDescriptions: Record<string, { title: string; description: string; 
   "full-brand": {
     title: "Full Brand Identity",
     description: "Complete brand package: logo, colors, typography, social templates, brand guidelines. Everything you need to look professional.",
-    tech: ["Figma", "Illustrator", "Brand Strategy"]
+    tech: ["Figma", "Photoshop", "Illustrator", "Canva"]
   },
   "video-content": {
     title: "AI Video Automation",

@@ -51,13 +51,13 @@ const serviceDescriptions: Record<string, { title: string; tagline: string; desc
     title: "AI Content",
     tagline: "content that doesn't suck",
     description: "Faceless channels, video campaigns, AI-generated content that actually performs. We'll make you look cool on the internet without you having to dance on camera.",
-    features: ["Video Generation", "Social Content", "Blog Automation", "Faceless Channels"]
+    features: ["Video Generation", "Adobe Premiere", "Canva", "Social Content"]
   },
   "branding": {
     title: "Branding",
     tagline: "who even are you?",
     description: "Full brand identity packages: strategy, visual identity, tone of voice, guidelines. We'll make you look like you've got your life together, even if you don't.",
-    features: ["Logo Design", "Brand Strategy", "Visual Identity", "Guidelines"]
+    features: ["Logo Design", "Adobe Suite", "Figma", "Canva"]
   },
   "self-hosted": {
     title: "Self-Hosted Tools",
