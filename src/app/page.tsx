@@ -292,87 +292,99 @@ export default function Home() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                 </div>
                 
-                {/* Headlines */}
+                {/* Headlines - Christmas Carol Reference */}
                 <div className="text-center">
                   <h2 
                     className="text-4xl md:text-5xl font-black uppercase leading-none mb-2"
                     style={{ fontFamily: "var(--font-bebas), sans-serif" }}
                   >
-                    WE ARE THE KINGS
+                    WE THREE KINGS
                   </h2>
                   <p 
                     className="text-xl md:text-2xl -rotate-1"
                     style={{ fontFamily: "var(--font-caveat), cursive", color: "#2563eb" }}
                   >
-                    of "yeah that's good enough"
+                    of "good enough" 🎄
                   </p>
                   <p 
                     className="text-sm mt-3 opacity-60"
                     style={{ fontFamily: "var(--font-caveat), cursive" }}
                   >
-                    👆 tap to flip
+                    👆 tap for a message
                   </p>
                 </div>
               </div>
 
-              {/* BACK - Gary Vee Wisdom */}
+              {/* BACK - Christmas Gary Vee Monologue */}
               <div 
-                className="absolute inset-0 bg-black text-white p-6 border-4 border-black shadow-brutal rotate-1"
+                className="absolute inset-0 bg-gradient-to-br from-red-700 to-green-800 text-white p-5 border-4 border-black shadow-brutal rotate-1"
                 style={{ 
                   backfaceVisibility: "hidden",
                   transform: "rotateY(180deg)"
                 }}
               >
-                <div className="h-full flex flex-col justify-center text-center space-y-4">
-                  <div>
+                <div className="h-full flex flex-col justify-center text-center space-y-3">
+                  <p 
+                    className="text-2xl md:text-3xl font-black"
+                    style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+                  >
+                    🎄 MERRY CHRISTMAS! 🎄
+                  </p>
+
+                  <p 
+                    className="text-sm md:text-base leading-relaxed"
+                    style={{ fontFamily: "var(--font-caveat), cursive" }}
+                  >
+                    2026 is coming. AI gonna take your job. That's it.
+                  </p>
+
+                  <p 
+                    className="text-sm md:text-base font-bold"
+                    style={{ fontFamily: "var(--font-space), sans-serif" }}
+                  >
+                    Promise us you'll launch your business in January.
+                  </p>
+
+                  <p 
+                    className="text-xs md:text-sm opacity-80"
+                    style={{ fontFamily: "var(--font-caveat), cursive" }}
+                  >
+                    Karen said it's still 2-3 years away...<br/>
+                    She was wrong. That was 2-3 months.
+                  </p>
+
+                  <div className="py-2">
                     <p 
-                      className="text-lg md:text-xl font-bold leading-tight mb-2"
+                      className="text-xs md:text-sm italic"
+                      style={{ fontFamily: "var(--font-caveat), cursive" }}
+                    >
+                      Repeat after me:
+                    </p>
+                    <p 
+                      className="text-sm md:text-base font-bold mt-1"
                       style={{ fontFamily: "var(--font-space), sans-serif" }}
                     >
-                      We deliver working results in DAYS
-                    </p>
-                    <p 
-                      className="text-sm opacity-70"
-                      style={{ fontFamily: "var(--font-caveat), cursive" }}
-                    >
-                      while others wait months for pixel-perfect
+                      "The colour of my f@*!ing logo<br/>is NOT gonna make me any money!"
                     </p>
                   </div>
 
-                  <div className="border-t border-white/20 pt-4">
+                  <div className="pt-2 border-t border-white/30">
                     <p 
-                      className="text-base md:text-lg italic"
+                      className="text-sm"
                       style={{ fontFamily: "var(--font-caveat), cursive" }}
                     >
-                      "The colour of my f@*!ing logo is NOT gonna make me any money!"
-                    </p>
-                  </div>
-
-                  <div className="border-t border-white/20 pt-4">
-                    <p 
-                      className="text-sm md:text-base"
-                      style={{ fontFamily: "var(--font-space), sans-serif" }}
-                    >
-                      Speed beats perfection.
+                      ok call us when you've got an idea
                     </p>
                     <p 
-                      className="text-sm opacity-70 mt-1"
+                      className="text-lg mt-1"
                       style={{ fontFamily: "var(--font-caveat), cursive" }}
                     >
-                      ship → learn → improve → repeat
+                      love you ❤️
                     </p>
-                  </div>
-
-                  <div className="pt-2">
-                    <span 
-                      className="inline-block bg-yellow-400 text-black px-4 py-2 text-sm font-black uppercase rotate-1"
-                    >
-                      Done is better than perfect
-                    </span>
                   </div>
 
                   <p 
-                    className="text-xs opacity-50 mt-2"
+                    className="text-xs opacity-50"
                     style={{ fontFamily: "var(--font-caveat), cursive" }}
                   >
                     👆 tap to flip back
