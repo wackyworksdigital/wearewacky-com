@@ -166,6 +166,32 @@ function FlipCard({
 export default function PortfolioPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
+  const [betaEmail, setBetaEmail] = useState("");
+  const [betaStatus, setBetaStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [showBetaForm, setShowBetaForm] = useState(false);
+
+  const handleBetaSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!betaEmail) return;
+    
+    setBetaStatus("loading");
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: betaEmail }),
+      });
+      if (res.ok) {
+        setBetaStatus("success");
+        setBetaEmail("");
+      } else {
+        setBetaStatus("error");
+      }
+    } catch {
+      setBetaStatus("error");
+    }
+  };
   
   const toggleFlip = (id: string) => {
     setFlippedCards(prev => {
@@ -879,49 +905,121 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.9 }}
           >
-            <div className="relative">
+            <div 
+              className="relative cursor-pointer"
+              style={{ perspective: "1000px" }}
+              onClick={() => setShowBetaForm(!showBetaForm)}
+            >
               {/* Badge */}
               <div className="absolute -top-4 -left-2 z-30 bg-purple-600 text-white px-3 py-1 text-xs font-black uppercase -rotate-12 border-2 border-black shadow-brutal-sm">
                 FREE 🎁
               </div>
-              <div className="bg-gradient-to-br from-purple-100 to-pink-200 p-6 border-3 border-black shadow-brutal rotate-1 group-hover:-rotate-1 transition-transform duration-300 relative overflow-hidden">
-                {/* Sparkle pattern */}
-                <div className="absolute top-2 right-2 text-2xl animate-pulse">✨</div>
-                <div className="absolute bottom-2 left-2 text-xl animate-pulse" style={{ animationDelay: '0.5s' }}>⭐</div>
-                
-                <div className="relative z-10">
-                  <h3 
-                    className="text-xl font-black uppercase leading-tight mb-3"
-                    style={{ fontFamily: "var(--font-bebas), sans-serif" }}
-                  >
-                    BE A BETA<br/>TESTER! 🧪
-                  </h3>
-                  <p 
-                    className="text-sm mb-4"
-                    style={{ fontFamily: "var(--font-caveat), cursive" }}
-                  >
-                    We're always building new tools & automations. Want early access?
-                  </p>
-                  <div className="space-y-2 text-xs mb-4">
-                    <div className="flex items-center gap-2">
-                      <span>✓</span>
-                      <span>First to try new AI tools</span>
+              
+              <div 
+                className="relative transition-transform duration-500"
+                style={{ 
+                  transformStyle: "preserve-3d",
+                  transform: showBetaForm ? "rotateY(180deg)" : "rotateY(0deg)"
+                }}
+              >
+                {/* Front - Info */}
+                <div 
+                  className="bg-gradient-to-br from-purple-100 to-pink-200 p-4 md:p-6 border-3 border-black shadow-brutal rotate-1 group-hover:-rotate-1 transition-transform duration-300 relative overflow-hidden"
+                  style={{ backfaceVisibility: "hidden" }}
+                >
+                  {/* Sparkle pattern */}
+                  <div className="absolute top-2 right-2 text-2xl animate-pulse">✨</div>
+                  <div className="absolute bottom-2 left-2 text-xl animate-pulse" style={{ animationDelay: '0.5s' }}>⭐</div>
+                  
+                  <div className="relative z-10">
+                    <h3 
+                      className="text-lg md:text-xl font-black uppercase leading-tight mb-2 md:mb-3"
+                      style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+                    >
+                      BE A BETA<br/>TESTER! 🧪
+                    </h3>
+                    <p 
+                      className="text-xs md:text-sm mb-3 md:mb-4"
+                      style={{ fontFamily: "var(--font-caveat), cursive" }}
+                    >
+                      Want early access to new tools?
+                    </p>
+                    <div className="space-y-1 md:space-y-2 text-[10px] md:text-xs mb-3 md:mb-4">
+                      <div className="flex items-center gap-2">
+                        <span>✓</span>
+                        <span>First to try new AI tools</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span>✓</span>
+                        <span>Free access during beta</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span>✓</span>
+                        <span>Shape what we build</span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <span>✓</span>
-                      <span>Free access during beta</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span>✓</span>
-                      <span>Shape what we build next</span>
+                    <div className="bg-black text-white px-3 md:px-4 py-1.5 md:py-2 text-xs md:text-sm font-black uppercase text-center border-2 border-black">
+                      TAP TO JOIN →
                     </div>
                   </div>
-                  <Link 
-                    href="/contact" 
-                    className="inline-block bg-black text-white px-4 py-2 text-sm font-black uppercase border-2 border-black shadow-brutal-sm hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
-                  >
-                    JOIN THE LIST →
-                  </Link>
+                </div>
+                
+                {/* Back - Email Form */}
+                <div 
+                  className="absolute inset-0 bg-black text-white p-4 md:p-6 border-2 border-black shadow-brutal flex flex-col justify-center"
+                  style={{ 
+                    backfaceVisibility: "hidden",
+                    transform: "rotateY(180deg)"
+                  }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {betaStatus === "success" ? (
+                    <div className="text-center">
+                      <div className="text-4xl mb-3">🎉</div>
+                      <h4 className="text-lg font-black uppercase mb-2">You&apos;re In!</h4>
+                      <p className="text-xs text-gray-400">Check your email for confirmation</p>
+                      <button 
+                        onClick={() => { setShowBetaForm(false); setBetaStatus("idle"); }}
+                        className="mt-4 text-xs text-purple-400 underline"
+                      >
+                        tap to close
+                      </button>
+                    </div>
+                  ) : (
+                    <>
+                      <h4 className="text-lg md:text-xl font-black uppercase mb-3 md:mb-4 text-center">
+                        JOIN THE LIST 🧪
+                      </h4>
+                      <form onSubmit={handleBetaSubmit} className="space-y-3">
+                        <input
+                          type="email"
+                          value={betaEmail}
+                          onChange={(e) => setBetaEmail(e.target.value)}
+                          placeholder="your@email.com"
+                          className="w-full px-3 py-2 bg-white text-black border-2 border-white text-sm font-mono"
+                          required
+                          onClick={(e) => e.stopPropagation()}
+                        />
+                        <button
+                          type="submit"
+                          disabled={betaStatus === "loading"}
+                          className="w-full bg-purple-600 text-white px-4 py-2 text-sm font-black uppercase border-2 border-purple-600 hover:bg-purple-500 transition-colors disabled:opacity-50"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          {betaStatus === "loading" ? "..." : "SIGN UP →"}
+                        </button>
+                        {betaStatus === "error" && (
+                          <p className="text-red-400 text-xs text-center">Something went wrong, try again!</p>
+                        )}
+                      </form>
+                      <button 
+                        onClick={() => setShowBetaForm(false)}
+                        className="mt-3 text-[10px] md:text-xs text-gray-500 text-center block w-full"
+                      >
+                        tap to flip back
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
