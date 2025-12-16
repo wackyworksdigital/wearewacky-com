@@ -303,77 +303,83 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* BACK - Gary Vee Christmas Monologue */}
+              {/* BACK - Christmas Postcard Style */}
               <div 
-                className="absolute inset-0 bg-black text-white p-5 border-4 border-black shadow-brutal rotate-1"
+                className="absolute inset-0 p-4 border-4 border-black shadow-brutal rotate-1"
                 style={{ 
                   backfaceVisibility: "hidden",
-                  transform: "rotateY(180deg)"
+                  transform: "rotateY(180deg)",
+                  backgroundColor: "#faf6ed",
+                  backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 23px, #e5ddd0 24px)"
                 }}
               >
-                <div className="h-full flex flex-col justify-center text-center space-y-2">
+                {/* Postcard stamp */}
+                <div className="absolute top-3 right-3 w-12 h-14 bg-red-600 border-2 border-black flex items-center justify-center rotate-6">
+                  <span className="text-white text-lg">🎄</span>
+                </div>
+
+                <div className="h-full flex flex-col justify-center text-center space-y-2 pr-8">
                   <p 
-                    className="text-xl md:text-2xl font-black"
+                    className="text-xl md:text-2xl font-black text-red-700"
                     style={{ fontFamily: "var(--font-bebas), sans-serif" }}
                   >
                     Ok. Listen.
                   </p>
 
                   <p 
-                    className="text-sm md:text-base"
-                    style={{ fontFamily: "var(--font-space), sans-serif" }}
+                    className="text-sm md:text-base text-gray-700"
+                    style={{ fontFamily: "var(--font-caveat), cursive" }}
                   >
                     Everyone's waiting for the "right time."
                   </p>
 
                   <p 
-                    className="text-base md:text-lg font-bold"
-                    style={{ fontFamily: "var(--font-space), sans-serif" }}
+                    className="text-base md:text-lg font-bold text-gray-900"
+                    style={{ fontFamily: "var(--font-caveat), cursive" }}
                   >
                     There is no right time.
                   </p>
 
                   <p 
-                    className="text-xs md:text-sm opacity-80"
+                    className="text-xs md:text-sm text-gray-600"
                     style={{ fontFamily: "var(--font-caveat), cursive" }}
                   >
-                    2026 is here. AI is moving faster than anyone predicted. The window is NOW.
+                    2026 is here. AI is moving faster than anyone predicted.
                   </p>
 
                   <p 
-                    className="text-sm md:text-base font-bold pt-2"
-                    style={{ fontFamily: "var(--font-space), sans-serif" }}
+                    className="text-sm md:text-base font-bold text-green-700 pt-1"
+                    style={{ fontFamily: "var(--font-caveat), cursive" }}
                   >
                     Stop planning. Start doing.<br/>Ship something in January.
                   </p>
 
                   <p 
-                    className="text-xs md:text-sm opacity-80"
+                    className="text-xs md:text-sm text-gray-600"
                     style={{ fontFamily: "var(--font-caveat), cursive" }}
                   >
                     Start messy. We'll help you clean it up.
                   </p>
 
                   <p 
-                    className="text-xs md:text-sm pt-2"
-                    style={{ fontFamily: "var(--font-space), sans-serif" }}
+                    className="text-xs md:text-sm text-gray-700 pt-1"
+                    style={{ fontFamily: "var(--font-caveat), cursive" }}
                   >
                     You don't need the perfect logo.<br/>
                     You don't need the perfect website.<br/>
-                    You don't need permission.<br/>
-                    <span className="font-bold">You need to START.</span>
+                    <span className="font-bold text-gray-900">You need to START.</span>
                   </p>
 
                   <p 
-                    className="text-sm md:text-base font-black pt-2"
+                    className="text-sm md:text-base font-black text-red-700 pt-1"
                     style={{ fontFamily: "var(--font-bebas), sans-serif" }}
                   >
                     Done beats perfect. Every. Single. Time.
                   </p>
 
-                  <div className="pt-3 border-t border-white/30">
+                  <div className="pt-2 border-t border-gray-300">
                     <p 
-                      className="text-base md:text-lg"
+                      className="text-base md:text-lg text-green-700"
                       style={{ fontFamily: "var(--font-caveat), cursive" }}
                     >
                       🎄 Merry Christmas. Call us in January. ❤️
