@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LegalFooter } from "@/components/ui/legal-footer";
 
 const TEXT = "#3d3428";
@@ -12,6 +12,71 @@ const BG = "#f0eadd";
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [heroFlipped, setHeroFlipped] = useState(false);
+
+  // Whack-a-Bot Game State (below the fold)
+  const [whackScore, setWhackScore] = useState(0);
+  const [whackTime, setWhackTime] = useState(30);
+  const [whackGameActive, setWhackGameActive] = useState(false);
+  const [activeMole, setActiveMole] = useState<number | null>(null);
+  const [gameStarted, setGameStarted] = useState(false);
+  const [idleMole, setIdleMole] = useState<number | null>(null);
+
+  const startSecretGame = () => {
+    setGameStarted(true);
+    setWhackScore(0);
+    setWhackTime(30);
+    setWhackGameActive(true);
+    setIdleMole(null);
+    setActiveMole(null);
+  };
+
+  const whackMole = (index: number) => {
+    if (!gameStarted) {
+      if (idleMole === index) {
+        startSecretGame();
+        setWhackScore(1);
+      }
+      return;
+    }
+    if (whackGameActive && activeMole === index) {
+      setWhackScore(prev => prev + 1);
+      setActiveMole(null);
+    }
+  };
+
+  // Timer countdown
+  useEffect(() => {
+    if (whackGameActive && whackTime > 0) {
+      const timer = setInterval(() => {
+        setWhackTime(prev => prev - 1);
+      }, 1000);
+      return () => clearInterval(timer);
+    } else if (whackTime === 0) {
+      setWhackGameActive(false);
+    }
+  }, [whackGameActive, whackTime]);
+
+  // Mole appearance during game
+  useEffect(() => {
+    if (whackGameActive) {
+      const moleInterval = setInterval(() => {
+        setActiveMole(Math.floor(Math.random() * 9));
+        setTimeout(() => setActiveMole(null), 600);
+      }, 1200);
+      return () => clearInterval(moleInterval);
+    }
+  }, [whackGameActive]);
+
+  // Idle robot appearance (before game starts)
+  useEffect(() => {
+    if (!gameStarted) {
+      const idleInterval = setInterval(() => {
+        setIdleMole(Math.floor(Math.random() * 9));
+        setTimeout(() => setIdleMole(null), 2000);
+      }, 5000);
+      return () => clearInterval(idleInterval);
+    }
+  }, [gameStarted]);
 
   return (
     <main className="relative min-h-[105vh] pb-0 overflow-x-hidden" style={{ backgroundColor: BG, color: TEXT }}>
@@ -392,6 +457,87 @@ export default function Home() {
                 <span className="animate-pulse">🇬🇧</span>
                 <span className="animate-spin-slow">🌍</span>
                 <span className="animate-wiggle">👨‍💻</span>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* WHACK-A-BOT GAME - Below the fold */}
+          <motion.div
+            className="mt-20 mb-16 mx-auto px-4 max-w-md"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="bg-white p-6 border-4 border-black shadow-brutal -rotate-1">
+              
+              {/* Header - always show title */}
+              <div className="flex justify-between items-center mb-4 pb-3 border-b-2 border-black">
+                <div>
+                  <h3 
+                    className="text-xl md:text-2xl font-black uppercase"
+                    style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+                  >
+                    {gameStarted ? "WHACK A BOT!" : "BORED?"}
+                  </h3>
+                  <p 
+                    className="text-xs"
+                    style={{ fontFamily: "var(--font-caveat), cursive" }}
+                  >
+                    {!gameStarted 
+                      ? "spot the robot 👀" 
+                      : whackGameActive 
+                        ? "Quick! Tap them!" 
+                        : "Game Over!"}
+                  </p>
+                </div>
+                {gameStarted && (
+                  <div className="text-right">
+                    <div className="text-2xl font-black">Score: {whackScore}</div>
+                    <div className="text-lg font-mono">Time: {whackTime}s</div>
+                  </div>
+                )}
+              </div>
+
+              {/* Game Over Message */}
+              {gameStarted && !whackGameActive && (
+                <motion.div 
+                  className="mb-4 p-4 bg-yellow-200 border-2 border-black text-center"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                >
+                  <div className="text-xl font-black">Game Over!</div>
+                  <div className="text-lg mb-2">Final Score: {whackScore}</div>
+                  <button
+                    onClick={() => startSecretGame()}
+                    className="bg-black text-white px-6 py-2 text-sm font-black uppercase border-2 border-black shadow-brutal-sm hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
+                  >
+                    PLAY AGAIN
+                  </button>
+                </motion.div>
+              )}
+
+              {/* The Grid */}
+              <div className="grid grid-cols-3 gap-3">
+                {[...Array(9)].map((_, i) => {
+                  const showRobot = gameStarted 
+                    ? activeMole === i 
+                    : idleMole === i;
+
+                  return (
+                    <button
+                      key={i}
+                      onClick={() => whackMole(i)}
+                      disabled={!showRobot && !gameStarted}
+                      className={`border-2 border-black aspect-square flex items-center justify-center text-3xl md:text-4xl transition-all disabled:cursor-default ${
+                        showRobot
+                          ? 'bg-yellow-300 scale-110 cursor-pointer' 
+                          : 'bg-gradient-to-br from-green-100 to-blue-100'
+                      }`}
+                    >
+                      {showRobot ? "🤖" : ""}
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </motion.div>
