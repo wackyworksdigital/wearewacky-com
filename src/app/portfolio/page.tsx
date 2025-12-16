@@ -449,6 +449,49 @@ export default function PortfolioPage() {
             </Link>
           </motion.div>
 
+          {/* SPECIAL: Waitrose & John Lewis Partners */}
+          <motion.div 
+            className="break-inside-avoid relative group hover:z-30"
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.75 }}
+          >
+            <Link href="/courses" className="block">
+              <div className="relative">
+                {/* VIP Badge */}
+                <div className="absolute -top-4 -right-2 z-30 bg-green-600 text-white px-3 py-1 text-xs font-black uppercase rotate-12 border-2 border-black shadow-brutal-sm">
+                  VIP ✨
+                </div>
+                <div className="bg-gradient-to-br from-green-100 to-emerald-200 p-6 border-3 border-black shadow-brutal -rotate-1 group-hover:rotate-1 transition-transform duration-300 relative overflow-hidden">
+                  {/* Subtle pattern */}
+                  <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 10px, #000 10px, #000 11px)' }} />
+                  
+                  <div className="relative z-10">
+                    <h3 className="text-xl font-black uppercase leading-tight mb-2">
+                      Waitrose &<br/>John Lewis<br/>Partners
+                    </h3>
+                    <div className="flex items-center gap-2 mt-4">
+                      <span 
+                        className="text-lg bg-black text-white px-2 py-1 inline-block rotate-1"
+                        style={{ fontFamily: "var(--font-caveat), cursive" }}
+                      >
+                        this way, please!
+                      </span>
+                      <span className="text-2xl animate-bounce">👉</span>
+                    </div>
+                    <p 
+                      className="text-xs mt-3 text-gray-600"
+                      style={{ fontFamily: "var(--font-caveat), cursive" }}
+                    >
+                      Something special awaits...
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+
           {/* 9. Course Platform - DONE */}
           <motion.div 
             className="break-inside-avoid relative group hover:z-30"
@@ -457,7 +500,7 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.8 }}
           >
-            <Link href="/contact" className="block">
+            <Link href="/courses" className="block">
               <div className="p-[2px] border-2 border-black shadow-brutal rotate-1 group-hover:-rotate-1 transition-transform duration-300 rounded-r-xl" style={{ backgroundColor: "#8b5e3c" }}>
                 <div className="bg-paper-white h-full border-l-8 border-l-black/20 p-4 rounded-r-lg relative">
                   <div className="absolute top-0 left-0 w-4 h-full border-r border-dashed border-gray-300" />

@@ -39,7 +39,7 @@ export default function PrivacyPage() {
       {/* Mobile Menu Overlay */}
       {menuOpen && (
         <div className="fixed inset-0 bg-white z-40 lg:hidden flex flex-col items-center justify-center gap-6">
-          {["home", "about", "services", "portfolio", "contact"].map((item) => (
+          {["home", "about", "services", "portfolio", "contact", "faq", "pricing"].map((item) => (
             <Link 
               key={item}
               href={item === "home" ? "/" : `/${item}`}
@@ -59,7 +59,7 @@ export default function PrivacyPage() {
           style={{ boxShadow: "6px 6px 0 #000" }}
         >
           <nav className="space-y-2">
-            {["home", "about", "services", "portfolio", "contact"].map((item, i) => (
+            {["home", "about", "services", "portfolio", "contact", "faq", "pricing"].map((item, i) => (
               <Link 
                 key={item}
                 href={item === "home" ? "/" : `/${item}`}
