@@ -301,7 +301,7 @@ export default function AboutPage() {
               </p>
             </motion.div>
 
-            {/* Stack */}
+            {/* The Promise */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -309,20 +309,25 @@ export default function AboutPage() {
               transition={{ delay: 0.2 }}
               className="bg-purple-300 p-6 border-2 border-black shadow-brutal rotate-2 hover:rotate-0 transition-transform text-center"
             >
-              <div className="text-5xl mb-3">⚙️</div>
+              <div className="text-5xl mb-3">⚡</div>
               <h3 
                 className="text-2xl font-black uppercase mb-2"
                 style={{ fontFamily: "var(--font-bebas), sans-serif" }}
               >
-                TECH
+                THE PROMISE
               </h3>
               <p 
-                className="text-sm"
+                className="text-lg"
+                style={{ fontFamily: "var(--font-marker), cursive" }}
+              >
+                Ship in days,<br/>
+                not months.
+              </p>
+              <p 
+                className="text-xs mt-2 opacity-70"
                 style={{ fontFamily: "var(--font-space), sans-serif" }}
               >
-                React • Next.js • OpenAI<br/>
-                Claude • Gemini • n8n<br/>
-                Zapier • Make • Supabase
+                Done beats perfect. Every time.
               </p>
             </motion.div>
 
