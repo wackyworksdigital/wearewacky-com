@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
+import { useState } from "react";
 import { LegalFooter } from "@/components/ui/legal-footer";
 
 const TEXT = "#3d3428";
@@ -10,77 +11,7 @@ const BG = "#f0eadd";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
-
-  // Whack-a-Mole State (ALL screens)
-  const [whackScore, setWhackScore] = useState(0);
-  const [whackTime, setWhackTime] = useState(30);
-  const [whackGameActive, setWhackGameActive] = useState(false);
-  const [activeMole, setActiveMole] = useState<number | null>(null);
-  const [gameStarted, setGameStarted] = useState(false); // Track if game has been discovered
-
-  // Idle mode - robot appears occasionally before game starts
-  const [idleMole, setIdleMole] = useState<number | null>(null);
-
-  // Start the game when first robot is clicked
-  const startSecretGame = () => {
-    setGameStarted(true);
-    setWhackScore(0);
-    setWhackTime(30);
-    setWhackGameActive(true);
-    setIdleMole(null);
-    setActiveMole(null);
-  };
-
-  const whackMole = (index: number) => {
-    // Before game starts - must click the visible idle robot
-    if (!gameStarted) {
-      if (idleMole === index) {
-        startSecretGame();
-        setWhackScore(1); // Count the first click
-      }
-      return;
-    }
-    
-    // During game - only count if clicking the active mole
-    if (whackGameActive && activeMole === index) {
-      setWhackScore(prev => prev + 1);
-      setActiveMole(null);
-    }
-  };
-
-  // Timer countdown
-  useEffect(() => {
-    if (whackGameActive && whackTime > 0) {
-      const timer = setInterval(() => {
-        setWhackTime(prev => prev - 1);
-      }, 1000);
-      return () => clearInterval(timer);
-    } else if (whackTime === 0) {
-      setWhackGameActive(false);
-    }
-  }, [whackGameActive, whackTime]);
-
-  // Mole appearance during game (600ms window, bigger gap)
-  useEffect(() => {
-    if (whackGameActive) {
-      const moleInterval = setInterval(() => {
-        setActiveMole(Math.floor(Math.random() * 9));
-        setTimeout(() => setActiveMole(null), 600); // 600ms to hit
-      }, 1200); // Bigger gap between appearances
-      return () => clearInterval(moleInterval);
-    }
-  }, [whackGameActive]);
-
-  // Idle robot appearance (before game starts)
-  useEffect(() => {
-    if (!gameStarted) {
-      const idleInterval = setInterval(() => {
-        setIdleMole(Math.floor(Math.random() * 9));
-        setTimeout(() => setIdleMole(null), 2000);
-      }, 5000); // Every 5 seconds
-      return () => clearInterval(idleInterval);
-    }
-  }, [gameStarted]);
+  const [heroFlipped, setHeroFlipped] = useState(false);
 
   return (
     <main className="relative min-h-[105vh] pb-0 overflow-x-hidden" style={{ backgroundColor: BG, color: TEXT }}>
@@ -262,88 +193,128 @@ export default function Home() {
             </motion.p>
           </motion.div>
 
-          {/* SECRET WHACK-A-MOLE GAME - ALL SCREENS */}
+          {/* FLIP CARD HERO - "WE ARE THE KINGS" */}
           <motion.div
-            className="mb-16 mx-auto px-4 max-w-md"
+            className="mb-16 mx-auto px-4 max-w-lg cursor-pointer"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
+            onClick={() => setHeroFlipped(!heroFlipped)}
+            style={{ perspective: "1000px" }}
           >
-            <div className="bg-white p-6 border-4 border-black shadow-brutal -rotate-1">
-              
-              {/* Only show score/timer after game starts */}
-              {gameStarted && (
-                <motion.div 
-                  className="flex justify-between items-center mb-4 pb-3 border-b-2 border-black overflow-hidden"
-                  initial={{ opacity: 0, maxHeight: 0 }}
-                  animate={{ opacity: 1, maxHeight: 200 }}
-                  transition={{ duration: 0.3 }}
-                >
+            <motion.div
+              className="relative w-full"
+              style={{ 
+                transformStyle: "preserve-3d",
+                transition: "transform 0.6s"
+              }}
+              animate={{ rotateY: heroFlipped ? 180 : 0 }}
+            >
+              {/* FRONT - Vintage Photo Card */}
+              <div 
+                className="bg-white p-4 border-4 border-black shadow-brutal -rotate-1"
+                style={{ backfaceVisibility: "hidden" }}
+              >
+                {/* Vintage-style photo */}
+                <div className="relative aspect-[4/3] mb-4 overflow-hidden border-2 border-black">
+                  <Image
+                    src="https://images.unsplash.com/photo-1545324053-27d2c4047aef?w=600&h=450&fit=crop"
+                    alt="Vintage celebration with paper crowns"
+                    fill
+                    className="object-cover sepia-[0.3] contrast-[1.1] brightness-[1.05]"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                </div>
+                
+                {/* Headlines */}
+                <div className="text-center">
+                  <h2 
+                    className="text-4xl md:text-5xl font-black uppercase leading-none mb-2"
+                    style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+                  >
+                    WE ARE THE KINGS
+                  </h2>
+                  <p 
+                    className="text-xl md:text-2xl -rotate-1"
+                    style={{ fontFamily: "var(--font-caveat), cursive", color: "#2563eb" }}
+                  >
+                    of "yeah that's good enough"
+                  </p>
+                  <p 
+                    className="text-sm mt-3 opacity-60"
+                    style={{ fontFamily: "var(--font-caveat), cursive" }}
+                  >
+                    👆 tap to flip
+                  </p>
+                </div>
+              </div>
+
+              {/* BACK - Gary Vee Wisdom */}
+              <div 
+                className="absolute inset-0 bg-black text-white p-6 border-4 border-black shadow-brutal rotate-1"
+                style={{ 
+                  backfaceVisibility: "hidden",
+                  transform: "rotateY(180deg)"
+                }}
+              >
+                <div className="h-full flex flex-col justify-center text-center space-y-4">
                   <div>
-                    <h3 
-                      className="text-xl md:text-2xl font-black uppercase"
-                      style={{ fontFamily: "var(--font-bebas), sans-serif" }}
-                    >
-                      WHACK A BOT!
-                    </h3>
                     <p 
-                      className="text-xs"
+                      className="text-lg md:text-xl font-bold leading-tight mb-2"
+                      style={{ fontFamily: "var(--font-space), sans-serif" }}
+                    >
+                      We deliver working results in DAYS
+                    </p>
+                    <p 
+                      className="text-sm opacity-70"
                       style={{ fontFamily: "var(--font-caveat), cursive" }}
                     >
-                      {whackGameActive ? "Quick! Tap them!" : "Game Over!"}
+                      while others wait months for pixel-perfect
                     </p>
                   </div>
-                  <div className="text-right">
-                    <div className="text-2xl font-black">Score: {whackScore}</div>
-                    <div className="text-lg font-mono">Time: {whackTime}s</div>
-                  </div>
-                </motion.div>
-              )}
 
-              {/* Game Over Message */}
-              {gameStarted && !whackGameActive && (
-                <motion.div 
-                  className="mb-4 p-4 bg-yellow-200 border-2 border-black text-center"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                >
-                  <div className="text-xl font-black">Game Over!</div>
-                  <div className="text-lg mb-2">Final Score: {whackScore}</div>
-                  <button
-                    onClick={() => {
-                      startSecretGame();
-                    }}
-                    className="bg-black text-white px-6 py-2 text-sm font-black uppercase border-2 border-black shadow-brutal-sm hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
-                  >
-                    PLAY AGAIN
-                  </button>
-                </motion.div>
-              )}
-
-              {/* The Grid - Always visible */}
-              <div className="grid grid-cols-3 gap-3">
-                {[...Array(9)].map((_, i) => {
-                  const showRobot = gameStarted 
-                    ? activeMole === i 
-                    : idleMole === i;
-
-                  return (
-                    <button
-                      key={i}
-                      onClick={() => whackMole(i)}
-                      disabled={!showRobot && !gameStarted} // Only clickable if robot is visible OR game started
-                      className={`border-2 border-black aspect-square flex items-center justify-center text-3xl md:text-4xl transition-all disabled:cursor-default ${
-                        showRobot
-                          ? 'bg-yellow-300 scale-110 cursor-pointer' 
-                          : 'bg-gradient-to-br from-green-100 to-blue-100'
-                      }`}
+                  <div className="border-t border-white/20 pt-4">
+                    <p 
+                      className="text-base md:text-lg italic"
+                      style={{ fontFamily: "var(--font-caveat), cursive" }}
                     >
-                      {showRobot ? "🤖" : ""}
-                    </button>
-                  );
-                })}
+                      "The colour of my f@*!ing logo is NOT gonna make me any money!"
+                    </p>
+                  </div>
+
+                  <div className="border-t border-white/20 pt-4">
+                    <p 
+                      className="text-sm md:text-base"
+                      style={{ fontFamily: "var(--font-space), sans-serif" }}
+                    >
+                      Speed beats perfection.
+                    </p>
+                    <p 
+                      className="text-sm opacity-70 mt-1"
+                      style={{ fontFamily: "var(--font-caveat), cursive" }}
+                    >
+                      ship → learn → improve → repeat
+                    </p>
+                  </div>
+
+                  <div className="pt-2">
+                    <span 
+                      className="inline-block bg-yellow-400 text-black px-4 py-2 text-sm font-black uppercase rotate-1"
+                    >
+                      Done is better than perfect
+                    </span>
+                  </div>
+
+                  <p 
+                    className="text-xs opacity-50 mt-2"
+                    style={{ fontFamily: "var(--font-caveat), cursive" }}
+                  >
+                    👆 tap to flip back
+                  </p>
+                </div>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
 
           {/* CTA Button */}
