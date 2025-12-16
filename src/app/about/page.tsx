@@ -343,30 +343,6 @@ export default function AboutPage() {
                 POWERED BY
               </h3>
               <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
-                {/* n8n */}
-                <div className="flex flex-col items-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
-                    <Image src="/images/logos/n8n.svg" alt="n8n" width={40} height={40} />
-                  </div>
-                  <span className="text-xs mt-2 font-bold">n8n</span>
-                  <span className="text-[10px] opacity-50">Automation</span>
-                </div>
-                {/* Next.js */}
-                <div className="flex flex-col items-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
-                    <Image src="/images/logos/nextjs.svg" alt="Next.js" width={40} height={40} />
-                  </div>
-                  <span className="text-xs mt-2 font-bold">Next.js</span>
-                  <span className="text-[10px] opacity-50">Framework</span>
-                </div>
-                {/* OpenAI */}
-                <div className="flex flex-col items-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
-                    <Image src="/images/logos/openai.svg" alt="OpenAI" width={40} height={40} />
-                  </div>
-                  <span className="text-xs mt-2 font-bold">OpenAI</span>
-                  <span className="text-[10px] opacity-50">GPT-4 / ChatGPT</span>
-                </div>
                 {/* Google */}
                 <div className="flex flex-col items-center group">
                   <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
@@ -391,6 +367,22 @@ export default function AboutPage() {
                   <span className="text-xs mt-2 font-bold">Claude</span>
                   <span className="text-[10px] opacity-50">Anthropic AI</span>
                 </div>
+                {/* OpenAI */}
+                <div className="flex flex-col items-center group">
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
+                    <Image src="/images/logos/openai.svg" alt="OpenAI" width={40} height={40} />
+                  </div>
+                  <span className="text-xs mt-2 font-bold">OpenAI</span>
+                  <span className="text-[10px] opacity-50">GPT-4 / ChatGPT</span>
+                </div>
+                {/* n8n */}
+                <div className="flex flex-col items-center group">
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
+                    <Image src="/images/logos/n8n.svg" alt="n8n" width={40} height={40} />
+                  </div>
+                  <span className="text-xs mt-2 font-bold">n8n</span>
+                  <span className="text-[10px] opacity-50">Automation</span>
+                </div>
                 {/* Cursor */}
                 <div className="flex flex-col items-center group">
                   <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
@@ -399,21 +391,29 @@ export default function AboutPage() {
                   <span className="text-xs mt-2 font-bold">Cursor</span>
                   <span className="text-[10px] opacity-50">AI IDE</span>
                 </div>
-                {/* Shopify */}
+                {/* Antigravity */}
                 <div className="flex flex-col items-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
-                    <Image src="/images/logos/shopify.svg" alt="Shopify" width={40} height={40} />
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-2">
+                    <Image src="/images/logos/antigravity.svg" alt="Antigravity" width={40} height={40} />
                   </div>
-                  <span className="text-xs mt-2 font-bold">Shopify</span>
-                  <span className="text-[10px] opacity-50">E-commerce</span>
+                  <span className="text-xs mt-2 font-bold">Antigravity</span>
+                  <span className="text-[10px] opacity-50">Web Studio</span>
                 </div>
-                {/* Supabase */}
+                {/* Next.js */}
                 <div className="flex flex-col items-center group">
                   <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
-                    <Image src="/images/logos/supabase.svg" alt="Supabase" width={40} height={40} />
+                    <Image src="/images/logos/nextjs.svg" alt="Next.js" width={40} height={40} />
                   </div>
-                  <span className="text-xs mt-2 font-bold">Supabase</span>
-                  <span className="text-[10px] opacity-50">Database</span>
+                  <span className="text-xs mt-2 font-bold">Next.js</span>
+                  <span className="text-[10px] opacity-50">Framework</span>
+                </div>
+                {/* React */}
+                <div className="flex flex-col items-center group">
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
+                    <Image src="/images/logos/react.svg" alt="React" width={40} height={40} />
+                  </div>
+                  <span className="text-xs mt-2 font-bold">React</span>
+                  <span className="text-[10px] opacity-50">Frontend</span>
                 </div>
                 {/* Vercel */}
                 <div className="flex flex-col items-center group">
@@ -423,21 +423,21 @@ export default function AboutPage() {
                   <span className="text-xs mt-2 font-bold">Vercel</span>
                   <span className="text-[10px] opacity-50">Hosting</span>
                 </div>
-                {/* React */}
+                {/* Supabase */}
                 <div className="flex flex-col items-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-[#20232a] rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
-                    <Image src="/images/logos/react.svg" alt="React" width={40} height={40} />
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
+                    <Image src="/images/logos/supabase.svg" alt="Supabase" width={40} height={40} />
                   </div>
-                  <span className="text-xs mt-2 font-bold">React</span>
-                  <span className="text-[10px] opacity-50">Frontend</span>
+                  <span className="text-xs mt-2 font-bold">Supabase</span>
+                  <span className="text-[10px] opacity-50">Database</span>
                 </div>
-                {/* Antigravity */}
+                {/* Shopify */}
                 <div className="flex flex-col items-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-2">
-                    <Image src="/images/logos/antigravity.svg" alt="Antigravity" width={40} height={40} />
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
+                    <Image src="/images/logos/shopify.svg" alt="Shopify" width={40} height={40} />
                   </div>
-                  <span className="text-xs mt-2 font-bold">Antigravity</span>
-                  <span className="text-[10px] opacity-50">Web Studio</span>
+                  <span className="text-xs mt-2 font-bold">Shopify</span>
+                  <span className="text-[10px] opacity-50">E-commerce</span>
                 </div>
               </div>
             </div>
