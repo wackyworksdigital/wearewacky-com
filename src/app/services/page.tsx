@@ -9,8 +9,149 @@ import { LegalFooter } from "@/components/ui/legal-footer";
 const TEXT = "#3d3428";
 const BG = "#f0eadd";
 
+// Service descriptions for flip cards
+const serviceDescriptions: Record<string, { title: string; tagline: string; description: string; features: string[] }> = {
+  "ai-agents": {
+    title: "AI Agents",
+    tagline: "smart helpers that never sleep",
+    description: "Custom AI assistants that handle customer support, data analysis, and repetitive tasks 24/7. They're like interns but they don't need coffee breaks or complain about the wifi.",
+    features: ["Customer Support Bots", "Data Analysis", "Task Automation", "Multi-Agent Systems"]
+  },
+  "automation": {
+    title: "Workflow Automation",
+    tagline: "connect everything",
+    description: "We wire up your apps using n8n, Zapier, and Make.com so they actually talk to each other. Your CRM updates your spreadsheet updates your Slack updates your sanity.",
+    features: ["n8n Workflows", "Zapier Integrations", "Make.com Scenarios", "Custom Triggers"]
+  },
+  "rag": {
+    title: "RAG & Knowledge",
+    tagline: "make your docs smart",
+    description: "Turn your messy documents into an AI that actually knows your business. Like having an employee who read ALL the documentation. Yes, even the 2019 onboarding PDF.",
+    features: ["Document AI", "Knowledge Bases", "Internal Search", "Chat with PDFs"]
+  },
+  "app-dev": {
+    title: "App Development",
+    tagline: "build something cool",
+    description: "Custom web and mobile apps built with modern tech. From simple tools to complex platforms - if you can dream it, we can probably build it (and make it look good too).",
+    features: ["Web Apps", "Mobile Apps", "Custom Tools", "API Development"]
+  },
+  "websites": {
+    title: "Websites",
+    tagline: "not your grandma's wordpress",
+    description: "Fast, modern websites built with Next.js and React. Animations that go whoosh, SEO that actually works, and no more 'please update your plugins' nightmares.",
+    features: ["Next.js", "React", "SEO Optimized", "Lightning Fast"]
+  },
+  "ecommerce": {
+    title: "E-Commerce",
+    tagline: "sell stuff online",
+    description: "Shopify stores, product listings, checkout optimization. We make people click 'buy now' instead of 'maybe later'. Your accountant will thank us.",
+    features: ["Shopify Stores", "Product Setup", "Checkout Flow", "Payment Integration"]
+  },
+  "ai-content": {
+    title: "AI Content",
+    tagline: "content that doesn't suck",
+    description: "Faceless channels, video campaigns, AI-generated content that actually performs. We'll make you look cool on the internet without you having to dance on camera.",
+    features: ["Video Generation", "Social Content", "Blog Automation", "Faceless Channels"]
+  },
+  "branding": {
+    title: "Branding",
+    tagline: "who even are you?",
+    description: "Full brand identity packages: strategy, visual identity, tone of voice, guidelines. We'll make you look like you've got your life together, even if you don't.",
+    features: ["Logo Design", "Brand Strategy", "Visual Identity", "Guidelines"]
+  },
+  "self-hosted": {
+    title: "Self-Hosted Tools",
+    tagline: "own your stack",
+    description: "n8n, Home Assistant, private AI, all on your own servers. No subscriptions, no data leaving your control, no big tech knowing your business.",
+    features: ["n8n Hosting", "Home Assistant", "Private AI", "Full Control"]
+  },
+};
+
+// Flip card component for services
+function ServiceFlipCard({ 
+  id, 
+  children, 
+  isFlipped, 
+  onFlip 
+}: { 
+  id: string; 
+  children: React.ReactNode; 
+  isFlipped: boolean; 
+  onFlip: () => void;
+}) {
+  const service = serviceDescriptions[id];
+  
+  return (
+    <div 
+      className="relative cursor-pointer"
+      style={{ perspective: "1000px" }}
+      onClick={onFlip}
+    >
+      <div 
+        className="relative transition-transform duration-500"
+        style={{ 
+          transformStyle: "preserve-3d",
+          transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)"
+        }}
+      >
+        {/* Front */}
+        <div style={{ backfaceVisibility: "hidden" }}>
+          {children}
+        </div>
+        
+        {/* Back */}
+        <div 
+          className="absolute inset-0 bg-black text-white p-6 border-2 border-black shadow-brutal flex flex-col justify-between"
+          style={{ 
+            backfaceVisibility: "hidden",
+            transform: "rotateY(180deg)"
+          }}
+        >
+          <div>
+            <div className="text-xs font-mono text-green-400 mb-2">{service?.tagline || "service"}</div>
+            <h4 className="text-xl font-black uppercase mb-3">{service?.title || "Service"}</h4>
+            <p className="text-sm text-gray-300 leading-relaxed mb-4">
+              {service?.description || "Click to learn more about this service."}
+            </p>
+          </div>
+          
+          {service?.features && (
+            <div>
+              <div className="text-xs font-mono text-gray-500 mb-2">WHAT'S INCLUDED</div>
+              <div className="flex flex-wrap gap-2">
+                {service.features.map((f) => (
+                  <span key={f} className="bg-white/10 px-2 py-1 text-xs font-mono">
+                    {f}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          <div className="mt-4 text-center">
+            <span className="text-xs text-gray-500">tap to flip back</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ServicesPage() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
+  
+  const toggleFlip = (id: string) => {
+    setFlippedCards(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      return newSet;
+    });
+  };
 
   return (
     <main className="relative min-h-screen overflow-x-hidden" style={{ backgroundColor: BG, color: TEXT }}>
@@ -158,12 +299,12 @@ export default function ServicesPage() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <Link href="/contact" className="block">
+            <ServiceFlipCard id="ai-agents" isFlipped={flippedCards.has("ai-agents")} onFlip={() => toggleFlip("ai-agents")}>
               <div className="bg-black text-green-500 p-1 border-2 border-black shadow-[8px_8px_0_0_#16a34a] hover:shadow-[4px_4px_0_0_#16a34a] hover:translate-x-1 hover:translate-y-1 transition-all duration-200 -rotate-1 group-hover:rotate-0">
                 <div className="border border-green-500 p-6">
                   <div className="flex justify-between items-center mb-4 border-b border-green-500 pb-2">
                     <h3 className="text-2xl font-mono uppercase">AI AGENTS</h3>
-                    <span className="w-2 h-2 bg-green-500 rounded-full animate-ping" />
+                    <span className="w-2 h-2 bg-green-500 rounded-full animate-ping pointer-events-none" />
                   </div>
                   <div className="relative h-32 mb-4 overflow-hidden">
                     <Image
@@ -177,11 +318,11 @@ export default function ServicesPage() {
                     &gt; smart helpers that never sleep
                   </p>
                   <p className="text-xs text-gray-500">
-                    custom AI assistants that handle customer support, data analysis, and repetitive tasks 24/7.
+                    tap for details_
                   </p>
                 </div>
               </div>
-            </Link>
+            </ServiceFlipCard>
           </motion.div>
 
           {/* 2. AUTOMATION - Sticky note */}
@@ -192,9 +333,9 @@ export default function ServicesPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            <Link href="/contact" className="block">
+            <ServiceFlipCard id="automation" isFlipped={flippedCards.has("automation")} onFlip={() => toggleFlip("automation")}>
               <div className="bg-yellow-300 p-6 border-2 border-black shadow-brutal rotate-2 group-hover:rotate-0 transition-transform duration-300 relative">
-                <div className="absolute -top-3 right-8 w-4 h-12 bg-red-400/50 rotate-12 rounded-sm border border-black/20" />
+                <div className="absolute -top-3 right-8 w-4 h-12 bg-red-400/50 rotate-12 rounded-sm border border-black/20 pointer-events-none" />
                 
                 <h3 
                   className="text-3xl font-black uppercase mb-3"
@@ -218,11 +359,11 @@ export default function ServicesPage() {
                 >
                   connect everything!
                 </p>
-                <p className="text-xs leading-tight">
-                  we wire up your apps using n8n, zapier, and make.com so they actually talk to each other.
+                <p className="text-xs leading-tight text-gray-600">
+                  tap for details
                 </p>
               </div>
-            </Link>
+            </ServiceFlipCard>
           </motion.div>
 
           {/* 3. RAG & KNOWLEDGE - Folder style */}
@@ -233,9 +374,9 @@ export default function ServicesPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <Link href="/contact" className="block">
+            <ServiceFlipCard id="rag" isFlipped={flippedCards.has("rag")} onFlip={() => toggleFlip("rag")}>
               <div className="relative">
-                <div className="absolute -top-6 left-0 w-1/3 h-8 bg-blue-200 border-2 border-b-0 border-black rounded-t-lg z-0" />
+                <div className="absolute -top-6 left-0 w-1/3 h-8 bg-blue-200 border-2 border-b-0 border-black rounded-t-lg z-0 pointer-events-none" />
                 <div className="bg-blue-200 p-6 border-2 border-black shadow-brutal relative z-10 rounded-tr-lg rounded-br-lg rounded-bl-lg -rotate-1 group-hover:rotate-0 transition-transform">
                   <h3 className="text-2xl font-bold uppercase tracking-wider mb-3 flex items-center gap-2">
                     <span className="text-3xl">📚</span>
@@ -248,11 +389,11 @@ export default function ServicesPage() {
                     make your docs smart
                   </p>
                   <div className="bg-white border border-blue-300 p-3 shadow-inner text-xs text-gray-600 font-mono">
-                    turn your messy documents into an AI that actually knows your business.
+                    tap for details_
                   </div>
                 </div>
               </div>
-            </Link>
+            </ServiceFlipCard>
           </motion.div>
 
           {/* 4. APP DEV - Polaroid style */}
@@ -263,7 +404,7 @@ export default function ServicesPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
           >
-            <Link href="/contact" className="block">
+            <ServiceFlipCard id="app-dev" isFlipped={flippedCards.has("app-dev")} onFlip={() => toggleFlip("app-dev")}>
               <div className="bg-white p-4 pb-12 border-2 border-black shadow-brutal -rotate-2 group-hover:rotate-0 transition-transform duration-300">
                 <div className="relative h-48 mb-4 border border-black overflow-hidden">
                   <Image
@@ -279,14 +420,9 @@ export default function ServicesPage() {
                 >
                   APP DEV
                 </h3>
-                <p 
-                  className="text-center text-sm mt-2"
-                  style={{ fontFamily: "var(--font-caveat), cursive" }}
-                >
-                  build something cool ✨
-                </p>
+                <p className="text-center text-xs text-gray-400 mt-2">tap for details</p>
               </div>
-            </Link>
+            </ServiceFlipCard>
           </motion.div>
 
           {/* 5. WEBSITES - Big pink circle */}
@@ -297,20 +433,15 @@ export default function ServicesPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.4 }}
           >
-            <Link href="/contact" className="block">
+            <ServiceFlipCard id="websites" isFlipped={flippedCards.has("websites")} onFlip={() => toggleFlip("websites")}>
               <div className="aspect-square flex flex-col items-center justify-center p-8 border-2 border-black shadow-brutal hover:rounded-[50%] transition-all duration-500 overflow-hidden text-center cursor-pointer relative rotate-1" style={{ backgroundColor: "#f9a8d4" }}>
                 <h3 className="text-5xl font-black text-white leading-none group-hover:scale-110 transition-transform">
                   WEB<br/>SITES
                 </h3>
-                <p 
-                  className="text-white mt-4 text-lg"
-                  style={{ fontFamily: "var(--font-marker), cursive" }}
-                >
-                  not your grandma's wordpress
-                </p>
-                <div className="absolute inset-0 border-[10px] border-white/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-700" />
+                <p className="text-white/70 mt-4 text-sm">tap for details</p>
+                <div className="absolute inset-0 border-[10px] border-white/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-700 pointer-events-none" />
               </div>
-            </Link>
+            </ServiceFlipCard>
           </motion.div>
 
           {/* 6. E-COMMERCE - Receipt style */}
@@ -321,7 +452,7 @@ export default function ServicesPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.5 }}
           >
-            <Link href="/contact" className="block">
+            <ServiceFlipCard id="ecommerce" isFlipped={flippedCards.has("ecommerce")} onFlip={() => toggleFlip("ecommerce")}>
               <div className="bg-white p-6 border-2 border-black shadow-brutal rotate-1 group-hover:rotate-0 transition-transform duration-300 clip-jagged">
                 <div className="border-b-2 border-dashed border-black pb-3 mb-3">
                   <h3 className="text-3xl font-black uppercase text-center">
@@ -342,11 +473,11 @@ export default function ServicesPage() {
                 >
                   sell stuff online! 💰
                 </p>
-                <div className="text-xs text-center border-t border-dashed border-black pt-2">
-                  shopify stores • product listings • checkout optimization
+                <div className="text-xs text-center border-t border-dashed border-black pt-2 text-gray-400">
+                  tap for details
                 </div>
               </div>
-            </Link>
+            </ServiceFlipCard>
           </motion.div>
 
           {/* 7. AI CONTENT - Video player style */}
@@ -357,9 +488,9 @@ export default function ServicesPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.6 }}
           >
-            <Link href="/contact" className="block">
+            <ServiceFlipCard id="ai-content" isFlipped={flippedCards.has("ai-content")} onFlip={() => toggleFlip("ai-content")}>
               <div className="bg-gray-900 p-2 border-2 border-black shadow-brutal -rotate-1 group-hover:rotate-0 transition-transform duration-300">
-                <div className="bg-black border-2 border-gray-700 p-4">
+                <div className="bg-black border-2 border-gray-700 p-4 relative">
                   <div className="flex gap-1 mb-3">
                     <div className="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
                       <div className="h-full bg-red-600 w-1/3 group-hover:w-full transition-all duration-1000" />
@@ -377,13 +508,13 @@ export default function ServicesPage() {
                   <h3 className="text-white font-bold uppercase text-lg">
                     AI CONTENT
                   </h3>
-                  <p className="text-gray-400 text-xs mt-1">
-                    videos, images, posts - on autopilot
+                  <p className="text-gray-500 text-xs mt-1">
+                    tap for details
                   </p>
-                  <div className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                  <div className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full animate-pulse pointer-events-none" />
                 </div>
               </div>
-            </Link>
+            </ServiceFlipCard>
           </motion.div>
 
           {/* 8. BRANDING - Badge style */}
@@ -394,9 +525,9 @@ export default function ServicesPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.7 }}
           >
-            <Link href="/contact" className="block">
+            <ServiceFlipCard id="branding" isFlipped={flippedCards.has("branding")} onFlip={() => toggleFlip("branding")}>
               <div className="p-8 border-2 border-black shadow-brutal rotate-2 group-hover:rotate-0 transition-transform duration-300 text-center relative overflow-hidden" style={{ backgroundColor: "#fecfef" }}>
-                <div className="absolute top-0 left-0 w-full h-full opacity-10">
+                <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
                   <div className="text-[120px] font-black">★</div>
                 </div>
                 <div className="relative z-10">
@@ -409,12 +540,12 @@ export default function ServicesPage() {
                   >
                     who even are you?
                   </p>
-                  <div className="text-xs mt-3 bg-black text-white px-3 py-1 inline-block">
-                    full identity packages
+                  <div className="text-xs mt-3 text-gray-500">
+                    tap for details
                   </div>
                 </div>
               </div>
-            </Link>
+            </ServiceFlipCard>
           </motion.div>
 
           {/* 9. SELF-HOSTED - Server rack style */}
@@ -425,13 +556,13 @@ export default function ServicesPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.8 }}
           >
-            <Link href="/contact" className="block">
+            <ServiceFlipCard id="self-hosted" isFlipped={flippedCards.has("self-hosted")} onFlip={() => toggleFlip("self-hosted")}>
               <div className="bg-gray-800 text-white p-6 border-2 border-black shadow-brutal -rotate-1 group-hover:rotate-0 transition-transform duration-300">
                 <div className="flex justify-between mb-4">
                   <div className="flex flex-col gap-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }} />
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse pointer-events-none" />
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse pointer-events-none" style={{ animationDelay: '0.2s' }} />
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse pointer-events-none" style={{ animationDelay: '0.4s' }} />
                   </div>
                   <div className="flex-1 ml-4">
                     <div className="h-2 bg-gray-700 mb-2 rounded" />
@@ -444,10 +575,10 @@ export default function ServicesPage() {
                 </h3>
                 <p className="text-sm text-gray-400 mb-2">own your stack</p>
                 <div className="text-xs font-mono bg-black p-2 border border-gray-700">
-                  $ ./deploy.sh --no-subscriptions
+                  $ tap_for_details --more-info
                 </div>
               </div>
-            </Link>
+            </ServiceFlipCard>
           </motion.div>
 
         </div>
