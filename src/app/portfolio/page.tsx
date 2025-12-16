@@ -29,7 +29,7 @@ const projectDescriptions: Record<string, { title: string; description: string; 
   "blog-writer": {
     title: "Automated Blog Writer",
     description: "AI writes SEO-optimized blog posts, schedules them, and posts automatically. Your blog stays fresh while you focus on business.",
-    tech: ["GPT-4", "Shopify API", "n8n"]
+    tech: ["ChatGPT", "Shopify API", "n8n"]
   },
   "ai-agent": {
     title: "Custom AI Agent",
@@ -39,7 +39,7 @@ const projectDescriptions: Record<string, { title: string; description: string; 
   "etsy-listing": {
     title: "Etsy Listing Assistant",
     description: "AI-powered product listing automation. SEO-optimized titles, descriptions, and tags that actually convert browsers to buyers.",
-    tech: ["Etsy API", "GPT-4", "n8n"]
+    tech: ["Etsy API", "ChatGPT", "n8n"]
   },
   "full-brand": {
     title: "Full Brand Identity",
@@ -127,26 +127,26 @@ function FlipCard({
         
         {/* Back */}
         <div 
-          className="absolute inset-0 bg-black text-white p-6 border-2 border-black shadow-brutal flex flex-col justify-between"
+          className="absolute inset-0 bg-black text-white p-4 md:p-6 border-2 border-black shadow-brutal flex flex-col justify-between overflow-hidden"
           style={{ 
             backfaceVisibility: "hidden",
             transform: "rotateY(180deg)"
           }}
         >
-          <div>
-            <div className="text-xs font-mono text-gray-400 mb-2">PROJECT DETAILS</div>
-            <h4 className="text-xl font-black uppercase mb-3">{project?.title || "Project"}</h4>
-            <p className="text-sm text-gray-300 leading-relaxed mb-4">
+          <div className="overflow-hidden">
+            <div className="text-[10px] md:text-xs font-mono text-gray-400 mb-1 md:mb-2">PROJECT DETAILS</div>
+            <h4 className="text-lg md:text-xl font-black uppercase mb-2 md:mb-3">{project?.title || "Project"}</h4>
+            <p className="text-xs md:text-sm text-gray-300 leading-snug md:leading-relaxed mb-3 md:mb-4 line-clamp-4 md:line-clamp-none">
               {project?.description || "Click to learn more about this project."}
             </p>
           </div>
           
           {project?.tech && (
             <div>
-              <div className="text-xs font-mono text-gray-500 mb-2">TECH STACK</div>
-              <div className="flex flex-wrap gap-2">
+              <div className="text-[10px] md:text-xs font-mono text-gray-500 mb-1 md:mb-2">TECH STACK</div>
+              <div className="flex flex-wrap gap-1 md:gap-2">
                 {project.tech.map((t) => (
-                  <span key={t} className="bg-white/10 px-2 py-1 text-xs font-mono">
+                  <span key={t} className="bg-white/10 px-1.5 md:px-2 py-0.5 md:py-1 text-[10px] md:text-xs font-mono">
                     {t}
                   </span>
                 ))}
@@ -154,8 +154,8 @@ function FlipCard({
             </div>
           )}
           
-          <div className="mt-4 text-center">
-            <span className="text-xs text-gray-500">tap to flip back</span>
+          <div className="mt-2 md:mt-4 text-center">
+            <span className="text-[10px] md:text-xs text-gray-500">tap to flip back</span>
           </div>
         </div>
       </div>
@@ -368,8 +368,8 @@ export default function PortfolioPage() {
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-8 tape-effect -rotate-2 z-20 pointer-events-none" />
             
             <FlipCard id="shopify-branding" isFlipped={flippedCards.has("shopify-branding")} onFlip={() => toggleFlip("shopify-branding")}>
-              <div className="bg-white p-3 pb-8 border-2 border-black shadow-brutal rotate-1 group-hover:rotate-0 transition-transform duration-300">
-                <div className="relative overflow-hidden border border-black mb-3 h-48">
+              <div className="bg-white p-2 md:p-3 pb-6 md:pb-8 border-2 border-black shadow-brutal rotate-1 group-hover:rotate-0 transition-transform duration-300">
+                <div className="relative overflow-hidden border border-black mb-2 md:mb-3 h-36 md:h-48">
                   <Image
                     src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=500&h=400&fit=crop"
                     alt="Shopify Store"
@@ -379,16 +379,16 @@ export default function PortfolioPage() {
                   <div className="absolute inset-0 bg-green-500 mix-blend-multiply opacity-0 group-hover:opacity-20 transition-opacity" />
                 </div>
                 <div className="text-center font-display">
-                  <h3 className="text-2xl font-black uppercase leading-none">
+                  <h3 className="text-xl md:text-2xl font-black uppercase leading-none">
                     Shopify Setup<br/>+ Branding
                   </h3>
                   <p 
-                    className="text-lg -rotate-2 mt-2 inline-block"
+                    className="text-base md:text-lg -rotate-2 mt-1 md:mt-2 inline-block"
                     style={{ fontFamily: "var(--font-marker), cursive", color: "#dc2626" }}
                   >
                     Cha-ching! 💰
                   </p>
-                  <p className="text-xs text-gray-400 mt-2">tap for details</p>
+                  <p className="text-[10px] md:text-xs text-gray-400 mt-1 md:mt-2">tap for details</p>
                 </div>
               </div>
             </FlipCard>
@@ -403,31 +403,31 @@ export default function PortfolioPage() {
             transition={{ delay: 0.1 }}
           >
             <FlipCard id="n8n-hosting" isFlipped={flippedCards.has("n8n-hosting")} onFlip={() => toggleFlip("n8n-hosting")}>
-              <div className="p-6 border-2 border-black shadow-brutal -rotate-2 group-hover:rotate-0 transition-transform duration-300 relative overflow-hidden" style={{ backgroundColor: "#fcd34d" }}>
-                <div className="absolute top-0 right-0 p-1 bg-black text-white font-mono text-xs border-b-2 border-l-2 border-black">
-                  SYS_ADMIN_MODE
+              <div className="p-4 md:p-6 border-2 border-black shadow-brutal -rotate-2 group-hover:rotate-0 transition-transform duration-300 relative overflow-hidden" style={{ backgroundColor: "#fcd34d" }}>
+                <div className="absolute top-0 right-0 p-1 bg-black text-white font-mono text-[10px] md:text-xs border-b-2 border-l-2 border-black">
+                  SYS_ADMIN
                 </div>
-                <div className="h-32 mb-4 border-2 border-black bg-black relative overflow-hidden">
+                <div className="h-24 md:h-32 mb-3 md:mb-4 border-2 border-black bg-black relative overflow-hidden">
                   <Image
                     src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=500&h=300&fit=crop"
                     alt="n8n automation"
                     fill
                     className="object-cover opacity-60"
                   />
-                  <div className="absolute bottom-2 left-2 font-mono text-green-400 text-xs z-10">
-                    root@wacky:~# deploy n8n
+                  <div className="absolute bottom-1 md:bottom-2 left-1 md:left-2 font-mono text-green-400 text-[10px] md:text-xs z-10">
+                    root@wacky:~# deploy
                   </div>
                 </div>
-                <h3 className="text-xl font-bold font-mono lowercase">
-                  n8n self-hosting on google cloud
+                <h3 className="text-lg md:text-xl font-bold font-mono lowercase">
+                  n8n self-hosting
                 </h3>
-                <div className="mt-4 flex justify-between items-center">
-                  <div className="flex gap-2">
-                    <span className="w-3 h-3 rounded-full bg-red-500 border border-black" />
-                    <span className="w-3 h-3 rounded-full bg-yellow-500 border border-black" />
-                    <span className="w-3 h-3 rounded-full bg-green-500 border border-black animate-pulse" />
+                <div className="mt-3 md:mt-4 flex justify-between items-center">
+                  <div className="flex gap-1.5 md:gap-2">
+                    <span className="w-2 md:w-3 h-2 md:h-3 rounded-full bg-red-500 border border-black" />
+                    <span className="w-2 md:w-3 h-2 md:h-3 rounded-full bg-yellow-500 border border-black" />
+                    <span className="w-2 md:w-3 h-2 md:h-3 rounded-full bg-green-500 border border-black animate-pulse" />
                   </div>
-                  <span className="text-xs text-gray-600">tap for details</span>
+                  <span className="text-[10px] md:text-xs text-gray-600">tap for details</span>
                 </div>
               </div>
             </FlipCard>
@@ -442,22 +442,22 @@ export default function PortfolioPage() {
             transition={{ delay: 0.2 }}
           >
             <FlipCard id="news-scraper" isFlipped={flippedCards.has("news-scraper")} onFlip={() => toggleFlip("news-scraper")}>
-              <div className="bg-paper-white p-4 border-2 border-black shadow-brutal rotate-3 group-hover:rotate-0 transition-transform duration-300 clip-jagged relative">
+              <div className="bg-paper-white p-3 md:p-4 border-2 border-black shadow-brutal rotate-3 group-hover:rotate-0 transition-transform duration-300 clip-jagged relative">
                 <div className="absolute -left-2 top-10 w-4 h-16 bg-black/10 -rotate-3" />
-                <div className="border-b-2 border-black border-dashed pb-2 mb-2 flex justify-between items-end">
+                <div className="border-b-2 border-black border-dashed pb-1 md:pb-2 mb-1 md:mb-2 flex justify-between items-end">
                   <span 
-                    className="text-xs"
+                    className="text-[10px] md:text-xs"
                     style={{ fontFamily: "var(--font-marker), cursive" }}
                   >
                     The Daily Bot
                   </span>
-                  <span className="font-bold text-xs bg-black text-white px-1">VOL. 1</span>
+                  <span className="font-bold text-[10px] md:text-xs bg-black text-white px-1">VOL. 1</span>
                 </div>
-                <h3 className="text-2xl font-black leading-none mb-2">
-                  AI NEWS SCRAPER N8N WORK
+                <h3 className="text-lg md:text-2xl font-black leading-none mb-2">
+                  AI NEWS SCRAPER
                 </h3>
                 <div className="flex gap-2 mb-2">
-                  <div className="w-1/3 bg-gray-200 border border-black h-20 relative overflow-hidden">
+                  <div className="w-1/3 bg-gray-200 border border-black h-16 md:h-20 relative overflow-hidden">
                     <Image
                       src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=200&h=200&fit=crop"
                       alt="News scraper"
@@ -465,8 +465,8 @@ export default function PortfolioPage() {
                       className="object-cover grayscale contrast-150"
                     />
                   </div>
-                  <p className="w-2/3 text-xs font-serif leading-tight">
-                    Breaking news! Our bots are reading the internet so you don't have to.
+                  <p className="w-2/3 text-[10px] md:text-xs font-serif leading-tight">
+                    Our bots read the internet so you don&apos;t have to.
                     <span className="block text-gray-400 mt-1">tap for details</span>
                   </p>
                 </div>
@@ -483,24 +483,24 @@ export default function PortfolioPage() {
             transition={{ delay: 0.3 }}
           >
             <FlipCard id="blog-writer" isFlipped={flippedCards.has("blog-writer")} onFlip={() => toggleFlip("blog-writer")}>
-              <div className="bg-white bg-lined-paper p-6 border-2 border-black shadow-brutal -rotate-1 group-hover:scale-105 transition-transform duration-300 relative">
+              <div className="bg-white bg-lined-paper p-4 md:p-6 border-2 border-black shadow-brutal -rotate-1 group-hover:scale-105 transition-transform duration-300 relative">
                 <div className="absolute -top-3 right-8 w-4 h-12 bg-red-400/50 rotate-12 rounded-sm border border-black/20" />
                 <h3 
-                  className="text-2xl text-blue-700 mb-4"
+                  className="text-lg md:text-2xl text-blue-700 mb-3 md:mb-4"
                   style={{ fontFamily: "var(--font-marker), cursive" }}
                 >
-                  Automated Shopify Blog Writer
+                  Automated Shopify Blog
                 </h3>
                 <p 
-                  className="text-gray-600 italic leading-relaxed transform -rotate-1"
+                  className="text-sm md:text-base text-gray-600 italic leading-relaxed transform -rotate-1"
                   style={{ fontFamily: "var(--font-caveat), cursive" }}
                 >
-                  "It writes better than me..." <br/>
+                  &quot;It writes better than me...&quot; <br/>
                   - An unhappy copywriter
                 </p>
-                <div className="mt-4 flex justify-between items-end">
-                  <span className="text-xs text-gray-400">tap for details</span>
-                  <span className="text-3xl">✍️</span>
+                <div className="mt-3 md:mt-4 flex justify-between items-end">
+                  <span className="text-[10px] md:text-xs text-gray-400">tap for details</span>
+                  <span className="text-2xl md:text-3xl">✍️</span>
                 </div>
               </div>
             </FlipCard>
@@ -516,14 +516,14 @@ export default function PortfolioPage() {
           >
             <FlipCard id="ai-agent" isFlipped={flippedCards.has("ai-agent")} onFlip={() => toggleFlip("ai-agent")}>
               <div className="bg-black text-white p-1 border-2 border-black shadow-[8px_8px_0_0_#16a34a] hover:shadow-[4px_4px_0_0_#16a34a] hover:translate-x-1 hover:translate-y-1 transition-all duration-200">
-                <div className="border border-green-500 p-4 h-full relative overflow-hidden">
-                  <div className="flex justify-between items-center mb-4 border-b border-green-500 pb-2">
-                    <h3 className="text-lg font-mono uppercase text-green-500">
+                <div className="border border-green-500 p-3 md:p-4 h-full relative overflow-hidden">
+                  <div className="flex justify-between items-center mb-3 md:mb-4 border-b border-green-500 pb-2">
+                    <h3 className="text-base md:text-lg font-mono uppercase text-green-500">
                       Custom AI Agent
                     </h3>
                     <span className="w-2 h-2 bg-green-500 rounded-full animate-ping" />
                   </div>
-                  <div className="h-40 mb-4 relative overflow-hidden">
+                  <div className="h-32 md:h-40 mb-3 md:mb-4 relative overflow-hidden">
                     <Image
                       src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500&h=400&fit=crop"
                       alt="AI Agent"
@@ -532,7 +532,7 @@ export default function PortfolioPage() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
                   </div>
-                  <p className="text-xs font-mono text-gray-400">
+                  <p className="text-[10px] md:text-xs font-mono text-gray-400">
                     &gt; tap for details_
                   </p>
                 </div>
@@ -549,14 +549,14 @@ export default function PortfolioPage() {
             transition={{ delay: 0.5 }}
           >
             <FlipCard id="etsy-listing" isFlipped={flippedCards.has("etsy-listing")} onFlip={() => toggleFlip("etsy-listing")}>
-              <div className="p-4 border-2 border-black shadow-brutal rotate-2 group-hover:-rotate-1 transition-transform duration-300 rounded-sm relative" style={{ backgroundColor: "#f9a8d4" }}>
-                <div className="absolute -top-4 -right-2 text-4xl z-20 drop-shadow-md pointer-events-none">
+              <div className="p-3 md:p-4 border-2 border-black shadow-brutal rotate-2 group-hover:-rotate-1 transition-transform duration-300 rounded-sm relative" style={{ backgroundColor: "#f9a8d4" }}>
+                <div className="absolute -top-3 md:-top-4 -right-2 text-3xl md:text-4xl z-20 drop-shadow-md pointer-events-none">
                   🧵
                 </div>
-                <div className="absolute -bottom-2 -left-2 text-3xl z-20 drop-shadow-md rotate-12 pointer-events-none">
+                <div className="absolute -bottom-2 -left-2 text-2xl md:text-3xl z-20 drop-shadow-md rotate-12 pointer-events-none">
                   🏷️
                 </div>
-                <div className="bg-white border-2 border-black p-2 mb-2 rotate-1 h-32 relative overflow-hidden">
+                <div className="bg-white border-2 border-black p-1 md:p-2 mb-2 rotate-1 h-24 md:h-32 relative overflow-hidden">
                   <Image
                     src="https://images.unsplash.com/photo-1452860606245-08befc0ff44b?w=500&h=300&fit=crop"
                     alt="Etsy products"
@@ -564,11 +564,11 @@ export default function PortfolioPage() {
                     className="object-cover"
                   />
                 </div>
-                <h3 className="text-xl font-black text-center uppercase tracking-tighter bg-white inline-block px-2 border border-black rotate-1">
+                <h3 className="text-lg md:text-xl font-black text-center uppercase tracking-tighter bg-white inline-block px-2 border border-black rotate-1">
                   Etsy Listing Auto
                 </h3>
                 <p 
-                  className="text-center text-sm mt-2"
+                  className="text-center text-xs md:text-sm mt-1 md:mt-2"
                   style={{ fontFamily: "var(--font-marker), cursive" }}
                 >
                   tap for details!
@@ -606,26 +606,26 @@ export default function PortfolioPage() {
           >
             <FlipCard id="video-content" isFlipped={flippedCards.has("video-content")} onFlip={() => toggleFlip("video-content")}>
               <div className="bg-gray-900 p-2 border-2 border-black shadow-brutal -rotate-1 group-hover:rotate-0 transition-transform duration-300">
-                <div className="bg-black border-2 border-gray-700 p-4 relative">
-                  <div className="flex gap-1 mb-4">
-                    <div className="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                <div className="bg-black border-2 border-gray-700 p-3 md:p-4 relative">
+                  <div className="flex gap-1 mb-3 md:mb-4">
+                    <div className="w-full h-1.5 md:h-2 bg-gray-800 rounded-full overflow-hidden">
                       <div className="h-full bg-red-600 w-1/2 group-hover:w-full transition-all duration-1000 ease-linear" />
                     </div>
                   </div>
-                  <div className="flex items-center justify-center h-24 border border-gray-800 bg-gray-900 mb-4 group-hover:bg-gray-800 transition-colors text-6xl">
+                  <div className="flex items-center justify-center h-20 md:h-24 border border-gray-800 bg-gray-900 mb-3 md:mb-4 group-hover:bg-gray-800 transition-colors text-4xl md:text-6xl">
                     🎥
                   </div>
-                  <h3 className="text-white font-bold uppercase text-lg leading-tight">
-                    AI Video Content<br/>Automation
+                  <h3 className="text-white font-bold uppercase text-base md:text-lg leading-tight">
+                    AI Video Content
                   </h3>
-                  <p className="text-gray-500 text-xs mt-2">tap for details</p>
+                  <p className="text-gray-500 text-[10px] md:text-xs mt-1 md:mt-2">tap for details</p>
                   <div className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full animate-pulse pointer-events-none" />
                 </div>
-                <div className="flex justify-between px-2 pt-2">
-                  <div className="w-2 h-2 bg-black rounded-full border border-gray-500" />
-                  <div className="w-2 h-2 bg-black rounded-full border border-gray-500" />
-                  <div className="w-2 h-2 bg-black rounded-full border border-gray-500" />
-                  <div className="w-2 h-2 bg-black rounded-full border border-gray-500" />
+                <div className="flex justify-between px-2 pt-1 md:pt-2">
+                  <div className="w-1.5 md:w-2 h-1.5 md:h-2 bg-black rounded-full border border-gray-500" />
+                  <div className="w-1.5 md:w-2 h-1.5 md:h-2 bg-black rounded-full border border-gray-500" />
+                  <div className="w-1.5 md:w-2 h-1.5 md:h-2 bg-black rounded-full border border-gray-500" />
+                  <div className="w-1.5 md:w-2 h-1.5 md:h-2 bg-black rounded-full border border-gray-500" />
                 </div>
               </div>
             </FlipCard>
@@ -684,23 +684,23 @@ export default function PortfolioPage() {
           >
             <FlipCard id="course-platform" isFlipped={flippedCards.has("course-platform")} onFlip={() => toggleFlip("course-platform")}>
               <div className="p-[2px] border-2 border-black shadow-brutal rotate-1 group-hover:-rotate-1 transition-transform duration-300 rounded-r-xl" style={{ backgroundColor: "#8b5e3c" }}>
-                <div className="bg-paper-white h-full border-l-8 border-l-black/20 p-4 rounded-r-lg relative">
+                <div className="bg-paper-white h-full border-l-8 border-l-black/20 p-3 md:p-4 rounded-r-lg relative">
                   <div className="absolute top-0 left-0 w-4 h-full border-r border-dashed border-gray-300" />
-                  <div className="pl-4">
-                    <h3 className="font-serif text-2xl font-bold italic mb-2">
+                  <div className="pl-3 md:pl-4">
+                    <h3 className="font-serif text-xl md:text-2xl font-bold italic mb-2">
                       Course Platform
                     </h3>
                     <ul 
-                      className="list-disc pl-4 text-sm text-gray-700 space-y-1"
+                      className="list-disc pl-3 md:pl-4 text-xs md:text-sm text-gray-700 space-y-1"
                       style={{ fontFamily: "var(--font-caveat), cursive" }}
                     >
                       <li>Self-hosted</li>
                       <li>No monthly fees</li>
                       <li><span className="bg-yellow-200 px-1">Total Control</span></li>
                     </ul>
-                    <div className="mt-4 border-t-2 border-black pt-2 flex justify-between items-center">
-                      <span className="text-xs text-gray-400">tap for details</span>
-                      <span className="text-2xl">🎓</span>
+                    <div className="mt-3 md:mt-4 border-t-2 border-black pt-2 flex justify-between items-center">
+                      <span className="text-[10px] md:text-xs text-gray-400">tap for details</span>
+                      <span className="text-xl md:text-2xl">🎓</span>
                     </div>
                   </div>
                 </div>
@@ -719,13 +719,13 @@ export default function PortfolioPage() {
             <FlipCard id="rag-kb" isFlipped={flippedCards.has("rag-kb")} onFlip={() => toggleFlip("rag-kb")}>
               <div className="relative">
                 <div className="absolute -top-6 left-0 w-1/3 h-8 bg-amber-100 border-2 border-b-0 border-black rounded-t-lg z-0 pointer-events-none" />
-                <div className="bg-amber-100 p-6 border-2 border-black shadow-brutal relative z-10 rounded-tr-lg rounded-br-lg rounded-bl-lg">
-                  <h3 className="text-lg font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
-                    <span className="text-2xl">📁</span>
-                    Company RAG KB
+                <div className="bg-amber-100 p-4 md:p-6 border-2 border-black shadow-brutal relative z-10 rounded-tr-lg rounded-br-lg rounded-bl-lg">
+                  <h3 className="text-base md:text-lg font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
+                    <span className="text-xl md:text-2xl">📁</span>
+                    RAG Knowledge Base
                   </h3>
-                  <div className="bg-white border border-amber-300 p-3 shadow-inner font-mono text-xs text-gray-600">
-                    "Hey Bot, what is our return policy?"<br/><br/>
+                  <div className="bg-white border border-amber-300 p-2 md:p-3 shadow-inner font-mono text-[10px] md:text-xs text-gray-600">
+                    &quot;Hey Bot, what is our return policy?&quot;<br/><br/>
                     &gt; tap for details_
                   </div>
                 </div>
@@ -742,17 +742,17 @@ export default function PortfolioPage() {
             transition={{ delay: 1 }}
           >
             <FlipCard id="wordpress-migration" isFlipped={flippedCards.has("wordpress-migration")} onFlip={() => toggleFlip("wordpress-migration")}>
-              <div className="bg-paper-white p-6 border-2 border-black shadow-brutal-lg rotate-2 group-hover:rotate-0 transition-transform duration-300 relative">
-                <div className="absolute -top-4 -right-4 bg-yellow-300 px-3 py-1 border-2 border-black rotate-12 font-black text-sm pointer-events-none">
+              <div className="bg-paper-white p-4 md:p-6 border-2 border-black shadow-brutal-lg rotate-2 group-hover:rotate-0 transition-transform duration-300 relative">
+                <div className="absolute -top-3 md:-top-4 -right-3 md:-right-4 bg-yellow-300 px-2 md:px-3 py-1 border-2 border-black rotate-12 font-black text-xs md:text-sm pointer-events-none">
                   IN PROGRESS!
                 </div>
-                <div className="flex items-center justify-center h-32 text-6xl mb-4">
+                <div className="flex items-center justify-center h-24 md:h-32 text-5xl md:text-6xl mb-3 md:mb-4">
                   🔧
                 </div>
-                <h3 className="text-2xl font-black uppercase text-center leading-tight mb-2">
+                <h3 className="text-xl md:text-2xl font-black uppercase text-center leading-tight mb-2">
                   WORDPRESS<br/>MIGRATION
                 </h3>
-                <p className="text-center text-xs text-gray-400">tap for details</p>
+                <p className="text-center text-[10px] md:text-xs text-gray-400">tap for details</p>
               </div>
             </FlipCard>
           </motion.div>
@@ -766,17 +766,17 @@ export default function PortfolioPage() {
             transition={{ delay: 1.1 }}
           >
             <FlipCard id="shopify-makeover" isFlipped={flippedCards.has("shopify-makeover")} onFlip={() => toggleFlip("shopify-makeover")}>
-              <div className="bg-white p-6 border-2 border-black shadow-brutal -rotate-1 group-hover:rotate-0 transition-transform duration-300">
-                <div className="flex justify-between items-start mb-4">
-                  <span className="text-5xl">🏠</span>
-                  <span className="bg-green-300 px-2 py-1 text-xs font-bold border border-black rotate-3">
+              <div className="bg-white p-4 md:p-6 border-2 border-black shadow-brutal -rotate-1 group-hover:rotate-0 transition-transform duration-300">
+                <div className="flex justify-between items-start mb-3 md:mb-4">
+                  <span className="text-4xl md:text-5xl">🏠</span>
+                  <span className="bg-green-300 px-1.5 md:px-2 py-0.5 md:py-1 text-[10px] md:text-xs font-bold border border-black rotate-3">
                     SOON
                   </span>
                 </div>
-                <h3 className="text-xl font-black uppercase">
+                <h3 className="text-lg md:text-xl font-black uppercase">
                   Shopify Makeover
                 </h3>
-                <p className="text-xs text-gray-400 mt-2">tap for details</p>
+                <p className="text-[10px] md:text-xs text-gray-400 mt-1 md:mt-2">tap for details</p>
               </div>
             </FlipCard>
           </motion.div>
@@ -790,12 +790,12 @@ export default function PortfolioPage() {
             transition={{ delay: 1.2 }}
           >
             <FlipCard id="youtube-channel" isFlipped={flippedCards.has("youtube-channel")} onFlip={() => toggleFlip("youtube-channel")}>
-              <div className="bg-red-600 p-6 border-2 border-black shadow-brutal rotate-1 group-hover:rotate-0 transition-transform duration-300 text-white text-center">
-                <div className="text-6xl mb-3">▶️</div>
-                <h3 className="text-2xl font-black uppercase leading-tight">
+              <div className="bg-red-600 p-4 md:p-6 border-2 border-black shadow-brutal rotate-1 group-hover:rotate-0 transition-transform duration-300 text-white text-center">
+                <div className="text-4xl md:text-6xl mb-2 md:mb-3">▶️</div>
+                <h3 className="text-xl md:text-2xl font-black uppercase leading-tight">
                   Channel<br/>Setup +<br/>Branding
                 </h3>
-                <p className="text-white/60 text-xs mt-2">tap for details</p>
+                <p className="text-white/60 text-[10px] md:text-xs mt-1 md:mt-2">tap for details</p>
               </div>
             </FlipCard>
           </motion.div>
@@ -809,12 +809,12 @@ export default function PortfolioPage() {
             transition={{ delay: 1.3 }}
           >
             <FlipCard id="roblox-world" isFlipped={flippedCards.has("roblox-world")} onFlip={() => toggleFlip("roblox-world")}>
-              <div className="bg-green-400 p-6 border-2 border-black shadow-brutal -rotate-2 group-hover:rotate-0 transition-transform duration-300">
-                <div className="text-6xl mb-3">🎮</div>
-                <h3 className="text-xl font-black uppercase">
+              <div className="bg-green-400 p-4 md:p-6 border-2 border-black shadow-brutal -rotate-2 group-hover:rotate-0 transition-transform duration-300">
+                <div className="text-4xl md:text-6xl mb-2 md:mb-3">🎮</div>
+                <h3 className="text-lg md:text-xl font-black uppercase">
                   Custom<br/>Roblox<br/>World
                 </h3>
-                <div className="mt-2 bg-black text-green-400 px-2 py-1 text-xs font-mono">
+                <div className="mt-1 md:mt-2 bg-black text-green-400 px-1.5 md:px-2 py-0.5 md:py-1 text-[10px] md:text-xs font-mono">
                   tap_for_details
                 </div>
               </div>
