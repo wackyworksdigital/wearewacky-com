@@ -308,12 +308,12 @@ export default function ServicesPage() {
           >
             <ServiceFlipCard id="ai-agents" isFlipped={flippedCards.has("ai-agents")} onFlip={() => toggleFlip("ai-agents")}>
               <div className="bg-black text-green-500 p-1 border-2 border-black shadow-[8px_8px_0_0_#16a34a] hover:shadow-[4px_4px_0_0_#16a34a] hover:translate-x-1 hover:translate-y-1 transition-all duration-200 -rotate-1 group-hover:rotate-0">
-                <div className="border border-green-500 p-6">
-                  <div className="flex justify-between items-center mb-4 border-b border-green-500 pb-2">
-                    <h3 className="text-2xl font-mono uppercase">AI AGENTS</h3>
+                <div className="border border-green-500 p-4 md:p-6">
+                  <div className="flex justify-between items-center mb-3 md:mb-4 border-b border-green-500 pb-2">
+                    <h3 className="text-xl md:text-2xl font-mono uppercase">AI AGENTS</h3>
                     <span className="w-2 h-2 bg-green-500 rounded-full animate-ping pointer-events-none" />
                   </div>
-                  <div className="relative h-32 mb-4 overflow-hidden">
+                  <div className="relative h-24 md:h-32 mb-3 md:mb-4 overflow-hidden">
                     <Image
                       src="https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500&h=300&fit=crop"
                       alt="AI Agent"
@@ -321,10 +321,10 @@ export default function ServicesPage() {
                       className="object-cover mix-blend-luminosity opacity-60 group-hover:opacity-80 transition-opacity"
                     />
                   </div>
-                  <p className="text-sm font-mono mb-2 text-gray-400">
+                  <p className="text-xs md:text-sm font-mono mb-2 text-gray-400">
                     &gt; smart helpers that never sleep
                   </p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-[10px] md:text-xs text-gray-500">
                     tap for details_
                   </p>
                 </div>
@@ -341,17 +341,17 @@ export default function ServicesPage() {
             transition={{ delay: 0.1 }}
           >
             <ServiceFlipCard id="automation" isFlipped={flippedCards.has("automation")} onFlip={() => toggleFlip("automation")}>
-              <div className="bg-yellow-300 p-6 border-2 border-black shadow-brutal rotate-2 group-hover:rotate-0 transition-transform duration-300 relative">
+              <div className="bg-yellow-300 p-4 md:p-6 border-2 border-black shadow-brutal rotate-2 group-hover:rotate-0 transition-transform duration-300 relative">
                 <div className="absolute -top-3 right-8 w-4 h-12 bg-red-400/50 rotate-12 rounded-sm border border-black/20 pointer-events-none" />
                 
                 <h3 
-                  className="text-3xl font-black uppercase mb-3"
+                  className="text-2xl md:text-3xl font-black uppercase mb-2 md:mb-3"
                   style={{ fontFamily: "var(--font-bebas), sans-serif" }}
                 >
                   WORKFLOW<br/>AUTOMATION
                 </h3>
                 
-                <div className="relative h-24 mb-3 border-2 border-black overflow-hidden">
+                <div className="relative h-20 md:h-24 mb-2 md:mb-3 border-2 border-black overflow-hidden">
                   <Image
                     src="https://images.unsplash.com/photo-1518432031352-d6fc5c10da5a?w=400&h=200&fit=crop"
                     alt="Automation"
@@ -361,12 +361,12 @@ export default function ServicesPage() {
                 </div>
                 
                 <p 
-                  className="text-base mb-2"
+                  className="text-sm md:text-base mb-2"
                   style={{ fontFamily: "var(--font-marker), cursive" }}
                 >
                   connect everything!
                 </p>
-                <p className="text-xs leading-tight text-gray-600">
+                <p className="text-[10px] md:text-xs leading-tight text-gray-600">
                   tap for details
                 </p>
               </div>
@@ -384,18 +384,18 @@ export default function ServicesPage() {
             <ServiceFlipCard id="rag" isFlipped={flippedCards.has("rag")} onFlip={() => toggleFlip("rag")}>
               <div className="relative">
                 <div className="absolute -top-6 left-0 w-1/3 h-8 bg-blue-200 border-2 border-b-0 border-black rounded-t-lg z-0 pointer-events-none" />
-                <div className="bg-blue-200 p-6 border-2 border-black shadow-brutal relative z-10 rounded-tr-lg rounded-br-lg rounded-bl-lg -rotate-1 group-hover:rotate-0 transition-transform">
-                  <h3 className="text-2xl font-bold uppercase tracking-wider mb-3 flex items-center gap-2">
-                    <span className="text-3xl">📚</span>
+                <div className="bg-blue-200 p-4 md:p-6 border-2 border-black shadow-brutal relative z-10 rounded-tr-lg rounded-br-lg rounded-bl-lg -rotate-1 group-hover:rotate-0 transition-transform">
+                  <h3 className="text-lg md:text-2xl font-bold uppercase tracking-wider mb-2 md:mb-3 flex items-center gap-2">
+                    <span className="text-2xl md:text-3xl">📚</span>
                     RAG & KNOWLEDGE
                   </h3>
                   <p 
-                    className="text-lg mb-2"
+                    className="text-base md:text-lg mb-2"
                     style={{ fontFamily: "var(--font-caveat), cursive" }}
                   >
                     make your docs smart
                   </p>
-                  <div className="bg-white border border-blue-300 p-3 shadow-inner text-xs text-gray-600 font-mono">
+                  <div className="bg-white border border-blue-300 p-2 md:p-3 shadow-inner text-[10px] md:text-xs text-gray-600 font-mono">
                     tap for details_
                   </div>
                 </div>
@@ -412,8 +412,8 @@ export default function ServicesPage() {
             transition={{ delay: 0.3 }}
           >
             <ServiceFlipCard id="app-dev" isFlipped={flippedCards.has("app-dev")} onFlip={() => toggleFlip("app-dev")}>
-              <div className="bg-white p-4 pb-12 border-2 border-black shadow-brutal -rotate-2 group-hover:rotate-0 transition-transform duration-300">
-                <div className="relative h-48 mb-4 border border-black overflow-hidden">
+              <div className="bg-white p-3 md:p-4 pb-8 md:pb-12 border-2 border-black shadow-brutal -rotate-2 group-hover:rotate-0 transition-transform duration-300">
+                <div className="relative h-36 md:h-48 mb-3 md:mb-4 border border-black overflow-hidden">
                   <Image
                     src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=500&h=400&fit=crop"
                     alt="App Development"
@@ -422,12 +422,12 @@ export default function ServicesPage() {
                   />
                 </div>
                 <h3 
-                  className="text-2xl font-black text-center uppercase"
+                  className="text-xl md:text-2xl font-black text-center uppercase"
                   style={{ fontFamily: "var(--font-bebas), sans-serif" }}
                 >
                   APP DEV
                 </h3>
-                <p className="text-center text-xs text-gray-400 mt-2">tap for details</p>
+                <p className="text-center text-[10px] md:text-xs text-gray-400 mt-1 md:mt-2">tap for details</p>
               </div>
             </ServiceFlipCard>
           </motion.div>
@@ -441,11 +441,11 @@ export default function ServicesPage() {
             transition={{ delay: 0.4 }}
           >
             <ServiceFlipCard id="websites" isFlipped={flippedCards.has("websites")} onFlip={() => toggleFlip("websites")}>
-              <div className="aspect-square flex flex-col items-center justify-center p-8 border-2 border-black shadow-brutal hover:rounded-[50%] transition-all duration-500 overflow-hidden text-center cursor-pointer relative rotate-1" style={{ backgroundColor: "#f9a8d4" }}>
-                <h3 className="text-5xl font-black text-white leading-none group-hover:scale-110 transition-transform">
+              <div className="aspect-square flex flex-col items-center justify-center p-6 md:p-8 border-2 border-black shadow-brutal hover:rounded-[50%] transition-all duration-500 overflow-hidden text-center cursor-pointer relative rotate-1" style={{ backgroundColor: "#f9a8d4" }}>
+                <h3 className="text-4xl md:text-5xl font-black text-white leading-none group-hover:scale-110 transition-transform">
                   WEB<br/>SITES
                 </h3>
-                <p className="text-white/70 mt-4 text-sm">tap for details</p>
+                <p className="text-white/70 mt-3 md:mt-4 text-xs md:text-sm">tap for details</p>
                 <div className="absolute inset-0 border-[10px] border-white/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-700 pointer-events-none" />
               </div>
             </ServiceFlipCard>
@@ -460,13 +460,13 @@ export default function ServicesPage() {
             transition={{ delay: 0.5 }}
           >
             <ServiceFlipCard id="ecommerce" isFlipped={flippedCards.has("ecommerce")} onFlip={() => toggleFlip("ecommerce")}>
-              <div className="bg-white p-6 border-2 border-black shadow-brutal rotate-1 group-hover:rotate-0 transition-transform duration-300 clip-jagged">
-                <div className="border-b-2 border-dashed border-black pb-3 mb-3">
-                  <h3 className="text-3xl font-black uppercase text-center">
+              <div className="bg-white p-4 md:p-6 border-2 border-black shadow-brutal rotate-1 group-hover:rotate-0 transition-transform duration-300 clip-jagged">
+                <div className="border-b-2 border-dashed border-black pb-2 md:pb-3 mb-2 md:mb-3">
+                  <h3 className="text-2xl md:text-3xl font-black uppercase text-center">
                     E-COMMERCE
                   </h3>
                 </div>
-                <div className="relative h-32 mb-3 border border-black overflow-hidden">
+                <div className="relative h-24 md:h-32 mb-2 md:mb-3 border border-black overflow-hidden">
                   <Image
                     src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=400&h=300&fit=crop"
                     alt="E-commerce"
@@ -475,12 +475,12 @@ export default function ServicesPage() {
                   />
                 </div>
                 <p 
-                  className="text-center text-lg mb-2"
+                  className="text-center text-base md:text-lg mb-2"
                   style={{ fontFamily: "var(--font-marker), cursive" }}
                 >
                   sell stuff online! 💰
                 </p>
-                <div className="text-xs text-center border-t border-dashed border-black pt-2 text-gray-400">
+                <div className="text-[10px] md:text-xs text-center border-t border-dashed border-black pt-2 text-gray-400">
                   tap for details
                 </div>
               </div>
@@ -497,25 +497,25 @@ export default function ServicesPage() {
           >
             <ServiceFlipCard id="ai-content" isFlipped={flippedCards.has("ai-content")} onFlip={() => toggleFlip("ai-content")}>
               <div className="bg-gray-900 p-2 border-2 border-black shadow-brutal -rotate-1 group-hover:rotate-0 transition-transform duration-300">
-                <div className="bg-black border-2 border-gray-700 p-4 relative">
-                  <div className="flex gap-1 mb-3">
-                    <div className="w-full h-2 bg-gray-800 rounded-full overflow-hidden">
+                <div className="bg-black border-2 border-gray-700 p-3 md:p-4 relative">
+                  <div className="flex gap-1 mb-2 md:mb-3">
+                    <div className="w-full h-1.5 md:h-2 bg-gray-800 rounded-full overflow-hidden">
                       <div className="h-full bg-red-600 w-1/3 group-hover:w-full transition-all duration-1000" />
                     </div>
                   </div>
-                  <div className="flex items-center justify-center h-24 border border-gray-800 bg-gray-900 mb-3 relative overflow-hidden">
+                  <div className="flex items-center justify-center h-20 md:h-24 border border-gray-800 bg-gray-900 mb-2 md:mb-3 relative overflow-hidden">
                     <Image
                       src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=400&h=200&fit=crop"
                       alt="AI Content"
                       fill
                       className="object-cover opacity-40"
                     />
-                    <span className="text-5xl relative z-10">▶️</span>
+                    <span className="text-4xl md:text-5xl relative z-10">▶️</span>
                   </div>
-                  <h3 className="text-white font-bold uppercase text-lg">
+                  <h3 className="text-white font-bold uppercase text-base md:text-lg">
                     AI CONTENT
                   </h3>
-                  <p className="text-gray-500 text-xs mt-1">
+                  <p className="text-gray-500 text-[10px] md:text-xs mt-1">
                     tap for details
                   </p>
                   <div className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full animate-pulse pointer-events-none" />
@@ -533,21 +533,21 @@ export default function ServicesPage() {
             transition={{ delay: 0.7 }}
           >
             <ServiceFlipCard id="branding" isFlipped={flippedCards.has("branding")} onFlip={() => toggleFlip("branding")}>
-              <div className="p-8 border-2 border-black shadow-brutal rotate-2 group-hover:rotate-0 transition-transform duration-300 text-center relative overflow-hidden" style={{ backgroundColor: "#fecfef" }}>
+              <div className="p-6 md:p-8 border-2 border-black shadow-brutal rotate-2 group-hover:rotate-0 transition-transform duration-300 text-center relative overflow-hidden" style={{ backgroundColor: "#fecfef" }}>
                 <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-                  <div className="text-[120px] font-black">★</div>
+                  <div className="text-[80px] md:text-[120px] font-black">★</div>
                 </div>
                 <div className="relative z-10">
-                  <h3 className="text-4xl font-black uppercase mb-3 bg-white inline-block px-4 py-2 border-2 border-black -rotate-2">
+                  <h3 className="text-3xl md:text-4xl font-black uppercase mb-2 md:mb-3 bg-white inline-block px-3 md:px-4 py-1 md:py-2 border-2 border-black -rotate-2">
                     BRANDING
                   </h3>
                   <p 
-                    className="text-lg"
+                    className="text-base md:text-lg"
                     style={{ fontFamily: "var(--font-caveat), cursive" }}
                   >
                     who even are you?
                   </p>
-                  <div className="text-xs mt-3 text-gray-500">
+                  <div className="text-[10px] md:text-xs mt-2 md:mt-3 text-gray-500">
                     tap for details
                   </div>
                 </div>
@@ -564,25 +564,25 @@ export default function ServicesPage() {
             transition={{ delay: 0.8 }}
           >
             <ServiceFlipCard id="self-hosted" isFlipped={flippedCards.has("self-hosted")} onFlip={() => toggleFlip("self-hosted")}>
-              <div className="bg-gray-800 text-white p-6 border-2 border-black shadow-brutal -rotate-1 group-hover:rotate-0 transition-transform duration-300">
-                <div className="flex justify-between mb-4">
-                  <div className="flex flex-col gap-2">
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse pointer-events-none" />
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse pointer-events-none" style={{ animationDelay: '0.2s' }} />
-                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse pointer-events-none" style={{ animationDelay: '0.4s' }} />
+              <div className="bg-gray-800 text-white p-4 md:p-6 border-2 border-black shadow-brutal -rotate-1 group-hover:rotate-0 transition-transform duration-300">
+                <div className="flex justify-between mb-3 md:mb-4">
+                  <div className="flex flex-col gap-1.5 md:gap-2">
+                    <div className="w-1.5 md:w-2 h-1.5 md:h-2 bg-green-500 rounded-full animate-pulse pointer-events-none" />
+                    <div className="w-1.5 md:w-2 h-1.5 md:h-2 bg-green-500 rounded-full animate-pulse pointer-events-none" style={{ animationDelay: '0.2s' }} />
+                    <div className="w-1.5 md:w-2 h-1.5 md:h-2 bg-green-500 rounded-full animate-pulse pointer-events-none" style={{ animationDelay: '0.4s' }} />
                   </div>
-                  <div className="flex-1 ml-4">
-                    <div className="h-2 bg-gray-700 mb-2 rounded" />
-                    <div className="h-2 bg-gray-700 mb-2 rounded w-2/3" />
-                    <div className="h-2 bg-gray-700 rounded w-1/2" />
+                  <div className="flex-1 ml-3 md:ml-4">
+                    <div className="h-1.5 md:h-2 bg-gray-700 mb-1.5 md:mb-2 rounded" />
+                    <div className="h-1.5 md:h-2 bg-gray-700 mb-1.5 md:mb-2 rounded w-2/3" />
+                    <div className="h-1.5 md:h-2 bg-gray-700 rounded w-1/2" />
                   </div>
                 </div>
-                <h3 className="text-2xl font-bold uppercase mb-2 font-mono">
-                  SELF-HOSTED TOOLS
+                <h3 className="text-xl md:text-2xl font-bold uppercase mb-1 md:mb-2 font-mono">
+                  SELF-HOSTED
                 </h3>
-                <p className="text-sm text-gray-400 mb-2">own your stack</p>
-                <div className="text-xs font-mono bg-black p-2 border border-gray-700">
-                  $ tap_for_details --more-info
+                <p className="text-xs md:text-sm text-gray-400 mb-2">own your stack</p>
+                <div className="text-[10px] md:text-xs font-mono bg-black p-1.5 md:p-2 border border-gray-700">
+                  $ tap_for_details
                 </div>
               </div>
             </ServiceFlipCard>
