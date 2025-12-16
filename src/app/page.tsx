@@ -305,7 +305,7 @@ export default function Home() {
 
               {/* BACK - Handwritten Christmas Card */}
               <div 
-                className="absolute inset-0 p-6 border-4 border-black shadow-brutal rotate-1 overflow-hidden"
+                className="absolute inset-0 p-4 border-4 border-black shadow-brutal rotate-1"
                 style={{ 
                   backfaceVisibility: "hidden",
                   transform: "rotateY(180deg)",
@@ -313,44 +313,18 @@ export default function Home() {
                 }}
               >
                 <div 
-                  className="h-full flex flex-col justify-center space-y-1"
+                  className="h-full flex flex-col justify-center leading-tight"
                   style={{ fontFamily: "var(--font-caveat), cursive", color: "#1a365d" }}
                 >
-                  <p className="text-lg md:text-xl font-bold">
-                    Ok. Listen.
-                  </p>
-
-                  <p className="text-base md:text-lg">
-                    Everyone's waiting for the "right time."
-                  </p>
-
-                  <p className="text-lg md:text-xl font-bold underline">
-                    There is no right time.
-                  </p>
-
-                  <p className="text-sm md:text-base">
-                    2026 is here. AI is moving faster than anyone predicted.
-                  </p>
-
-                  <p className="text-base md:text-lg font-bold pt-1">
-                    Stop planning. Start doing. Ship something in January.
-                  </p>
-
-                  <p className="text-sm md:text-base">
-                    Start messy. We'll help you clean it up.
-                  </p>
-
-                  <p className="text-sm md:text-base pt-1">
-                    You don't need the perfect logo. You don't need the perfect website. <span className="font-bold underline">You need to START.</span>
-                  </p>
-
-                  <p className="text-base md:text-lg font-bold pt-1">
-                    Done beats perfect. Every. Single. Time.
-                  </p>
-
-                  <p className="text-lg md:text-xl pt-2">
-                    🎄 Merry Christmas. Call us in January. ❤️
-                  </p>
+                  <p className="text-base md:text-lg font-bold">Ok. Listen.</p>
+                  <p className="text-sm md:text-base">Everyone's waiting for the "right time."</p>
+                  <p className="text-base md:text-lg font-bold underline">There is no right time.</p>
+                  <p className="text-xs md:text-sm mt-1">2026 is here. AI is moving faster than anyone predicted.</p>
+                  <p className="text-sm md:text-base font-bold mt-1">Stop planning. Start doing. Ship something in January.</p>
+                  <p className="text-xs md:text-sm">Start messy. We'll help you clean it up.</p>
+                  <p className="text-xs md:text-sm mt-1">You don't need the perfect logo. You don't need the perfect website. <span className="font-bold underline">You need to START.</span></p>
+                  <p className="text-sm md:text-base font-bold mt-1">Done beats perfect. Every. Single. Time.</p>
+                  <p className="text-sm md:text-base mt-2">🎄 Merry Christmas. Call us in January. ❤️</p>
                 </div>
               </div>
             </motion.div>
