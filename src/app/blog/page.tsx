@@ -5,6 +5,90 @@ import Link from "next/link";
 import { useState } from "react";
 import { LegalFooter } from "@/components/ui/legal-footer";
 
+// Newsletter Form Component
+function NewsletterForm() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) return;
+
+    setStatus("loading");
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'blog-newsletter' }),
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        setEmail("");
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  };
+
+  return (
+    <motion.div
+      className="mt-16"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.6 }}
+    >
+      <div className="bg-black text-white p-8 border-4 border-black shadow-brutal">
+        <h3 
+          className="text-3xl font-black uppercase mb-4 text-center"
+          style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+        >
+          DON'T MISS A POST 📬
+        </h3>
+        <p 
+          className="text-xl text-center mb-6"
+          style={{ fontFamily: "var(--font-caveat), cursive" }}
+        >
+          Get notified when we publish something useful (we promise not to spam)
+        </p>
+        
+        {status === "success" ? (
+          <div className="text-center text-2xl" style={{ fontFamily: "var(--font-caveat), cursive" }}>
+            🎉 You're in! Check your inbox!
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-4 max-w-md mx-auto">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="your@email.com"
+              required
+              disabled={status === "loading"}
+              className="flex-1 p-3 border-2 border-white bg-transparent text-white placeholder:text-white/50 focus:outline-none focus:bg-white/10 disabled:opacity-50"
+              style={{ fontFamily: "var(--font-space), sans-serif" }}
+            />
+            <button
+              type="submit"
+              disabled={status === "loading"}
+              className="bg-yellow-400 text-black px-6 py-3 font-black uppercase border-2 border-yellow-400 hover:bg-yellow-300 transition-colors disabled:opacity-50"
+              style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+            >
+              {status === "loading" ? "..." : "SUBSCRIBE"}
+            </button>
+          </form>
+        )}
+        
+        {status === "error" && (
+          <p className="text-center text-red-400 mt-4">Something went wrong. Please try again!</p>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
 const TEXT = "#3d3428";
 const BG = "#f0eadd";
 
@@ -196,41 +280,7 @@ export default function BlogPage() {
           </div>
 
           {/* Newsletter CTA */}
-          <motion.div
-            className="mt-16"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
-          >
-            <div className="bg-black text-white p-8 border-4 border-black shadow-brutal">
-              <h3 
-                className="text-3xl font-black uppercase mb-4 text-center"
-                style={{ fontFamily: "var(--font-bebas), sans-serif" }}
-              >
-                DON'T MISS A POST 📬
-              </h3>
-              <p 
-                className="text-xl text-center mb-6"
-                style={{ fontFamily: "var(--font-caveat), cursive" }}
-              >
-                Get notified when we publish something useful (we promise not to spam)
-              </p>
-              <div className="flex flex-col md:flex-row gap-4 max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder="your@email.com"
-                  className="flex-1 p-3 border-2 border-white bg-transparent text-white placeholder:text-white/50 focus:outline-none focus:bg-white/10"
-                  style={{ fontFamily: "var(--font-space), sans-serif" }}
-                />
-                <button
-                  className="bg-yellow-400 text-black px-6 py-3 font-black uppercase border-2 border-yellow-400 hover:bg-yellow-300 transition-colors"
-                  style={{ fontFamily: "var(--font-bebas), sans-serif" }}
-                >
-                  SUBSCRIBE
-                </button>
-              </div>
-            </div>
-          </motion.div>
+          <NewsletterForm />
 
           <LegalFooter />
         </div>

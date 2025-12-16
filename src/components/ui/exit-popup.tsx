@@ -43,15 +43,23 @@ export function ExitIntentPopup() {
     e.preventDefault();
     if (!email) return;
 
-    // TODO: Connect to Resend or other email service
-    // For now, just log and show success
-    console.log("Email captured:", email);
-    
-    // You can add API call here later:
-    // await fetch('/api/subscribe', { method: 'POST', body: JSON.stringify({ email }) });
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'exit-popup' }),
+      });
 
-    setSubmitted(true);
-    setTimeout(() => setShowPopup(false), 2000);
+      if (response.ok) {
+        setSubmitted(true);
+        setTimeout(() => setShowPopup(false), 2000);
+      } else {
+        alert('Something went wrong. Please try again!');
+      }
+    } catch (error) {
+      console.error('Subscribe error:', error);
+      alert('Something went wrong. Please try again!');
+    }
   };
 
   return (
