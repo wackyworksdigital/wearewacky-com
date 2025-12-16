@@ -303,88 +303,54 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* BACK - Christmas Postcard Style */}
+              {/* BACK - Handwritten Christmas Card */}
               <div 
-                className="absolute inset-0 p-4 border-4 border-black shadow-brutal rotate-1"
+                className="absolute inset-0 p-6 border-4 border-black shadow-brutal rotate-1 overflow-hidden"
                 style={{ 
                   backfaceVisibility: "hidden",
                   transform: "rotateY(180deg)",
-                  backgroundColor: "#faf6ed",
-                  backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 23px, #e5ddd0 24px)"
+                  backgroundColor: "#fffef9"
                 }}
               >
-                {/* Postcard stamp */}
-                <div className="absolute top-3 right-3 w-12 h-14 bg-red-600 border-2 border-black flex items-center justify-center rotate-6">
-                  <span className="text-white text-lg">🎄</span>
-                </div>
-
-                <div className="h-full flex flex-col justify-center text-center space-y-2 pr-8">
-                  <p 
-                    className="text-xl md:text-2xl font-black text-red-700"
-                    style={{ fontFamily: "var(--font-bebas), sans-serif" }}
-                  >
+                <div 
+                  className="h-full flex flex-col justify-center space-y-1"
+                  style={{ fontFamily: "var(--font-caveat), cursive", color: "#1a365d" }}
+                >
+                  <p className="text-lg md:text-xl font-bold">
                     Ok. Listen.
                   </p>
 
-                  <p 
-                    className="text-sm md:text-base text-gray-700"
-                    style={{ fontFamily: "var(--font-caveat), cursive" }}
-                  >
+                  <p className="text-base md:text-lg">
                     Everyone's waiting for the "right time."
                   </p>
 
-                  <p 
-                    className="text-base md:text-lg font-bold text-gray-900"
-                    style={{ fontFamily: "var(--font-caveat), cursive" }}
-                  >
+                  <p className="text-lg md:text-xl font-bold underline">
                     There is no right time.
                   </p>
 
-                  <p 
-                    className="text-xs md:text-sm text-gray-600"
-                    style={{ fontFamily: "var(--font-caveat), cursive" }}
-                  >
+                  <p className="text-sm md:text-base">
                     2026 is here. AI is moving faster than anyone predicted.
                   </p>
 
-                  <p 
-                    className="text-sm md:text-base font-bold text-green-700 pt-1"
-                    style={{ fontFamily: "var(--font-caveat), cursive" }}
-                  >
-                    Stop planning. Start doing.<br/>Ship something in January.
+                  <p className="text-base md:text-lg font-bold pt-1">
+                    Stop planning. Start doing. Ship something in January.
                   </p>
 
-                  <p 
-                    className="text-xs md:text-sm text-gray-600"
-                    style={{ fontFamily: "var(--font-caveat), cursive" }}
-                  >
+                  <p className="text-sm md:text-base">
                     Start messy. We'll help you clean it up.
                   </p>
 
-                  <p 
-                    className="text-xs md:text-sm text-gray-700 pt-1"
-                    style={{ fontFamily: "var(--font-caveat), cursive" }}
-                  >
-                    You don't need the perfect logo.<br/>
-                    You don't need the perfect website.<br/>
-                    <span className="font-bold text-gray-900">You need to START.</span>
+                  <p className="text-sm md:text-base pt-1">
+                    You don't need the perfect logo. You don't need the perfect website. <span className="font-bold underline">You need to START.</span>
                   </p>
 
-                  <p 
-                    className="text-sm md:text-base font-black text-red-700 pt-1"
-                    style={{ fontFamily: "var(--font-bebas), sans-serif" }}
-                  >
+                  <p className="text-base md:text-lg font-bold pt-1">
                     Done beats perfect. Every. Single. Time.
                   </p>
 
-                  <div className="pt-2 border-t border-gray-300">
-                    <p 
-                      className="text-base md:text-lg text-green-700"
-                      style={{ fontFamily: "var(--font-caveat), cursive" }}
-                    >
-                      🎄 Merry Christmas. Call us in January. ❤️
-                    </p>
-                  </div>
+                  <p className="text-lg md:text-xl pt-2">
+                    🎄 Merry Christmas. Call us in January. ❤️
+                  </p>
                 </div>
               </div>
             </motion.div>
