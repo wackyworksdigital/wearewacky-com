@@ -345,104 +345,96 @@ export default function AboutPage() {
               <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
                 {/* n8n */}
                 <div className="flex flex-col items-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-[#ea4b71] rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
-                    <svg viewBox="0 0 24 24" className="w-8 h-8 text-white" fill="currentColor">
-                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                    </svg>
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-[#ea4b71] rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
+                    <Image src="/images/logos/n8n.svg" alt="n8n" width={40} height={40} className="brightness-0 invert" />
                   </div>
                   <span className="text-xs mt-2 font-bold">n8n</span>
                   <span className="text-[10px] opacity-50">Automation</span>
                 </div>
                 {/* Next.js */}
                 <div className="flex flex-col items-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-black rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
-                    <span className="text-white font-bold text-xl">N</span>
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
+                    <Image src="/images/logos/nextjs.svg" alt="Next.js" width={40} height={40} />
                   </div>
                   <span className="text-xs mt-2 font-bold">Next.js</span>
                   <span className="text-[10px] opacity-50">Framework</span>
                 </div>
                 {/* OpenAI */}
                 <div className="flex flex-col items-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-[#10a37f] rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
-                    <svg viewBox="0 0 24 24" className="w-8 h-8 text-white" fill="currentColor">
-                      <path d="M22.2 8.4c.5-1.5.3-3.2-.6-4.6-1.3-2.1-3.8-3.1-6.2-2.6C14.2.4 12.8 0 11.4 0 8.5 0 5.9 1.8 4.9 4.5 3.3 4.9 2 6 1.2 7.4c-1.3 2.1-1 4.8.6 6.6-.5 1.5-.3 3.2.6 4.6 1.3 2.1 3.8 3.1 6.2 2.6 1.2.8 2.6 1.2 4 1.2 2.9 0 5.5-1.8 6.5-4.5 1.6-.4 2.9-1.5 3.7-2.9 1.3-2.1 1-4.8-.6-6.6z"/>
-                    </svg>
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
+                    <Image src="/images/logos/openai.svg" alt="OpenAI" width={40} height={40} />
                   </div>
                   <span className="text-xs mt-2 font-bold">OpenAI</span>
                   <span className="text-[10px] opacity-50">GPT-4 / ChatGPT</span>
                 </div>
                 {/* Google */}
                 <div className="flex flex-col items-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border-2 border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
-                    <span className="text-2xl font-bold"><span className="text-[#4285F4]">G</span><span className="text-[#EA4335]">o</span><span className="text-[#FBBC05]">o</span><span className="text-[#4285F4]">g</span><span className="text-[#34A853]">l</span><span className="text-[#EA4335]">e</span></span>
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
+                    <Image src="/images/logos/google.svg" alt="Google" width={40} height={40} />
                   </div>
                   <span className="text-xs mt-2 font-bold">Google</span>
                   <span className="text-[10px] opacity-50">Cloud / AI</span>
                 </div>
                 {/* Gemini */}
                 <div className="flex flex-col items-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
-                    <span className="text-white text-2xl">✦</span>
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
+                    <Image src="/images/logos/gemini.svg" alt="Gemini" width={40} height={40} />
                   </div>
                   <span className="text-xs mt-2 font-bold">Gemini</span>
                   <span className="text-[10px] opacity-50">Google AI</span>
                 </div>
                 {/* Claude / Anthropic */}
                 <div className="flex flex-col items-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-[#cc785c] rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
-                    <span className="text-white text-2xl font-serif italic">A</span>
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-[#D4A27F] rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
+                    <Image src="/images/logos/claude.svg" alt="Claude" width={40} height={40} className="brightness-0 invert" />
                   </div>
                   <span className="text-xs mt-2 font-bold">Claude</span>
                   <span className="text-[10px] opacity-50">Anthropic AI</span>
                 </div>
                 {/* Cursor */}
                 <div className="flex flex-col items-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-black rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
-                    <span className="text-white text-2xl">⌘</span>
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
+                    <Image src="/images/logos/cursor.svg" alt="Cursor" width={40} height={40} />
                   </div>
                   <span className="text-xs mt-2 font-bold">Cursor</span>
                   <span className="text-[10px] opacity-50">AI IDE</span>
                 </div>
                 {/* Shopify */}
                 <div className="flex flex-col items-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-[#96bf48] rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
-                    <svg viewBox="0 0 24 24" className="w-8 h-8 text-white" fill="currentColor">
-                      <path d="M15.337 3.415c-.102-.02-.204.04-.224.163-.02.122-.204 1.22-.204 1.22s-.51-.102-.836-.102c-1.097 0-1.158.51-1.158.653v1.017h1.463l-.143 1.69h-1.32v5.38h-1.873v-5.38H9.94v-1.69h1.102V5.39c0-.918.51-2.363 2.342-2.363.775 0 1.362.082 1.362.082l-.408 1.306z"/>
-                    </svg>
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
+                    <Image src="/images/logos/shopify.svg" alt="Shopify" width={40} height={40} />
                   </div>
                   <span className="text-xs mt-2 font-bold">Shopify</span>
                   <span className="text-[10px] opacity-50">E-commerce</span>
                 </div>
                 {/* Supabase */}
                 <div className="flex flex-col items-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-[#3ecf8e] rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
-                    <svg viewBox="0 0 24 24" className="w-8 h-8 text-white" fill="currentColor">
-                      <path d="M12 2L2 7v10l10 5 10-5V7L12 2zm0 2.18l6.9 3.45L12 11.08 5.1 7.63 12 4.18z"/>
-                    </svg>
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
+                    <Image src="/images/logos/supabase.svg" alt="Supabase" width={40} height={40} />
                   </div>
                   <span className="text-xs mt-2 font-bold">Supabase</span>
                   <span className="text-[10px] opacity-50">Database</span>
                 </div>
                 {/* Vercel */}
                 <div className="flex flex-col items-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-black rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
-                    <span className="text-white text-2xl">▲</span>
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
+                    <Image src="/images/logos/vercel.svg" alt="Vercel" width={40} height={40} />
                   </div>
                   <span className="text-xs mt-2 font-bold">Vercel</span>
                   <span className="text-[10px] opacity-50">Hosting</span>
                 </div>
                 {/* React */}
                 <div className="flex flex-col items-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-[#20232a] rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
-                    <span className="text-[#61dafb] text-2xl">⚛</span>
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-[#20232a] rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
+                    <Image src="/images/logos/react.svg" alt="React" width={40} height={40} />
                   </div>
                   <span className="text-xs mt-2 font-bold">React</span>
                   <span className="text-[10px] opacity-50">Frontend</span>
                 </div>
-                {/* Antigravity */}
+                {/* Antigravity - placeholder until you add the logo */}
                 <div className="flex flex-col items-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-purple-600 to-indigo-800 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md">
-                    <span className="text-white text-2xl">🚀</span>
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-orange-400 to-red-500 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-2">
+                    <span className="text-white text-2xl font-bold">A</span>
                   </div>
                   <span className="text-xs mt-2 font-bold">Antigravity</span>
                   <span className="text-[10px] opacity-50">Web Studio</span>
