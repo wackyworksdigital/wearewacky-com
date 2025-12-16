@@ -345,8 +345,8 @@ export default function AboutPage() {
               <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
                 {/* n8n */}
                 <div className="flex flex-col items-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-[#ea4b71] rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
-                    <Image src="/images/logos/n8n.svg" alt="n8n" width={40} height={40} className="brightness-0 invert" />
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
+                    <Image src="/images/logos/n8n.svg" alt="n8n" width={40} height={40} />
                   </div>
                   <span className="text-xs mt-2 font-bold">n8n</span>
                   <span className="text-[10px] opacity-50">Automation</span>
@@ -385,8 +385,8 @@ export default function AboutPage() {
                 </div>
                 {/* Claude / Anthropic */}
                 <div className="flex flex-col items-center group">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-[#D4A27F] rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
-                    <Image src="/images/logos/claude.svg" alt="Claude" width={40} height={40} className="brightness-0 invert" />
+                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white border border-gray-200 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md p-3">
+                    <Image src="/images/logos/claude.svg" alt="Claude" width={40} height={40} />
                   </div>
                   <span className="text-xs mt-2 font-bold">Claude</span>
                   <span className="text-[10px] opacity-50">Anthropic AI</span>
