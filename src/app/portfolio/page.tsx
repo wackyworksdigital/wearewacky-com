@@ -9,8 +9,175 @@ import { LegalFooter } from "@/components/ui/legal-footer";
 const TEXT = "#3d3428";
 const BG = "#f0eadd";
 
+// Project descriptions for flip cards
+const projectDescriptions: Record<string, { title: string; description: string; tech?: string[] }> = {
+  "shopify-branding": {
+    title: "Shopify Setup + Branding",
+    description: "Full e-commerce store setup with custom branding, product photography guidelines, and conversion-optimized design. From zero to selling in 2 weeks.",
+    tech: ["Shopify", "Canva", "Brand Strategy"]
+  },
+  "n8n-hosting": {
+    title: "n8n Self-Hosting",
+    description: "Private automation server on Google Cloud. No subscriptions, no limits, complete control. Set up with SSL, backups, and monitoring.",
+    tech: ["n8n", "Google Cloud", "Docker", "Linux"]
+  },
+  "news-scraper": {
+    title: "AI News Scraper",
+    description: "Automated news aggregation workflow. AI filters the noise, you get curated updates. Runs 24/7 without intervention.",
+    tech: ["n8n", "OpenAI", "RSS", "Telegram"]
+  },
+  "blog-writer": {
+    title: "Automated Blog Writer",
+    description: "AI writes SEO-optimized blog posts, schedules them, and posts automatically. Your blog stays fresh while you focus on business.",
+    tech: ["GPT-4", "Shopify API", "n8n"]
+  },
+  "ai-agent": {
+    title: "Custom AI Agent",
+    description: "Bespoke AI assistant trained on YOUR business data. Handles customer queries, internal questions, and repetitive tasks.",
+    tech: ["OpenAI", "RAG", "Vector DB", "Python"]
+  },
+  "etsy-listing": {
+    title: "Etsy Listing Assistant",
+    description: "AI-powered product listing automation. SEO-optimized titles, descriptions, and tags that actually convert browsers to buyers.",
+    tech: ["Etsy API", "GPT-4", "n8n"]
+  },
+  "full-brand": {
+    title: "Full Brand Identity",
+    description: "Complete brand package: logo, colors, typography, social templates, brand guidelines. Everything you need to look professional.",
+    tech: ["Figma", "Illustrator", "Brand Strategy"]
+  },
+  "video-content": {
+    title: "AI Video Automation",
+    description: "Automated video content pipeline. AI generates scripts, creates visuals, adds voiceover. Perfect for faceless YouTube channels.",
+    tech: ["Runway", "ElevenLabs", "CapCut", "n8n"]
+  },
+  "course-platform": {
+    title: "Course Platform",
+    description: "Self-hosted course platform. No monthly fees to Teachable or Kajabi. You own everything, forever.",
+    tech: ["Next.js", "Stripe", "Vercel"]
+  },
+  "rag-kb": {
+    title: "Company Knowledge Base",
+    description: "AI that actually knows your business. Feed it your docs, policies, and FAQs. Staff and customers get instant accurate answers.",
+    tech: ["RAG", "Pinecone", "OpenAI", "Slack"]
+  },
+  "wordpress-migration": {
+    title: "WordPress Migration",
+    description: "Moving from slow, outdated WordPress to modern, blazing-fast Next.js. Better SEO, better UX, better everything.",
+    tech: ["Next.js", "Vercel", "SEO"]
+  },
+  "shopify-makeover": {
+    title: "Shopify Makeover",
+    description: "Complete store redesign. New theme, better navigation, improved checkout flow. Same products, way more sales.",
+    tech: ["Shopify", "Liquid", "UX Design"]
+  },
+  "youtube-channel": {
+    title: "YouTube Channel Setup",
+    description: "Full channel branding, thumbnails, intro/outro, and content strategy. Ready to upload and grow.",
+    tech: ["Premiere Pro", "Photoshop", "Strategy"]
+  },
+  "roblox-world": {
+    title: "Custom Roblox World",
+    description: "Educational gaming experience for school leavers. Engaging, interactive, and actually teaches stuff.",
+    tech: ["Roblox Studio", "Lua", "Game Design"]
+  },
+  "bakery-website": {
+    title: "Bakery Website Migration",
+    description: "From clunky Wix to beautiful custom site. Online ordering, menu management, and those pastries looking as good online as they taste.",
+    tech: ["Next.js", "Stripe", "CMS"]
+  },
+  "smart-home": {
+    title: "Self-Hosted Smart Home",
+    description: "Home Assistant setup with AI integration. Private, no cloud dependency, voice control. Your smart home, your rules.",
+    tech: ["Home Assistant", "Zigbee", "AI", "Raspberry Pi"]
+  },
+};
+
+// Flip card component
+function FlipCard({ 
+  id, 
+  children, 
+  isFlipped, 
+  onFlip 
+}: { 
+  id: string; 
+  children: React.ReactNode; 
+  isFlipped: boolean; 
+  onFlip: () => void;
+}) {
+  const project = projectDescriptions[id];
+  
+  return (
+    <div 
+      className="relative cursor-pointer"
+      style={{ perspective: "1000px" }}
+      onClick={onFlip}
+    >
+      <div 
+        className="relative transition-transform duration-500"
+        style={{ 
+          transformStyle: "preserve-3d",
+          transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)"
+        }}
+      >
+        {/* Front */}
+        <div style={{ backfaceVisibility: "hidden" }}>
+          {children}
+        </div>
+        
+        {/* Back */}
+        <div 
+          className="absolute inset-0 bg-black text-white p-6 border-2 border-black shadow-brutal flex flex-col justify-between"
+          style={{ 
+            backfaceVisibility: "hidden",
+            transform: "rotateY(180deg)"
+          }}
+        >
+          <div>
+            <div className="text-xs font-mono text-gray-400 mb-2">PROJECT DETAILS</div>
+            <h4 className="text-xl font-black uppercase mb-3">{project?.title || "Project"}</h4>
+            <p className="text-sm text-gray-300 leading-relaxed mb-4">
+              {project?.description || "Click to learn more about this project."}
+            </p>
+          </div>
+          
+          {project?.tech && (
+            <div>
+              <div className="text-xs font-mono text-gray-500 mb-2">TECH STACK</div>
+              <div className="flex flex-wrap gap-2">
+                {project.tech.map((t) => (
+                  <span key={t} className="bg-white/10 px-2 py-1 text-xs font-mono">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          <div className="mt-4 text-center">
+            <span className="text-xs text-gray-500">tap to flip back</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function PortfolioPage() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
+  
+  const toggleFlip = (id: string) => {
+    setFlippedCards(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      return newSet;
+    });
+  };
 
   return (
     <main className="relative min-h-screen overflow-x-hidden" style={{ backgroundColor: BG, color: TEXT }}>
@@ -191,9 +358,9 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
           >
             {/* Tape effect */}
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-8 tape-effect -rotate-2 z-20" />
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-32 h-8 tape-effect -rotate-2 z-20 pointer-events-none" />
             
-            <Link href="/contact" className="block">
+            <FlipCard id="shopify-branding" isFlipped={flippedCards.has("shopify-branding")} onFlip={() => toggleFlip("shopify-branding")}>
               <div className="bg-white p-3 pb-8 border-2 border-black shadow-brutal rotate-1 group-hover:rotate-0 transition-transform duration-300">
                 <div className="relative overflow-hidden border border-black mb-3 h-48">
                   <Image
@@ -209,14 +376,15 @@ export default function PortfolioPage() {
                     Shopify Setup<br/>+ Branding
                   </h3>
                   <p 
-                    className="text-lg -rotate-2 mt-2 group-hover:scale-110 transition-transform inline-block"
+                    className="text-lg -rotate-2 mt-2 inline-block"
                     style={{ fontFamily: "var(--font-marker), cursive", color: "#dc2626" }}
                   >
                     Cha-ching! 💰
                   </p>
+                  <p className="text-xs text-gray-400 mt-2">tap for details</p>
                 </div>
               </div>
-            </Link>
+            </FlipCard>
           </motion.div>
 
           {/* 2. N8N Self-Hosting - DONE */}
@@ -227,7 +395,7 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            <Link href="/contact" className="block">
+            <FlipCard id="n8n-hosting" isFlipped={flippedCards.has("n8n-hosting")} onFlip={() => toggleFlip("n8n-hosting")}>
               <div className="p-6 border-2 border-black shadow-brutal -rotate-2 group-hover:rotate-0 transition-transform duration-300 relative overflow-hidden" style={{ backgroundColor: "#fcd34d" }}>
                 <div className="absolute top-0 right-0 p-1 bg-black text-white font-mono text-xs border-b-2 border-l-2 border-black">
                   SYS_ADMIN_MODE
@@ -246,13 +414,16 @@ export default function PortfolioPage() {
                 <h3 className="text-xl font-bold font-mono lowercase">
                   n8n self-hosting on google cloud
                 </h3>
-                <div className="mt-4 flex gap-2">
-                  <span className="w-3 h-3 rounded-full bg-red-500 border border-black" />
-                  <span className="w-3 h-3 rounded-full bg-yellow-500 border border-black" />
-                  <span className="w-3 h-3 rounded-full bg-green-500 border border-black animate-pulse" />
+                <div className="mt-4 flex justify-between items-center">
+                  <div className="flex gap-2">
+                    <span className="w-3 h-3 rounded-full bg-red-500 border border-black" />
+                    <span className="w-3 h-3 rounded-full bg-yellow-500 border border-black" />
+                    <span className="w-3 h-3 rounded-full bg-green-500 border border-black animate-pulse" />
+                  </div>
+                  <span className="text-xs text-gray-600">tap for details</span>
                 </div>
               </div>
-            </Link>
+            </FlipCard>
           </motion.div>
 
           {/* 3. AI News Scraper - DONE */}
@@ -263,7 +434,7 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <Link href="/contact" className="block">
+            <FlipCard id="news-scraper" isFlipped={flippedCards.has("news-scraper")} onFlip={() => toggleFlip("news-scraper")}>
               <div className="bg-paper-white p-4 border-2 border-black shadow-brutal rotate-3 group-hover:rotate-0 transition-transform duration-300 clip-jagged relative">
                 <div className="absolute -left-2 top-10 w-4 h-16 bg-black/10 -rotate-3" />
                 <div className="border-b-2 border-black border-dashed pb-2 mb-2 flex justify-between items-end">
@@ -288,11 +459,12 @@ export default function PortfolioPage() {
                     />
                   </div>
                   <p className="w-2/3 text-xs font-serif leading-tight">
-                    Breaking news! Our bots are reading the internet so you don't have to. Highly efficient automated workflows tailored for lazy geniuses.
+                    Breaking news! Our bots are reading the internet so you don't have to.
+                    <span className="block text-gray-400 mt-1">tap for details</span>
                   </p>
                 </div>
               </div>
-            </Link>
+            </FlipCard>
           </motion.div>
 
           {/* 4. Shopify Blog Writer - DONE */}
@@ -303,8 +475,8 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.3 }}
           >
-            <Link href="/contact" className="block">
-              <div className="bg-white bg-lined-paper p-6 border-2 border-black shadow-brutal -rotate-1 group-hover:scale-105 transition-transform duration-300">
+            <FlipCard id="blog-writer" isFlipped={flippedCards.has("blog-writer")} onFlip={() => toggleFlip("blog-writer")}>
+              <div className="bg-white bg-lined-paper p-6 border-2 border-black shadow-brutal -rotate-1 group-hover:scale-105 transition-transform duration-300 relative">
                 <div className="absolute -top-3 right-8 w-4 h-12 bg-red-400/50 rotate-12 rounded-sm border border-black/20" />
                 <h3 
                   className="text-2xl text-blue-700 mb-4"
@@ -319,11 +491,12 @@ export default function PortfolioPage() {
                   "It writes better than me..." <br/>
                   - An unhappy copywriter
                 </p>
-                <div className="mt-4 flex justify-end text-3xl">
-                  ✍️
+                <div className="mt-4 flex justify-between items-end">
+                  <span className="text-xs text-gray-400">tap for details</span>
+                  <span className="text-3xl">✍️</span>
                 </div>
               </div>
-            </Link>
+            </FlipCard>
           </motion.div>
 
           {/* 5. Custom AI Agent - DONE */}
@@ -334,7 +507,7 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.4 }}
           >
-            <Link href="/contact" className="block">
+            <FlipCard id="ai-agent" isFlipped={flippedCards.has("ai-agent")} onFlip={() => toggleFlip("ai-agent")}>
               <div className="bg-black text-white p-1 border-2 border-black shadow-[8px_8px_0_0_#16a34a] hover:shadow-[4px_4px_0_0_#16a34a] hover:translate-x-1 hover:translate-y-1 transition-all duration-200">
                 <div className="border border-green-500 p-4 h-full relative overflow-hidden">
                   <div className="flex justify-between items-center mb-4 border-b border-green-500 pb-2">
@@ -353,11 +526,11 @@ export default function PortfolioPage() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
                   </div>
                   <p className="text-xs font-mono text-gray-400">
-                    &gt; Initializing neural personality...
+                    &gt; tap for details_
                   </p>
                 </div>
               </div>
-            </Link>
+            </FlipCard>
           </motion.div>
 
           {/* 6. Etsy Listing Auto - DONE */}
@@ -368,12 +541,12 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.5 }}
           >
-            <Link href="/contact" className="block">
+            <FlipCard id="etsy-listing" isFlipped={flippedCards.has("etsy-listing")} onFlip={() => toggleFlip("etsy-listing")}>
               <div className="p-4 border-2 border-black shadow-brutal rotate-2 group-hover:-rotate-1 transition-transform duration-300 rounded-sm relative" style={{ backgroundColor: "#f9a8d4" }}>
-                <div className="absolute -top-4 -right-2 text-4xl animate-wiggle z-20 drop-shadow-md">
+                <div className="absolute -top-4 -right-2 text-4xl z-20 drop-shadow-md pointer-events-none">
                   🧵
                 </div>
-                <div className="absolute -bottom-2 -left-2 text-3xl z-20 drop-shadow-md rotate-12">
+                <div className="absolute -bottom-2 -left-2 text-3xl z-20 drop-shadow-md rotate-12 pointer-events-none">
                   🏷️
                 </div>
                 <div className="bg-white border-2 border-black p-2 mb-2 rotate-1 h-32 relative overflow-hidden">
@@ -391,10 +564,10 @@ export default function PortfolioPage() {
                   className="text-center text-sm mt-2"
                   style={{ fontFamily: "var(--font-marker), cursive" }}
                 >
-                  Sell while you sleep!
+                  tap for details!
                 </p>
               </div>
-            </Link>
+            </FlipCard>
           </motion.div>
 
           {/* 7. Full Brand Identity - DONE */}
@@ -405,14 +578,15 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.6 }}
           >
-            <Link href="/contact" className="block">
+            <FlipCard id="full-brand" isFlipped={flippedCards.has("full-brand")} onFlip={() => toggleFlip("full-brand")}>
               <div className="aspect-square flex flex-col items-center justify-center p-6 border-2 border-black shadow-brutal hover:rounded-[50%] transition-all duration-500 overflow-hidden text-center cursor-pointer relative" style={{ backgroundColor: "#2563eb" }}>
                 <h3 className="text-4xl md:text-5xl font-black text-white leading-none group-hover:scale-110 transition-transform">
                   FULL<br/>BRAND<br/>IDENTITY
                 </h3>
-                <div className="absolute inset-0 border-[10px] border-white/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-700" />
+                <p className="text-white/60 text-xs mt-4">tap for details</p>
+                <div className="absolute inset-0 border-[10px] border-white/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-700 pointer-events-none" />
               </div>
-            </Link>
+            </FlipCard>
           </motion.div>
 
           {/* 8. AI Video Content - DONE */}
@@ -423,7 +597,7 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.7 }}
           >
-            <Link href="/contact" className="block">
+            <FlipCard id="video-content" isFlipped={flippedCards.has("video-content")} onFlip={() => toggleFlip("video-content")}>
               <div className="bg-gray-900 p-2 border-2 border-black shadow-brutal -rotate-1 group-hover:rotate-0 transition-transform duration-300">
                 <div className="bg-black border-2 border-gray-700 p-4 relative">
                   <div className="flex gap-1 mb-4">
@@ -437,7 +611,8 @@ export default function PortfolioPage() {
                   <h3 className="text-white font-bold uppercase text-lg leading-tight">
                     AI Video Content<br/>Automation
                   </h3>
-                  <div className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full animate-pulse" />
+                  <p className="text-gray-500 text-xs mt-2">tap for details</p>
+                  <div className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full animate-pulse pointer-events-none" />
                 </div>
                 <div className="flex justify-between px-2 pt-2">
                   <div className="w-2 h-2 bg-black rounded-full border border-gray-500" />
@@ -446,7 +621,7 @@ export default function PortfolioPage() {
                   <div className="w-2 h-2 bg-black rounded-full border border-gray-500" />
                 </div>
               </div>
-            </Link>
+            </FlipCard>
           </motion.div>
 
           {/* SPECIAL: Waitrose & John Lewis Partners */}
@@ -500,7 +675,7 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.8 }}
           >
-            <Link href="https://courses.wearewacky.com" target="_blank" rel="noopener noreferrer" className="block">
+            <FlipCard id="course-platform" isFlipped={flippedCards.has("course-platform")} onFlip={() => toggleFlip("course-platform")}>
               <div className="p-[2px] border-2 border-black shadow-brutal rotate-1 group-hover:-rotate-1 transition-transform duration-300 rounded-r-xl" style={{ backgroundColor: "#8b5e3c" }}>
                 <div className="bg-paper-white h-full border-l-8 border-l-black/20 p-4 rounded-r-lg relative">
                   <div className="absolute top-0 left-0 w-4 h-full border-r border-dashed border-gray-300" />
@@ -517,18 +692,13 @@ export default function PortfolioPage() {
                       <li><span className="bg-yellow-200 px-1">Total Control</span></li>
                     </ul>
                     <div className="mt-4 border-t-2 border-black pt-2 flex justify-between items-center">
-                      <span 
-                        className="text-xl"
-                        style={{ fontFamily: "var(--font-marker), cursive" }}
-                      >
-                        A+
-                      </span>
+                      <span className="text-xs text-gray-400">tap for details</span>
                       <span className="text-2xl">🎓</span>
                     </div>
                   </div>
                 </div>
               </div>
-            </Link>
+            </FlipCard>
           </motion.div>
 
           {/* 10. Company RAG KB - DONE */}
@@ -539,9 +709,9 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
             transition={{ delay: 0.9 }}
           >
-            <Link href="/contact" className="block">
+            <FlipCard id="rag-kb" isFlipped={flippedCards.has("rag-kb")} onFlip={() => toggleFlip("rag-kb")}>
               <div className="relative">
-                <div className="absolute -top-6 left-0 w-1/3 h-8 bg-amber-100 border-2 border-b-0 border-black rounded-t-lg z-0" />
+                <div className="absolute -top-6 left-0 w-1/3 h-8 bg-amber-100 border-2 border-b-0 border-black rounded-t-lg z-0 pointer-events-none" />
                 <div className="bg-amber-100 p-6 border-2 border-black shadow-brutal relative z-10 rounded-tr-lg rounded-br-lg rounded-bl-lg">
                   <h3 className="text-lg font-bold uppercase tracking-wider mb-2 flex items-center gap-2">
                     <span className="text-2xl">📁</span>
@@ -549,12 +719,11 @@ export default function PortfolioPage() {
                   </h3>
                   <div className="bg-white border border-amber-300 p-3 shadow-inner font-mono text-xs text-gray-600">
                     "Hey Bot, what is our return policy?"<br/><br/>
-                    &gt; Searching docs...<br/>
-                    &gt; Found in policy_2024.pdf
+                    &gt; tap for details_
                   </div>
                 </div>
               </div>
-            </Link>
+            </FlipCard>
           </motion.div>
 
           {/* 11. WordPress Migration - CURRENT */}
@@ -565,9 +734,9 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
             transition={{ delay: 1 }}
           >
-            <Link href="/contact" className="block">
+            <FlipCard id="wordpress-migration" isFlipped={flippedCards.has("wordpress-migration")} onFlip={() => toggleFlip("wordpress-migration")}>
               <div className="bg-paper-white p-6 border-2 border-black shadow-brutal-lg rotate-2 group-hover:rotate-0 transition-transform duration-300 relative">
-                <div className="absolute -top-4 -right-4 bg-yellow-300 px-3 py-1 border-2 border-black rotate-12 font-black text-sm">
+                <div className="absolute -top-4 -right-4 bg-yellow-300 px-3 py-1 border-2 border-black rotate-12 font-black text-sm pointer-events-none">
                   IN PROGRESS!
                 </div>
                 <div className="flex items-center justify-center h-32 text-6xl mb-4">
@@ -576,11 +745,9 @@ export default function PortfolioPage() {
                 <h3 className="text-2xl font-black uppercase text-center leading-tight mb-2">
                   WORDPRESS<br/>MIGRATION
                 </h3>
-                <div className="border-2 border-red-500 text-red-500 font-black text-center py-1 rotate-12 uppercase text-sm">
-                  FRAGILE
-                </div>
+                <p className="text-center text-xs text-gray-400">tap for details</p>
               </div>
-            </Link>
+            </FlipCard>
           </motion.div>
 
           {/* 12. Shopify Makeover - SOON */}
@@ -591,7 +758,7 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
             transition={{ delay: 1.1 }}
           >
-            <Link href="/contact" className="block">
+            <FlipCard id="shopify-makeover" isFlipped={flippedCards.has("shopify-makeover")} onFlip={() => toggleFlip("shopify-makeover")}>
               <div className="bg-white p-6 border-2 border-black shadow-brutal -rotate-1 group-hover:rotate-0 transition-transform duration-300">
                 <div className="flex justify-between items-start mb-4">
                   <span className="text-5xl">🏠</span>
@@ -602,14 +769,9 @@ export default function PortfolioPage() {
                 <h3 className="text-xl font-black uppercase">
                   Shopify Makeover
                 </h3>
-                <p 
-                  className="text-sm text-gray-600 mt-2"
-                  style={{ fontFamily: "var(--font-caveat), cursive" }}
-                >
-                  Fresh look, same great products
-                </p>
+                <p className="text-xs text-gray-400 mt-2">tap for details</p>
               </div>
-            </Link>
+            </FlipCard>
           </motion.div>
 
           {/* 13. YouTube Channel Setup */}
@@ -620,14 +782,15 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
             transition={{ delay: 1.2 }}
           >
-            <Link href="/contact" className="block">
+            <FlipCard id="youtube-channel" isFlipped={flippedCards.has("youtube-channel")} onFlip={() => toggleFlip("youtube-channel")}>
               <div className="bg-red-600 p-6 border-2 border-black shadow-brutal rotate-1 group-hover:rotate-0 transition-transform duration-300 text-white text-center">
                 <div className="text-6xl mb-3">▶️</div>
                 <h3 className="text-2xl font-black uppercase leading-tight">
                   Channel<br/>Setup +<br/>Branding
                 </h3>
+                <p className="text-white/60 text-xs mt-2">tap for details</p>
               </div>
-            </Link>
+            </FlipCard>
           </motion.div>
 
           {/* 14. Roblox World */}
@@ -638,17 +801,17 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
             transition={{ delay: 1.3 }}
           >
-            <Link href="/contact" className="block">
+            <FlipCard id="roblox-world" isFlipped={flippedCards.has("roblox-world")} onFlip={() => toggleFlip("roblox-world")}>
               <div className="bg-green-400 p-6 border-2 border-black shadow-brutal -rotate-2 group-hover:rotate-0 transition-transform duration-300">
                 <div className="text-6xl mb-3">🎮</div>
                 <h3 className="text-xl font-black uppercase">
                   Custom<br/>Roblox<br/>World
                 </h3>
                 <div className="mt-2 bg-black text-green-400 px-2 py-1 text-xs font-mono">
-                  GAME_MODE_ON
+                  tap_for_details
                 </div>
               </div>
-            </Link>
+            </FlipCard>
           </motion.div>
 
           {/* 15. Bakery Website Migration */}
@@ -659,22 +822,17 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
             transition={{ delay: 1.4 }}
           >
-            <Link href="/contact" className="block">
+            <FlipCard id="bakery-website" isFlipped={flippedCards.has("bakery-website")} onFlip={() => toggleFlip("bakery-website")}>
               <div className="bg-white p-6 border-2 border-black shadow-brutal rotate-2 group-hover:rotate-0 transition-transform duration-300">
                 <div className="text-center">
                   <div className="text-5xl mb-3">🥐</div>
                   <h3 className="text-lg font-black uppercase">
                     Wix Website<br/>Migration
                   </h3>
-                  <p 
-                    className="text-sm mt-2"
-                    style={{ fontFamily: "var(--font-caveat), cursive" }}
-                  >
-                    From Wix to custom platform
-                  </p>
+                  <p className="text-xs text-gray-400 mt-2">tap for details</p>
                 </div>
               </div>
-            </Link>
+            </FlipCard>
           </motion.div>
 
           {/* 16. Smart Home Setup */}
@@ -685,7 +843,7 @@ export default function PortfolioPage() {
             viewport={{ once: true }}
             transition={{ delay: 1.5 }}
           >
-            <Link href="/contact" className="block">
+            <FlipCard id="smart-home" isFlipped={flippedCards.has("smart-home")} onFlip={() => toggleFlip("smart-home")}>
               <div className="bg-gray-800 text-white p-6 border-2 border-black shadow-brutal -rotate-1 group-hover:rotate-0 transition-transform duration-300">
                 <div className="flex justify-between mb-4">
                   <div className="flex flex-col gap-2">
@@ -701,8 +859,9 @@ export default function PortfolioPage() {
                 <h3 className="text-lg font-bold uppercase">
                   Self-Hosted AI<br/>Smart Home
                 </h3>
+                <p className="text-gray-400 text-xs mt-2">tap for details</p>
               </div>
-            </Link>
+            </FlipCard>
           </motion.div>
 
         </div>
