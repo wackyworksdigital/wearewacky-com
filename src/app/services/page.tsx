@@ -101,26 +101,26 @@ function ServiceFlipCard({
         
         {/* Back */}
         <div 
-          className="absolute inset-0 bg-black text-white p-6 border-2 border-black shadow-brutal flex flex-col justify-between"
+          className="absolute inset-0 bg-black text-white p-4 md:p-6 border-2 border-black shadow-brutal flex flex-col justify-between overflow-hidden"
           style={{ 
             backfaceVisibility: "hidden",
             transform: "rotateY(180deg)"
           }}
         >
-          <div>
-            <div className="text-xs font-mono text-green-400 mb-2">{service?.tagline || "service"}</div>
-            <h4 className="text-xl font-black uppercase mb-3">{service?.title || "Service"}</h4>
-            <p className="text-sm text-gray-300 leading-relaxed mb-4">
+          <div className="overflow-hidden">
+            <div className="text-[10px] md:text-xs font-mono text-green-400 mb-1 md:mb-2">{service?.tagline || "service"}</div>
+            <h4 className="text-lg md:text-xl font-black uppercase mb-2 md:mb-3">{service?.title || "Service"}</h4>
+            <p className="text-xs md:text-sm text-gray-300 leading-snug md:leading-relaxed mb-3 md:mb-4 line-clamp-4 md:line-clamp-none">
               {service?.description || "Click to learn more about this service."}
             </p>
           </div>
           
           {service?.features && (
             <div>
-              <div className="text-xs font-mono text-gray-500 mb-2">WHAT'S INCLUDED</div>
-              <div className="flex flex-wrap gap-2">
+              <div className="text-[10px] md:text-xs font-mono text-gray-500 mb-1 md:mb-2">WHAT'S INCLUDED</div>
+              <div className="flex flex-wrap gap-1 md:gap-2">
                 {service.features.map((f) => (
-                  <span key={f} className="bg-white/10 px-2 py-1 text-xs font-mono">
+                  <span key={f} className="bg-white/10 px-1.5 md:px-2 py-0.5 md:py-1 text-[10px] md:text-xs font-mono">
                     {f}
                   </span>
                 ))}
@@ -128,8 +128,8 @@ function ServiceFlipCard({
             </div>
           )}
           
-          <div className="mt-4 text-center">
-            <span className="text-xs text-gray-500">tap to flip back</span>
+          <div className="mt-2 md:mt-4 text-center">
+            <span className="text-[10px] md:text-xs text-gray-500">tap to flip back</span>
           </div>
         </div>
       </div>
@@ -214,16 +214,23 @@ export default function ServicesPage() {
         </div>
       </nav>
 
-      {/* Mobile Menu */}
-      <header className="lg:hidden fixed top-0 w-full z-50 px-4 py-3 backdrop-blur border-b-2 border-black flex justify-between items-center shadow-brutal-sm" style={{ backgroundColor: 'rgba(240, 234, 221, 0.95)' }}>
-        <div className="font-black text-2xl tracking-tighter bg-black text-white px-2 rotate-2">WAW!</div>
-        <button 
-          className="text-4xl border-2 border-black rounded-full hover:bg-black hover:text-white transition-colors w-12 h-12 flex items-center justify-center"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          {menuOpen ? "✕" : "☰"}
-        </button>
+      {/* Mobile Menu - Top LEFT with branding */}
+      <header className="lg:hidden fixed top-0 left-0 z-50 px-3 py-3 backdrop-blur border-b-2 border-r-2 border-black shadow-brutal-sm" style={{ backgroundColor: 'rgba(240, 234, 221, 0.95)' }}>
+        <div className="bg-yellow-300 px-4 py-2 border-2 border-black shadow-brutal-sm rotate-1">
+          <div className="text-center">
+            <div className="text-xs font-black uppercase leading-none" style={{ fontFamily: "var(--font-bebas), sans-serif" }}>WACKY WORKS DIGITAL</div>
+            <div className="text-[8px] mt-0.5" style={{ fontFamily: "var(--font-caveat), cursive" }}>@wackyworksdigital</div>
+          </div>
+        </div>
       </header>
+
+      {/* Mobile Menu Button - Top RIGHT */}
+      <button 
+        className="lg:hidden fixed top-4 right-4 z-50 text-4xl border-2 border-black rounded-full hover:bg-black hover:text-white transition-colors w-12 h-12 flex items-center justify-center bg-white shadow-brutal-sm"
+        onClick={() => setMenuOpen(!menuOpen)}
+      >
+        {menuOpen ? "✕" : "☰"}
+      </button>
 
       {/* Mobile Menu Dropdown */}
       {menuOpen && (
