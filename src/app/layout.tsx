@@ -98,6 +98,10 @@ export const metadata: Metadata = {
     "business automation",
     "digital agency London",
     "Shopify automation",
+    "free AI tools beta",
+    "beta tester program",
+    "early access AI automation",
+    "free automation tools",
   ],
   authors: [{ name: "Wacky Works Digital", url: "https://wearewacky.com" }],
   creator: "Wacky Works Digital",
@@ -507,6 +511,14 @@ const jsonLd = {
           acceptedAnswer: {
             "@type": "Answer",
             text: "Start with one specific pain point - customer support queries, content creation, data entry, or repetitive admin tasks. We offer free discovery calls to identify quick wins that deliver ROI within weeks, not months. Most businesses see results from their first AI automation within 2-4 weeks.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can I beta test your AI tools for free?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes! We're always building new AI tools and automations, and we offer free early access to beta testers. You'll be first to try new AI agents, workflow templates, and automation tools before public launch. Sign up on our portfolio page to join the beta tester list and help shape what we build next.",
           },
         },
       ],
