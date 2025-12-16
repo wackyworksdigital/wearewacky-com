@@ -280,13 +280,13 @@ export default function Home() {
                 className="bg-white p-4 border-4 border-black shadow-brutal -rotate-1"
                 style={{ backfaceVisibility: "hidden" }}
               >
-                {/* Vintage-style photo */}
+                {/* Vintage Christmas photo */}
                 <div className="relative aspect-[4/3] mb-4 overflow-hidden border-2 border-black">
                   <Image
-                    src="https://images.unsplash.com/photo-1545324053-27d2c4047aef?w=600&h=450&fit=crop"
-                    alt="Vintage celebration with paper crowns"
+                    src="/images/christmas-kings.jpg"
+                    alt="British family Christmas dinner with paper crowns - Dec 25 1986"
                     fill
-                    className="object-cover sepia-[0.3] contrast-[1.1] brightness-[1.05]"
+                    className="object-cover"
                     priority
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
