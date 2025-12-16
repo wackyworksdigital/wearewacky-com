@@ -295,62 +295,80 @@ export default function Home() {
                 {/* Headlines - Christmas Carol Reference */}
                 <div className="text-center">
                   <h2 
-                    className="text-4xl md:text-5xl font-black uppercase leading-none mb-2"
+                    className="text-4xl md:text-5xl font-black uppercase leading-none"
                     style={{ fontFamily: "var(--font-bebas), sans-serif" }}
                   >
                     WE THREE KINGS
                   </h2>
-                  <p 
-                    className="text-xl md:text-2xl -rotate-1"
-                    style={{ fontFamily: "var(--font-caveat), cursive", color: "#2563eb" }}
-                  >
-                    of "good enough" 🎄
-                  </p>
-                  <p 
-                    className="text-sm mt-3 opacity-60"
-                    style={{ fontFamily: "var(--font-caveat), cursive" }}
-                  >
-                    👆 tap for a message
-                  </p>
                 </div>
               </div>
 
-              {/* BACK - Christmas Message */}
+              {/* BACK - Gary Vee Christmas Monologue */}
               <div 
-                className="absolute inset-0 bg-gradient-to-br from-red-700 to-green-800 text-white p-5 border-4 border-black shadow-brutal rotate-1"
+                className="absolute inset-0 bg-black text-white p-5 border-4 border-black shadow-brutal rotate-1"
                 style={{ 
                   backfaceVisibility: "hidden",
                   transform: "rotateY(180deg)"
                 }}
               >
-                <div className="h-full flex flex-col justify-center text-center space-y-3">
+                <div className="h-full flex flex-col justify-center text-center space-y-2">
                   <p 
-                    className="text-2xl md:text-3xl font-black"
+                    className="text-xl md:text-2xl font-black"
                     style={{ fontFamily: "var(--font-bebas), sans-serif" }}
                   >
-                    🎄 MERRY CHRISTMAS! 🎄
+                    Ok. Listen.
                   </p>
 
                   <p 
-                    className="text-sm md:text-base leading-relaxed"
-                    style={{ fontFamily: "var(--font-caveat), cursive" }}
-                  >
-                    2026 is coming. AI gonna take your job. That's it.
-                  </p>
-
-                  <p 
-                    className="text-sm md:text-base font-bold"
+                    className="text-sm md:text-base"
                     style={{ fontFamily: "var(--font-space), sans-serif" }}
                   >
-                    Promise us you'll launch your business in January.
+                    Everyone's waiting for the "right time."
+                  </p>
+
+                  <p 
+                    className="text-base md:text-lg font-bold"
+                    style={{ fontFamily: "var(--font-space), sans-serif" }}
+                  >
+                    There is no right time.
                   </p>
 
                   <p 
                     className="text-xs md:text-sm opacity-80"
                     style={{ fontFamily: "var(--font-caveat), cursive" }}
                   >
-                    Karen said it's still 2-3 years away...<br/>
-                    She was wrong. That was 2-3 months.
+                    2026 is here. AI is moving faster than anyone predicted. The window is NOW.
+                  </p>
+
+                  <p 
+                    className="text-sm md:text-base font-bold pt-2"
+                    style={{ fontFamily: "var(--font-space), sans-serif" }}
+                  >
+                    Stop planning. Start doing.<br/>Ship something in January.
+                  </p>
+
+                  <p 
+                    className="text-xs md:text-sm opacity-80"
+                    style={{ fontFamily: "var(--font-caveat), cursive" }}
+                  >
+                    Start messy. We'll help you clean it up.
+                  </p>
+
+                  <p 
+                    className="text-xs md:text-sm pt-2"
+                    style={{ fontFamily: "var(--font-space), sans-serif" }}
+                  >
+                    You don't need the perfect logo.<br/>
+                    You don't need the perfect website.<br/>
+                    You don't need permission.<br/>
+                    <span className="font-bold">You need to START.</span>
+                  </p>
+
+                  <p 
+                    className="text-sm md:text-base font-black pt-2"
+                    style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+                  >
+                    Done beats perfect. Every. Single. Time.
                   </p>
 
                   <div className="pt-3 border-t border-white/30">
@@ -358,22 +376,9 @@ export default function Home() {
                       className="text-base md:text-lg"
                       style={{ fontFamily: "var(--font-caveat), cursive" }}
                     >
-                      ok call us when you've got an idea
-                    </p>
-                    <p 
-                      className="text-xl md:text-2xl mt-2 font-bold"
-                      style={{ fontFamily: "var(--font-caveat), cursive" }}
-                    >
-                      love you ❤️
+                      🎄 Merry Christmas. Call us in January. ❤️
                     </p>
                   </div>
-
-                  <p 
-                    className="text-xs opacity-50 mt-2"
-                    style={{ fontFamily: "var(--font-caveat), cursive" }}
-                  >
-                    👆 tap to flip back
-                  </p>
                 </div>
               </div>
             </motion.div>
