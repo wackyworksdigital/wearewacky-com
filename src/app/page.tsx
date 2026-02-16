@@ -81,7 +81,7 @@ export default function Home() {
   return (
     <main className="relative min-h-[105vh] pb-0 overflow-x-hidden" style={{ backgroundColor: BG, color: TEXT }}>
       {/* Grid paper background */}
-      <div 
+      <div
         className="fixed inset-0 pointer-events-none opacity-10 z-0"
         style={{
           backgroundImage: `
@@ -154,7 +154,7 @@ export default function Home() {
       </header>
 
       {/* Mobile Menu Button - Top RIGHT */}
-      <button 
+      <button
         className="lg:hidden fixed top-4 right-4 z-50 text-4xl border-2 border-black rounded-full hover:bg-black hover:text-white transition-colors w-12 h-12 flex items-center justify-center bg-white shadow-brutal-sm"
         onClick={() => setMenuOpen(!menuOpen)}
       >
@@ -185,19 +185,19 @@ export default function Home() {
       >
         <div className="bg-white p-4 border-2 border-black shadow-brutal rotate-3 hover:rotate-0 transition-transform cursor-default">
           <div className="text-center">
-            <h2 
+            <h2
               className="text-xl font-black uppercase leading-none mb-1"
               style={{ fontFamily: "var(--font-bebas), sans-serif" }}
             >
               WACKY WORKS
             </h2>
-            <p 
+            <p
               className="text-xs tracking-widest"
               style={{ fontFamily: "var(--font-space), sans-serif" }}
             >
               DIGITAL
             </p>
-            <div 
+            <div
               className="text-[10px] mt-1"
               style={{ fontFamily: "var(--font-caveat), cursive" }}
             >
@@ -210,7 +210,7 @@ export default function Home() {
       {/* HERO SECTION */}
       <div className="relative z-10 min-h-screen flex items-center justify-center px-6 pt-20 md:pt-40 lg:pt-12 pb-5">
         <div className="w-full max-w-6xl">
-          
+
           {/* Big title */}
           <motion.div
             className="mb-8 md:mb-12 relative text-center"
@@ -219,14 +219,14 @@ export default function Home() {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-5xl md:text-8xl lg:text-[140px] font-black tracking-tighter leading-[0.9]">
-              <motion.span 
+              <motion.span
                 className="inline-block"
                 animate={{ rotate: [-2, 2, -2] }}
                 transition={{ duration: 3, repeat: Infinity }}
               >
                 WE
               </motion.span>{" "}
-              <motion.span 
+              <motion.span
                 className="inline-block text-outline"
                 animate={{ rotate: [2, -2, 2] }}
                 transition={{ duration: 3.5, repeat: Infinity }}
@@ -234,7 +234,7 @@ export default function Home() {
                 BUILD
               </motion.span>
               <br />
-              <motion.span 
+              <motion.span
                 className="relative inline-block"
                 style={{ color: "#ff4757" }}
                 animate={{ scale: [1, 1.05, 1] }}
@@ -258,7 +258,7 @@ export default function Home() {
             </motion.p>
           </motion.div>
 
-          {/* FLIP CARD HERO - "WE ARE THE KINGS" */}
+          {/* FLIP CARD HERO - "STILL BUILDING" POSTCARD */}
           <motion.div
             className="mb-16 mx-auto px-4 max-w-lg cursor-pointer"
             initial={{ opacity: 0, y: 20 }}
@@ -269,62 +269,63 @@ export default function Home() {
           >
             <motion.div
               className="relative w-full"
-              style={{ 
+              style={{
                 transformStyle: "preserve-3d",
                 transition: "transform 0.6s"
               }}
               animate={{ rotateY: heroFlipped ? 180 : 0 }}
             >
-              {/* FRONT - Vintage Photo Card */}
-              <div 
+              {/* FRONT - Vintage Polaroid Photo Card */}
+              <div
                 className="bg-white p-4 border-4 border-black shadow-brutal -rotate-1"
                 style={{ backfaceVisibility: "hidden" }}
               >
-                {/* Vintage Christmas photo */}
+                {/* Retro 70s/80s lab photo */}
                 <div className="relative aspect-[4/3] mb-4 overflow-hidden border-2 border-black">
                   <Image
-                    src="/images/christmas-kings.jpg"
-                    alt="British family Christmas dinner with paper crowns - Dec 25 1986"
+                    src="/images/retro-lab-postcard.jpg"
+                    alt="Scientists in white lab coats working at a retro control room console - circa 1978"
                     fill
                     className="object-cover"
                     priority
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                 </div>
-                
-                {/* Headlines - Christmas Carol Reference */}
+
+                {/* Headline */}
                 <div className="text-center">
-                  <h2 
+                  <h2
                     className="text-4xl md:text-5xl font-black uppercase leading-none"
                     style={{ fontFamily: "var(--font-bebas), sans-serif" }}
                   >
-                    WE THREE KINGS
+                    STILL BUILDING
                   </h2>
                 </div>
               </div>
 
-              {/* BACK - Handwritten Christmas Card */}
-              <div 
+              {/* BACK - Handwritten Postcard Message */}
+              <div
                 className="absolute inset-0 p-4 border-4 border-black shadow-brutal rotate-1"
-                style={{ 
+                style={{
                   backfaceVisibility: "hidden",
                   transform: "rotateY(180deg)",
                   backgroundColor: "#fffef9"
                 }}
               >
-                <div 
+                <div
                   className="h-full flex flex-col justify-center leading-tight"
                   style={{ fontFamily: "var(--font-caveat), cursive", color: "#1a365d" }}
                 >
-                  <p className="text-base md:text-lg font-bold">Ok. Listen.</p>
-                  <p className="text-sm md:text-base">Everyone's waiting for the "right time."</p>
-                  <p className="text-base md:text-lg font-bold underline">There is no right time.</p>
-                  <p className="text-xs md:text-sm mt-1">2026 is here. AI is moving faster than anyone predicted.</p>
-                  <p className="text-sm md:text-base font-bold mt-1">Stop planning. Start doing. Ship something in January.</p>
-                  <p className="text-xs md:text-sm">Start messy. We'll help you clean it up.</p>
-                  <p className="text-xs md:text-sm mt-1">You don't need the perfect logo. You don't need the perfect website. <span className="font-bold underline">You need to START.</span></p>
-                  <p className="text-sm md:text-base font-bold mt-1">Done beats perfect. Every. Single. Time.</p>
-                  <p className="text-sm md:text-base mt-2">🎄 Merry Christmas. Call us in January. ❤️</p>
+                  <p className="text-base md:text-lg font-bold">Right. Quick update.</p>
+                  <p className="text-sm md:text-base">Remember when everyone said AI would replace us?</p>
+                  <p className="text-base md:text-lg font-bold underline">We&apos;re still here. Building. Shipping. Breaking things.</p>
+                  <p className="text-xs md:text-sm mt-1">The ones who waited? Still waiting.</p>
+                  <p className="text-sm md:text-base font-bold mt-1">The ones who started? They&apos;re winning.</p>
+                  <p className="text-xs md:text-sm">We&apos;ve helped businesses launch in weeks, not months.</p>
+                  <p className="text-xs md:text-sm mt-1">No fluff. No 47-slide decks. Just <span className="font-bold underline">stuff that works.</span></p>
+                  <p className="text-sm md:text-base font-bold mt-1">Your competitor just shipped something ugly. And it&apos;s making money.</p>
+                  <p className="text-sm md:text-base font-bold mt-1">Your move.</p>
+                  <p className="text-sm md:text-base mt-2">🚀 Let&apos;s build something. Seriously. ❤️</p>
                 </div>
               </div>
             </motion.div>
@@ -352,7 +353,7 @@ export default function Home() {
                 whileHover={{ rotate: -2 }}
               >
                 <h2 className="text-4xl md:text-6xl font-black uppercase">
-                  SEE WHAT<br/>WE DO
+                  SEE WHAT<br />WE DO
                 </h2>
               </motion.div>
             </Link>
@@ -366,13 +367,13 @@ export default function Home() {
             transition={{ delay: 0.7 }}
           >
             <div className="inline-block bg-white p-8 md:p-10 border-4 border-black shadow-brutal rotate-1 max-w-2xl">
-              <h3 
+              <h3
                 className="text-3xl md:text-5xl font-black uppercase leading-tight mb-1"
                 style={{ fontFamily: "var(--font-bebas), sans-serif" }}
               >
-                WE'RE NOT<br/>FOR EVERYONE
+                WE'RE NOT<br />FOR EVERYONE
               </h3>
-              <p 
+              <p
                 className="text-xl md:text-2xl -rotate-1"
                 style={{ fontFamily: "var(--font-caveat), cursive" }}
               >
@@ -389,13 +390,13 @@ export default function Home() {
             transition={{ delay: 0.9 }}
           >
             <div className="inline-block bg-green-300 p-6 border-2 border-black shadow-brutal rotate-1 max-w-2xl">
-              <p 
+              <p
                 className="text-lg md:text-xl leading-snug"
                 style={{ fontFamily: "var(--font-caveat), cursive" }}
               >
                 UK-based • worldwide clients • 100% real humans
               </p>
-              <p 
+              <p
                 className="text-sm mt-1"
                 style={{ fontFamily: "var(--font-caveat), cursive" }}
               >
@@ -417,24 +418,24 @@ export default function Home() {
             viewport={{ once: true }}
           >
             <div className="bg-white p-6 border-4 border-black shadow-brutal -rotate-1">
-              
+
               {/* Header - always show title */}
               <div className="flex justify-between items-center mb-4 pb-3 border-b-2 border-black">
                 <div>
-                  <h3 
+                  <h3
                     className="text-xl md:text-2xl font-black uppercase"
                     style={{ fontFamily: "var(--font-bebas), sans-serif" }}
                   >
                     {gameStarted ? "WHACK A BOT!" : "BORED?"}
                   </h3>
-                  <p 
+                  <p
                     className="text-xs"
                     style={{ fontFamily: "var(--font-caveat), cursive" }}
                   >
-                    {!gameStarted 
-                      ? "spot the robot 👀" 
-                      : whackGameActive 
-                        ? "Quick! Tap them!" 
+                    {!gameStarted
+                      ? "spot the robot 👀"
+                      : whackGameActive
+                        ? "Quick! Tap them!"
                         : "Game Over!"}
                   </p>
                 </div>
@@ -448,7 +449,7 @@ export default function Home() {
 
               {/* Game Over Message */}
               {gameStarted && !whackGameActive && (
-                <motion.div 
+                <motion.div
                   className="mb-4 p-4 bg-yellow-200 border-2 border-black text-center"
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -467,8 +468,8 @@ export default function Home() {
               {/* The Grid */}
               <div className="grid grid-cols-3 gap-3">
                 {[...Array(9)].map((_, i) => {
-                  const showRobot = gameStarted 
-                    ? activeMole === i 
+                  const showRobot = gameStarted
+                    ? activeMole === i
                     : idleMole === i;
 
                   return (
@@ -476,11 +477,10 @@ export default function Home() {
                       key={i}
                       onClick={() => whackMole(i)}
                       disabled={!showRobot && !gameStarted}
-                      className={`border-2 border-black aspect-square flex items-center justify-center text-3xl md:text-4xl transition-all disabled:cursor-default ${
-                        showRobot
-                          ? 'bg-yellow-300 scale-110 cursor-pointer' 
+                      className={`border-2 border-black aspect-square flex items-center justify-center text-3xl md:text-4xl transition-all disabled:cursor-default ${showRobot
+                          ? 'bg-yellow-300 scale-110 cursor-pointer'
                           : 'bg-gradient-to-br from-green-100 to-blue-100'
-                      }`}
+                        }`}
                     >
                       {showRobot ? "🤖" : ""}
                     </button>
