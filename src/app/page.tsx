@@ -247,15 +247,6 @@ export default function Home() {
               </motion.span>
             </h1>
 
-            <motion.p
-              className="text-2xl md:text-4xl mt-0 -rotate-1"
-              style={{ fontFamily: "var(--font-caveat), cursive", color: "#2563eb" }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-            >
-              (beep boop, we're robots now)
-            </motion.p>
           </motion.div>
 
           {/* FLIP CARD HERO - "STILL BUILDING" POSTCARD */}
@@ -292,13 +283,13 @@ export default function Home() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                 </div>
 
-                {/* Headline */}
+                {/* Headline - handwritten style */}
                 <div className="text-center">
                   <h2
-                    className="text-4xl md:text-5xl font-black uppercase leading-none"
-                    style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+                    className="text-3xl md:text-4xl font-bold leading-tight -rotate-1"
+                    style={{ fontFamily: "var(--font-caveat), cursive", color: "#1a365d" }}
                   >
-                    STILL BUILDING
+                    the lab is open.
                   </h2>
                 </div>
               </div>
@@ -478,8 +469,8 @@ export default function Home() {
                       onClick={() => whackMole(i)}
                       disabled={!showRobot && !gameStarted}
                       className={`border-2 border-black aspect-square flex items-center justify-center text-3xl md:text-4xl transition-all disabled:cursor-default ${showRobot
-                          ? 'bg-yellow-300 scale-110 cursor-pointer'
-                          : 'bg-gradient-to-br from-green-100 to-blue-100'
+                        ? 'bg-yellow-300 scale-110 cursor-pointer'
+                        : 'bg-gradient-to-br from-green-100 to-blue-100'
                         }`}
                     >
                       {showRobot ? "🤖" : ""}
