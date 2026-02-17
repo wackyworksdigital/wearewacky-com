@@ -1,76 +1,96 @@
 # 🚀 wearewacky.com - Project TODO
 
 **Project:** Flagship Marketing Website  
-**Version:** 0.1.0  
-**Status:** 🚧 In Development
+**Version:** 0.2.0  
+**Status:** ✅ Live on Vercel  
+**Last Updated:** 2026-02-17
 
 ---
 
 ## ✅ Completed
 
-### Setup Phase
+### Setup & Infrastructure
+
 - [x] Create Next.js 16 + React 19 + Tailwind v4 project
-- [x] Install cutting-edge dependencies (GSAP, Lenis, Framer Motion)
+- [x] Install dependencies (GSAP, Lenis, Framer Motion)
 - [x] Set up design system (colors, typography, utilities)
 - [x] Create GitHub repo and push code
-- [x] Create multi-root workspace with wacky-internal-docs
+- [x] Connect Vercel for auto-deploy
+- [x] Configure custom domain (wearewacky.com)
+- [x] Resend domain verified (wearewacky.com) for sending emails
+- [x] SPF + DKIM DNS records verified
 
-### Initial Build
-- [x] Hero section with animated headline
+### Pages & Content
+
+- [x] Hero section with animated postcard flip card
 - [x] Services section (Education, SaaS, Consulting)
 - [x] Tech Stack marquee
 - [x] Footer with links
+- [x] About page
+- [x] Navigation header
+
+### Email & Newsletter
+
+- [x] Newsletter signup form working
+- [x] Welcome email sent via Resend on subscribe
+- [x] New subscriber notification email to admin
+- [x] Email sending verified and working
+
+### Branding (Feb 2026)
+
+- [x] Replace default Vercel favicon with Wacky Works logo
+- [x] `icon.png` (32x32) — Wacky Works transparent logo
+- [x] `apple-icon.png` (180x180) — iOS bookmark/home screen
+- [x] Hero updated from Christmas theme to evergreen "the lab is open." postcard
+- [x] Retro scientist lab image generated and deployed
+- [x] Removed stale "beep boop, we're robots now" subtitle
 
 ---
 
 ## 🔥 Current Sprint
 
-### Infrastructure
-- [ ] Connect to Vercel for auto-deploy
-- [ ] Configure custom domain (wearewacky.com)
-- [ ] Set up environment variables
+### ShopSync Landing Page
 
-### Design & Polish
-- [ ] Fix responsive issues on mobile
-- [ ] Add navigation header
-- [ ] Improve animations and transitions
-- [ ] Add loading states
+- [ ] Create `/shopsync` route — landing page for the ShopSync app
+- [ ] Create `/shopsync/download` — download links (Play Store, App Store)
+- [ ] Create `/shopsync/web` — redirect to Flutter web app (hosted separately)
+- [ ] Add ShopSync to main nav/footer
 
-### Content
-- [ ] Finalize copy/text for all sections
-- [ ] Add real images/assets
-- [ ] Create case studies section
-- [ ] Add testimonials
+### Content Fixes
+
+- [ ] Fix FAQ: React Native → Flutter reference
+- [ ] Full site copy review for outdated/placeholder content
+- [ ] Verify all links work
+
+### Email & Subscribers
+
+- [ ] Explore Resend Audience feature for mailing list management
+- [ ] Add subscriber contacts to Resend Audience via `/api/subscribe`
+- [ ] Do NOT enable "Enable Receiving" on Resend (would redirect MX records)
 
 ---
 
 ## 📋 Backlog
 
-### Pages to Build
-- [ ] About page
-- [ ] Services detail pages
-- [ ] Case Studies page
-- [ ] Contact page
-- [ ] Blog (if needed)
-
 ### Features
-- [ ] Contact form (save to database?)
-- [ ] Newsletter signup
-- [ ] Dark/Light mode toggle
-- [ ] SEO optimization
-- [ ] Analytics integration
 
-### Integrations
-- [ ] Decide: New Supabase project or use existing?
-- [ ] Connect to CMS (Sanity/Contentful) if needed
-- [ ] Set up email (Resend/SendGrid)
+- [ ] Contact form (save to database?)
+- [ ] Dark/Light mode toggle
+- [ ] SEO optimization (meta tags, structured data)
+- [ ] Analytics integration
+- [ ] Case studies section
+- [ ] Testimonials
+
+### Performance
+
+- [ ] PageSpeed audit and optimization
+- [ ] Image optimization pass
 
 ---
 
 ## 🐛 Known Issues
 
 - Hero headline wraps awkwardly on some viewports (partially fixed)
-- Smooth scroll may conflict with browser scrolling in some cases
 
 ---
 
@@ -84,5 +104,8 @@
 
 ---
 
-**Last Updated:** December 4, 2025
+**How to Use This File:**
 
+- Keep "Current Sprint" focused on 1-2 weeks of work
+- Move completed items to ✅ Completed section
+- Add new ideas at the bottom
