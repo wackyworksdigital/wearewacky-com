@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { 
-  Space_Grotesk, 
-  Playfair_Display, 
-  Bebas_Neue, 
+import {
+  Space_Grotesk,
+  Playfair_Display,
+  Bebas_Neue,
   Permanent_Marker,
   Archivo_Black,
   Syne,
@@ -12,6 +12,7 @@ import {
 } from "next/font/google";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 import { ExitIntentPopup } from "@/components/ui/exit-popup";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import "./globals.css";
 
 // WACKY DISPLAY - Bold, architectural, attention-grabbing headlines
@@ -542,6 +543,7 @@ export default function RootLayout({
       <body
         className={`${archivo.variable} ${syne.variable} ${dmSerif.variable} ${spaceGrotesk.variable} ${playfair.variable} ${bebas.variable} ${marker.variable} ${caveat.variable} ${kalam.variable} antialiased overflow-x-hidden`}
       >
+        <GoogleAnalytics />
         <LenisProvider>
           {children}
           <ExitIntentPopup />
