@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
       // Hey Jess Dashboard (more specific path — must come first)
       {
         source: '/heyjess/dashboard/:path*',
-        destination: 'https://agent-jess-dashboard.vercel.app/:path*',
+        destination: 'https://agent-jess-dashboard.vercel.app/heyjess/dashboard/:path*',
       },
       // Hey Jess Landing Page
       {
