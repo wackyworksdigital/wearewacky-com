@@ -15,7 +15,12 @@ const nextConfig: NextConfig = {
   },
   async rewrites() {
     return [
-      // Hey Jess Dashboard (more specific path — must come first)
+      // Hey Jess Dashboard — exact root
+      {
+        source: '/heyjess/dashboard',
+        destination: 'https://agent-jess-dashboard.vercel.app/heyjess/dashboard',
+      },
+      // Hey Jess Dashboard — sub-paths
       {
         source: '/heyjess/dashboard/:path*',
         destination: 'https://agent-jess-dashboard.vercel.app/heyjess/dashboard/:path*',
