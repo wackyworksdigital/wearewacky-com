@@ -158,10 +158,11 @@ export default function BlogPage() {
             <li><Link href="/about" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">about</Link></li>
             <li><Link href="/services" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">services</Link></li>
             <li><Link href="/portfolio" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">portfolio</Link></li>
+            <li><Link href="/postcards" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">postcards</Link></li>
+            <li><span className="bg-black text-white px-2 -ml-2 skew-x-[-10deg] inline-block">blog</span></li>
             <li><Link href="/contact" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">contact</Link></li>
             <li><Link href="/faq" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">faq</Link></li>
             <li><Link href="/pricing" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">pricing</Link></li>
-            <li><span className="bg-black text-white px-2 -ml-2 skew-x-[-10deg] inline-block">blog</span></li>
           </ul>
         </div>
       </nav>
@@ -190,10 +191,11 @@ export default function BlogPage() {
             <li><Link href="/about" className="hover:text-red-600 transition-colors">about</Link></li>
             <li><Link href="/services" className="hover:text-red-600 transition-colors">services</Link></li>
             <li><Link href="/portfolio" className="hover:text-red-600 transition-colors">portfolio</Link></li>
+            <li><Link href="/postcards" className="hover:text-red-600 transition-colors">postcards</Link></li>
+            <li><span className="bg-black text-white px-2">blog</span></li>
             <li><Link href="/contact" className="hover:text-red-600 transition-colors">contact</Link></li>
             <li><Link href="/faq" className="hover:text-red-600 transition-colors">faq</Link></li>
             <li><Link href="/pricing" className="hover:text-red-600 transition-colors">pricing</Link></li>
-            <li><span className="bg-black text-white px-2">blog</span></li>
           </ul>
         </div>
       )}
@@ -236,7 +238,7 @@ export default function BlogPage() {
                 className="text-2xl font-bold"
                 style={{ fontFamily: "var(--font-caveat), cursive" }}
               >
-                🚧 We're cooking up some articles! First posts dropping January 2025 🚧
+                🚧 We&apos;re cooking up some articles! Our writers are fuelled by coffee and existential dread. First posts dropping soon. 🚧
               </p>
             </div>
           </motion.div>

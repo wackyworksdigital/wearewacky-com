@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
 import { useState, useEffect } from "react";
 import { LegalFooter } from "@/components/ui/legal-footer";
 
@@ -118,6 +117,16 @@ export default function Home() {
               </Link>
             </li>
             <li>
+              <Link href="/postcards" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+                postcards
+              </Link>
+            </li>
+            <li>
+              <Link href="/blog" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+                blog
+              </Link>
+            </li>
+            <li>
               <Link href="/contact" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
                 contact
               </Link>
@@ -169,6 +178,8 @@ export default function Home() {
             <li><Link href="/about" className="hover:text-red-600 transition-colors">about</Link></li>
             <li><Link href="/services" className="hover:text-red-600 transition-colors">services</Link></li>
             <li><Link href="/portfolio" className="hover:text-red-600 transition-colors">portfolio</Link></li>
+            <li><Link href="/postcards" className="hover:text-red-600 transition-colors">postcards</Link></li>
+            <li><Link href="/blog" className="hover:text-red-600 transition-colors">blog</Link></li>
             <li><Link href="/contact" className="hover:text-red-600 transition-colors">contact</Link></li>
             <li><Link href="/faq" className="hover:text-red-600 transition-colors">faq</Link></li>
             <li><Link href="/pricing" className="hover:text-red-600 transition-colors">pricing</Link></li>
@@ -249,7 +260,7 @@ export default function Home() {
 
           </motion.div>
 
-          {/* FLIP CARD HERO - "STILL BUILDING" POSTCARD */}
+          {/* FLIP CARD HERO - "MEET JESS" POSTCARD */}
           <motion.div
             className="mb-16 mx-auto px-4 max-w-lg cursor-pointer"
             initial={{ opacity: 0, y: 20 }}
@@ -266,35 +277,35 @@ export default function Home() {
               }}
               animate={{ rotateY: heroFlipped ? 180 : 0 }}
             >
-              {/* FRONT - Vintage Polaroid Photo Card */}
+              {/* FRONT - Robot Receptionist Polaroid */}
               <div
                 className="bg-white p-4 border-4 border-black shadow-brutal -rotate-1"
                 style={{ backfaceVisibility: "hidden" }}
               >
-                {/* Retro 70s/80s lab photo */}
-                <div className="relative aspect-[4/3] mb-4 overflow-hidden border-2 border-black">
-                  <Image
-                    src="/images/retro-lab-postcard.jpg"
-                    alt="Scientists in white lab coats working at a retro control room console - circa 1978"
-                    fill
-                    className="object-cover"
-                    priority
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                <div className="relative aspect-[4/3] mb-4 overflow-hidden border-2 border-black bg-gradient-to-br from-green-100 to-blue-50 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="text-8xl md:text-9xl mb-2">🤖</div>
+                    <div
+                      className="text-sm md:text-base font-bold uppercase tracking-widest"
+                      style={{ fontFamily: "var(--font-bebas), sans-serif", color: "#1a365d" }}
+                    >
+                      Employee of the Month
+                    </div>
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
                 </div>
 
-                {/* Headline - handwritten style */}
                 <div className="text-center">
                   <h2
                     className="text-3xl md:text-4xl font-bold leading-tight -rotate-1"
                     style={{ fontFamily: "var(--font-caveat), cursive", color: "#1a365d" }}
                   >
-                    the lab is open.
+                    meet jess. she never sleeps.
                   </h2>
                 </div>
               </div>
 
-              {/* BACK - Handwritten Postcard Message */}
+              {/* BACK - Handwritten Hey Jess Message */}
               <div
                 className="absolute inset-0 p-4 border-4 border-black shadow-brutal rotate-1"
                 style={{
@@ -307,16 +318,18 @@ export default function Home() {
                   className="h-full flex flex-col justify-center leading-tight"
                   style={{ fontFamily: "var(--font-caveat), cursive", color: "#1a365d" }}
                 >
-                  <p className="text-base md:text-lg font-bold">Right. Quick update.</p>
-                  <p className="text-sm md:text-base">Remember when everyone said AI would replace us?</p>
-                  <p className="text-base md:text-lg font-bold underline">We&apos;re still here. Building. Shipping. Breaking things.</p>
-                  <p className="text-xs md:text-sm mt-1">The ones who waited? Still waiting.</p>
-                  <p className="text-sm md:text-base font-bold mt-1">The ones who started? They&apos;re winning.</p>
-                  <p className="text-xs md:text-sm">We&apos;ve helped businesses launch in weeks, not months.</p>
-                  <p className="text-xs md:text-sm mt-1">No fluff. No 47-slide decks. Just <span className="font-bold underline">stuff that works.</span></p>
-                  <p className="text-sm md:text-base font-bold mt-1">Your competitor just shipped something ugly. And it&apos;s making money.</p>
-                  <p className="text-sm md:text-base font-bold mt-1">Your move.</p>
-                  <p className="text-sm md:text-base mt-2">🚀 Let&apos;s build something. Seriously. ❤️</p>
+                  <p className="text-base md:text-lg font-bold">So we built an AI receptionist.</p>
+                  <p className="text-sm md:text-base">Her name is Jess.</p>
+                  <p className="text-sm md:text-base mt-1">She handles your WhatsApp, email, LinkedIn, and DMs.</p>
+                  <p className="text-base md:text-lg font-bold underline">In under 3 seconds. In 90+ languages.</p>
+                  <p className="text-xs md:text-sm mt-1">While you sleep. While you eat. While you&apos;re on holiday.</p>
+                  <p className="text-sm md:text-base font-bold mt-1">She doesn&apos;t call in sick. She doesn&apos;t ask for a raise.</p>
+                  <p className="text-xs md:text-sm">She just... handles it.</p>
+                  <p className="text-sm md:text-base font-bold mt-2">You know that lead you lost at 2am? That one.</p>
+                  <p className="text-sm md:text-base font-bold underline">Jess would&apos;ve caught it.</p>
+                  <p className="text-sm md:text-base mt-2">
+                    🤖 <Link href="/heyjess" className="underline hover:text-red-600">wearewacky.com/heyjess</Link> ❤️
+                  </p>
                 </div>
               </div>
             </motion.div>
