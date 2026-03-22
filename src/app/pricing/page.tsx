@@ -144,6 +144,16 @@ export default function PricingPage() {
               </Link>
             </li>
             <li>
+              <Link href="/postcards" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+                postcards
+              </Link>
+            </li>
+            <li>
+              <Link href="/blog" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+                blog
+              </Link>
+            </li>
+            <li>
               <Link href="/contact" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
                 contact
               </Link>
@@ -195,6 +205,8 @@ export default function PricingPage() {
             <li><Link href="/about" className="hover:text-red-600 transition-colors">about</Link></li>
             <li><Link href="/services" className="hover:text-red-600 transition-colors">services</Link></li>
             <li><Link href="/portfolio" className="hover:text-red-600 transition-colors">portfolio</Link></li>
+            <li><Link href="/postcards" className="hover:text-red-600 transition-colors">postcards</Link></li>
+            <li><Link href="/blog" className="hover:text-red-600 transition-colors">blog</Link></li>
             <li><Link href="/contact" className="hover:text-red-600 transition-colors">contact</Link></li>
             <li><Link href="/faq" className="hover:text-red-600 transition-colors">faq</Link></li>
             <li><span className="bg-black text-white px-2">pricing</span></li>

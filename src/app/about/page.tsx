@@ -52,6 +52,16 @@ export default function AboutPage() {
               </Link>
             </li>
             <li>
+              <Link href="/postcards" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+                postcards
+              </Link>
+            </li>
+            <li>
+              <Link href="/blog" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+                blog
+              </Link>
+            </li>
+            <li>
               <Link href="/contact" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
                 contact
               </Link>
@@ -103,6 +113,8 @@ export default function AboutPage() {
             <li><span className="bg-black text-white px-2">about</span></li>
             <li><Link href="/services" className="hover:text-red-600 transition-colors">services</Link></li>
             <li><Link href="/portfolio" className="hover:text-red-600 transition-colors">portfolio</Link></li>
+            <li><Link href="/postcards" className="hover:text-red-600 transition-colors">postcards</Link></li>
+            <li><Link href="/blog" className="hover:text-red-600 transition-colors">blog</Link></li>
             <li><Link href="/contact" className="hover:text-red-600 transition-colors">contact</Link></li>
             <li><Link href="/faq" className="hover:text-red-600 transition-colors">faq</Link></li>
             <li><Link href="/pricing" className="hover:text-red-600 transition-colors">pricing</Link></li>

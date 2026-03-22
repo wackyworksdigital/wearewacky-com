@@ -78,6 +78,16 @@ export default function ContactPage() {
               </Link>
             </li>
             <li>
+              <Link href="/postcards" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+                postcards
+              </Link>
+            </li>
+            <li>
+              <Link href="/blog" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+                blog
+              </Link>
+            </li>
+            <li>
               <span className="bg-black text-white px-2 -ml-2 skew-x-[-10deg] inline-block">
                 contact
               </span>
@@ -125,6 +135,8 @@ export default function ContactPage() {
             <li><Link href="/about" className="hover:text-red-600 transition-colors">about</Link></li>
             <li><Link href="/services" className="hover:text-red-600 transition-colors">services</Link></li>
             <li><Link href="/portfolio" className="hover:text-red-600 transition-colors">portfolio</Link></li>
+            <li><Link href="/postcards" className="hover:text-red-600 transition-colors">postcards</Link></li>
+            <li><Link href="/blog" className="hover:text-red-600 transition-colors">blog</Link></li>
             <li><span className="bg-black text-white px-2">contact</span></li>
             <li><Link href="/faq" className="hover:text-red-600 transition-colors">faq</Link></li>
             <li><Link href="/pricing" className="hover:text-red-600 transition-colors">pricing</Link></li>
