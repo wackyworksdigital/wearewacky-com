@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { LegalFooter } from "@/components/ui/legal-footer";
 
@@ -282,17 +283,15 @@ export default function Home() {
                 className="bg-white p-4 border-4 border-black shadow-brutal -rotate-1"
                 style={{ backfaceVisibility: "hidden" }}
               >
-                <div className="relative aspect-[4/3] mb-4 overflow-hidden border-2 border-black bg-gradient-to-br from-green-100 to-blue-50 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="text-8xl md:text-9xl mb-2">🤖</div>
-                    <div
-                      className="text-sm md:text-base font-bold uppercase tracking-widest"
-                      style={{ fontFamily: "var(--font-bebas), sans-serif", color: "#1a365d" }}
-                    >
-                      Employee of the Month
-                    </div>
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent" />
+                <div className="relative aspect-[4/3] mb-4 overflow-hidden border-2 border-black">
+                  <Image
+                    src="/images/jess-receptionist-postcard.jpg"
+                    alt="Vintage 1970s receptionist named Jess answering a telephone at a wood-panelled office desk"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                 </div>
 
                 <div className="text-center">
