@@ -80,17 +80,6 @@ export default function Home() {
 
   return (
     <main className="relative min-h-[105vh] pb-0 overflow-x-hidden" style={{ backgroundColor: BG, color: TEXT }}>
-      {/* Grid paper background */}
-      <div
-        className="fixed inset-0 pointer-events-none opacity-10 z-0"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(139, 94, 60, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(139, 94, 60, 0.1) 1px, transparent 1px)
-          `,
-          backgroundSize: "40px 40px"
-        }}
-      />
 
       {/* NEW WACKY MENU - Desktop */}
       <nav className="hidden lg:block fixed top-10 left-10 z-50 pointer-events-none">
@@ -103,42 +92,42 @@ export default function Home() {
               </span>
             </li>
             <li>
-              <Link href="/about" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+              <Link href="/about" className="hover:text-red-600 hover:tracking-widest transition-[color,letter-spacing] duration-200 inline-block">
                 about
               </Link>
             </li>
             <li>
-              <Link href="/services" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+              <Link href="/services" className="hover:text-red-600 hover:tracking-widest transition-[color,letter-spacing] duration-200 inline-block">
                 services
               </Link>
             </li>
             <li>
-              <Link href="/portfolio" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+              <Link href="/portfolio" className="hover:text-red-600 hover:tracking-widest transition-[color,letter-spacing] duration-200 inline-block">
                 portfolio
               </Link>
             </li>
             <li>
-              <Link href="/postcards" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+              <Link href="/postcards" className="hover:text-red-600 hover:tracking-widest transition-[color,letter-spacing] duration-200 inline-block">
                 postcards
               </Link>
             </li>
             <li>
-              <Link href="/blog" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+              <Link href="/blog" className="hover:text-red-600 hover:tracking-widest transition-[color,letter-spacing] duration-200 inline-block">
                 blog
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+              <Link href="/contact" className="hover:text-red-600 hover:tracking-widest transition-[color,letter-spacing] duration-200 inline-block">
                 contact
               </Link>
             </li>
             <li>
-              <Link href="/faq" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+              <Link href="/faq" className="hover:text-red-600 hover:tracking-widest transition-[color,letter-spacing] duration-200 inline-block">
                 faq
               </Link>
             </li>
             <li>
-              <Link href="/pricing" className="hover:text-red-600 hover:tracking-widest transition-all inline-block">
+              <Link href="/pricing" className="hover:text-red-600 hover:tracking-widest transition-[color,letter-spacing] duration-200 inline-block">
                 pricing
               </Link>
             </li>
@@ -231,32 +220,19 @@ export default function Home() {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-5xl md:text-8xl lg:text-[140px] font-black tracking-tighter leading-[0.9]">
-              <motion.span
-                className="inline-block"
-                animate={{ rotate: [-2, 2, -2] }}
-                transition={{ duration: 3, repeat: Infinity }}
-              >
+              <span className="inline-block animate-wiggle-slow">
                 WE
-              </motion.span>{" "}
-              <motion.span
-                className="inline-block text-outline"
-                animate={{ rotate: [2, -2, 2] }}
-                transition={{ duration: 3.5, repeat: Infinity }}
-              >
+              </span>{" "}
+              <span className="inline-block text-outline animate-wiggle-slow-reverse">
                 BUILD
-              </motion.span>
+              </span>
               <br />
-              <motion.span
-                className="relative inline-block"
-                style={{ color: "#ff4757" }}
-                animate={{ scale: [1, 1.05, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
+              <span className="relative inline-block animate-pulse-subtle" style={{ color: "#ff4757" }}>
                 STUFF
                 <span className="absolute -top-8 -right-12 text-3xl rotate-12 animate-wiggle">
                   💥
                 </span>
-              </motion.span>
+              </span>
             </h1>
 
           </motion.div>
@@ -336,23 +312,21 @@ export default function Home() {
 
           {/* CTA Button */}
           <motion.div
-            className="text-center mb-16 relative"
+            className="perf-section text-center mb-16 relative"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
           >
-            <motion.div
-              className="mb-4 text-3xl"
+            <div
+              className="mb-4 text-3xl animate-bounce-subtle"
               style={{ fontFamily: "var(--font-marker), cursive", color: TEXT }}
-              animate={{ y: [0, 8, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
             >
               ↓ click me!
-            </motion.div>
+            </div>
 
             <Link href="/services">
               <motion.div
-                className="inline-block bg-black text-white p-8 md:p-12 border-4 border-black shadow-brutal-lg hover:shadow-brutal hover:translate-x-2 hover:translate-y-2 transition-all cursor-pointer"
+                className="inline-block bg-black text-white p-8 md:p-12 border-4 border-black shadow-brutal-lg hover:shadow-brutal hover:translate-x-2 hover:translate-y-2 transition-[box-shadow,transform] duration-200 cursor-pointer"
                 whileHover={{ rotate: -2 }}
               >
                 <h2 className="text-4xl md:text-6xl font-black uppercase">
@@ -364,7 +338,7 @@ export default function Home() {
 
           {/* Slogan */}
           <motion.div
-            className="text-center mb-16"
+            className="perf-section text-center mb-16"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.7 }}
@@ -387,7 +361,7 @@ export default function Home() {
 
           {/* Bottom info card */}
           <motion.div
-            className="text-center"
+            className="perf-section text-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9 }}
@@ -406,7 +380,7 @@ export default function Home() {
                 (we work WITH robots, not AS robots)
               </p>
               <div className="flex justify-center gap-4 mt-3 text-3xl">
-                <span className="animate-pulse">🇬🇧</span>
+                <span className="animate-pulse-subtle">🇬🇧</span>
                 <span className="animate-spin-slow">🌍</span>
                 <span className="animate-wiggle">👨‍💻</span>
               </div>
@@ -415,7 +389,7 @@ export default function Home() {
 
           {/* WHACK-A-BOT GAME - Below the fold */}
           <motion.div
-            className="mt-20 mb-16 mx-auto px-4 max-w-md"
+            className="perf-section mt-20 mb-16 mx-auto px-4 max-w-md"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -461,7 +435,7 @@ export default function Home() {
                   <div className="text-lg mb-2">Final Score: {whackScore}</div>
                   <button
                     onClick={() => startSecretGame()}
-                    className="bg-black text-white px-6 py-2 text-sm font-black uppercase border-2 border-black shadow-brutal-sm hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all"
+                    className="bg-black text-white px-6 py-2 text-sm font-black uppercase border-2 border-black shadow-brutal-sm hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-[box-shadow,transform] duration-200"
                   >
                     PLAY AGAIN
                   </button>
@@ -480,7 +454,7 @@ export default function Home() {
                       key={i}
                       onClick={() => whackMole(i)}
                       disabled={!showRobot && !gameStarted}
-                      className={`border-2 border-black aspect-square flex items-center justify-center text-3xl md:text-4xl transition-all disabled:cursor-default ${showRobot
+                      className={`border-2 border-black aspect-square flex items-center justify-center text-3xl md:text-4xl transition-[background-color,transform] duration-150 disabled:cursor-default ${showRobot
                         ? 'bg-yellow-300 scale-110 cursor-pointer'
                         : 'bg-gradient-to-br from-green-100 to-blue-100'
                         }`}
@@ -493,21 +467,13 @@ export default function Home() {
             </div>
           </motion.div>
 
-          {/* Floating decorative elements */}
-          <motion.div
-            className="absolute top-40 right-10 text-6xl opacity-20 hidden lg:block pointer-events-none"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          >
+          {/* Decorative elements — CSS animations (GPU composited, no JS) */}
+          <div className="absolute top-40 right-10 text-6xl opacity-20 hidden lg:block pointer-events-none animate-spin-slow">
             ⚙️
-          </motion.div>
-          <motion.div
-            className="absolute bottom-40 left-10 text-7xl opacity-20 hidden lg:block pointer-events-none"
-            animate={{ y: [0, -20, 0] }}
-            transition={{ duration: 4, repeat: Infinity }}
-          >
+          </div>
+          <div className="absolute bottom-40 left-10 text-7xl opacity-20 hidden lg:block pointer-events-none animate-float">
             💡
-          </motion.div>
+          </div>
 
           {/* Legal Footer */}
           <LegalFooter />
