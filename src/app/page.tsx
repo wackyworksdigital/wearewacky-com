@@ -312,7 +312,7 @@ export default function Home() {
 
           {/* HEY JESS — Prominent CTA Banner */}
           <motion.div
-            className="perf-section mb-16 mx-auto max-w-2xl px-4"
+            className="perf-section mb-16 mx-auto max-w-2xl px-4 relative z-10"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.45 }}
@@ -345,7 +345,7 @@ export default function Home() {
 
           {/* CTA Button */}
           <motion.div
-            className="perf-section text-center mb-16 relative"
+            className="perf-section text-center mb-16 relative z-10"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
@@ -371,7 +371,7 @@ export default function Home() {
 
           {/* Slogan */}
           <motion.div
-            className="perf-section text-center mb-16"
+            className="perf-section text-center mb-16 relative z-10"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.7 }}
@@ -394,7 +394,7 @@ export default function Home() {
 
           {/* Bottom info card */}
           <motion.div
-            className="perf-section text-center"
+            className="perf-section text-center relative z-10"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9 }}
@@ -422,7 +422,7 @@ export default function Home() {
 
           {/* WHACK-A-BOT GAME - Below the fold */}
           <motion.div
-            className="perf-section mt-20 mb-16 mx-auto px-4 max-w-md"
+            className="perf-section mt-20 mb-16 mx-auto px-4 max-w-md relative z-10"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}

@@ -5,13 +5,6 @@
    Based on Google Stitch Output
    ============================================ */
 
-/* Prevent horizontal scrollbar from rotated tiles without clipping their
-   corners or shadows. Applied to <html> so it clips at viewport level,
-   not at <body> or <main> level where it would cut off rotated content. */
-html {
-  overflow-x: clip;
-}
-
 :root {
   /* Wacky Color Palette */
   --wacky-cream: #f0eadd;
