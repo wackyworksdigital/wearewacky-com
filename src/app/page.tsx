@@ -264,7 +264,7 @@ export default function Home() {
                     src="/images/hey-jess-office.png"
                     alt="Jess, AI receptionist for small business, sitting at a modern office desk handling WhatsApp, email, and social media messages"
                     fill
-                    className="object-cover object-[55%_center]"
+                    className="object-cover object-[65%_center]"
                     priority
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
