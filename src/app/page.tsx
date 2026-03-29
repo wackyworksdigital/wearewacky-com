@@ -79,7 +79,7 @@ export default function Home() {
   }, [gameStarted]);
 
   return (
-    <main className="relative min-h-[105vh] pb-0" style={{ backgroundColor: BG, color: TEXT }}>
+    <main className="relative min-h-[105vh] pb-0 overflow-x-hidden" style={{ backgroundColor: BG, color: TEXT }}>
 
       {/* NEW WACKY MENU - Desktop */}
       <nav className="hidden lg:block fixed top-10 left-10 z-50 pointer-events-none">
