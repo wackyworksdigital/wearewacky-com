@@ -310,6 +310,39 @@ export default function Home() {
             </motion.div>
           </motion.div>
 
+          {/* HEY JESS — Prominent CTA Banner */}
+          <motion.div
+            className="perf-section mb-16 mx-auto max-w-2xl px-4"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.45 }}
+          >
+            <Link href="/heyjess">
+              <div className="relative bg-[#1a365d] text-white p-8 md:p-10 border-4 border-black shadow-brutal hover:shadow-brutal-lg hover:-translate-x-1 hover:-translate-y-1 transition-[box-shadow,transform] duration-200 cursor-pointer rotate-1 hover:rotate-0">
+                <div className="flex flex-col md:flex-row items-center gap-6">
+                  <div className="text-center md:text-left flex-1">
+                    <p className="text-sm font-bold uppercase tracking-widest mb-2 opacity-75">New Product</p>
+                    <h3
+                      className="text-3xl md:text-4xl font-black leading-tight mb-3"
+                      style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+                    >
+                      MEET JESS — YOUR AI RECEPTIONIST
+                    </h3>
+                    <p
+                      className="text-base md:text-lg opacity-90"
+                      style={{ fontFamily: "var(--font-caveat), cursive" }}
+                    >
+                      She handles your WhatsApp, email, LinkedIn &amp; DMs. 24/7. In 90+ languages. From $29/mo.
+                    </p>
+                  </div>
+                  <div className="shrink-0 bg-white text-[#1a365d] px-6 py-3 font-black uppercase text-sm border-2 border-black">
+                    Check it out →
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+
           {/* CTA Button */}
           <motion.div
             className="perf-section text-center mb-16 relative"
