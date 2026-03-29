@@ -261,8 +261,8 @@ export default function Home() {
               >
                 <div className="relative aspect-[4/3] mb-4 overflow-hidden border-2 border-black">
                   <Image
-                    src="/images/jess-receptionist-postcard.jpg"
-                    alt="Vintage 1970s receptionist named Jess answering a telephone at a wood-panelled office desk"
+                    src="/images/hey-jess-office.webp"
+                    alt="Jess, AI receptionist for small business, sitting at a modern office desk handling WhatsApp, email, and social media messages"
                     fill
                     className="object-cover"
                     priority
