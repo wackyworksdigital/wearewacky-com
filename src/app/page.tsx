@@ -312,7 +312,7 @@ export default function Home() {
 
           {/* HEY JESS — Prominent CTA Banner */}
           <motion.div
-            className="perf-section mb-16 mx-auto max-w-2xl px-4"
+            className="perf-section mb-16 mx-auto max-w-2xl px-4 py-4"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.45 }}
@@ -422,7 +422,7 @@ export default function Home() {
 
           {/* WHACK-A-BOT GAME - Below the fold */}
           <motion.div
-            className="perf-section mt-20 mb-16 mx-auto px-4 max-w-md"
+            className="perf-section mt-20 mb-16 mx-auto px-4 max-w-md py-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
