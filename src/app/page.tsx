@@ -345,7 +345,7 @@ export default function Home() {
 
           {/* CTA Button */}
           <motion.div
-            className="perf-section text-center mb-16 relative"
+            className="perf-section text-center mb-16 relative py-4"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
@@ -371,7 +371,7 @@ export default function Home() {
 
           {/* Slogan */}
           <motion.div
-            className="perf-section text-center mb-16"
+            className="perf-section text-center mb-16 py-4"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.7 }}
@@ -394,7 +394,7 @@ export default function Home() {
 
           {/* Bottom info card */}
           <motion.div
-            className="perf-section text-center"
+            className="perf-section text-center py-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9 }}
