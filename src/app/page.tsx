@@ -210,7 +210,7 @@ export default function Home() {
 
       {/* HERO SECTION */}
       <div className="relative z-10 min-h-screen flex items-center justify-center px-6 pt-20 md:pt-40 lg:pt-12 pb-5">
-        <div className="w-full max-w-6xl">
+        <div className="w-full max-w-6xl isolate">
 
           {/* Big title */}
           <motion.div
@@ -312,7 +312,7 @@ export default function Home() {
 
           {/* HEY JESS — Prominent CTA Banner */}
           <motion.div
-            className="perf-section mb-16 mx-auto max-w-2xl px-4 relative z-10"
+            className="perf-section mb-16 mx-auto max-w-2xl px-4"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.45 }}
@@ -345,7 +345,7 @@ export default function Home() {
 
           {/* CTA Button */}
           <motion.div
-            className="perf-section text-center mb-16 relative z-10"
+            className="perf-section text-center mb-16 relative"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
@@ -371,7 +371,7 @@ export default function Home() {
 
           {/* Slogan */}
           <motion.div
-            className="perf-section text-center mb-16 relative z-10"
+            className="perf-section text-center mb-16"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.7 }}
@@ -394,7 +394,7 @@ export default function Home() {
 
           {/* Bottom info card */}
           <motion.div
-            className="perf-section text-center relative z-10"
+            className="perf-section text-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.9 }}
@@ -422,7 +422,7 @@ export default function Home() {
 
           {/* WHACK-A-BOT GAME - Below the fold */}
           <motion.div
-            className="perf-section mt-20 mb-16 mx-auto px-4 max-w-md relative z-10"
+            className="perf-section mt-20 mb-16 mx-auto px-4 max-w-md"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
