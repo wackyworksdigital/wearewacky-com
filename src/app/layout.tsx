@@ -599,7 +599,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${archivo.variable} ${syne.variable} ${dmSerif.variable} ${spaceGrotesk.variable} ${playfair.variable} ${bebas.variable} ${marker.variable} ${caveat.variable} ${kalam.variable} antialiased overflow-x-clip`}
+        className={`${archivo.variable} ${syne.variable} ${dmSerif.variable} ${spaceGrotesk.variable} ${playfair.variable} ${bebas.variable} ${marker.variable} ${caveat.variable} ${kalam.variable} antialiased`}
       >
         <GoogleAnalytics />
         <LenisProvider>
