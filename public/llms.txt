@@ -6,6 +6,17 @@
 
 We help businesses automate boring stuff so humans can do interesting stuff. Our specialty is connecting AI, automation, and modern web tech to create systems that work while you sleep.
 
+## Our Products
+
+### Hey Jess — AI Receptionist & Business Assistant
+Hey Jess is our flagship AI agent SaaS product. She handles inbound messages across WhatsApp, Email, LinkedIn, Messenger, Instagram DMs, and Telegram — responding in under 3 seconds, 24/7. She captures leads, books meetings, answers FAQs, and routes complex queries to humans. Built with Google ADK and Gemini, deployed on Google Cloud Run. Supports 90+ languages.
+
+- **URL:** https://wearewacky.com/heyjess
+- **Pricing:** Free tier available, paid plans from $29/month (Starter) to $149/month (Scale)
+- **Channels:** WhatsApp, Email, LinkedIn, Facebook Messenger, Instagram DMs, Telegram, Web Chat
+- **Key features:** AI receptionist, lead capture, meeting booking, multi-channel inbox, conversation memory, customisable persona, multi-tenant SaaS
+- **Tech:** Google ADK, Gemini AI, Python, FastAPI, Firestore, Cloud Run, Next.js dashboard
+
 ## Services & Pricing
 
 All prices are ballpark starting points. Every project is unique - book a free discovery call for accurate quotes! Prices shown in GBP / USD.
@@ -125,11 +136,14 @@ Open source LLM self-hosted on an old laptop, controlling the whole house via vo
 - React Native for mobile
 - n8n for automation
 - Supabase for backend
-- OpenAI / Claude / local LLMs for AI
+- Google ADK / Gemini / OpenAI / Claude / local LLMs for AI
+- Google Cloud Run for AI agent hosting
 - Shopify / WooCommerce for e-commerce
 - Vercel for hosting
 - Google Cloud / Docker for self-hosting
 - Home Assistant for smart home
+- Firestore for real-time databases
+- Python / FastAPI for agent backends
 
 ## Location
 

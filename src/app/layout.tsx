@@ -182,9 +182,16 @@ const jsonLd = {
       },
       knowsAbout: [
         "AI Agents",
+        "AI Receptionist",
+        "AI Business Assistant",
+        "Multi-Agent AI Systems",
+        "Conversational AI",
+        "AI SaaS Products",
         "Workflow Automation",
         "n8n",
         "Zapier",
+        "Google ADK",
+        "Gemini AI",
         "Next.js",
         "React",
         "Shopify",
@@ -194,6 +201,8 @@ const jsonLd = {
         "Branding",
         "Photo Shoots",
         "Video Production",
+        "WhatsApp Automation",
+        "Multi-Channel Messaging",
       ],
       slogan: "We're not for everyone. And that's the point.",
       priceRange: "££-£££",
@@ -413,6 +422,47 @@ const jsonLd = {
         { "@type": "AdministrativeArea", name: "Berkshire" },
       ],
     },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://wearewacky.com/heyjess#app",
+      name: "Hey Jess",
+      url: "https://wearewacky.com/heyjess",
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Web",
+      description: "AI receptionist and business assistant that handles inbound messages across WhatsApp, Email, LinkedIn, Messenger, Instagram DMs, and Telegram. Responds in under 3 seconds, 24/7. Captures leads, books meetings, answers FAQs, and supports 90+ languages.",
+      creator: { "@id": "https://wearewacky.com/#organization" },
+      offers: [
+        {
+          "@type": "Offer",
+          name: "Free",
+          price: "0",
+          priceCurrency: "USD",
+          description: "1 channel, 50 messages/month",
+        },
+        {
+          "@type": "Offer",
+          name: "Starter",
+          price: "29",
+          priceCurrency: "USD",
+          description: "3 channels, 500 messages/month",
+        },
+        {
+          "@type": "Offer",
+          name: "Pro",
+          price: "79",
+          priceCurrency: "USD",
+          description: "All channels, 2000 messages/month, calendar booking",
+        },
+        {
+          "@type": "Offer",
+          name: "Scale",
+          price: "149",
+          priceCurrency: "USD",
+          description: "Unlimited messages, priority support, custom integrations",
+        },
+      ],
+      featureList: "AI Receptionist, Lead Capture, Meeting Booking, Multi-Channel Inbox, WhatsApp, Email, LinkedIn, Messenger, Instagram DMs, Telegram, Web Chat, 90+ Languages, Customisable Persona, Multi-Tenant",
+    },
     // FAQPage schema for AI citations
     {
       "@type": "FAQPage",
@@ -512,6 +562,14 @@ const jsonLd = {
           acceptedAnswer: {
             "@type": "Answer",
             text: "Start with one specific pain point - customer support queries, content creation, data entry, or repetitive admin tasks. We offer free discovery calls to identify quick wins that deliver ROI within weeks, not months. Most businesses see results from their first AI automation within 2-4 weeks.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What is Hey Jess?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Hey Jess is our AI receptionist and business assistant SaaS product. She handles inbound messages across WhatsApp, Email, LinkedIn, Messenger, Instagram DMs, Telegram, and Web Chat — responding in under 3 seconds, 24/7. She captures leads, books meetings, answers FAQs, supports 90+ languages, and routes complex queries to humans. Plans start from $29/month with a free tier available. Learn more at wearewacky.com/heyjess.",
           },
         },
         {
