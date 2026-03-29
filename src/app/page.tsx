@@ -261,7 +261,7 @@ export default function Home() {
               >
                 <div className="relative aspect-[4/3] mb-4 overflow-hidden border-2 border-black">
                   <Image
-                    src="/images/hey-jess-office.webp"
+                    src="/images/hey-jess-office.png"
                     alt="Jess, AI receptionist for small business, sitting at a modern office desk handling WhatsApp, email, and social media messages"
                     fill
                     className="object-cover"
