@@ -1,0 +1,51 @@
+{
+  "name": "Wacky Works Digital",
+  "description": "UK-based digital agency specialising in AI agents, workflow automation, and modern web solutions. We build digital assets that generate revenue, save time, and automate workflows.",
+  "url": "https://wearewacky.com",
+  "logo": "https://wearewacky.com/Wacky Works Digital transparent logo colour - 4096x4096.png",
+  "provider": {
+    "organization": "Wacky Works Digital",
+    "url": "https://wearewacky.com"
+  },
+  "version": "1.0.0",
+  "capabilities": {
+    "services": [
+      "AI Agent Development",
+      "Workflow Automation (n8n, Zapier, Make)",
+      "RAG & Knowledge Systems",
+      "Website Development (Next.js, React)",
+      "E-commerce (Shopify)",
+      "App Development (React Native)",
+      "AI Content Pipelines",
+      "Branding & Identity",
+      "Photo & Video Production",
+      "Self-Hosted Tools"
+    ],
+    "products": [
+      {
+        "name": "Hey Jess",
+        "type": "AI Receptionist & Business Assistant",
+        "url": "https://wearewacky.com/heyjess",
+        "description": "AI-powered multi-channel receptionist handling WhatsApp, Email, LinkedIn, Messenger, Instagram, Telegram, and Web Chat. Responds in under 3 seconds, 24/7.",
+        "pricing": "Free tier available, paid plans from $29/month"
+      }
+    ]
+  },
+  "contact": {
+    "email": "hello@wearewacky.com",
+    "url": "https://wearewacky.com/contact"
+  },
+  "documentation": {
+    "llms_txt": "https://wearewacky.com/llms.txt",
+    "llms_full_txt": "https://wearewacky.com/llms-full.txt"
+  },
+  "social": {
+    "instagram": "https://www.instagram.com/wackyworksdigital/",
+    "facebook": "https://www.facebook.com/wackyworksdigital/",
+    "twitter": "https://x.com/wackywdigital",
+    "linkedin": "https://www.linkedin.com/company/109555093/",
+    "tiktok": "https://www.tiktok.com/@wackyworksdigital",
+    "youtube": "https://www.youtube.com/channel/UCg5R_Elt0Li5gI2gyZi6ajw",
+    "github": "https://github.com/wackyworksdigital"
+  }
+}

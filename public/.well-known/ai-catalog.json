@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "domain": "wearewacky.com",
+  "organization": "Wacky Works Digital",
+  "description": "Unified AI service discovery for Wacky Works Digital — UK digital agency and AI product company.",
+  "services": [
+    {
+      "name": "Wacky Works Digital (Agency)",
+      "type": "a2a",
+      "description": "Agency-level agent card with capabilities and services.",
+      "url": "/.well-known/agent.json"
+    },
+    {
+      "name": "Wacky Works Digital (AI Plugin)",
+      "type": "openai-plugin",
+      "description": "OpenAI plugin manifest for AI model consumption.",
+      "url": "/.well-known/ai-plugin.json"
+    },
+    {
+      "name": "Hey Jess — AI Receptionist (Agent Card)",
+      "type": "a2a",
+      "description": "Hey Jess product-level agent card with AI receptionist capabilities.",
+      "url": "/heyjess/.well-known/agent.json"
+    },
+    {
+      "name": "Hey Jess — AI Receptionist (AI Plugin)",
+      "type": "openai-plugin",
+      "description": "Hey Jess OpenAI plugin manifest.",
+      "url": "/heyjess/.well-known/ai-plugin.json"
+    }
+  ],
+  "documentation": {
+    "agency": {
+      "llms_txt": "/llms.txt",
+      "llms_full_txt": "/llms-full.txt"
+    },
+    "hey_jess": {
+      "llms_txt": "/heyjess/llms.txt",
+      "llms_full_txt": "/heyjess/llms-full.txt"
+    }
+  },
+  "contact": {
+    "email": "hello@wearewacky.com",
+    "url": "https://wearewacky.com/contact"
+  }
+}

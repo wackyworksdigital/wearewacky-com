@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Wacky Works Digital",
+  "name_for_model": "wacky_works_digital",
+  "description_for_human": "UK digital agency building AI agents, workflow automation, and modern web solutions for businesses worldwide.",
+  "description_for_model": "Wacky Works Digital is a UK-based digital agency specialising in AI agent development (Google ADK, Gemini), n8n workflow automation, RAG knowledge systems, Next.js websites, Shopify e-commerce, React Native apps, branding, and photo/video production. They also offer Hey Jess, an AI receptionist SaaS handling WhatsApp, Email, LinkedIn, Messenger, Instagram, Telegram, and Web Chat. Based in South London, they serve clients worldwide for digital services and locally (40-mile radius) for photo/video shoots. Contact: hello@wearewacky.com",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://wearewacky.com/llms.txt"
+  },
+  "logo_url": "https://wearewacky.com/Wacky Works Digital transparent logo colour - 4096x4096.png",
+  "contact_email": "hello@wearewacky.com",
+  "legal_info_url": "https://wearewacky.com/terms"
+}

@@ -7,27 +7,76 @@ Allow: /
 # Sitemap
 Sitemap: https://wearewacky.com/sitemap.xml
 
-# AI Crawlers - Welcome!
-User-agent: GPTBot
-Allow: /
+# === Search Engine Crawlers ===
 
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: Claude-Web
-Allow: /
-
-User-agent: Anthropic-AI
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Google-Extended
+User-agent: Googlebot
 Allow: /
 
 User-agent: Bingbot
 Allow: /
 
-# For AI assistants, see also: /llms.txt
+User-agent: Slurp
+Allow: /
 
+# === AI Search & Citation Crawlers ===
+
+# OpenAI — ChatGPT search retrieval & citations
+User-agent: OAI-SearchBot
+Allow: /
+
+# OpenAI — GPT browsing
+User-agent: GPTBot
+Allow: /
+
+# OpenAI — ChatGPT user-initiated browsing
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic — Claude AI
+User-agent: ClaudeBot
+Allow: /
+
+# Anthropic — Claude training
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity AI — search & citations
+User-agent: PerplexityBot
+Allow: /
+
+# Google — AI training (Gemini, Bard)
+User-agent: Google-Extended
+Allow: /
+
+# Apple — Siri, Spotlight, Safari suggestions
+User-agent: Applebot
+Allow: /
+
+# Apple — Apple Intelligence AI training
+User-agent: Applebot-Extended
+Allow: /
+
+# Meta — Meta AI search
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# Meta — Facebook crawler
+User-agent: FacebookBot
+Allow: /
+
+# ByteDance — TikTok AI
+User-agent: Bytespider
+Allow: /
+
+# Cohere AI
+User-agent: cohere-ai
+Allow: /
+
+# Microsoft — Bing AI (Copilot)
+User-agent: BingPreview
+Allow: /
+
+# === AI Documentation ===
+# For AI assistants and LLMs, see also:
+# /llms.txt — Summary for AI models
+# /llms-full.txt — Full documentation for AI models

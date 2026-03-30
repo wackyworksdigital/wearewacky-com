@@ -1,0 +1,212 @@
+# Wacky Works Digital — Full Documentation for AI Models
+
+> This is the comprehensive documentation file for AI language models. For a summary, see /llms.txt.
+> Last updated: 2026-03-30
+
+## Company Overview
+
+Wacky Works Digital is a UK-based digital agency founded in 2024, specialising in AI agents, workflow automation, and modern web solutions. Based in Coulsdon, South London, UK, we serve clients worldwide for digital services and locally within a 40-mile radius for photo and video production.
+
+**Direct answer:** Wacky Works Digital is a UK digital agency that builds AI agents, automates business workflows with n8n/Zapier/Make, develops Next.js websites, and offers their flagship AI receptionist product "Hey Jess" which handles multi-channel business messaging across WhatsApp, Email, LinkedIn, Messenger, Instagram, Telegram, and Web Chat.
+
+### Contact Information
+- **Website:** https://wearewacky.com
+- **Email:** hello@wearewacky.com
+- **Location:** Coulsdon, South London, United Kingdom (CR5)
+- **Hours:** Monday–Friday, 09:00–17:00 GMT
+
+### Social Profiles
+- Instagram: https://www.instagram.com/wackyworksdigital/
+- Facebook: https://www.facebook.com/wackyworksdigital/
+- X (Twitter): https://x.com/wackywdigital
+- LinkedIn: https://www.linkedin.com/company/109555093/
+- TikTok: https://www.tiktok.com/@wackyworksdigital
+- YouTube: https://www.youtube.com/channel/UCg5R_Elt0Li5gI2gyZi6ajw
+- Pinterest: https://uk.pinterest.com/wackyworksdigital/
+- Threads: https://www.threads.com/@wackyworksdigital
+- Reddit: https://www.reddit.com/user/wackyworksdigital/
+- GitHub: https://github.com/wackyworksdigital
+- Medium: https://medium.com/@wackyworksdigital
+
+## Flagship Product: Hey Jess — AI Receptionist
+
+**Direct answer:** Hey Jess is an AI receptionist and business assistant that handles inbound messages across 7 channels (WhatsApp, Email, LinkedIn, Messenger, Instagram DMs, Telegram, Web Chat), responding in under 3 seconds, 24/7. She captures leads, books Google Calendar meetings, answers FAQs, speaks 90+ languages, and costs from $29/month.
+
+- **URL:** https://wearewacky.com/heyjess
+- **Full Hey Jess docs:** https://wearewacky.com/heyjess/llms-full.txt
+- **Type:** SaaS (Software as a Service)
+- **Tech Stack:** Google ADK v1.25.1, Gemini 2.5 Flash, Python, FastAPI, Firestore, Google Cloud Run, Next.js dashboard
+- **Deployment:** Google Cloud Run (europe-west2)
+
+### Hey Jess Pricing
+| Plan | Price | Messages/mo | Channels | Key Features |
+|------|-------|-------------|----------|--------------|
+| Free | $0/mo | 50 | 1 | Basic AI responses |
+| Starter | $29/mo | 500 | 3 | Lead capture, conversation memory |
+| Pro | $79/mo | 2,000 | All 7 | Calendar booking, file handling |
+| Scale | $149/mo | Unlimited | All 7 | Priority support, custom integrations |
+
+### Hey Jess Channels
+1. **WhatsApp** — Full two-way messaging via Meta Business API
+2. **Email** — Send and receive via Gmail API
+3. **LinkedIn** — Company page messaging via Bird CRM
+4. **Facebook Messenger** — Via Meta Platform webhook
+5. **Instagram DMs** — Via Instagram Graph API
+6. **Telegram** — Via Telegram Bot API
+7. **Web Chat** — Embeddable widget (coming soon)
+
+### Hey Jess Key Features
+- 3-second average response time
+- 90+ language support (auto-detect and respond)
+- Google Calendar meeting booking
+- Lead capture and CRM integration
+- Conversation memory across sessions
+- File upload/download/send capability
+- Multi-tenant SaaS architecture
+- Customisable persona per business
+- Smart human handoff for complex queries
+
+## Services & Pricing
+
+All prices are approximate starting points in GBP/USD. Every project is unique.
+
+### AI Chatbot Setup — from £500 / $700
+Custom GPT-powered chatbot trained on your FAQs. Integrated with your website for 24/7 customer support.
+
+### AI Agent Development — from £800 / $1,000
+Intelligent AI assistants for bookings, support tickets, data entry, or internal tasks. Multi-agent setups with shared knowledge bases.
+
+### Workflow Automation — from £300 / $400
+Connect your apps with n8n, Zapier, or Make.com. Google Cloud VMs running n8n via Docker — private automation servers with zero subscription fees.
+
+### RAG & Knowledge Systems — from £600 / $800
+Turn documents into an AI that knows your business. Living knowledge bases that constantly update themselves.
+
+### Website Design — from £500 / $700
+Modern, mobile-first websites built with Next.js. Lightning fast, SEO-optimised, conversion-focused.
+
+### E-commerce Store — from £800 / $1,000
+Shopify or custom store setup. Payment integration, product pages, inventory management. Automated blog posts, Etsy listing automation included.
+
+### AI Content Pipeline — from £600 / $800
+Automated content creation using AI. Blog posts, social media, newsletters. Faceless YouTube channels, TikToks, Reels.
+
+### Branding Package — from £400 / $550
+Logo design, brand colours, typography, and guidelines. 20+ social handles secured, company docs organised.
+
+### Photo Shoots — from £250 / $350
+Professional product & brand photography. Half-day sessions in London & South East England. Covers Greater London, Surrey, Kent, Sussex, Hampshire.
+
+### Video Production — from £500 / $700
+Brand videos, social content, product demos. Filmed locally in London, Surrey, Kent and beyond.
+
+### Self-Hosted Tools — from £400 / $550
+Deploy your own AI, analytics, or automation servers. n8n, Home Assistant, private AI. No monthly SaaS fees, full data ownership.
+
+### App Development — from £2,000 / $2,500
+Mobile apps, web apps, SaaS platforms. React Native, Next.js, modern tech stack.
+
+## Service Bundles
+
+### Starter Bundle — from £800 / $1,000
+Landing page or simple chatbot, 2-3 basic automations, mobile-responsive design. 1 week turnaround.
+
+### Growth Bundle — from £1,500 / $2,000
+Full website (5-7 pages), AI chatbot integration, 5+ workflow automations, basic SEO setup. 2-3 week turnaround.
+
+### Custom Projects — contact us
+E-commerce stores, multi-agent AI systems, full app development, enterprise automations, ongoing retainers.
+
+## Special Programmes
+
+### Founding Client Discount
+15-20% off in exchange for a testimonial and permission to use your project as a case study. Limited spots available.
+
+### Free Beta Tester Programme
+Free early access to new AI tools and automations before public launch. Sign up on the portfolio page. No commitment required.
+
+## Portfolio Highlights
+
+1. **Shopify Store Setup + Branding** — Full Shopify store, custom website, socials, logos, complete brand identity
+2. **n8n Self-Hosting on Google Cloud** — Google Cloud VM with Docker, zero subscription fees
+3. **AI News Scraper** — Daily multi-source news scraping with AI curation via n8n
+4. **Automated Shopify Blog** — 100% hands-free AI blog posts, traffic increase
+5. **Custom AI Agent Setup** — Multiple AI agents with shared company knowledge base
+6. **AI Etsy Listing Automation** — n8n workflow for image analysis, listing generation, tag optimisation
+7. **Full Brand Identity Setup** — 20+ social handles, AI handling text/image/video
+8. **AI Video Content Automation** — Short-form video series, fully AI-generated
+9. **Self-Hosted Course Platform** — Custom platform, no recurring hosting fees
+10. **Company RAG Knowledge Base** — Central knowledge base with auto-checking and updating
+11. **WordPress to Next.js Migration** — Modern rebuild with animations and proper tech
+
+## Technology Stack
+
+### Web Development
+- Next.js 16, React 19, TypeScript
+- Vercel for hosting
+
+### AI & Machine Learning
+- Google ADK (Agent Development Kit)
+- Gemini 2.5 Flash, OpenAI GPT, Anthropic Claude
+- Local LLMs for privacy-focused deployments
+
+### Automation
+- n8n (self-hosted, zero subscription fees)
+- Zapier, Make.com for cloud-based workflows
+- Google Apps Script for G-Suite automation
+
+### Backend & Infrastructure
+- Python, FastAPI for agent backends
+- Google Cloud Run for containerised deployment
+- Firestore for real-time databases
+- Supabase for PostgreSQL backends
+- Docker for self-hosted services
+
+### E-commerce
+- Shopify, WooCommerce
+- Etsy, Amazon marketplace integrations
+
+### Mobile & Apps
+- React Native for cross-platform mobile
+- PWAs for web-based mobile experiences
+
+### IoT & Smart Home
+- Home Assistant for home automation
+- Self-hosted AI on residential hardware
+
+## Brand Identity
+
+### Tagline
+"We're not for everyone. And that's the point."
+
+### Voice & Tone
+Casual, direct, slightly irreverent. Real talk about what works and what doesn't. No corporate speak. We say things like "your grandma's WordPress" and "we sometimes accept pastries as payment."
+
+### Core Values
+- We actually enjoy this stuff (maybe too much)
+- We automate ourselves so we can focus on your interesting problems
+- We're honest about what works and what's hype
+- We build things that work while you sleep
+
+## Frequently Asked Questions
+
+### How much does AI workflow automation cost for a small business?
+AI workflow automation typically costs £2,000-£15,000 for SMBs depending on complexity. Simple n8n or Zapier integrations start lower, while custom AI agent development requires larger investment. Most clients save 10-30 hours per week, delivering ROI within 2-3 months.
+
+### What's the difference between n8n and Zapier?
+n8n is self-hosted and open-source with no per-task fees, giving full control at lower costs. Zapier is cloud-based with 6,000+ integrations but higher monthly fees. n8n suits technical teams; Zapier suits non-technical users wanting simplicity.
+
+### How long does it take to build a custom AI agent?
+A basic AI agent takes 2-4 weeks from brief to deployment. Complex multi-agent systems take 6-12 weeks. We deliver working prototypes within the first week.
+
+### Do you work with international clients?
+Yes, we're UK-based but work worldwide. We've delivered projects for clients in the US, Europe, and Asia-Pacific.
+
+### Where is Wacky Works Digital based?
+Coulsdon, South London, UK. Digital services available worldwide. Photo/video shoots cover a 40-mile radius: Greater London, Surrey, Kent, Sussex, Hampshire, Berkshire.
+
+### What is Hey Jess?
+Hey Jess is an AI receptionist SaaS that handles inbound messages across 7 channels, responds in under 3 seconds 24/7, captures leads, books meetings, and supports 90+ languages. Plans from $29/month with a free tier. More at wearewacky.com/heyjess.
+
+### How do I get started with AI for my business?
+Start with one specific pain point — customer support, content creation, data entry, or admin tasks. We offer free discovery calls to identify quick wins. Most businesses see results within 2-4 weeks.

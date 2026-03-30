@@ -1,0 +1,22 @@
+/* TEAM */
+Founder & Developer: Saby
+Role: Founder, Full-Stack Developer, AI Engineer
+Location: South London, United Kingdom
+Contact: hello [at] wearewacky.com
+Twitter: @wackywdigital
+LinkedIn: /company/109555093
+
+/* THANKS */
+Google ADK — AI agent framework
+Gemini — Large language model
+Vercel — Hosting platform
+Next.js — React framework
+
+/* SITE */
+Last updated: 2026-03-30
+Standards: HTML5, CSS3, ES2024
+Frameworks: Next.js 16, React 19
+Languages: TypeScript, Python
+AI: Google ADK, Gemini 2.5 Flash, Firestore
+Hosting: Vercel (web), Google Cloud Run (agents)
+Software: VS Code, Figma, n8n
