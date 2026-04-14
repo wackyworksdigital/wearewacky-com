@@ -311,6 +311,39 @@ export default function Home() {
             </motion.div>
           </motion.div>
 
+          {/* SCAN LOGIN — Prominent CTA Banner */}
+          <motion.div
+            className="perf-section mb-16 mx-auto max-w-2xl px-4 py-4"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35 }}
+          >
+            <Link href="/scanlogin">
+              <div className="relative bg-black text-white p-8 md:p-10 border-4 border-black shadow-brutal hover:shadow-brutal-lg hover:-translate-x-1 hover:-translate-y-1 transition-[box-shadow,transform] duration-200 cursor-pointer -rotate-1 hover:rotate-0">
+                <div className="flex flex-col md:flex-row items-center gap-6">
+                  <div className="text-center md:text-left flex-1">
+                    <p className="text-sm font-bold uppercase tracking-widest mb-2 opacity-75">New App</p>
+                    <h3
+                      className="text-3xl md:text-4xl font-black leading-tight mb-3"
+                      style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+                    >
+                      SCAN LOGIN — YOUR LOGIN, AS A BARCODE
+                    </h3>
+                    <p
+                      className="text-base md:text-lg opacity-90"
+                      style={{ fontFamily: "var(--font-caveat), cursive" }}
+                    >
+                      For warehouse workers who&apos;d rather not type with cold gloves on. Free. Offline. Android.
+                    </p>
+                  </div>
+                  <div className="shrink-0 bg-white text-black px-6 py-3 font-black uppercase text-sm border-2 border-black">
+                    Check it out →
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </motion.div>
+
           {/* FLIP CARD HERO - "MEET JESS" POSTCARD */}
           <motion.div
             className="mb-16 mx-auto px-4 max-w-lg cursor-pointer"
