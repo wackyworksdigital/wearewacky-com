@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { QRCodeSVG } from "qrcode.react";
 import { LegalFooter } from "@/components/ui/legal-footer";
 
 const TEXT = "#3d3428";
@@ -260,15 +261,15 @@ export default function Home() {
                 className="bg-white p-4 border-4 border-black shadow-brutal rotate-1"
                 style={{ backfaceVisibility: "hidden" }}
               >
-                <div className="relative aspect-[4/3] mb-4 overflow-hidden border-2 border-black bg-white flex flex-col items-center justify-center px-8 py-6">
-                  <div className="flex items-stretch gap-[2px] h-[65%] w-full">
-                    {[3,1,2,4,1,3,1,2,1,4,2,1,3,2,4,1,3,1,2,1,4,2,1,3,1,2,4,1,2,3,1,4,1,2,3,1,2,4,1,3,2,1].map((w, i) => (
-                      <div key={i} className="bg-black" style={{ width: `${w}px`, flexShrink: 0 }} />
-                    ))}
-                  </div>
-                  <div className="mt-3 text-xs font-mono tracking-[0.3em] text-black/80">
-                    SCAN_LOGIN
-                  </div>
+                <div className="relative aspect-[4/3] mb-4 overflow-hidden border-2 border-black bg-black flex items-center justify-center p-6">
+                  <QRCodeSVG
+                    value="https://wearewacky.com/scanlogin"
+                    size={220}
+                    bgColor="#000000"
+                    fgColor="#ffffff"
+                    level="M"
+                    className="w-full h-full max-w-[70%] max-h-[90%]"
+                  />
                 </div>
 
                 <div className="text-center">
@@ -276,7 +277,7 @@ export default function Home() {
                     className="text-3xl md:text-4xl font-bold leading-tight rotate-1"
                     style={{ fontFamily: "var(--font-caveat), cursive", color: "#1a365d" }}
                   >
-                    meet scan login. your login, as a barcode.
+                    scan it.... i dare you!
                   </h2>
                 </div>
               </div>
