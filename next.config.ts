@@ -30,14 +30,41 @@ const nextConfig: NextConfig = {
   },
   async rewrites() {
     return [
-      // Hey Jess Landing Page (already indexed, do not move)
+      // Hey Jess — AI Receptionist & PA (already indexed, do not move)
       {
         source: '/heyjess',
-        destination: 'https://agent-jess-landing.vercel.app/',
+        destination: 'https://agent-jess-landing.vercel.app/heyjess',
       },
       {
         source: '/heyjess/:path*',
-        destination: 'https://agent-jess-landing.vercel.app/:path*',
+        destination: 'https://agent-jess-landing.vercel.app/heyjess/:path*',
+      },
+      // Social Sarah — AI Social Media Manager
+      {
+        source: '/socialsarah',
+        destination: 'https://agent-jess-landing.vercel.app/socialsarah',
+      },
+      {
+        source: '/socialsarah/:path*',
+        destination: 'https://agent-jess-landing.vercel.app/socialsarah/:path*',
+      },
+      // Freddie Finance — AI Tax Advisor
+      {
+        source: '/freddiefinance',
+        destination: 'https://agent-jess-landing.vercel.app/freddiefinance',
+      },
+      {
+        source: '/freddiefinance/:path*',
+        destination: 'https://agent-jess-landing.vercel.app/freddiefinance/:path*',
+      },
+      // The Agency — platform overview
+      {
+        source: '/theagency',
+        destination: 'https://agent-jess-landing.vercel.app/theagency',
+      },
+      {
+        source: '/theagency/:path*',
+        destination: 'https://agent-jess-landing.vercel.app/theagency/:path*',
       },
     ];
   },
