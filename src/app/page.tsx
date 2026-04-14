@@ -12,6 +12,7 @@ const BG = "#f0eadd";
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [heroFlipped, setHeroFlipped] = useState(false);
+  const [scanLoginFlipped, setScanLoginFlipped] = useState(false);
 
   // Whack-a-Bot Game State (below the fold)
   const [whackScore, setWhackScore] = useState(0);
@@ -235,6 +236,79 @@ export default function Home() {
               </span>
             </h1>
 
+          </motion.div>
+
+          {/* SCAN LOGIN — Flip Polaroid Hero */}
+          <motion.div
+            className="mb-10 mx-auto px-4 max-w-lg cursor-pointer"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            onClick={() => setScanLoginFlipped(!scanLoginFlipped)}
+            style={{ perspective: "1000px" }}
+          >
+            <motion.div
+              className="relative w-full"
+              style={{
+                transformStyle: "preserve-3d",
+                transition: "transform 0.6s"
+              }}
+              animate={{ rotateY: scanLoginFlipped ? 180 : 0 }}
+            >
+              {/* FRONT - Barcode Polaroid */}
+              <div
+                className="bg-white p-4 border-4 border-black shadow-brutal rotate-1"
+                style={{ backfaceVisibility: "hidden" }}
+              >
+                <div className="relative aspect-[4/3] mb-4 overflow-hidden border-2 border-black bg-white flex flex-col items-center justify-center px-8 py-6">
+                  <div className="flex items-stretch gap-[2px] h-[65%] w-full">
+                    {[3,1,2,4,1,3,1,2,1,4,2,1,3,2,4,1,3,1,2,1,4,2,1,3,1,2,4,1,2,3,1,4,1,2,3,1,2,4,1,3,2,1].map((w, i) => (
+                      <div key={i} className="bg-black" style={{ width: `${w}px`, flexShrink: 0 }} />
+                    ))}
+                  </div>
+                  <div className="mt-3 text-xs font-mono tracking-[0.3em] text-black/80">
+                    SCAN_LOGIN
+                  </div>
+                </div>
+
+                <div className="text-center">
+                  <h2
+                    className="text-3xl md:text-4xl font-bold leading-tight rotate-1"
+                    style={{ fontFamily: "var(--font-caveat), cursive", color: "#1a365d" }}
+                  >
+                    meet scan login. your login, as a barcode.
+                  </h2>
+                </div>
+              </div>
+
+              {/* BACK - Handwritten Scan Login Message */}
+              <div
+                className="absolute inset-0 p-4 border-4 border-black shadow-brutal -rotate-1"
+                style={{
+                  backfaceVisibility: "hidden",
+                  transform: "rotateY(180deg)",
+                  backgroundColor: "#fffef9"
+                }}
+              >
+                <div
+                  className="h-full flex flex-col justify-center leading-tight"
+                  style={{ fontFamily: "var(--font-caveat), cursive", color: "#1a365d" }}
+                >
+                  <p className="text-base md:text-lg font-bold">So we built a little Android app.</p>
+                  <p className="text-sm md:text-base">It&apos;s called Scan Login.</p>
+                  <p className="text-sm md:text-base mt-1">Your warehouse User ID and Password — as barcodes.</p>
+                  <p className="text-base md:text-lg font-bold underline">No more typing with gloves on.</p>
+                  <p className="text-xs md:text-sm mt-1">Tap the lock screen notification. Scan. Done.</p>
+                  <p className="text-sm md:text-base font-bold mt-1">Free. No accounts. No internet.</p>
+                  <p className="text-xs md:text-sm">Nothing leaves your phone.</p>
+                  <p className="text-sm md:text-base font-bold mt-2">Built for the chiller. Tested at 3°C.</p>
+                  <p className="text-sm md:text-base font-bold underline">Coming to the Play Store soon.</p>
+                  <p className="text-sm md:text-base mt-2">
+                    🏷️ <Link href="/scanlogin" className="underline hover:text-red-600">wearewacky.com/scanlogin</Link> ❤️
+                  </p>
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
 
           {/* FLIP CARD HERO - "MEET JESS" POSTCARD */}
