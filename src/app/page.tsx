@@ -367,7 +367,7 @@ export default function Home() {
                 className="bg-white p-4 border-4 border-black shadow-brutal -rotate-1"
                 style={{ backfaceVisibility: "hidden" }}
               >
-                <div className="relative aspect-[4/3] mb-4 overflow-hidden border-2 border-black">
+                <div className="relative aspect-[16/9] mb-4 overflow-hidden border-2 border-black">
                   <Image
                     src="/images/the-agency-group.webp"
                     alt="The Agency — Jess the receptionist, Sarah the social media manager, Freddie the UK tax advisor, Rosie the researcher, and Benny the sales advisor, standing as a team in a modern studio"
@@ -427,7 +427,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.45 }}
           >
-            <Link href="/heyjess">
+            <Link href="/theagency">
               <div className="relative bg-[#1a365d] text-white p-8 md:p-10 border-4 border-black shadow-brutal hover:shadow-brutal-lg hover:-translate-x-1 hover:-translate-y-1 transition-[box-shadow,transform] duration-200 cursor-pointer rotate-1 hover:rotate-0">
                 <div className="flex flex-col md:flex-row items-center gap-6">
                   <div className="text-center md:text-left flex-1">
@@ -436,13 +436,13 @@ export default function Home() {
                       className="text-3xl md:text-4xl font-black leading-tight mb-3"
                       style={{ fontFamily: "var(--font-bebas), sans-serif" }}
                     >
-                      MEET JESS — YOUR AI RECEPTIONIST
+                      MEET THE AGENCY — YOUR AI TEAM
                     </h3>
                     <p
                       className="text-base md:text-lg opacity-90"
                       style={{ fontFamily: "var(--font-caveat), cursive" }}
                     >
-                      She handles your WhatsApp, email, LinkedIn &amp; DMs. 24/7. In 90+ languages. From $29/mo.
+                      Jess runs your front desk. Sarah runs your social. Freddie runs your numbers. One dashboard. From $49/mo.
                     </p>
                   </div>
                   <div className="shrink-0 bg-white text-[#1a365d] px-6 py-3 font-black uppercase text-sm border-2 border-black">
