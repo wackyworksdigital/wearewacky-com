@@ -24,6 +24,26 @@ interface Postcard {
 
 const postcards: Postcard[] = [
   {
+    id: "meet-jess",
+    frontType: "image",
+    image: "/images/hey-jess-office.webp",
+    imageAlt: "Jess, AI receptionist for small business, sitting at a modern office desk handling WhatsApp, email, and social media messages",
+    headline: "meet jess. she never sleeps.",
+    backLines: [
+      "**So we built an AI receptionist.**",
+      "_Her name is Jess._",
+      "_She handles your WhatsApp, email, LinkedIn, and DMs._",
+      "**__In under 3 seconds. In 90+ languages.__**",
+      "_While you sleep. While you eat. While you're on holiday._",
+      "**She doesn't call in sick. She doesn't ask for a raise.**",
+      "_She just... handles it._",
+      "**You know that lead you lost at 2am? That one.**",
+      "**__Jess would've caught it.__**",
+      "She's part of the agency now — wearewacky.com/theagency.",
+    ],
+    date: "April 2026",
+  },
+  {
     id: "the-lab-is-open",
     frontType: "image",
     image: "/images/retro-lab-postcard.jpg",

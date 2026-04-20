@@ -612,7 +612,7 @@ const jsonLd = {
       description: "AI receptionist handling WhatsApp, Email, LinkedIn, Messenger, Instagram, Telegram, and Web Chat. Responds in under 3 seconds, 24/7. Captures leads, books meetings, supports 90+ languages.",
       brand: { "@id": "https://wearewacky.com/#organization" },
       url: "https://wearewacky.com/heyjess",
-      image: "https://wearewacky.com/images/hey-jess-office.png",
+      image: "https://wearewacky.com/images/hey-jess-office.webp",
       category: "AI Business Software",
       offers: {
         "@type": "AggregateOffer",

@@ -345,7 +345,7 @@ export default function Home() {
             </Link>
           </motion.div>
 
-          {/* FLIP CARD HERO - "MEET JESS" POSTCARD */}
+          {/* FLIP CARD HERO - "MEET THE AGENCY" POSTCARD */}
           <motion.div
             className="mb-16 mx-auto px-4 max-w-lg cursor-pointer"
             initial={{ opacity: 0, y: 20 }}
@@ -362,17 +362,17 @@ export default function Home() {
               }}
               animate={{ rotateY: heroFlipped ? 180 : 0 }}
             >
-              {/* FRONT - Robot Receptionist Polaroid */}
+              {/* FRONT - Five-agent Team Polaroid */}
               <div
                 className="bg-white p-4 border-4 border-black shadow-brutal -rotate-1"
                 style={{ backfaceVisibility: "hidden" }}
               >
                 <div className="relative aspect-[4/3] mb-4 overflow-hidden border-2 border-black">
                   <Image
-                    src="/images/hey-jess-office.png"
-                    alt="Jess, AI receptionist for small business, sitting at a modern office desk handling WhatsApp, email, and social media messages"
+                    src="/images/the-agency-group.webp"
+                    alt="The Agency — Jess the receptionist, Sarah the social media manager, Freddie the UK tax advisor, Rosie the researcher, and Benny the sales advisor, standing as a team in a modern studio"
                     fill
-                    className="object-cover object-[75%_center]"
+                    className="object-cover object-center"
                     priority
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
@@ -383,12 +383,12 @@ export default function Home() {
                     className="text-3xl md:text-4xl font-bold leading-tight -rotate-1"
                     style={{ fontFamily: "var(--font-caveat), cursive", color: "#1a365d" }}
                   >
-                    meet jess. she never sleeps.
+                    meet the agency. your ai team.
                   </h2>
                 </div>
               </div>
 
-              {/* BACK - Handwritten Hey Jess Message */}
+              {/* BACK - Handwritten The Agency Message */}
               <div
                 className="absolute inset-0 p-4 border-4 border-black shadow-brutal rotate-1"
                 style={{
@@ -401,17 +401,19 @@ export default function Home() {
                   className="h-full flex flex-col justify-center leading-tight"
                   style={{ fontFamily: "var(--font-caveat), cursive", color: "#1a365d" }}
                 >
-                  <p className="text-base md:text-lg font-bold">So we built an AI receptionist.</p>
-                  <p className="text-sm md:text-base">Her name is Jess.</p>
-                  <p className="text-sm md:text-base mt-1">She handles your WhatsApp, email, LinkedIn, and DMs.</p>
-                  <p className="text-base md:text-lg font-bold underline">In under 3 seconds. In 90+ languages.</p>
-                  <p className="text-xs md:text-sm mt-1">While you sleep. While you eat. While you&apos;re on holiday.</p>
-                  <p className="text-sm md:text-base font-bold mt-1">She doesn&apos;t call in sick. She doesn&apos;t ask for a raise.</p>
-                  <p className="text-xs md:text-sm">She just... handles it.</p>
-                  <p className="text-sm md:text-base font-bold mt-2">You know that lead you lost at 2am? That one.</p>
-                  <p className="text-sm md:text-base font-bold underline">Jess would&apos;ve caught it.</p>
+                  <p className="text-base md:text-lg font-bold">So we built an AI team.</p>
+                  <p className="text-sm md:text-base">Jess runs your front desk.</p>
+                  <p className="text-sm md:text-base">Sarah runs your social.</p>
+                  <p className="text-sm md:text-base">Freddie runs your numbers.</p>
+                  <p className="text-xs md:text-sm mt-1">Rosie + Benny coming soon — research + sales.</p>
+                  <p className="text-base md:text-lg font-bold underline mt-1">One dashboard. One team. $49/mo.</p>
+                  <p className="text-xs md:text-sm mt-1">They share an inbox, a calendar, and each other.</p>
+                  <p className="text-sm md:text-base font-bold mt-1">Not another chatbot. An actual team.</p>
+                  <p className="text-xs md:text-sm">Working while you sleep, eat, or go to Brighton.</p>
+                  <p className="text-sm md:text-base font-bold mt-2">Your next hire doesn&apos;t need a salary.</p>
+                  <p className="text-sm md:text-base font-bold underline">the agency gets the job done.</p>
                   <p className="text-sm md:text-base mt-2">
-                    🤖 <Link href="/heyjess" className="underline hover:text-red-600">wearewacky.com/heyjess</Link> ❤️
+                    🤖 <Link href="/theagency" className="underline hover:text-red-600">wearewacky.com/theagency</Link> ❤️
                   </p>
                 </div>
               </div>
