@@ -12,7 +12,6 @@ const BG = "#f0eadd";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [heroFlipped, setHeroFlipped] = useState(false);
   const [scanLoginFlipped, setScanLoginFlipped] = useState(false);
 
   // Whack-a-Bot Game State (below the fold)
@@ -345,28 +344,15 @@ export default function Home() {
             </Link>
           </motion.div>
 
-          {/* FLIP CARD HERO - "MEET THE AGENCY" POSTCARD */}
+          {/* "MEET THE AGENCY" POSTCARD - Links to /theagency */}
           <motion.div
-            className="mb-16 mx-auto px-4 max-w-lg cursor-pointer"
+            className="mb-16 mx-auto px-4 max-w-lg"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            onClick={() => setHeroFlipped(!heroFlipped)}
-            style={{ perspective: "1000px" }}
           >
-            <motion.div
-              className="relative w-full"
-              style={{
-                transformStyle: "preserve-3d",
-                transition: "transform 0.6s"
-              }}
-              animate={{ rotateY: heroFlipped ? 180 : 0 }}
-            >
-              {/* FRONT - Five-agent Team Polaroid */}
-              <div
-                className="bg-white p-4 border-4 border-black shadow-brutal -rotate-1"
-                style={{ backfaceVisibility: "hidden" }}
-              >
+            <Link href="/theagency" className="block group">
+              <div className="bg-white p-4 border-4 border-black shadow-brutal -rotate-1 group-hover:shadow-brutal-lg group-hover:-translate-x-1 group-hover:-translate-y-1 group-hover:rotate-0 transition-[box-shadow,transform] duration-200 cursor-pointer">
                 <div className="relative aspect-[16/9] mb-4 overflow-hidden border-2 border-black">
                   <Image
                     src="/images/the-agency-group.webp"
@@ -387,37 +373,7 @@ export default function Home() {
                   </h2>
                 </div>
               </div>
-
-              {/* BACK - Handwritten The Agency Message */}
-              <div
-                className="absolute inset-0 p-4 border-4 border-black shadow-brutal rotate-1"
-                style={{
-                  backfaceVisibility: "hidden",
-                  transform: "rotateY(180deg)",
-                  backgroundColor: "#fffef9"
-                }}
-              >
-                <div
-                  className="h-full flex flex-col justify-center leading-tight"
-                  style={{ fontFamily: "var(--font-caveat), cursive", color: "#1a365d" }}
-                >
-                  <p className="text-base md:text-lg font-bold">So we built an AI team.</p>
-                  <p className="text-sm md:text-base">Jess runs your front desk.</p>
-                  <p className="text-sm md:text-base">Sarah runs your social.</p>
-                  <p className="text-sm md:text-base">Freddie runs your numbers.</p>
-                  <p className="text-xs md:text-sm mt-1">Rosie + Benny coming soon — research + sales.</p>
-                  <p className="text-base md:text-lg font-bold underline mt-1">One dashboard. One team. $49/mo.</p>
-                  <p className="text-xs md:text-sm mt-1">They share an inbox, a calendar, and each other.</p>
-                  <p className="text-sm md:text-base font-bold mt-1">Not another chatbot. An actual team.</p>
-                  <p className="text-xs md:text-sm">Working while you sleep, eat, or go to Brighton.</p>
-                  <p className="text-sm md:text-base font-bold mt-2">Your next hire doesn&apos;t need a salary.</p>
-                  <p className="text-sm md:text-base font-bold underline">the agency gets the job done.</p>
-                  <p className="text-sm md:text-base mt-2">
-                    🤖 <Link href="/theagency" className="underline hover:text-red-600">wearewacky.com/theagency</Link> ❤️
-                  </p>
-                </div>
-              </div>
-            </motion.div>
+            </Link>
           </motion.div>
 
           {/* HEY JESS — Prominent CTA Banner */}
